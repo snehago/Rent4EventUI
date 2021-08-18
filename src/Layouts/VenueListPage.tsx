@@ -3,7 +3,7 @@ import React from "react";
 const VenueListPage = () => {
   return (
     <div>
-      Dashboard
+      <h1>Venue List Page</h1>
     </div>
   );
 }
