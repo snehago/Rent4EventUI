@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { useParams } from "react-router-dom";
 
 export default function CheckoutPage() {
-    return (
-        <div>
-            Checkout Page
-        </div>
-    )
+  const { userId } = useParams<any>();
+  return (
+    <>
+      <div>Checkout Page</div>
+      {userId}
+    </>
+  );
 }
