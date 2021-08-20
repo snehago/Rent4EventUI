@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Footer from "../Components/Footer";
+import Header from "../Components/Header";
 import { UserService } from "../Services/UserService";
 const userService = new UserService();
 const HomePage = () => {
@@ -16,8 +18,10 @@ const HomePage = () => {
   }, []);
   return (
     <>
+      <Header></Header>
       Home Page
       {JSON.stringify(user)}
+      <Footer></Footer>
     </>
   );
 };
