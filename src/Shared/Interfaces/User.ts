@@ -1,7 +1,9 @@
 export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
+  id: number;
+  firstName: String;
+  lastName: String;
   role : 'host' | 'client';
+  email: String;
+  passwordHash: String;
   dateOfBirth: Date;
 }
