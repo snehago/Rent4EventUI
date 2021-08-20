@@ -20,7 +20,7 @@ const LoginPage = () => {
   const paperStyle = {
     padding: 20,
     height: "70vh",
-    width: 280,
+    width: 500,
     margin: "20px auto",
   };
   const avatarStyle = {
@@ -138,12 +138,21 @@ const LoginPage = () => {
         <Typography>
           {" "}
           Do you have an account ?
+          <br/>
           <NavLink
             style={{ textDecoration: "none" }}
             exact
-            to="/user/register/"
+            to="/user/register/user/"
           >
             Register
+          </NavLink>
+          <br />
+          <NavLink
+            style={{ textDecoration: "none" }}
+            exact
+            to="/user/register/host/"
+          >
+            Register as a Host
           </NavLink>
         </Typography>
       </Paper>
