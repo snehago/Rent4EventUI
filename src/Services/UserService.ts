@@ -1,4 +1,5 @@
 import axios from "axios";
+import { LoginData } from "../Shared/Interfaces/LoginData";
 import { User } from "../Shared/Interfaces/User";
 import { SharedService } from "./SharedService";
 const sharedService = new SharedService();
@@ -13,7 +14,7 @@ class UserService {
     );
   }
 
-  public async login(user: User) {
+  public async login(user: LoginData) {
     return axios.post(
       `${this.BACKEND_URL}/user/login`,
       user,

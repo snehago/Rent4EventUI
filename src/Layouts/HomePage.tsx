@@ -6,17 +6,19 @@ const HomePage = () => {
   useEffect(() => {
     (async () => {
       const response = await userService.login({
-        id: 0,
-        firstName:"",
-        lastName:"",
-        dateOfBirth: new Date(),
-        email:"abc@gmail.com",
+        email: "abc@gmail.com",
         passwordHash: "12345678",
-        role: "host"
       });
-      console.log(response);
+      if (response.data && response.data.success) {
+        setUser(response.data.response);
+      }
     })();
-  });
-  return <div>Home Page</div>;
+  }, []);
+  return (
+    <>
+      Home Page
+      {JSON.stringify(user)}
+    </>
+  );
 };
 export default HomePage;
