@@ -4,35 +4,18 @@ import {
   Grid,
   Paper,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
+import styles from "../LayoutStyles/Registration.styles";
 
 const RegistrationPageHost = () => {
-  const paperStyle = {
-    padding: "30px 20px",
-    width: 500,
-    margin: "20px auto",
-  };
-  const headerStyle = {
-    margin: 0,
-  };
-  const avatarStyle = {
-    backgroundColor: "#1bbd7e",
-  };
-  const textFieldStyle = {
-    marginBottom: "5%",
-  };
-  const btnStyle = { margin: "8px 0" };
-
-  const [role] = useState("host");
-
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -54,7 +37,13 @@ const RegistrationPageHost = () => {
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().min(3, "It's too short").required("Required"),
     lastName: Yup.string().min(3, "It's too short").required("Required"),
-    email: Yup.string().email("Enter valid email").required("Required").matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Enter a valid email"),
+    email: Yup.string()
+      .email("Enter valid email")
+      .required("Required")
+      .matches(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Enter a valid email"
+      ),
     password: Yup.string()
       .min(8, "Password minimum length should be 8")
       .required("Required"),
@@ -62,11 +51,13 @@ const RegistrationPageHost = () => {
       .oneOf([Yup.ref("password")], "Password not matched")
       .required("Required"),
     dob: Yup.string().required("Required"),
-    upiId: Yup.string().required("Required").matches(/^[\w.-]+@[\w.-]+$/, "Please Enter a Valid Upi Id"),
+    upiId: Yup.string()
+      .required("Required")
+      .matches(/^[\w.-]+@[\w.-]+$/, "Please Enter a Valid Upi Id"),
   });
   return (
     <Grid>
-      <Paper elevation={20} style={paperStyle}>
+      <Paper elevation={20} style={styles.paperstyle}>
         <Grid
           style={{
             display: "flex",
@@ -74,10 +65,10 @@ const RegistrationPageHost = () => {
             alignItems: "center",
           }}
         >
-          <Avatar style={avatarStyle}>
+          <Avatar style={styles.avatarStyle}>
             <AddCircleOutlineOutlinedIcon />
           </Avatar>
-          <h2 style={headerStyle}>Register as Host</h2>
+          <h2 style={styles.headerStyle}>Register as Host</h2>
           <Typography variant="caption">
             Please fill this form to create an account !
           </Typography>
@@ -93,7 +84,7 @@ const RegistrationPageHost = () => {
               <Field
                 as={TextField}
                 name="firstName"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 label="First Name"
@@ -101,14 +92,14 @@ const RegistrationPageHost = () => {
                 required
                 helperText={
                   <ErrorMessage name="firstName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="lastName"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 label="Last Name"
@@ -116,14 +107,14 @@ const RegistrationPageHost = () => {
                 required
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="email"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 label="Email"
@@ -131,14 +122,14 @@ const RegistrationPageHost = () => {
                 required
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="password"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 type="password"
@@ -147,14 +138,14 @@ const RegistrationPageHost = () => {
                 required
                 helperText={
                   <ErrorMessage name="password">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="confirmPassword"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 type="password"
@@ -163,7 +154,7 @@ const RegistrationPageHost = () => {
                 required
                 helperText={
                   <ErrorMessage name="confirmPassword">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -172,7 +163,7 @@ const RegistrationPageHost = () => {
                 name="dob"
                 variant="outlined"
                 fullWidth
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 id="date"
                 label="Date Of Birth"
                 placeholder="Select your Date Of Birth"
@@ -184,7 +175,7 @@ const RegistrationPageHost = () => {
                 required
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -217,7 +208,7 @@ const RegistrationPageHost = () => {
                   </Field>
                   <FormHelperText>
                     <ErrorMessage name="role">
-                      {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                      {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                     </ErrorMessage>
                   </FormHelperText>
                 </FormControl> */}
@@ -226,14 +217,14 @@ const RegistrationPageHost = () => {
                 as={TextField}
                 name="upiId"
                 required
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 label="Upi Id"
                 placeholder="Give your Upi Id"
                 helperText={
                   <ErrorMessage name="upiId">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -242,10 +233,9 @@ const RegistrationPageHost = () => {
                 type="submit"
                 fullWidth
                 color="primary"
-                style={btnStyle}
+                style={styles.btnStyle}
                 disabled={props.isSubmitting}
                 variant="contained"
-                // onClick={handleSubmit}
               >
                 {props.isSubmitting ? "LOADING" : "REGISTER"}
               </Button>
@@ -255,11 +245,7 @@ const RegistrationPageHost = () => {
         <Typography>
           {" "}
           Already have an account ?
-          <NavLink
-            style={{ textDecoration: "none" }}
-            exact
-            to="/user/login/"
-          >
+          <NavLink style={styles.navLink} exact to="/user/login/">
             Login
           </NavLink>
         </Typography>

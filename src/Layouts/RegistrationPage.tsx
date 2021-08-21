@@ -5,45 +5,23 @@ import {
   Paper,
   TextField,
   Typography,
-  FormHelperText,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
+import styles from "../LayoutStyles/Registration.styles";
 
 const RegistrationPage = () => {
-  const paperStyle = {
-    padding: "30px 20px",
-    width: 500,
-    margin: "20px auto",
-  };
-  const headerStyle = {
-    margin: 0,
-  };
-  const avatarStyle = {
-    backgroundColor: "#1bbd7e",
-  };
-  const textFieldStyle = {
-    marginBottom: "5%",
-  };
-  const btnStyle = { margin: "8px 0" };
-
-
   const initialValues = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    dob: ""
+    dob: "",
   };
 
   const onSubmit = (values: any, props: any) => {
@@ -65,12 +43,12 @@ const RegistrationPage = () => {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Password not matched")
       .required("Required"),
-    
+
     dob: Yup.string().required("Required"),
   });
   return (
     <Grid>
-      <Paper elevation={20} style={paperStyle}>
+      <Paper elevation={20} style={styles.paperstyle}>
         <Grid
           style={{
             display: "flex",
@@ -78,10 +56,10 @@ const RegistrationPage = () => {
             alignItems: "center",
           }}
         >
-          <Avatar style={avatarStyle}>
+          <Avatar style={styles.avatarStyle}>
             <AddCircleOutlineOutlinedIcon />
           </Avatar>
-          <h2 style={headerStyle}>Register</h2>
+          <h2 style={styles.headerStyle}>Register</h2>
           <Typography variant="caption">
             Please fill this form to create an account !
           </Typography>
@@ -97,7 +75,7 @@ const RegistrationPage = () => {
               <Field
                 as={TextField}
                 name="firstName"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 label="First Name"
@@ -105,14 +83,14 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="firstName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="lastName"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 label="Last Name"
@@ -120,14 +98,14 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="email"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 label="Email"
@@ -135,14 +113,14 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="password"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 type="password"
@@ -151,14 +129,14 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="password">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="confirmPassword"
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 variant="outlined"
                 fullWidth
                 type="password"
@@ -167,7 +145,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="confirmPassword">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -176,7 +154,7 @@ const RegistrationPage = () => {
                 name="dob"
                 variant="outlined"
                 fullWidth
-                style={textFieldStyle}
+                style={styles.textFieldStyle}
                 id="date"
                 label="Date Of Birth"
                 placeholder="Select your Date Of Birth"
@@ -188,7 +166,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -241,7 +219,7 @@ const RegistrationPage = () => {
                 type="submit"
                 fullWidth
                 color="primary"
-                style={btnStyle}
+                style={styles.btnStyle}
                 disabled={props.isSubmitting}
                 variant="contained"
                 // onClick={handleSubmit}
@@ -254,11 +232,7 @@ const RegistrationPage = () => {
         <Typography>
           {" "}
           Already have an account ?
-          <NavLink
-            style={{ textDecoration: "none" }}
-            exact
-            to="/user/login/"
-          >
+          <NavLink style={styles.navLink} exact to="/user/login/">
             Login
           </NavLink>
         </Typography>

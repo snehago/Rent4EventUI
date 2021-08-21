@@ -12,24 +12,18 @@ import VenueListPage from "./Layouts/VenueListPage";
 export default function AppRouter() {
   return (
     <>
-      {/* 
-          / --> home page
-          /user/login --> LoginPage
-          /user/register --> RegistrationPage
-          /venue-list --> VenueListPage
-          /venue-detials/:id --> VenueDetailsPage
-          /dashboard/:userrole --> Dashboard
-          /checkout/:id --> CheckoutPage
-      */}
-
       <Switch>
-        <Route exact path="/" component={HomePage} >
+        <Route exact path="/" component={HomePage}>
           <Redirect to="/Home" />
         </Route>
         <Route exact path="/Home" component={HomePage} />
         <Route exact path="/user/login" component={LoginPage} />
         <Route exact path="/user/register/user" component={RegistrationPage} />
-        <Route exact path="/user/register/host" component={RegistrationPageHost} />
+        <Route
+          exact
+          path="/user/register/host"
+          component={RegistrationPageHost}
+        />
         <Route exact path="/venue-list" component={VenueListPage} />
         <Route
           exact

@@ -11,33 +11,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import styles from "../LayoutStyles/Login.styles";
 
 const LoginPage = () => {
-  const paperStyle = {
-    padding: 20,
-    height: "70vh",
-    width: 500,
-    margin: "20px auto",
-  };
-  const avatarStyle = {
-    backgroundColor: "#1bbd7e",
-  };
-  const btnStyle = { margin: "8px 0" };
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const emailHandler = (event: any) => {
-    setEmail(event.target.value);
-  };
-  const passwordHandler = (event: any) => {
-    setPassword(event.target.value);
-  };
-
   const initialValues = {
     email: "",
     password: "",
@@ -58,7 +37,7 @@ const LoginPage = () => {
   };
   return (
     <Grid>
-      <Paper elevation={10} style={paperStyle}>
+      <Paper elevation={10} style={styles.paperstyle}>
         <Grid
           style={{
             display: "flex",
@@ -66,7 +45,7 @@ const LoginPage = () => {
             alignItems: "center",
           }}
         >
-          <Avatar style={avatarStyle}>
+          <Avatar style={styles.avatarStyle}>
             <LockOpenOutlinedIcon />
           </Avatar>
           <h2>Sign In</h2>
@@ -91,7 +70,7 @@ const LoginPage = () => {
                 style={{ marginBottom: "5%" }}
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -108,7 +87,7 @@ const LoginPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="password">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -122,7 +101,7 @@ const LoginPage = () => {
                 type="submit"
                 fullWidth
                 color="primary"
-                style={btnStyle}
+                style={styles.btnStyle}
                 variant="contained"
                 // onClick={handleSubmit}
                 disabled={props.isSubmitting}
@@ -138,20 +117,12 @@ const LoginPage = () => {
         <Typography>
           {" "}
           Do you have an account ?
-          <br/>
-          <NavLink
-            style={{ textDecoration: "none" }}
-            exact
-            to="/user/register/user/"
-          >
+          <br />
+          <NavLink style={styles.navLink} exact to="/user/register/user/">
             Register
           </NavLink>
           <br />
-          <NavLink
-            style={{ textDecoration: "none" }}
-            exact
-            to="/user/register/host/"
-          >
+          <NavLink style={styles.navLink} exact to="/user/register/host/">
             Register as a Host
           </NavLink>
         </Typography>
