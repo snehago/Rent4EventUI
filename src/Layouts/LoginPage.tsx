@@ -14,7 +14,7 @@ import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import { NavLink } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import styles from "../LayoutStyles/Login.styles";
+import "../LayoutStyles/login.scss";
 
 const LoginPage = () => {
   const initialValues = {
@@ -37,15 +37,9 @@ const LoginPage = () => {
   };
   return (
     <Grid>
-      <Paper elevation={10} style={styles.paperstyle}>
-        <Grid
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar style={styles.avatarStyle}>
+      <Paper elevation={10} className="paperStyle">
+        <Grid className="gridStyle">
+          <Avatar className="avatarStyle">
             <LockOpenOutlinedIcon />
           </Avatar>
           <h2>Sign In</h2>
@@ -70,7 +64,7 @@ const LoginPage = () => {
                 style={{ marginBottom: "5%" }}
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -87,7 +81,7 @@ const LoginPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="password">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -101,7 +95,7 @@ const LoginPage = () => {
                 type="submit"
                 fullWidth
                 color="primary"
-                style={styles.btnStyle}
+                className="btnStyle"
                 variant="contained"
                 // onClick={handleSubmit}
                 disabled={props.isSubmitting}
@@ -118,11 +112,11 @@ const LoginPage = () => {
           {" "}
           Do you have an account ?
           <br />
-          <NavLink style={styles.navLink} exact to="/user/register/user/">
+          <NavLink className="navLink" exact to="/user/register/user/">
             Register
           </NavLink>
           <br />
-          <NavLink style={styles.navLink} exact to="/user/register/host/">
+          <NavLink className="navLink" exact to="/user/register/host/">
             Register as a Host
           </NavLink>
         </Typography>
