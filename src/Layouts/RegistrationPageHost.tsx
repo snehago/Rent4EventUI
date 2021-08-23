@@ -8,13 +8,14 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
+
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
 import styles from "../LayoutStyles/Registration.styles";
 
-const RegistrationPage = () => {
+const RegistrationPageHost = () => {
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -36,15 +37,23 @@ const RegistrationPage = () => {
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().min(3, "It's too short").required("Required"),
     lastName: Yup.string().min(3, "It's too short").required("Required"),
-    email: Yup.string().email("Enter valid email").required("Required"),
+    email: Yup.string()
+      .email("Enter valid email")
+      .required("Required")
+      .matches(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Enter a valid email"
+      ),
     password: Yup.string()
       .min(8, "Password minimum length should be 8")
       .required("Required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Password not matched")
       .required("Required"),
-
     dob: Yup.string().required("Required"),
+    upiId: Yup.string()
+      .required("Required")
+      .matches(/^[\w.-]+@[\w.-]+$/, "Please Enter a Valid Upi Id"),
   });
   return (
     <Grid>
@@ -59,7 +68,7 @@ const RegistrationPage = () => {
           <Avatar style={styles.avatarStyle}>
             <AddCircleOutlineOutlinedIcon />
           </Avatar>
-          <h2 style={styles.headerStyle}>Register</h2>
+          <h2 style={styles.headerStyle}>Register as Host</h2>
           <Typography variant="caption">
             Please fill this form to create an account !
           </Typography>
@@ -172,48 +181,53 @@ const RegistrationPage = () => {
               />
 
               {/* <FormControl
-                component="fieldset"
-                required
-                style={textFieldStyle}
-                name="role"
-              >
-                <FormLabel component="legend">Role</FormLabel>
-                <Field
-                  as={RadioGroup}
-                  aria-label="role"
-                  name="role"
-                  style={{ display: "initial" }}
-                  // value={value}
-                  // onChange={handleChange}
-                >
-                  <FormControlLabel
-                    value="user"
-                    control={<Radio />}
-                    label="User"
-                  />
-                  <FormControlLabel
-                    value="host"
-                    control={<Radio />}
-                    label="Host"
-                  />
-                </Field>
-                <FormHelperText>
-                  <ErrorMessage name="role">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
-                </FormHelperText>
-              </FormControl> */}
-
-              {/* {role === "host" ? (
-                <TextField
+                  component="fieldset"
                   required
                   style={textFieldStyle}
-                  variant="outlined"
-                  fullWidth
-                  label="Upi Id"
-                  placeholder="Give your Upi Id"
-                />
-              ) : null} */}
+                  name="role"
+                >
+                  <FormLabel component="legend">Role</FormLabel>
+                  <Field
+                    as={RadioGroup}
+                    aria-label="role"
+                    name="role"
+                    style={{ display: "initial" }}
+                    // value={value}
+                    // onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="user"
+                      control={<Radio />}
+                      label="User"
+                    />
+                    <FormControlLabel
+                      value="host"
+                      control={<Radio />}
+                      label="Host"
+                    />
+                  </Field>
+                  <FormHelperText>
+                    <ErrorMessage name="role">
+                      {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    </ErrorMessage>
+                  </FormHelperText>
+                </FormControl> */}
+
+              <Field
+                as={TextField}
+                name="upiId"
+                required
+                style={styles.textFieldStyle}
+                variant="outlined"
+                fullWidth
+                label="Upi Id"
+                placeholder="Give your Upi Id"
+                helperText={
+                  <ErrorMessage name="upiId">
+                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                  </ErrorMessage>
+                }
+              />
 
               <Button
                 type="submit"
@@ -222,7 +236,6 @@ const RegistrationPage = () => {
                 style={styles.btnStyle}
                 disabled={props.isSubmitting}
                 variant="contained"
-                // onClick={handleSubmit}
               >
                 {props.isSubmitting ? "LOADING" : "REGISTER"}
               </Button>
@@ -240,4 +253,4 @@ const RegistrationPage = () => {
     </Grid>
   );
 };
-export default RegistrationPage;
+export default RegistrationPageHost;
