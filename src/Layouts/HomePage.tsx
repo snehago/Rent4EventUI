@@ -1,3 +1,4 @@
+import { of } from "await-of";
 import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
@@ -7,12 +8,15 @@ const HomePage = () => {
   const [user, setUser] = useState(null);
   useEffect(() => {
     (async () => {
-      const response = await userService.login({
+      const [response,error] = await of(userService.login({
         email: "abc@gmail.com",
         passwordHash: "12345678",
-      });
-      if (response.data && response.data.success) {
-        setUser(response.data.response);
+      }));
+      if(error) {
+        alert(error);
+      }
+      if(response) {
+        setUser(response);
       }
     })();
   }, []);
