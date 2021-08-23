@@ -70,7 +70,7 @@ const RegistrationPage = () => {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {(props) => (
+          {(props:any) => (
             <Form>
               <Field
                 as={TextField}
@@ -83,7 +83,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="firstName">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -98,7 +98,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -113,7 +113,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -129,7 +129,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="password">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -145,7 +145,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="confirmPassword">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -166,7 +166,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />

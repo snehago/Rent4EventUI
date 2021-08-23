@@ -27,6 +27,7 @@ class UserService {
     }
     if(response) {
       if(response.status>=200 && response.status<=210) {
+        localStorage.setItem("user", response.data.response);
         return response.data.response;
       } else throw Error("Something went wrong try again");
     }

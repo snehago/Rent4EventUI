@@ -15,25 +15,36 @@ import { NavLink } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "../LayoutStyles/Login.styles";
+import { UserService } from "../Services/UserService";
+import { useDispatch } from "react-redux";
+import {of} from 'await-of';
+import { login } from "../Redux/reducers/AuthReducer";
 
+const userService = new UserService();
 const LoginPage = () => {
+  const dispatch = useDispatch();
   const initialValues = {
     email: "",
-    password: "",
+    passwordHash: "",
     rememberMe: false,
   };
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Please enter valid email").required("Required"),
-    password: Yup.string().required("Required"),
+    passwordHash: Yup.string().required("Required"),
   });
 
-  const onSubmit = (values: any, props: any) => {
-    console.log(values);
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
+
+  const onSubmit =async (values: any, props: any) => {
+    console.log(values); 
+     const [response, error] = await of(userService.login(values));
+     if (error) {
+       alert(error);
+     }
+     if (response) {
+       alert(response);
+       dispatch(login(response));
+     }
   };
   return (
     <Grid>
@@ -55,7 +66,7 @@ const LoginPage = () => {
           onSubmit={onSubmit}
           validationSchema={validationSchema}
         >
-          {(props) => (
+          {(props:any) => (
             <Form>
               <Field
                 as={TextField}
@@ -70,13 +81,13 @@ const LoginPage = () => {
                 style={{ marginBottom: "5%" }}
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
-                name="password"
+                name="passwordHash"
                 // value={password}
                 // onChange={passwordHandler}
                 label="Password"
@@ -86,8 +97,8 @@ const LoginPage = () => {
                 fullWidth
                 required
                 helperText={
-                  <ErrorMessage name="password">
-                    {(msg) => <div style={styles.errorMsg}>{msg}</div>}
+                  <ErrorMessage name="passwordHash">
+                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -130,4 +141,5 @@ const LoginPage = () => {
     </Grid>
   );
 };
+
 export default LoginPage;
