@@ -1,0 +1,29 @@
+.gridStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.paperStyle {
+  padding: 30px 20px;
+  width: 500px;
+  margin: 20px auto;
+}
+.headerStyle {
+  margin: 0;
+}
+.avatarStyle {
+  background-color: #1bbd7e !important;
+}
+
+.textFieldStyle {
+  margin-bottom: 5%;
+}
+.btnStyle {
+  margin: 8px 0;
+}
+.errorMsg {
+  color: red;
+}
+.navLink {
+  text-decoration: none;
+}

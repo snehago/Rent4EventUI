@@ -12,7 +12,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
-import styles from "../LayoutStyles/Registration.styles";
+import "../LayoutStyles/registration.scss";
 
 const RegistrationPage = () => {
   const initialValues = {
@@ -48,18 +48,12 @@ const RegistrationPage = () => {
   });
   return (
     <Grid>
-      <Paper elevation={20} style={styles.paperstyle}>
-        <Grid
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar style={styles.avatarStyle}>
+      <Paper elevation={20} className="paperStyle">
+        <Grid className="gridStyle">
+          <Avatar className="avatarStyle">
             <AddCircleOutlineOutlinedIcon />
           </Avatar>
-          <h2 style={styles.headerStyle}>Register</h2>
+          <h2 className="headerStyle">Register</h2>
           <Typography variant="caption">
             Please fill this form to create an account !
           </Typography>
@@ -75,7 +69,7 @@ const RegistrationPage = () => {
               <Field
                 as={TextField}
                 name="firstName"
-                style={styles.textFieldStyle}
+                className="textFieldStyle"
                 variant="outlined"
                 fullWidth
                 label="First Name"
@@ -83,14 +77,14 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="firstName">
-                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="lastName"
-                style={styles.textFieldStyle}
+                className="textFieldStyle"
                 variant="outlined"
                 fullWidth
                 label="Last Name"
@@ -98,14 +92,14 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="email"
-                style={styles.textFieldStyle}
+                className="textFieldStyle"
                 variant="outlined"
                 fullWidth
                 label="Email"
@@ -113,14 +107,14 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="email">
-                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="password"
-                style={styles.textFieldStyle}
+                className="textFieldStyle"
                 variant="outlined"
                 fullWidth
                 type="password"
@@ -129,14 +123,14 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="password">
-                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
                 name="confirmPassword"
-                style={styles.textFieldStyle}
+                className="textFieldStyle"
                 variant="outlined"
                 fullWidth
                 type="password"
@@ -145,7 +139,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="confirmPassword">
-                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -154,7 +148,7 @@ const RegistrationPage = () => {
                 name="dob"
                 variant="outlined"
                 fullWidth
-                style={styles.textFieldStyle}
+                className="textFieldStyle"
                 id="date"
                 label="Date Of Birth"
                 placeholder="Select your Date Of Birth"
@@ -166,7 +160,7 @@ const RegistrationPage = () => {
                 required
                 helperText={
                   <ErrorMessage name="lastName">
-                    {(msg:any) => <div style={styles.errorMsg}>{msg}</div>}
+                    {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
@@ -219,7 +213,7 @@ const RegistrationPage = () => {
                 type="submit"
                 fullWidth
                 color="primary"
-                style={styles.btnStyle}
+                className="btnStyle"
                 disabled={props.isSubmitting}
                 variant="contained"
                 // onClick={handleSubmit}
@@ -232,7 +226,7 @@ const RegistrationPage = () => {
         <Typography>
           {" "}
           Already have an account ?
-          <NavLink style={styles.navLink} exact to="/user/login/">
+          <NavLink className="navLink" exact to="/user/login/">
             Login
           </NavLink>
         </Typography>
