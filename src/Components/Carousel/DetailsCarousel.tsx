@@ -16,12 +16,15 @@ export default function DetailsCarousel() {
 
   return (
     <Carousel
+      className="carouselStyle"
+      animation="slide"
+      navButtonsAlwaysVisible
       PrevIcon={<ArrowBackIosIcon />}
       NextIcon={<ArrowForwardIosIcon />}
       navButtonsProps={{
         // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
         style: {
-          backgroundColor: "black",
+          backgroundColor: "rgba(4, 4, 4, 0.3)",
           borderRadius: 0,
         },
       }}
