@@ -24,26 +24,43 @@ const HomePage = () => {
       {JSON.stringify(user)}<br/>
       <button onClick={logout}>Logout</button>
       <div className="recommendedVenues">
-        <Grid item xs={12} container spacing={2}>
-          <Grid item xs={6} lg={4}>
-            <CardItem />
+        <div>
+          <Typography className="recommendedTitle">Popular Venues</Typography>
+        </div>
+        <Box p={5} style={{ marginLeft: 30 }}>
+          <Grid xs={12} container spacing={5}>
+            <Grid item xs={6} lg={4}>
+              <CardItem />
+            </Grid>
+
+            <Grid item xs={6} lg={4}>
+              <CardItem />
+            </Grid>
+            <Grid item xs={6} lg={4}>
+              <CardItem />
+            </Grid>
+            <Grid item xs={6} lg={4}>
+              <CardItem />
+            </Grid>
+            <Grid item xs={6} lg={4}>
+              <CardItem />
+            </Grid>
+            <Grid item xs={6} lg={4}>
+              <CardItem />
+            </Grid>
           </Grid>
-          <Grid item xs={6} lg={4}>
-            <CardItem />
-          </Grid>
-          <Grid item xs={6} lg={4}>
-            <CardItem />
-          </Grid>
-          <Grid item xs={6} lg={4}>
-            <CardItem />
-          </Grid>
-          <Grid item xs={6} lg={4}>
-            <CardItem />
-          </Grid>
-          <Grid item xs={6} lg={4}>
-            <CardItem />
-          </Grid>
-        </Grid>
+        </Box>
+
+        <div className="exploreButton">
+          <Button
+            onClick={handleClick}
+            size="large"
+            variant="outlined"
+            className="btnStyle"
+          >
+            Explore More!
+          </Button>
+        </div>
       </div>
       <Footer></Footer>
     </>
