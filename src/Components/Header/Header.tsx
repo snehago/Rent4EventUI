@@ -1,8 +1,7 @@
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import React from "react";
+import "./header.scss";
 
 export default function Header() {
-  
   const rent4EventLogo = (
     <Typography variant="h6" component="h1">
       Rent4Event
@@ -15,7 +14,7 @@ export default function Header() {
 
   return (
     <header>
-      <AppBar className="header" >{displayDesktop()}</AppBar>
+      <AppBar className="app-header">{displayDesktop()}</AppBar>
     </header>
   );
 }
