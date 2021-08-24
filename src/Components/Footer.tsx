@@ -23,11 +23,12 @@ export default function Footer() {
           <Grid container spacing={10}>
             <Grid item lg={2} xs={12} sm={4} md={4}>
               <Box className="label">About Us</Box>
-              <Box>
-                <Typography className="contentText">
+              <p></p>
+              <Box className="aboutText">
+                
                   Vestibulum eget nisi malesuada, blandit augue faucibus, mollis
                   lectus. Integer pharetra blandit elit at eleifend.
-                </Typography>
+                
               </Box>
             </Grid>
 
@@ -53,7 +54,7 @@ export default function Footer() {
             </Grid>
 
             <Grid item lg={2} xs={12} sm={4} md={4}>
-              <Box className="label">Terms and Conditions</Box>
+              <Box className="label">Terms&nbsp;and&nbsp;Conditions</Box>
               <Box>
                 <Link className="contentText" href="/" color="inherit">
                   Cancellation Policy
@@ -114,7 +115,7 @@ export default function Footer() {
               <Box className="label" id="followLabel">
                 Follow Us
               </Box>
-              <Grid container spacing={2}>
+              <Grid container spacing={5}>
                 <Grid
                   item
                   lg={2}
@@ -159,7 +160,7 @@ export default function Footer() {
                   md={3}
                   className="avatarGridItem"
                 >
-                  <Avatar className="socalIconAvatar">
+                  <Avatar  className="socalIconAvatar">
                     <YouTubeIcon />
                   </Avatar>
                 </Grid>
@@ -168,6 +169,7 @@ export default function Footer() {
 
             <Grid item lg={2} xs={12} sm={4} md={4}>
               <Box className="label">Go To Top</Box>
+              <p></p>
               <Box>
                 <Avatar className="topAvatar" onClick={scrollToTop}>
                   <ArrowUpwardIcon />
