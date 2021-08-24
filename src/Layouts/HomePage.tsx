@@ -28,7 +28,7 @@ const HomePage = () => {
 
   return (
     <>
-      {/* <Header></Header> */}
+      <Header></Header>
       {/* Home Page
       {JSON.stringify(user)}<br/>
       <button onClick={logout}>Logout</button> */}

@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import "./cardStyle.scss";
-import image from "../assets/images/download.jpg";
+import image from "../../assets/images/download.jpg";
 
 interface cardProps {
   image: string;
