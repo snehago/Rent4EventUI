@@ -12,8 +12,10 @@ class SharedService {
     return false;
   }
 
-  public getUser() {
-    return localStorage.getItem("user");
+  public getUser(): string {
+    let toReturn = localStorage.getItem("user");
+    if(!toReturn) return '';
+    return toReturn;
   }
   
 }

@@ -4,14 +4,16 @@ import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import { RootState } from "../Redux/store";
 import {SharedService} from '../Services/SharedService';
-const sharedService = new SharedService();
 import { UserService } from "../Services/UserService";
 import { Grid } from "@material-ui/core";
-import "../LayoutStyles/home.scss";
+import "./styles/home.scss";
+import { useSelector } from "react-redux";
 
+const sharedService = new SharedService();
 const userService = new UserService();
 const HomePage = () => {
   const user = useSelector((state:RootState)=> state.auth.user);
+
   const logout = () => {
     userService.logout();
   }
@@ -19,7 +21,8 @@ const HomePage = () => {
     <>
       <Header></Header>
       Home Page
-      {JSON.stringify(user)}
+      {JSON.stringify(user)}<br/>
+      <button onClick={logout}>Logout</button>
       <div className="recommendedVenues">
         <Grid item xs={12} container spacing={2}>
           <Grid item xs={6} lg={4}>
@@ -42,7 +45,7 @@ const HomePage = () => {
           </Grid>
         </Grid>
       </div>
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </>
   );
 };

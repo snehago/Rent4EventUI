@@ -1,15 +1,29 @@
 import './App.scss';
+import { useEffect } from 'react';
 import AppRouter from './App.route';
-import { Provider } from 'react-redux';
-import {store} from './Redux/store';
+import {useSelector, useDispatch } from 'react-redux';
+import {RootState} from './Redux/store';
+import {SharedService} from './Services/SharedService';
+import { login } from './Redux/reducers/AuthReducer';
+import { User } from './Shared/Interfaces/User';
+const sharedService = new SharedService(); 
 
 function App() {
+  
+  const dispatch = useDispatch();
+  const user = useSelector((state:RootState)=> state.auth.user);
+  
+  useEffect(() => {
+    if(sharedService.isUserLoggedIn() &&  !user) {
+      let tempUser: User =JSON.parse(sharedService.getUser());
+      dispatch(login(tempUser));
+    }
+  },[user]);
+  
   return (
-    <Provider store = {store}>
       <div className="App">
-        <AppRouter></AppRouter>
+        <AppRouter user= {user} ></AppRouter>
       </div>
-    </Provider>
   );
 }
 

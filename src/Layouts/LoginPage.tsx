@@ -15,14 +15,12 @@ import { NavLink } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { UserService } from "../Services/UserService";
-import { SharedService } from "../Services/SharedService";
 import { useDispatch, useSelector } from "react-redux";
 import {of} from 'await-of';
 import { login } from "../Redux/reducers/AuthReducer";
 import "./styles/login.scss";
 import { useHistory } from "react-router-dom";
 import { RootState } from "../Redux/store";
-const sharedService = new SharedService();
 const userService = new UserService();
 const LoginPage = () => {
   const history = useHistory();
@@ -33,12 +31,6 @@ const LoginPage = () => {
     passwordHash: "",
     rememberMe: false,
   };
-
-  useEffect(()=> {
-    if(sharedService.isUserLoggedIn()) {
-      history.push('/home');
-    }
-  });
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Please enter valid email").required("Required"),

@@ -9,7 +9,25 @@ import RegistrationPageHost from "./Layouts/RegistrationPageHost";
 import VenueDetailsPage from "./Layouts/VenueDetailsPage";
 import VenueListPage from "./Layouts/VenueListPage";
 
-export default function AppRouter() {
+const CustomRoute = ({component:ComponentToRender ,path, user,...rest}:any) => {
+  return (
+    <Route {...rest} render={(props => {
+      if (
+        path === "/user/login" ||
+        path === "/user/register/user" ||
+        path === "/user/register/host"
+      ) {
+        if(user) {
+          if(user.role==='client') return <Redirect to='/home' ></Redirect>;
+          if(user.role==='host') return <Redirect to='/dashboard/host'/>;
+        }
+      }
+      return <ComponentToRender {...props}></ComponentToRender>
+    })} ></Route>
+  );
+}
+
+export default function AppRouter({user}:any) {
   return (
     <>
       <Switch>
@@ -17,12 +35,13 @@ export default function AppRouter() {
           <Redirect to="/home" />
         </Route>
         <Route exact path="/home" component={HomePage} />
-        <Route exact path="/user/login" component={LoginPage} />
-        <Route exact path="/user/register/user" component={RegistrationPage} />
-        <Route
+        <CustomRoute exact path="/user/login" component={LoginPage} user={user} />
+        <CustomRoute exact path="/user/register/user" component={RegistrationPage} user={user} />
+        <CustomRoute
           exact
           path="/user/register/host"
           component={RegistrationPageHost}
+          user={user}
         />
         <Route exact path="/venue-list" component={VenueListPage} />
         <Route
