@@ -64,7 +64,7 @@ const RegistrationPage = () => {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {(props) => (
+          {(props:any) => (
             <Form>
               <Field
                 as={TextField}

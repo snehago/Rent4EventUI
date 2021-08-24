@@ -14,26 +14,39 @@ import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import { NavLink } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { UserService } from "../Services/UserService";
+import { useDispatch, useSelector } from "react-redux";
+import {of} from 'await-of';
+import { login } from "../Redux/reducers/AuthReducer";
 import "../LayoutStyles/login.scss";
+import { RootState } from "../Redux/store";
 
+const userService = new UserService();
 const LoginPage = () => {
+  const user = useSelector((state:RootState)=> state.auth.user);
+  const dispatch = useDispatch();
   const initialValues = {
     email: "",
-    password: "",
+    passwordHash: "",
     rememberMe: false,
   };
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Please enter valid email").required("Required"),
-    password: Yup.string().required("Required"),
+    passwordHash: Yup.string().required("Required"),
   });
 
-  const onSubmit = (values: any, props: any) => {
-    console.log(values);
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
+
+  const onSubmit =async (values: any, props: any) => {
+    console.log(values); 
+     const [response, error] = await of(userService.login(values));
+     if (error) {
+       alert(error);
+     }
+     if (response) {
+       alert(response);
+       dispatch(login(response));
+     }
   };
   return (
     <Grid>
@@ -49,7 +62,7 @@ const LoginPage = () => {
           onSubmit={onSubmit}
           validationSchema={validationSchema}
         >
-          {(props) => (
+          {(props:any) => (
             <Form>
               <Field
                 as={TextField}
@@ -70,7 +83,7 @@ const LoginPage = () => {
               />
               <Field
                 as={TextField}
-                name="password"
+                name="passwordHash"
                 // value={password}
                 // onChange={passwordHandler}
                 label="Password"
@@ -120,8 +133,10 @@ const LoginPage = () => {
             Register as a Host
           </NavLink>
         </Typography>
+        {JSON.stringify(user)}
       </Paper>
     </Grid>
   );
 };
+
 export default LoginPage;

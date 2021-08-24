@@ -8,18 +8,7 @@ import "../LayoutStyles/home.scss";
 
 const userService = new UserService();
 const HomePage = () => {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    (async () => {
-      const response = await userService.login({
-        email: "abc@gmail.com",
-        passwordHash: "12345678",
-      });
-      if (response.data && response.data.success) {
-        setUser(response.data.response);
-      }
-    })();
-  }, []);
+  const user = useSelector((state:RootState)=> state.auth.user);
   return (
     <>
       <Header></Header>
