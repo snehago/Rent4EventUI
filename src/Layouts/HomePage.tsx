@@ -16,10 +16,6 @@ const HomePage = () => {
   const history = useHistory();
   const user = useSelector((state:RootState)=> state.auth.user);
 
-  const logout = () => {
-    userService.logout();
-  }
-
   const handleClick = () => {
     setTimeout(() => {
       history.push("/venue-list");
@@ -28,10 +24,22 @@ const HomePage = () => {
 
   return (
     <>
-      <Header></Header>
-      {/* Home Page
-      {JSON.stringify(user)}<br/>
-      <button onClick={logout}>Logout</button> */}
+      {/* header starts */}
+      <header>
+        <Header></Header>
+      </header>
+      {/* header end */}
+
+      <div>
+        <div className="banner">
+          <div className="text-division">
+            <Typography variant="h5" >
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            </Typography>
+          </div>
+        </div>
+      </div>
+
       <div className="recommendedVenues">
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
@@ -41,7 +49,6 @@ const HomePage = () => {
             <Grid item xs={6} lg={4}>
               <CardItem />
             </Grid>
-
             <Grid item xs={6} lg={4}>
               <CardItem />
             </Grid>
@@ -71,7 +78,9 @@ const HomePage = () => {
           </Button>
         </div>
       </div>
-      <Footer></Footer>
+      <footer>
+        <Footer></Footer>
+      </footer>
     </>
   );
 };

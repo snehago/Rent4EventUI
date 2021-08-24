@@ -36,14 +36,9 @@ class UserService {
     }
     if(response) {
       if(response.status>=200 && response.status<=210) {
-        localStorage.setItem("user", JSON.stringify(response.data.response));
         return response.data.response;
       } else throw Error(response.data.message);
     }
-  }
-
-  public logout() {
-    localStorage.removeItem("user");
   }
 }
 
