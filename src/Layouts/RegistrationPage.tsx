@@ -6,31 +6,35 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
-import "../LayoutStyles/registration.scss";
-
+import {of} from 'await-of';
+import { UserService } from "../Services/UserService";
+import { useHistory } from "react-router";
+import "./styles/registration.scss";
+const userService = new UserService();
 const RegistrationPage = () => {
+  const history = useHistory();
   const initialValues = {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
+    passwordHash: "",
     confirmPassword: "",
     dob: "",
   };
 
-  const onSubmit = (values: any, props: any) => {
+  const onSubmit =async (values: any, props: any) => {
+    values.role = 'client';
     console.log(values);
-    console.log(props);
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
+    const [response, error] = await of(userService.signup(values));
+    if(error)alert(error.message);
+    if(response) {
+      history.push('/user/login');
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -64,7 +68,7 @@ const RegistrationPage = () => {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {(props) => (
+          {(props:any) => (
             <Form>
               <Field
                 as={TextField}
@@ -113,7 +117,7 @@ const RegistrationPage = () => {
               />
               <Field
                 as={TextField}
-                name="password"
+                name="passwordHash"
                 className="textFieldStyle"
                 variant="outlined"
                 fullWidth

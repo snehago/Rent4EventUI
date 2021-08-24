@@ -2,39 +2,27 @@ import React, { useEffect, useState } from "react";
 import CardItem from "../Components/CardItem";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import { RootState } from "../Redux/store";
+import {SharedService} from '../Services/SharedService';
 import { UserService } from "../Services/UserService";
-import { Button, Grid, Typography } from "@material-ui/core";
-import { Box } from "@material-ui/core";
-import "../LayoutStyles/home.scss";
-import { useHistory } from "react-router-dom";
+import { Grid } from "@material-ui/core";
+import "./styles/home.scss";
+import { useSelector } from "react-redux";
 
+const sharedService = new SharedService();
 const userService = new UserService();
 const HomePage = () => {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    (async () => {
-      const response = await userService.login({
-        email: "abc@gmail.com",
-        passwordHash: "12345678",
-      });
-      if (response.data && response.data.success) {
-        setUser(response.data.response);
-      }
-    })();
-  }, []);
+  const user = useSelector((state:RootState)=> state.auth.user);
 
-  const history = useHistory();
-
-  const handleClick = () => {
-    setTimeout(() => {
-      history.push("/venue-list");
-    }, 1000);
-  };
+  const logout = () => {
+    userService.logout();
+  }
   return (
     <>
       <Header></Header>
       Home Page
-      {JSON.stringify(user)}
+      {JSON.stringify(user)}<br/>
+      <button onClick={logout}>Logout</button>
       <div className="recommendedVenues">
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>

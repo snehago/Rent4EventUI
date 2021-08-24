@@ -6,6 +6,17 @@ class SharedService {
   public async getHeader() {
     return this.HEADER;
   }
+
+  public isUserLoggedIn() {
+    if(localStorage.getItem("user"))return true;
+    return false;
+  }
+
+  public getUser(): string {
+    let toReturn = localStorage.getItem("user");
+    if(!toReturn) return '';
+    return toReturn;
+  }
   
 }
 
