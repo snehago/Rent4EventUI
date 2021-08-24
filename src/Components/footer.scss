@@ -1,0 +1,49 @@
+.mainContainer {
+  width: 100%;
+  background-color: black;
+}
+.mainBox {
+  width: 100%;
+}
+
+.footerContainer {
+  background-color: black;
+  padding-left: 5%;
+  color: white;
+  width: 89vw;
+}
+
+.label {
+  text-align: left;
+  font: normal normal 700 16px/40px Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.contentText {
+  text-align: left;
+  font: normal normal normal 15px/18px Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.avatarGridItem {
+  padding: 15px;
+}
+.socalIconAvatar {
+  background-color: black !important;
+}
+
+#blueLink {
+  color: #1b91e8;
+}
+
+#followLabel {
+  margin-left: 5%;
+}
+
+.topAvatar {
+  background-color: #1b91e8 !important;
+}

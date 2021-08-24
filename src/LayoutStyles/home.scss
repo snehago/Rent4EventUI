@@ -2,3 +2,38 @@
   background-color: #f4f4f4;
   margin-top: 3%;
 }
+
+.recommendedTitle {
+  display: flex;
+  justify-content: center;
+  font: normal normal 700 26px/40px Montserrat !important;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  padding: 1%;
+}
+.exploreButton {
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+  padding-bottom: 5%;
+}
+.btnStyle {
+  text-align: center;
+  color: #d3600c !important;
+  background-color: #ffffff !important;
+  border-color: #d3600c !important;
+  font: normal normal bold 18px/40px Montserrat !important;
+  letter-spacing: 0px;
+  opacity: 1;
+  min-width: 30% !important;
+}
+
+.card:hover {
+  transform: translateY(-50px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.recommendedVenues:hover > .card:not(:hover) {
+  filter: blur(4px);
+}

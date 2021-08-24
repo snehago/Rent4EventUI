@@ -1,8 +1,13 @@
 .root {
-  max-width: 400px !important;
+  max-width: 900px !important;
   height: 450px;
-  box-shadow: 3px;
+  box-shadow: 5px !important;
 }
+.root:hover {
+  transform: translateY(-50px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
 .media {
   height: 250px;
 }

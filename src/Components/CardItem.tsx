@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-// import { makeStyles } from '@material-ui/core/styles';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -10,17 +9,12 @@ import Typography from "@material-ui/core/Typography";
 import "./cardStyle.scss";
 import image from "../assets/images/download.jpg";
 
-// const useStyles = makeStyles({
-//     root: {
-//       maxWidth: 400,
-//       height:450,
-//       elevation:20,
-//       boxShadow:"3"
-//     },
-//     media: {
-//       height: 250,
-//     },
-//   });
+interface cardProps {
+  image: string;
+  title: string;
+  description: string;
+  price: string;
+}
 
 export default function CardItem() {
   // const classes = useStyles();
