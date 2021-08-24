@@ -5,18 +5,27 @@ import Header from "../Components/Header";
 import { RootState } from "../Redux/store";
 import {SharedService} from '../Services/SharedService';
 import { UserService } from "../Services/UserService";
-import { Grid } from "@material-ui/core";
+import { Grid, Button, Box, Typography } from "@material-ui/core";
 import "./styles/home.scss";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 const sharedService = new SharedService();
 const userService = new UserService();
 const HomePage = () => {
+  const history = useHistory();
   const user = useSelector((state:RootState)=> state.auth.user);
 
   const logout = () => {
     userService.logout();
   }
+
+  const handleClick = () => {
+    setTimeout(() => {
+      history.push("/venue-list");
+    }, 1000);
+  };
+  
   return (
     <>
       <Header></Header>
