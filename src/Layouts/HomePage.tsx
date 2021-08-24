@@ -25,13 +25,13 @@ const HomePage = () => {
       history.push("/venue-list");
     }, 1000);
   };
-  
+
   return (
     <>
-      <Header></Header>
-      Home Page
+      {/* <Header></Header> */}
+      {/* Home Page
       {JSON.stringify(user)}<br/>
-      <button onClick={logout}>Logout</button>
+      <button onClick={logout}>Logout</button> */}
       <div className="recommendedVenues">
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>

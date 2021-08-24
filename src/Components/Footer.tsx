@@ -1,6 +1,5 @@
 import { Avatar, Box, Link, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
-import React from "react";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
