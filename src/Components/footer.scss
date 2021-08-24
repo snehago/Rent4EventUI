@@ -15,7 +15,15 @@
 
 .label {
   text-align: left;
-  font: normal normal 700 16px/40px Montserrat;
+  font: normal normal 700 70% Montserrat;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.aboutText{
+  text-align: left;
+  font: normal normal normal 60% Montserrat;
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
@@ -23,17 +31,18 @@
 
 .contentText {
   text-align: left;
-  font: normal normal normal 15px/18px Montserrat;
+  font: normal normal normal 60% Montserrat!important;
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
 }
 
 .avatarGridItem {
-  padding: 15px;
+  padding: 10%;
 }
 .socalIconAvatar {
   background-color: black !important;
+  width: 2%;
 }
 
 #blueLink {
