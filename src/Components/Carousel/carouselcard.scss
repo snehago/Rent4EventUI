@@ -1,0 +1,18 @@
+.card{
+    // width:90%!important ;
+    height: 300px!important;
+    background: #333!important;
+    border-radius: 2%!important;
+    background-color: blanchedalmond;
+    color:#fff;
+    font-size: 30px;
+    margin: 0 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    
+}
+.card:hover{
+    pointer-events: none;
+}

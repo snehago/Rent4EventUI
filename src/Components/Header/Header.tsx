@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import "./header.scss";
+import "./Header.scss";
 
 export default function Header() {
   const rent4EventLogo = (
