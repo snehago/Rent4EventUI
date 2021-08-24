@@ -8,11 +8,20 @@ class UserService {
   BACKEND_URL: string | undefined = process.env.REACT_APP_BACKEND_URL;
 
   public async signup(user: User) {
-    return axios.post(
+    const [response, error] = await of(axios.post(
       `${this.BACKEND_URL}/user`,
       user,
       await sharedService.getHeader()
-    );
+    ));
+    if(error) {
+      throw new Error(error.message);
+    } 
+    if(response) {
+      console.log({response});
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data.response;
+      } else throw Error(response.data.message);
+    }
   }
 
   public async login(user: LoginData) {
@@ -29,9 +38,14 @@ class UserService {
       if(response.status>=200 && response.status<=210) {
         localStorage.setItem("user", response.data.response);
         return response.data.response;
-      } else throw Error("Something went wrong try again");
+      } else throw Error(response.data.message);
     }
   }
+
+  public logout() {
+    localStorage.removeItem("user");
+  }
 }
+
 
 export { UserService };

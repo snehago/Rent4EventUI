@@ -13,25 +13,30 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
-import "../LayoutStyles/registration.scss";
-
+import { of } from "await-of";
+import { UserService } from "../Services/UserService";
+import { useHistory } from "react-router";
+import "./styles/registration.scss";
+const userService = new UserService();
 const RegistrationPageHost = () => {
+  const history = useHistory();
   const initialValues = {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
+    passwordHash: "",
     confirmPassword: "",
     dob: "",
   };
 
-  const onSubmit = (values: any, props: any) => {
+  const onSubmit =async (values: any, props: any) => {
+    values.role = "host";
     console.log(values);
-    console.log(props);
-    setTimeout(() => {
-      props.resetForm();
-      props.setSubmitting(false);
-    }, 2000);
+    const [response, error] = await of(userService.signup(values));
+    if (error) alert(error.message);
+    if (response) {
+      history.push("/user/login");
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -122,7 +127,7 @@ const RegistrationPageHost = () => {
               />
               <Field
                 as={TextField}
-                name="password"
+                name="passwordHash"
                 className="textFieldStyle"
                 variant="outlined"
                 fullWidth
@@ -173,39 +178,6 @@ const RegistrationPageHost = () => {
                   </ErrorMessage>
                 }
               />
-
-              {/* <FormControl
-                  component="fieldset"
-                  required
-                  style={textFieldStyle}
-                  name="role"
-                >
-                  <FormLabel component="legend">Role</FormLabel>
-                  <Field
-                    as={RadioGroup}
-                    aria-label="role"
-                    name="role"
-                    style={{ display: "initial" }}
-                    // value={value}
-                    // onChange={handleChange}
-                  >
-                    <FormControlLabel
-                      value="user"
-                      control={<Radio />}
-                      label="User"
-                    />
-                    <FormControlLabel
-                      value="host"
-                      control={<Radio />}
-                      label="Host"
-                    />
-                  </Field>
-                  <FormHelperText>
-                    <ErrorMessage name="role">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  </FormHelperText>
-                </FormControl> */}
 
               <Field
                 as={TextField}

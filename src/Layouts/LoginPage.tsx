@@ -1,4 +1,4 @@
-import React from "react";
+import {useEffect} from "react";
 import {
   Avatar,
   Button,
@@ -15,14 +15,17 @@ import { NavLink } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { UserService } from "../Services/UserService";
+import { SharedService } from "../Services/SharedService";
 import { useDispatch, useSelector } from "react-redux";
 import {of} from 'await-of';
 import { login } from "../Redux/reducers/AuthReducer";
-import "../LayoutStyles/login.scss";
+import "./styles/login.scss";
+import { useHistory } from "react-router-dom";
 import { RootState } from "../Redux/store";
-
+const sharedService = new SharedService();
 const userService = new UserService();
 const LoginPage = () => {
+  const history = useHistory();
   const user = useSelector((state:RootState)=> state.auth.user);
   const dispatch = useDispatch();
   const initialValues = {
@@ -30,6 +33,12 @@ const LoginPage = () => {
     passwordHash: "",
     rememberMe: false,
   };
+
+  useEffect(()=> {
+    if(sharedService.isUserLoggedIn()) {
+      history.push('/home');
+    }
+  });
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Please enter valid email").required("Required"),
@@ -44,7 +53,8 @@ const LoginPage = () => {
        alert(error);
      }
      if (response) {
-       alert(response);
+       if(response.role === 'client')history.push("/home");
+       else history.push("/dashboard/host");
        dispatch(login(response));
      }
   };
