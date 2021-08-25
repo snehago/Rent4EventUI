@@ -4,12 +4,16 @@
   box-shadow: 5px !important;
 }
 .root:hover {
-  transform: translateY(-50px);
+  width: 101% !important;
+  height: 101% !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
+.card-content {
+  height: 10vh !important;
+}
 .media {
-  height: 20%!important;
+  height: 30%!important;
 }
 
 .title {
@@ -20,10 +24,11 @@
   opacity: 1;
 }
 
-.price {
-  text-align: right;
-  font: normal normal 800 16px/40px Montserrat !important;
-  letter-spacing: 0px;
+.venue-card-price {
+  padding-left: .6vw;
+  padding-top: .5vh;
+  font: normal normal bold 1rem Montserrat !important;
+  letter-spacing: 0;
   color: #d3600c;
   opacity: 1;
 }

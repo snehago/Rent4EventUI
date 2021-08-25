@@ -27,7 +27,7 @@ const RegistrationPage = () => {
     dob: "",
   };
 
-  const onSubmit =async (values: any, props: any) => {
+  const onSubmit =async (values: any) => {
     values.role = 'client';
     console.log(values);
     const [response, error] = await of(userService.signup(values));
@@ -168,51 +168,7 @@ const RegistrationPage = () => {
                   </ErrorMessage>
                 }
               />
-
-              {/* <FormControl
-                component="fieldset"
-                required
-                style={textFieldStyle}
-                name="role"
-              >
-                <FormLabel component="legend">Role</FormLabel>
-                <Field
-                  as={RadioGroup}
-                  aria-label="role"
-                  name="role"
-                  style={{ display: "initial" }}
-                  // value={value}
-                  // onChange={handleChange}
-                >
-                  <FormControlLabel
-                    value="user"
-                    control={<Radio />}
-                    label="User"
-                  />
-                  <FormControlLabel
-                    value="host"
-                    control={<Radio />}
-                    label="Host"
-                  />
-                </Field>
-                <FormHelperText>
-                  <ErrorMessage name="role">
-                    {(msg) => <div style={{ color: "red" }}>{msg}</div>}
-                  </ErrorMessage>
-                </FormHelperText>
-              </FormControl> */}
-
-              {/* {role === "host" ? (
-                <TextField
-                  required
-                  style={textFieldStyle}
-                  variant="outlined"
-                  fullWidth
-                  label="Upi Id"
-                  placeholder="Give your Upi Id"
-                />
-              ) : null} */}
-
+              
               <Button
                 type="submit"
                 fullWidth

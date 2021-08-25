@@ -1,4 +1,3 @@
-import React from "react";
 import { useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -10,17 +9,17 @@ import "./cardStyle.scss";
 import image from "../../assets/images/download.jpg";
 
 interface cardProps {
-  image: string;
-  title: string;
-  description: string;
-  price: string;
+  id: number,
+  title: String;
+  description: String;
+  price: number;
 }
 
-export default function CardItem() {
+export default function CardItem({id,title, description, price} : cardProps) {
   // const classes = useStyles();
   const history = useHistory();
 
-  const handleClick = () => history.push("/venue-details/1");
+  const handleClick = () => history.push(`/venue-details/${id}`);
 
   return (
     <Card className="root">
@@ -31,24 +30,22 @@ export default function CardItem() {
           src={image}
           title="Venue Image"
         />
-        <CardContent>
+        <CardContent className="card-content">
           <Typography
             gutterBottom
             variant="h5"
             component="h2"
             className="title"
           >
-            Venue For Stay
+            {title.toUpperCase()}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit
-            harum natus nemo aspernatur placeat inventore fugiat vitae odit quam
-            assumenda?
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Typography className="price">$30.00</Typography>
+        <p className="venue-card-price">${price}</p>
       </CardActions>
     </Card>
   );

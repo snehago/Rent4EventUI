@@ -1,4 +1,3 @@
-import {useEffect} from "react";
 import {
   Avatar,
   Button,
@@ -15,16 +14,14 @@ import { NavLink } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { UserService } from "../Services/UserService";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {of} from 'await-of';
 import { login } from "../Redux/reducers/AuthReducer";
 import "./styles/login.scss";
 import { useHistory } from "react-router-dom";
-import { RootState } from "../Redux/store";
 const userService = new UserService();
 const LoginPage = () => {
   const history = useHistory();
-  const user = useSelector((state:RootState)=> state.auth.user);
   const dispatch = useDispatch();
   const initialValues = {
     email: "",
@@ -38,7 +35,7 @@ const LoginPage = () => {
   });
 
 
-  const onSubmit =async (values: any, props: any) => {
+  const onSubmit =async (values: any) => {
     console.log(values); 
      const [response, error] = await of(userService.login(values));
      if (error) {

@@ -1,5 +1,3 @@
-import { Button, Paper } from "@material-ui/core";
-import React from "react";
 import Carousel from "react-material-ui-carousel";
 import "./carousel.scss";
 import CarouselCard from "./CarouselCard";
@@ -10,12 +8,12 @@ import image2 from "../../assets/images/hotel.png";
 import image3 from "../../assets/images/resort.jpg";
 
 export default function DetailsCarousel() {
-  const breakPoints = [
-    { width: 500, itemsToShow: 1 },
-    { width: 768, itemsToShow: 2 },
-    { width: 1200, itemsToShow: 3 },
-    { width: 1500, itemsToShow: 4 },
-  ];
+  // const breakPoints = [
+  //   { width: 500, itemsToShow: 1 },
+  //   { width: 768, itemsToShow: 2 },
+  //   { width: 1200, itemsToShow: 3 },
+  //   { width: 1500, itemsToShow: 4 },
+  // ];
 
   var items = [image1, image2, image3, image1, image2, image3];
 
