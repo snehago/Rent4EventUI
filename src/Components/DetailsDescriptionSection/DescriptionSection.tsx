@@ -1,9 +1,33 @@
-import { Grid, Paper, Typography } from "@material-ui/core";
-import React from "react";
+import { Button, Grid, Paper, Typography } from "@material-ui/core";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./description.scss";
+import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 export default function DescriptionSection() {
+  const handleDateChange = (event: any) => {
+    console.log(event.target.value);
+  };
+  const startDateValue: Date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    14
+  );
+  const endDateValue: Date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    15
+  );
+  const minDate: Date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    8
+  );
+  const maxDate: Date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    20
+  );
   return (
     <div>
       <div className="descriptionContainer">
@@ -32,11 +56,64 @@ export default function DescriptionSection() {
               </Typography>
             </Grid>
 
-            <Grid item xs={5} style={{backgroundColor:"#EAEAEA",borderRadius:'0.4rem',padding:'2%'}}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-              quaerat ad blanditiis. Illum facilis vel ut fugit veniam quibusdam
-              eum quam rerum, quasi nulla asperiores eius eveniet, illo at
-              magnam?
+            <Grid
+              item
+              xs={5}
+              container
+              style={{
+                backgroundColor: "#EAEAEA",
+                borderRadius: "0.4rem",
+                padding: "2%",
+              }}
+            >
+              <Grid
+                item
+                container
+                xs={12}
+                style={{ height: "20%", borderBottom: "1px solid #cfcbca" }}
+              >
+                <Grid item xs={6} className="priceLabel">
+                  Price
+                </Grid>
+                <Grid item xs={6} className="price">
+                  $30.00
+                </Grid>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                // style={{  height: "20%",marginTop:'-18%' }}
+              >
+                <DateRangePickerComponent
+                  placeholder="Select Dates"
+                  // startDate={startDateValue}
+                  // endDate={endDateValue}
+                  min={minDate}
+                  max={maxDate}
+                  minDays={3}
+                  maxDays={5}
+                  format="dd-MMM-yy"
+                  onChange={handleDateChange}
+                ></DateRangePickerComponent>
+              </Grid>
+
+              <Grid
+                item
+                xs={12}
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Button
+                  style={{
+                    backgroundColor: "#D3600C",
+                    color: "#FFFFFF",
+                    width: "50%",
+                    height: "50%",
+                  }}
+                  variant="contained"
+                >
+                  CHECKOUT
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
