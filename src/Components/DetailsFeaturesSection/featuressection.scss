@@ -1,3 +1,5 @@
+@import '../../Shared/styles/colors';
+
 .facilityItem {
   background-color: #eaeaea;
   border-radius: 1rem;
@@ -28,20 +30,30 @@
 }
 .facilitiesLabel {
   margin-left: 5%;
+  margin-top: 3%;
   text-align: left;
-  font: normal normal bold 26px/40px Montserrat !important;
+  font: normal normal bold 1.3rem Montserrat !important;
   letter-spacing: 0px;
   color: #000000;
   opacity: 1;
 }
-.address {
-  margin-left: 5% !important;
-  height: 20%;
-  margin-top: -8% !important;
+.contact-details-label {
+  margin-left: 5%;
+  margin-top: 3%;
   text-align: left;
-  font: normal normal normal 14px/18px Montserrat !important;
-  letter-spacing: 0px;
-  color: #000000;
+  font: normal normal bold 1.3rem Montserrat !important;
+  letter-spacing: 0;
+  color:$black;
+  opacity: 1;
+}
+
+.venue-address {
+  margin-left: 0 !important;
+  margin-top: 10% !important;
+  text-align: left;
+  font: normal normal normal 1rem Montserrat !important;
+  letter-spacing: 1px;
+  color: $black;
   opacity: 1;
 }
 .ratingBox {
@@ -50,6 +62,7 @@
 }
 .ratingContainer {
   display: flex;
+  margin-left: 7%;
 }
 
 #ratingValue {
@@ -60,7 +73,4 @@
   letter-spacing: 0px;
   color: #000000;
   opacity: 1;
-}
-.rating {
-  // background-color: brown;
 }

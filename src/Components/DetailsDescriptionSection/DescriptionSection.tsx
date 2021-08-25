@@ -1,33 +1,15 @@
-import { Button, Grid, Paper, Typography } from "@material-ui/core";
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, {useState} from 'react';
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import "./description.scss";
-import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { Venue } from "../../Shared/Interfaces/Venue";
+// import Calendar from "react-calendar";
+// import "react-calendar/dist/Calendar.css";
 
-export default function DescriptionSection() {
-  const handleDateChange = (event: any) => {
-    console.log(event.target.value);
-  };
-  const startDateValue: Date = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    14
-  );
-  const endDateValue: Date = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth() + 1,
-    15
-  );
-  const minDate: Date = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    8
-  );
-  const maxDate: Date = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth() + 1,
-    20
-  );
+interface DSProps {
+  venue: Venue;
+}
+export default function DescriptionSection({venue}:DSProps) {
+  const [value, onChange] = useState<Date>(new Date());
   return (
     <div>
       <div className="descriptionContainer">
@@ -35,24 +17,10 @@ export default function DescriptionSection() {
           <Grid item container spacing={2} xs={12}>
             <Grid item xs={7}>
               <Typography className="venueTitle" component="h2">
-                Title
+                {venue?.title}
               </Typography>
               <Typography className="descriptionText">
-                Vestibulum maximus laoreet ipsum ac semper. Suspendisse potenti.
-                Vestibulum sit amet pulvinar augue, eget ultricies neque.
-                Maecenas a malesuada est. Nulla molestie lorem libero, quis
-                tempus felis convallis sed. Fusce ultrices nunc vitae posuere
-                dignissim. Cras congue ante vel mi facilisis vulputate. Ut nec
-                enim mi. Sed bibendum, sapien tristique pellentesque
-                ullamcorper, metus diam porta elit, a tempor augue nulla vitae
-                magna.
-                <p /> In ipsum magna, viverra ac nunc vehicula, cursus
-                condimentum orci. Aenean porta sagittis elementum. Vestibulum
-                vulputate eget sapien sed scelerisque. Quisque maximus fermentum
-                condimentum. Phasellus suscipit eros bibendum magna dignissim
-                lobortis. Aliquam ullamcorper ante non semper mollis. Mauris
-                dignissim dolor quis arcu ultrices, ac tincidunt mi tincidunt.
-                Donec non quam turpis.
+                {venue?.description}
               </Typography>
             </Grid>
 
@@ -75,28 +43,33 @@ export default function DescriptionSection() {
                 <Grid item xs={6} className="priceLabel">
                   Price
                 </Grid>
-                <Grid item xs={6} className="price">
-                  $30.00
+                <Grid item xs={6} className="description-section-price">
+                  ${venue?.price}
                 </Grid>
               </Grid>
-              <Grid
-                item
-                xs={12}
-                // style={{  height: "20%",marginTop:'-18%' }}
-              >
-                <DateRangePickerComponent
-                  placeholder="Select Dates"
-                  // startDate={startDateValue}
-                  // endDate={endDateValue}
-                  min={minDate}
-                  max={maxDate}
-                  minDays={3}
-                  maxDays={5}
-                  format="dd-MMM-yy"
-                  onChange={handleDateChange}
-                ></DateRangePickerComponent>
+              <Grid item xs={12} className="calendar-container">
+                <TextField
+                  id="date"
+                  label="to"
+                  type="date"
+                  onChange={(e) => onChange(new Date(e.target.value))}
+                  defaultValue={value}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <TextField
+                  id="date"
+                  label="from"
+                  type="date"
+                  onChange={(e) => onChange(new Date(e.target.value))}
+                  defaultValue={value}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                {/* <Calendar onChange={onChange} value={value} returnValue="range" selectRange/> */}
               </Grid>
-
               <Grid
                 item
                 xs={12}

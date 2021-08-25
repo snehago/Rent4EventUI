@@ -29,10 +29,16 @@
   color: #000000;
   opacity: 1;
 }
-.price {
+.description-section-price {
   text-align: right;
   font: normal normal bold 26px/40px Montserrat!important;
   letter-spacing: 0px;
   color: #d3600c;
   opacity: 1;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

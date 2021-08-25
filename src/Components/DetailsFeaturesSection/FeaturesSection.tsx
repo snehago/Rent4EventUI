@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import MapContainer from "../MapSection/MapContainer";
 import { Rating } from "@material-ui/lab";
 import "./featuressection.scss";
+import { Venue } from "../../Shared/Interfaces/Venue";
 
-export default function FeaturesSection() {
+interface FSProps {
+  venue: Venue;
+}
+export default function FeaturesSection({ venue }: FSProps) {
   const facilities = [
     "facility 1",
     "facility 2",
@@ -98,15 +102,13 @@ export default function FeaturesSection() {
               }}
             >
               <h2
-                style={{ marginLeft: "5%", height: "20%" }}
-                className="facilitiesLabel"
+                className="contact-details-label"
               >
-                Lorem ipsum dolor.
+                Contact Details
               </h2>
 
-              <Typography className="address">
-                Bangalore, #992/SY-no/3/1 devarabisanahalli, varathur, hobli,
-                Bellandur, Bengaluru, Karnataka 560037•0124 620 1730
+              <Typography className="venue-address">
+                {`${venue.address.streetAddress},${venue.address.city},${venue.address.state},${venue.address.country},${venue.address.pin}`}
               </Typography>
 
               <Box

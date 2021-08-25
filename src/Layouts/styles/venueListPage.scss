@@ -1,0 +1,54 @@
+@import '../../Shared/styles/colors';
+.root {
+  margin: 0;
+  padding: 0;
+}
+.all-venues {
+  width: 100%;
+  margin-top: 1%;
+}
+.venue-box {
+  padding: 2rem 10rem 10rem 10rem;
+}
+.venue-grid  {
+  background-color: #eaeaea;
+}
+.card:hover {
+  transform: translateY(-50px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.all-venues:hover > .card:not(:hover) {
+  filter: blur(10rem);
+}
+
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  overflow-x: hidden;
+}
+.select {
+  width: 15vw !important;
+}
+.label {
+  width: 10vw !important;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  grid-column-gap: 2%;
+  margin: 12vh 5rem 0 5rem;
+  overflow-x: hidden;
+}
+.textfield {
+  width: 75%;
+}
+.search-button {
+  width: 16% !important;
+}
