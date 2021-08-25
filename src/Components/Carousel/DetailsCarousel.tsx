@@ -5,6 +5,9 @@ import "./carousel.scss";
 import CarouselCard from "./CarouselCard";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import image1 from "../../assets/images/venue.png";
+import image2 from "../../assets/images/hotel.png";
+import image3 from "../../assets/images/resort.jpg";
 
 export default function DetailsCarousel() {
   const breakPoints = [
@@ -13,6 +16,8 @@ export default function DetailsCarousel() {
     { width: 1200, itemsToShow: 3 },
     { width: 1500, itemsToShow: 4 },
   ];
+
+  var items = [image1, image2, image3, image1, image2, image3];
 
   return (
     <Carousel
@@ -48,12 +53,9 @@ export default function DetailsCarousel() {
         },
       }}
     >
-      <CarouselCard number={1} />
-      <CarouselCard number={2} />
-      <CarouselCard number={3} />
-      <CarouselCard number={4} />
-      <CarouselCard number={5} />
-      <CarouselCard number={6} />
+      {items.map((item, i) => (
+        <CarouselCard key={i} item={item} />
+      ))}
     </Carousel>
   );
 }
