@@ -25,10 +25,8 @@ export default function Footer() {
               <Box className="label">About Us</Box>
               <p></p>
               <Box className="aboutText">
-                
-                  Vestibulum eget nisi malesuada, blandit augue faucibus, mollis
-                  lectus. Integer pharetra blandit elit at eleifend.
-                
+                Vestibulum eget nisi malesuada, blandit augue faucibus, mollis
+                lectus. Integer pharetra blandit elit at eleifend.
               </Box>
             </Grid>
 
@@ -160,7 +158,7 @@ export default function Footer() {
                   md={3}
                   className="avatarGridItem"
                 >
-                  <Avatar  className="socalIconAvatar">
+                  <Avatar className="socalIconAvatar">
                     <YouTubeIcon />
                   </Avatar>
                 </Grid>
