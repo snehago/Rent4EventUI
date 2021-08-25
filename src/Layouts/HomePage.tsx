@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import CardItem from "../Components/CardItem";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import { RootState } from "../Redux/store";
-import {SharedService} from '../Services/SharedService';
-import { UserService } from "../Services/UserService";
+// import { RootState } from "../Redux/store";
+// import {SharedService} from '../Services/SharedService';
+// import { UserService } from "../Services/UserService";
 import { Grid, Button, Box, Typography } from "@material-ui/core";
 import "./styles/home.scss";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
-const sharedService = new SharedService();
-const userService = new UserService();
+// const sharedService = new SharedService();
+// const userService = new UserService();
 const HomePage = () => {
   const history = useHistory();
-  const user = useSelector((state:RootState)=> state.auth.user);
+  //const user = useSelector((state:RootState)=> state.auth.user);
 
   const handleClick = () => {
     setTimeout(() => {
@@ -30,15 +30,22 @@ const HomePage = () => {
       </header>
       {/* header end */}
 
-      <div>
         <div className="banner">
-          <div className="text-division">
-            <Typography variant="h5" >
+          <div className="banner-heading">
+            <Typography variant="h5">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
             </Typography>
           </div>
+          <div className="banner-subheading">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+            pretium ante et nisl consectetur, eu posuere nisi elementum.
+            Phasellus nec elit in leo fringilla bibendum ut commodo justo. In
+            vel condimentum justo.
+          </div>
+          <div className="banner-button-container" >
+            <Button className="banner-host-button" >Become a Host</Button>
+          </div>
         </div>
-      </div>
 
       <div className="recommendedVenues">
         <div>
