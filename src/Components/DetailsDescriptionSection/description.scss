@@ -1,0 +1,23 @@
+.descriptionContainer {
+  margin-top: 3%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  display: flex;
+  justify-content: center;
+}
+
+.venueTitle {
+  text-align: left;
+  font: normal normal 700 26px/40px Montserrat !important;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+
+.descriptionText {
+  text-align: left;
+  font: normal normal normal 14px/20px Montserrat !important;
+  letter-spacing: 0px;
+  color: #0b294e;
+  opacity: 1;
+}
