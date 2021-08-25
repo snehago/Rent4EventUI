@@ -9,6 +9,7 @@ import "./header.scss";
 import logo from "../../assets/images/logo.svg";
 import { IconButton } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
+import { User } from '../../Shared/Interfaces/User';
 
 const headerData = [
   {
@@ -26,7 +27,7 @@ const headerData = [
 ];
 
 export default function Header() {
-  const user = useSelector((state:RootState)=> state.auth.user);
+  const user: User = useSelector((state:RootState)=> state.auth.user );
   const dispatch = useDispatch();
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -44,6 +45,16 @@ export default function Header() {
     dispatch(logout());
     setAnchorEl(null);
     history.push('/user/login');
+  };
+
+  const moveToWishlist = () => {
+    setAnchorEl(null);
+    history.push("/user/login");
+  };
+
+  const moveToDashboard = () => {
+    setAnchorEl(null);
+    history.push(`/dashboard/${user.role}`);
   };
 
   const getToolbar = () => {
@@ -102,8 +113,8 @@ export default function Header() {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Whishlist</MenuItem>
-            <MenuItem onClick={handleClose}>My Dashboard</MenuItem>
+            <MenuItem onClick={moveToWishlist}>Whishlist</MenuItem>
+            <MenuItem onClick={moveToDashboard}>My Dashboard</MenuItem>
             <MenuItem onClick={logoutUser}>Logout</MenuItem>
           </Menu>
         </>

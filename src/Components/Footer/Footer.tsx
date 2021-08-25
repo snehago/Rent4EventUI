@@ -1,4 +1,4 @@
-import { Avatar, Box, Link, Typography } from "@material-ui/core";
+import { Avatar, Box, Link } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";

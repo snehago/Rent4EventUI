@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import DetailsCarousel from "../Components/Carousel/DetailsCarousel";
 import Header from "../Components/Header";
@@ -13,7 +12,6 @@ const VenueDetailsPage = () => {
       <div className="carouselContainer">
         <DetailsCarousel />
       </div>
-
       {venueId}
     </>
   );
