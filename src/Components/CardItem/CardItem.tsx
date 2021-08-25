@@ -8,18 +8,18 @@ import Typography from "@material-ui/core/Typography";
 import "./cardStyle.scss";
 import image from "../../assets/images/download.jpg";
 
-// interface cardProps {
-//   image: string;
-//   title: string;
-//   description: string;
-//   price: string;
-// }
+interface cardProps {
+  id: number,
+  title: String;
+  description: String;
+  price: number;
+}
 
-export default function CardItem() {
+export default function CardItem({id,title, description, price} : cardProps) {
   // const classes = useStyles();
   const history = useHistory();
 
-  const handleClick = () => history.push("/venue-details/1");
+  const handleClick = () => history.push(`/venue-details/${id}`);
 
   return (
     <Card className="root">
@@ -37,16 +37,15 @@ export default function CardItem() {
             component="h2"
             className="title"
           >
-            Venue For Stay
+            {title.toUpperCase()}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Morbi pretium ante et nisl consectetur, eu posuere nisi elementum.
-            Phasellus nec elit in leo fringilla.
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Typography className="price">$30.00</Typography>
+        <p className="venue-card-price">${price}</p>
       </CardActions>
     </Card>
   );

@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CardItem from "../Components/CardItem";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-// import { RootState } from "../Redux/store";
-// import {SharedService} from '../Services/SharedService';
-// import { UserService } from "../Services/UserService";
+//import { RootState } from "../Redux/store";
+//import {SharedService} from '../Services/SharedService';
+//import { UserService } from "../Services/UserService";
+import { VenueService } from "../Services/VenueService";
 import { Grid, Button, Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField } from "@material-ui/core";
 import "./styles/home.scss";
-// import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { of } from "await-of";
+import { Venue } from "../Shared/Interfaces/Venue";
 
 // const sharedService = new SharedService();
-// const userService = new UserService();
+//const userService = new UserService();
+const venueService = new VenueService();
 const HomePage = () => {
   const history = useHistory();
   const [filter, setFilter] = useState<string[]>([]);
+  const [venues, setVenues] = useState<Venue[]>([]);
   //const user = useSelector((state:RootState)=> state.auth.user);
+
+  useEffect(()=> {
+    (async ()=> {
+      console.log("use effect of home page")
+      const [response, error] = await of(venueService.getAllVenues());
+      if(error) {
+        alert(error.message);
+      }
+      if(response) {
+        console.log(response);
+        setVenues(response);
+      }
+    })();
+  },[])
 
   const handleClick = () => {
     setTimeout(() => {
@@ -51,7 +70,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="banner-button-container">
-          <Button className="banner-host-button">Become a Host</Button>
+          <Button href="/user/register/host" className="banner-host-button">Become a Host</Button>
         </div>
       </div>
       {/* banner ends */}
@@ -166,24 +185,9 @@ const HomePage = () => {
         </div>
         <Box p={6} style={{ marginLeft: 30 }}>
           <Grid xs={12} container spacing={6}>
-            <Grid item xs={12} md={6} lg={4}>
-              <CardItem />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <CardItem />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <CardItem />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <CardItem />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <CardItem />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <CardItem />
-            </Grid>
+            { venues?.map((venue) => <Grid item xs={12} md={6} lg={4}>
+              <CardItem id={venue.id} title={venue.title} description={venue.description} price={venue.price} />
+            </Grid>)}
           </Grid>
         </Box>
 

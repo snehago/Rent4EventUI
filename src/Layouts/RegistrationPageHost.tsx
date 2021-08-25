@@ -52,7 +52,7 @@ const RegistrationPageHost = () => {
       .min(8, "Password minimum length should be 8")
       .required("Required"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Password not matched")
+      .oneOf([Yup.ref("passwordHash")], "Password not matched")
       .required("Required"),
     dob: Yup.string().required("Required"),
     upiId: Yup.string()
