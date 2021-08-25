@@ -20,6 +20,7 @@ import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 
 const venueService = new VenueService();
+
 const VenueListPage = () => {
   const history = useHistory();
   const [filter, setFilter] = useState<string[]>([]);
