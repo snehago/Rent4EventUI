@@ -1,16 +1,30 @@
 .facilityItem {
   background-color: #eaeaea;
   border-radius: 1rem;
-  margin-left: 6%;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  margin-right: 2%;
+  margin: 2% 2% 2% 6% !important;
 
   text-align: center;
   font: normal normal 600 12px/18px Montserrat !important;
   letter-spacing: 0px;
   color: #000000;
   opacity: 1;
+}
+.offerItem {
+  background-color: #d3600c33;
+  border-radius: 1rem;
+  margin: 2% 2% 2% 6% !important;
+
+  text-align: center;
+  font: normal normal 600 12px/18px Montserrat !important;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.mainOffer {
+  text-align: center;
+  font: normal normal bold 16px/20px Montserrat !important;
+  letter-spacing: 0px;
+  color: #000000;
 }
 .facilitiesLabel {
   margin-left: 5%;
@@ -19,4 +33,36 @@
   letter-spacing: 0px;
   color: #000000;
   opacity: 1;
+}
+.address {
+  margin-left: 5%!important;
+  height: 20%;
+  margin-top: -8%!important;
+  text-align: left;
+  font: normal normal normal 14px/18px Montserrat!important;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.ratingBox{
+    margin-left: 3%!important; ;
+    margin-top: -5%;
+}
+.ratingContainer{
+    display: flex;
+    
+
+}
+
+#ratingValue{
+    // background-color: blueviolet;
+    text-align: left;
+    margin-bottom: -2%!important;
+    font: normal normal 600 14px/18px Montserrat!important;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+.rating{
+    // background-color: brown;
 }
