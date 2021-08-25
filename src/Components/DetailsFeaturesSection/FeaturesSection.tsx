@@ -109,7 +109,11 @@ export default function FeaturesSection() {
                 Bellandur, Bengaluru, Karnataka 560037•0124 620 1730
               </Typography>
 
-              <Box component="fieldset" className="ratingBox" ml={1} mt={-5} borderColor="transparent">
+              <Box
+                component="fieldset"
+                className="ratingBox"
+                borderColor="transparent"
+              >
                 <div className="ratingContainer">
                   <div id="ratingValue">{ratingValue}</div>
                   <Rating

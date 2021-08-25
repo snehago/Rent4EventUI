@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import DetailsCarousel from "../Components/Carousel/DetailsCarousel";
 import DescriptionSection from "../Components/DetailsDescriptionSection/DescriptionSection";
 import FeaturesSection from "../Components/DetailsFeaturesSection/FeaturesSection";
+import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import "./styles/venueDetails.scss";
 
@@ -16,11 +17,11 @@ const VenueDetailsPage = () => {
         <DetailsCarousel />
       </div>
 
-      
       <DescriptionSection />
       <FeaturesSection />
 
       {venueId}
+      <Footer />
     </>
   );
 };
