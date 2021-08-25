@@ -1,7 +1,4 @@
-import React from "react";
 import "./carouselcard.scss";
-import image from "../../assets/images/hotel.png";
-
 export default function CarouselCard(props: any) {
 
   return (

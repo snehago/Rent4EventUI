@@ -1,0 +1,30 @@
+@import '../../Shared/styles/colors';
+.root {
+  height: 100%;
+  width: 100%;
+}
+.footer {
+  margin-top: 8vh;
+}
+.heading {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 15vh !important;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  height: 100% !important;
+  margin-top: 10vh;
+}
+
+.side-nav {
+  height: 90vh !important;
+  border: 1px solid #707070;
+}
+
+.main-content {
+  border: 1px solid #707070;
+}

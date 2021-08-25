@@ -6,7 +6,6 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -29,7 +28,7 @@ const RegistrationPageHost = () => {
     dob: "",
   };
 
-  const onSubmit =async (values: any, props: any) => {
+  const onSubmit =async (values: any) => {
     values.role = "host";
     console.log(values);
     const [response, error] = await of(userService.signup(values));

@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import DetailsCarousel from "../Components/Carousel/DetailsCarousel";
 import DescriptionSection from "../Components/DetailsDescriptionSection/DescriptionSection";

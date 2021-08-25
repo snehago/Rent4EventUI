@@ -6,7 +6,17 @@ import {RootState} from './Redux/store';
 import {SharedService} from './Services/SharedService';
 import { login } from './Redux/reducers/AuthReducer';
 import { User } from './Shared/Interfaces/User';
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+
 const sharedService = new SharedService(); 
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#D3600C',
+    }
+  },
+});
 
 function App() {
   
@@ -18,12 +28,14 @@ function App() {
       let tempUser: User =JSON.parse(sharedService.getUser());
       dispatch(login(tempUser));
     }
-  },[user]);
+  },[user,dispatch]);
   
   return (
+    <ThemeProvider theme={theme} >
       <div className="App">
-        <AppRouter user= {user} ></AppRouter>
+        <AppRouter user={user}></AppRouter>
       </div>
+    </ThemeProvider>
   );
 }
 
