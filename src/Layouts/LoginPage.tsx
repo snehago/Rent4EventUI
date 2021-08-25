@@ -135,7 +135,6 @@ const LoginPage = () => {
             Register as a Host
           </NavLink>
         </Typography>
-        {JSON.stringify(user)}
       </Paper>
     </Grid>
   );
