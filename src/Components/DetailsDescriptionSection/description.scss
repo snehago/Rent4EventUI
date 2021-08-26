@@ -1,3 +1,5 @@
+@import url("https://cdn.syncfusion.com/ej2/material.css");
+
 .descriptionContainer {
   margin-top: 3%;
   margin-left: 2.5%;
@@ -24,14 +26,19 @@
 
 .priceLabel {
   text-align: left;
-  font: normal normal bold 26px/40px Montserrat!important;
+  font: normal normal bold 100% Montserrat!important;
   letter-spacing: 0px;
   color: #000000;
   opacity: 1;
 }
+.description-price-container{
+  background-color: #EAEAEA;
+  border-radius: 0.4rem;
+  padding: 2%!important;
+}
 .description-section-price {
   text-align: right;
-  font: normal normal bold 26px/40px Montserrat!important;
+  font: normal normal bold 100% Montserrat!important;
   letter-spacing: 0px;
   color: #d3600c;
   opacity: 1;
@@ -41,4 +48,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.description-checkout-button{
+  background-color: #D3600C!important;
+  color: #FFFFFF!important;
+  width: 60%;
+  height: 100%,
 }
