@@ -24,7 +24,7 @@ const RegistrationPageHost = () => {
     lastName: "",
     email: "",
     passwordHash: "",
-    confirmPassword: "",
+    confirmPasswordHash: "",
     dob: "",
   };
 
@@ -48,10 +48,10 @@ const RegistrationPageHost = () => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         "Enter a valid email"
       ),
-    password: Yup.string()
+    passwordHash: Yup.string()
       .min(8, "Password minimum length should be 8")
       .required("Required"),
-    confirmPassword: Yup.string()
+    confirmPasswordHash: Yup.string()
       .oneOf([Yup.ref("passwordHash")], "Password not matched")
       .required("Required"),
     dob: Yup.string().required("Required"),
@@ -135,14 +135,14 @@ const RegistrationPageHost = () => {
                 placeholder="Enter a Password"
                 required
                 helperText={
-                  <ErrorMessage name="password">
+                  <ErrorMessage name="passwordHash">
                     {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
-                name="confirmPassword"
+                name="confirmPasswordHash"
                 className="textFieldStyle"
                 variant="outlined"
                 fullWidth
@@ -151,7 +151,7 @@ const RegistrationPageHost = () => {
                 placeholder="Confirm your Password"
                 required
                 helperText={
-                  <ErrorMessage name="confirmPassword">
+                  <ErrorMessage name="confirmPasswordHash">
                     {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
