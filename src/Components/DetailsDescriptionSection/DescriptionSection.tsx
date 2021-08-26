@@ -10,21 +10,20 @@ interface DSProps {
   venue: Venue;
 }
 export default function DescriptionSection({ venue }: DSProps) {
-
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
 
   const handleDateChange = (event: any) => {
     console.log(event.target.value);
-    if(event.target.value[0]!==startDate){
-      setStartDate(event.target.value[0])
+    if (event.target.value[0] !== startDate) {
+      setStartDate(event.target.value[0]);
     }
-    if(event.target.value[1]!==endDate){
-      setEndDate(event.target.value[1])
+    if (event.target.value[1] !== endDate) {
+      setEndDate(event.target.value[1]);
     }
-    
-    console.log("SD:",startDate)
-    console.log("ED:",endDate)
+
+    console.log("SD:", startDate);
+    console.log("ED:", endDate);
   };
   const startDateValue: Date = new Date(
     new Date().getFullYear(),
@@ -77,12 +76,7 @@ export default function DescriptionSection({ venue }: DSProps) {
                 </Grid>
               </Grid>
 
-              <Grid
-                item
-                xs={12}
-                // style={{  height: "20%",marginTop:'-18%' }}
-                style={{ marginTop: "5%" }}
-              >
+              <Grid item xs={12} style={{ marginTop: "5%" }}>
                 <DateRangePickerComponent
                   placeholder="Select Dates"
                   // startDate={startDateValue}
@@ -96,15 +90,7 @@ export default function DescriptionSection({ venue }: DSProps) {
                 ></DateRangePickerComponent>
               </Grid>
 
-              <Grid
-                item
-                xs={12}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "5%",
-                }}
-              >
+              <Grid item xs={12} className="description-checkoutbutton-grid">
                 <Button
                   className="description-checkout-button"
                   variant="contained"
