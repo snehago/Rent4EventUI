@@ -1,39 +1,60 @@
 import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import AddVenue from "../Components/AddVenueForm/AddVenue";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import UserForm from "../Components/UserForm";
 import './styles/dashboard.scss';
 
 const sideBarItems: any = {
-  client: ["View/Edit profile", "Booking History"]
-}
+  client: [
+    {
+      id: 1,
+      value: "View/Edit profile",
+    },
+    {
+      id: 2,
+      value: "Booking History",
+    },
+  ],
+  host: [
+    {
+      id: 1,
+      value: "View/Edit profile",
+    },
+    {
+      id: 3,
+      value: "Add/Edit Venue",
+    },
+  ],
+};
 const Dashboard = () => {
   const { userRole } = useParams<any>();
-  const changeView = (view:string) => {
-    alert(view);
+  const [selected, setSelected] = useState<number>(1);
+  const changeView = (id: number) => {
+    setSelected(id);
   }
   return (
     <>
       <Header></Header>
-      {/* <div>
-        <Typography variant="h4" className="heading">
-          Dashboard
-        </Typography>
-      </div> */}
       <div className="main">
         <div className="side-nav">
           <List component="nav" aria-label="secondary mailbox folders">
-            {sideBarItems[userRole].map((text: string) => <> <ListItem onClick={()=> changeView(text)} button>
-              <ListItemText primary={text} />
+            {sideBarItems[userRole].map(({id, value}:any) => <> <ListItem key={id} id={selected===id?'active':id} onClick={()=> changeView(id)} button>
+              <ListItemText primary={value} />
             </ListItem> 
             <Divider></Divider>
             </>)}
           </List>
         </div>
+
         <div className="main-content">
-          <UserForm></UserForm>
+          {selected===1 && <UserForm></UserForm>}
+          {selected===2 && <p>Booking History</p>}
+          {selected===3 && <AddVenue/>}
         </div>
+      
       </div>
       <footer className="footer">
         <Footer></Footer>

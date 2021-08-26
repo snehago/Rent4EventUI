@@ -1,20 +1,24 @@
+import React from "react";
 import {
-  Avatar,
   Button,
   Checkbox,
   FormControlLabel,
   Grid,
-  Link,
   Paper,
   TextField,
   Typography,
 } from "@material-ui/core";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import React from "react";
+import { VenueService } from "../../Services/VenueService";
 import "./addVenue.scss";
-
+import { Address } from "../../Shared/Interfaces/Address";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
+import { of } from "await-of";
+const venueService = new VenueService();
 export default function AddVenue() {
+  const user = useSelector((state:RootState)=> state.auth.user);
   const initialValues = {
     title: "",
     capacity: "",
@@ -47,11 +51,32 @@ export default function AddVenue() {
 
   const onSubmit = async (values: any, props: any) => {
     console.log(values);
-    setTimeout(() => {
+    let address: Address =  {
+      streetAddress: values.street,
+      state: values.state,
+      city: values.city,
+      country: values.country,
+      pin: values.pincode,
+    }
+    let venue: any = {
+      host: {
+        id: user.id
+      },
+      price: values.price,
+      address,
+      capacity: values.capacity,
+      title: values.title,
+      description: values.description,
+    }
+    const [response,error] = await of(venueService.addVenue(venue));
+    if(error) {
+      alert(error.message);
+    }
+    if(response) {
+      console.log(response);
       props.resetForm();
       props.setSubmitting(false);
-    }, 2000);
-    console.log(props);
+    }
   };
   return (
     <div>
