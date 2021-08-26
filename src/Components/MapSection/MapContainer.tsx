@@ -1,5 +1,5 @@
 import React from "react";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+// import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
 //  function MapContainer(props:any) {
 //   const location = {

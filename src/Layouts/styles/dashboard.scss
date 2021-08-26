@@ -21,10 +21,16 @@
 }
 
 .side-nav {
-  height: 90vh !important;
+  height: 100% !important;
   border: 1px solid #707070;
 }
 
+#active {
+  background-color: #eaeaea;
+}
 .main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #707070;
 }

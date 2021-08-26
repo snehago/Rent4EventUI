@@ -50,7 +50,7 @@ export default function AppRouter({user}:any) {
           component={VenueDetailsPage}
         />
         <Route exact path="/dashboard/:userRole" component={Dashboard} />
-        <Route exact path="/checkout/:userId" component={CheckoutPage} />
+        <Route exact path="/checkout/:venueId" component={CheckoutPage} />
         <Route component={ErrorPage} />
       </Switch>
     </>

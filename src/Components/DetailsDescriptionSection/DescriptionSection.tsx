@@ -1,12 +1,29 @@
-import { Button, Grid, Paper, Typography } from "@material-ui/core";
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import "./description.scss";
+import { Venue } from "../../Shared/Interfaces/Venue";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+// import Calendar from "react-calendar";
+// import "react-calendar/dist/Calendar.css";
 
-export default function DescriptionSection() {
+interface DSProps {
+  venue: Venue;
+}
+export default function DescriptionSection({ venue }: DSProps) {
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+
   const handleDateChange = (event: any) => {
     console.log(event.target.value);
+    if (event.target.value[0] !== startDate) {
+      setStartDate(event.target.value[0]);
+    }
+    if (event.target.value[1] !== endDate) {
+      setEndDate(event.target.value[1]);
+    }
+
+    console.log("SD:", startDate);
+    console.log("ED:", endDate);
   };
   const startDateValue: Date = new Date(
     new Date().getFullYear(),
@@ -28,6 +45,7 @@ export default function DescriptionSection() {
     new Date().getMonth() + 1,
     20
   );
+
   return (
     <div>
       <div className="descriptionContainer">
@@ -35,37 +53,15 @@ export default function DescriptionSection() {
           <Grid item container spacing={2} xs={12}>
             <Grid item xs={7}>
               <Typography className="venueTitle" component="h2">
-                Title
+                {venue?.title}
               </Typography>
               <Typography className="descriptionText">
-                Vestibulum maximus laoreet ipsum ac semper. Suspendisse potenti.
-                Vestibulum sit amet pulvinar augue, eget ultricies neque.
-                Maecenas a malesuada est. Nulla molestie lorem libero, quis
-                tempus felis convallis sed. Fusce ultrices nunc vitae posuere
-                dignissim. Cras congue ante vel mi facilisis vulputate. Ut nec
-                enim mi. Sed bibendum, sapien tristique pellentesque
-                ullamcorper, metus diam porta elit, a tempor augue nulla vitae
-                magna.
-                <p /> In ipsum magna, viverra ac nunc vehicula, cursus
-                condimentum orci. Aenean porta sagittis elementum. Vestibulum
-                vulputate eget sapien sed scelerisque. Quisque maximus fermentum
-                condimentum. Phasellus suscipit eros bibendum magna dignissim
-                lobortis. Aliquam ullamcorper ante non semper mollis. Mauris
-                dignissim dolor quis arcu ultrices, ac tincidunt mi tincidunt.
-                Donec non quam turpis.
+                {venue?.description}
               </Typography>
             </Grid>
 
-            <Grid
-              item
-              xs={5}
-              container
-              style={{
-                backgroundColor: "#EAEAEA",
-                borderRadius: "0.4rem",
-                padding: "2%",
-              }}
-            >
+            {/* PRICE SECTION STARTS */}
+            <Grid item xs={5} container className="description-price-container">
               <Grid
                 item
                 container
@@ -75,40 +71,28 @@ export default function DescriptionSection() {
                 <Grid item xs={6} className="priceLabel">
                   Price
                 </Grid>
-                <Grid item xs={6} className="price">
-                  $30.00
+                <Grid item xs={6} className="description-section-price">
+                  ${venue?.price}
                 </Grid>
               </Grid>
-              <Grid
-                item
-                xs={12}
-                // style={{  height: "20%",marginTop:'-18%' }}
-              >
+
+              <Grid item xs={12} style={{ marginTop: "5%" }}>
                 <DateRangePickerComponent
                   placeholder="Select Dates"
                   // startDate={startDateValue}
                   // endDate={endDateValue}
-                  min={minDate}
-                  max={maxDate}
-                  minDays={3}
-                  maxDays={5}
+                  // min={minDate}
+                  // max={maxDate}
+                  // minDays={3}
+                  // maxDays={5}
                   format="dd-MMM-yy"
                   onChange={handleDateChange}
                 ></DateRangePickerComponent>
               </Grid>
 
-              <Grid
-                item
-                xs={12}
-                style={{ display: "flex", justifyContent: "center" }}
-              >
+              <Grid item xs={12} className="description-checkoutbutton-grid">
                 <Button
-                  style={{
-                    backgroundColor: "#D3600C",
-                    color: "#FFFFFF",
-                    width: "50%",
-                    height: "50%",
-                  }}
+                  className="description-checkout-button"
                   variant="contained"
                 >
                   CHECKOUT

@@ -1,16 +1,16 @@
 import axios from "axios";
 import { SharedService } from "./SharedService";
 import { of } from "await-of";
-import { Venue } from "../Shared/Interfaces/Venue";
+import { Booking } from "../Shared/Interfaces/Booking";
 const sharedService = new SharedService();
-class VenueService {
+class BookingService {
   BACKEND_URL: string | undefined = process.env.REACT_APP_BACKEND_URL;
 
-  public async addVenue(venue: Venue) {
+  public async addBooking(booking: Booking) {
     const [response, error] = await of(
       axios.post(
-        `${this.BACKEND_URL}/venue`,
-        venue,
+        `${this.BACKEND_URL}/booking/`,
+        booking,
         await sharedService.getHeader()
       )
     );
@@ -20,14 +20,14 @@ class VenueService {
     if (response) {
       console.log({ response });
       if (response.status >= 200 && response.status <= 210) {
-        return response.data;
+        return response.data.response;
       } else throw Error(response.data.message);
     }
   }
 
-  public async getVenueByVenueId(id: number) {
+  public async getBookingByVenueId(id: number) {
     const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/venue/${id}`)
+      axios.get(`${this.BACKEND_URL}/booking/venue/${id}`)
     );
     if (error) {
       console.log(error);
@@ -41,9 +41,9 @@ class VenueService {
     }
   }
 
-  public async getVenueByUserId(id: number) {
+  public async getBookingByUserId(id: number) {
     const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/venue/user/${id}`)
+      axios.get(`${this.BACKEND_URL}/booking/client/${id}`)
     );
     if (error) {
       console.log(error);
@@ -56,9 +56,9 @@ class VenueService {
     }
   }
 
-  public async getPromotedVenues() {
+  public async getAllBookings() {
     const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/venue/promotional`)
+      axios.get(`${this.BACKEND_URL}/booking`)
     );
     if (error) {
       console.log(error);
@@ -71,38 +71,9 @@ class VenueService {
     }
   }
 
-  public async getPopularVenues() {
+  public async deleteBooking(id: number) {
     const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/venue/popular`)
-    );
-    if (error) {
-      console.log(error);
-      throw Error("Something went wrong");
-    }
-    if (response) {
-      if (response.status >= 200 && response.status <= 210) {
-        return response.data.response;
-      } else throw Error(response.data.message);
-    }
-  }
-  public async getAllVenues() {
-    const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/venue`)
-    );
-    if (error) {
-      console.log(error);
-      throw Error("Something went wrong");
-    }
-    if (response) {
-      if (response.status >= 200 && response.status <= 210) {
-        return response.data;
-      } else throw Error(response.data.message);
-    }
-  }
-
-  public async deleteVenue(id: number) {
-    const [response, error] = await of(
-      axios.delete(`${this.BACKEND_URL}/venue/${id}`)
+      axios.delete(`${this.BACKEND_URL}/booking/${id}`)
     );
     if (error) {
       console.log(error);
@@ -116,4 +87,4 @@ class VenueService {
   }
 }
 
-export { VenueService };
+export { BookingService };

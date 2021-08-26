@@ -59,18 +59,20 @@ const HomePage = () => {
         <div className="banner-background">
           <div className="banner-heading">
             <Typography variant="h5">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Your Venue Is Where The Magic Happens And The Exciting Journey
+              Begins
             </Typography>
           </div>
           <div className="banner-subheading">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-            pretium ante et nisl consectetur, eu posuere nisi elementum.
-            Phasellus nec elit in leo fringilla bibendum ut commodo justo. In
-            vel condimentum justo.
+            Ready to paint a visual picture for your clients? Power up your
+            venue with Rent4Event. It is one of the best and convenient way to
+            showcase your venue as an event hotspot
           </div>
         </div>
         <div className="banner-button-container">
-          <Button href="/user/register/host" className="banner-host-button">Become a Host</Button>
+          <Button href="/user/register/host" className="banner-host-button">
+            Become a Host
+          </Button>
         </div>
       </div>
       {/* banner ends */}
@@ -185,9 +187,16 @@ const HomePage = () => {
         </div>
         <Box p={6} style={{ marginLeft: 30 }}>
           <Grid xs={12} container spacing={6}>
-            { venues?.map((venue) => <Grid item xs={12} md={6} lg={4}>
-              <CardItem id={venue.id} title={venue.title} description={venue.description} price={venue.price} />
-            </Grid>)}
+            {venues?.map((venue) => (
+              <Grid item xs={12} md={6} lg={4}>
+                <CardItem
+                  id={venue.id}
+                  title={venue.title}
+                  description={venue.description}
+                  price={venue.price}
+                />
+              </Grid>
+            ))}
           </Grid>
         </Box>
 

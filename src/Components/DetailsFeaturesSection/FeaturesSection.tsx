@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import MapContainer from "../MapSection/MapContainer";
 import { Rating } from "@material-ui/lab";
 import "./featuressection.scss";
+import { Venue } from "../../Shared/Interfaces/Venue";
 
-export default function FeaturesSection() {
+interface FSProps {
+  venue: Venue;
+}
+export default function FeaturesSection({ venue }: FSProps) {
   const facilities = [
     "facility 1",
     "facility 2",
@@ -31,8 +35,8 @@ export default function FeaturesSection() {
 
   const [ratingValue, setRatingValue] = useState(2.5);
   return (
-    <div style={{ backgroundColor: "#F4F4F4", marginTop: "3%" }}>
-      <Grid container xs={12} style={{ padding: "2%" }}>
+    <div className="features-main-container">
+      <Grid container xs={12} className="features-grid-main-container">
         <Grid container xs={12}>
           <Grid item container xs={6}>
             {/* Facilities */}
@@ -40,18 +44,17 @@ export default function FeaturesSection() {
               item
               container
               xs={12}
-              style={{
-                backgroundColor: "white",
-                padding: "1%",
-                borderRadius: "0.4rem",
-              }}
+              className="features-facilities-grid-container"
             >
-              <h2 style={{ marginLeft: "5%" }} className="facilitiesLabel">
-                Facilities
-              </h2>
+              <h2 className="features-facilities-label">Facilities</h2>
               <Grid item container spacing={2} xs={12}>
                 {facilities.map((item) => (
-                  <Grid className="facilityItem" spacing={2} item xs={3}>
+                  <Grid
+                    className="features-facility-item"
+                    spacing={2}
+                    item
+                    xs={3}
+                  >
                     {item}
                   </Grid>
                 ))}
@@ -64,16 +67,9 @@ export default function FeaturesSection() {
               item
               container
               xs={12}
-              style={{
-                marginTop: "1%",
-                backgroundColor: "white",
-                padding: "1%",
-                borderRadius: "0.4rem",
-              }}
+              className="features-offers-grid-container"
             >
-              <h2 style={{ marginLeft: "5%" }} className="facilitiesLabel">
-                Offers &amp; Extras
-              </h2>
+              <h2 className="features-facilities-label">Offers &amp; Extras</h2>
               <Grid item container spacing={2} xs={12}>
                 {offers.map((item) => (
                   <Grid className="offerItem" spacing={2} item xs={3}>
@@ -84,53 +80,47 @@ export default function FeaturesSection() {
               </Grid>
             </Grid>
           </Grid>
+
+          {/* SIDE BAR STARTS */}
           <Grid item container xs={6}>
             <Grid
               item
               container
               xs={12}
-              style={{
-                marginLeft: "2%",
-                backgroundColor: "white",
-                padding: "1%",
-                borderRadius: "0.4rem",
-                height: "60%",
-              }}
+              className="features-side-bar-grid-container"
             >
-              <h2
-                style={{ marginLeft: "5%", height: "20%" }}
-                className="facilitiesLabel"
-              >
-                Lorem ipsum dolor.
-              </h2>
+              <h2 className="contact-details-label">Contact Details</h2>
 
-              <Typography className="address">
-                Bangalore, #992/SY-no/3/1 devarabisanahalli, varathur, hobli,
-                Bellandur, Bengaluru, Karnataka 560037•0124 620 1730
-              </Typography>
+              <Grid item xs={12} className="venue-address-grid">
+                <Typography className="venue-address">
+                  {`${venue.address.streetAddress},${venue.address.city},${venue.address.state},${venue.address.country},${venue.address.pin}`}
+                </Typography>
+              </Grid>
 
-              <Box
-                component="fieldset"
-                className="ratingBox"
-                borderColor="transparent"
-              >
-                <div className="ratingContainer">
-                  <div id="ratingValue">{ratingValue}</div>
-                  <Rating
-                    name="read-only"
-                    className="rating"
-                    size="small"
-                    value={ratingValue}
-                    readOnly
-                  />
-                </div>
-              </Box>
+              <Grid item xs={12}>
+                <Box
+                  component="fieldset"
+                  className="feature-rating-box"
+                  borderColor="transparent"
+                >
+                  <div className="feature-rating-container">
+                    <div id="ratingValue">{ratingValue}</div>
+                    <Rating
+                      name="read-only"
+                      className="rating"
+                      size="small"
+                      value={ratingValue}
+                      readOnly
+                    />
+                  </div>
+                </Box>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          <MapContainer />
+        <Grid item xs={12} className="map-grid">
+          {/* <MapContainer /> */}
         </Grid>
       </Grid>
     </div>
