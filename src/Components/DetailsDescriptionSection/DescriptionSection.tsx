@@ -1,15 +1,51 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import "./description.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
+import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 // import Calendar from "react-calendar";
 // import "react-calendar/dist/Calendar.css";
 
 interface DSProps {
   venue: Venue;
 }
-export default function DescriptionSection({venue}:DSProps) {
-  const [value, onChange] = useState<Date>(new Date());
+export default function DescriptionSection({ venue }: DSProps) {
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+
+  const handleDateChange = (event: any) => {
+    console.log(event.target.value);
+    if (event.target.value[0] !== startDate) {
+      setStartDate(event.target.value[0]);
+    }
+    if (event.target.value[1] !== endDate) {
+      setEndDate(event.target.value[1]);
+    }
+
+    console.log("SD:", startDate);
+    console.log("ED:", endDate);
+  };
+  const startDateValue: Date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    14
+  );
+  const endDateValue: Date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    15
+  );
+  const minDate: Date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    8
+  );
+  const maxDate: Date = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    20
+  );
+
   return (
     <div>
       <div className="descriptionContainer">
@@ -24,16 +60,8 @@ export default function DescriptionSection({venue}:DSProps) {
               </Typography>
             </Grid>
 
-            <Grid
-              item
-              xs={5}
-              container
-              style={{
-                backgroundColor: "#EAEAEA",
-                borderRadius: "0.4rem",
-                padding: "2%",
-              }}
-            >
+            {/* PRICE SECTION STARTS */}
+            <Grid item xs={5} container className="description-price-container">
               <Grid
                 item
                 container
@@ -47,41 +75,24 @@ export default function DescriptionSection({venue}:DSProps) {
                   ${venue?.price}
                 </Grid>
               </Grid>
-              <Grid item xs={12} className="calendar-container">
-                <TextField
-                  id="date"
-                  label="to"
-                  type="date"
-                  onChange={(e) => onChange(new Date(e.target.value))}
-                  defaultValue={value}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                <TextField
-                  id="date"
-                  label="from"
-                  type="date"
-                  onChange={(e) => onChange(new Date(e.target.value))}
-                  defaultValue={value}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                {/* <Calendar onChange={onChange} value={value} returnValue="range" selectRange/> */}
+
+              <Grid item xs={12} style={{ marginTop: "5%" }}>
+                <DateRangePickerComponent
+                  placeholder="Select Dates"
+                  // startDate={startDateValue}
+                  // endDate={endDateValue}
+                  // min={minDate}
+                  // max={maxDate}
+                  // minDays={3}
+                  // maxDays={5}
+                  format="dd-MMM-yy"
+                  onChange={handleDateChange}
+                ></DateRangePickerComponent>
               </Grid>
-              <Grid
-                item
-                xs={12}
-                style={{ display: "flex", justifyContent: "center" }}
-              >
+
+              <Grid item xs={12} className="description-checkoutbutton-grid">
                 <Button
-                  style={{
-                    backgroundColor: "#D3600C",
-                    color: "#FFFFFF",
-                    width: "50%",
-                    height: "50%",
-                  }}
+                  className="description-checkout-button"
                   variant="contained"
                 >
                   CHECKOUT
