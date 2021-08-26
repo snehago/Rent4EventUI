@@ -10,10 +10,21 @@ interface DSProps {
   venue: Venue;
 }
 export default function DescriptionSection({ venue }: DSProps) {
-  const [value, onChange] = useState<Date>(new Date());
+
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
 
   const handleDateChange = (event: any) => {
     console.log(event.target.value);
+    if(event.target.value[0]!==startDate){
+      setStartDate(event.target.value[0])
+    }
+    if(event.target.value[1]!==endDate){
+      setEndDate(event.target.value[1])
+    }
+    
+    console.log("SD:",startDate)
+    console.log("ED:",endDate)
   };
   const startDateValue: Date = new Date(
     new Date().getFullYear(),
