@@ -23,7 +23,7 @@ const RegistrationPage = () => {
     lastName: "",
     email: "",
     passwordHash: "",
-    confirmPassword: "",
+    confirmPasswordHash: "",
     dob: "",
   };
 
@@ -41,11 +41,11 @@ const RegistrationPage = () => {
     firstName: Yup.string().min(3, "It's too short").required("Required"),
     lastName: Yup.string().min(3, "It's too short").required("Required"),
     email: Yup.string().email("Enter valid email").required("Required"),
-    password: Yup.string()
+    passwordHash: Yup.string()
       .min(8, "Password minimum length should be 8")
       .required("Required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Password not matched")
+    confirmPasswordHash: Yup.string()
+      .oneOf([Yup.ref("passwordHash")], "Password not matched")
       .required("Required"),
 
     dob: Yup.string().required("Required"),
@@ -69,7 +69,7 @@ const RegistrationPage = () => {
           onSubmit={onSubmit}
         >
           {(props:any) => (
-            <Form>
+            <Form className="register-form">
               <Field
                 as={TextField}
                 name="firstName"
@@ -126,14 +126,14 @@ const RegistrationPage = () => {
                 placeholder="Enter a Password"
                 required
                 helperText={
-                  <ErrorMessage name="password">
+                  <ErrorMessage name="passwordHash">
                     {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
               />
               <Field
                 as={TextField}
-                name="confirmPassword"
+                name="confirmPasswordHash"
                 className="textFieldStyle"
                 variant="outlined"
                 fullWidth
@@ -142,7 +142,7 @@ const RegistrationPage = () => {
                 placeholder="Confirm your Password"
                 required
                 helperText={
-                  <ErrorMessage name="confirmPassword">
+                  <ErrorMessage name="confirmPasswordHash">
                     {(msg) => <div className="errorMsg">{msg}</div>}
                   </ErrorMessage>
                 }
@@ -183,7 +183,7 @@ const RegistrationPage = () => {
             </Form>
           )}
         </Formik>
-        <Typography>
+        <Typography className="register-text-links">
           {" "}
           Already have an account ?
           <NavLink className="navLink" exact to="/user/login/">

@@ -15,7 +15,7 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { UserService } from "../Services/UserService";
 import { useDispatch } from "react-redux";
-import {of} from 'await-of';
+import { of } from "await-of";
 import { login } from "../Redux/reducers/AuthReducer";
 import "./styles/login.scss";
 import { useHistory } from "react-router-dom";
@@ -34,19 +34,27 @@ const LoginPage = () => {
     passwordHash: Yup.string().required("Required"),
   });
 
-
-  const onSubmit =async (values: any) => {
-    console.log(values); 
-     const [response, error] = await of(userService.login(values));
-     if (error) {
-       alert(error);
-     }
-     if (response) {
-       if(response.role === 'client')history.push("/home");
-       else history.push("/dashboard/host");
-       dispatch(login(response));
-     }
+  const onSubmit = async (values: any) => {
+    console.log(values);
+    const [response, error] = await of(userService.login(values));
+    if (error) {
+      alert(error);
+    }
+    if (response) {
+      if (response.role === "client") history.push("/home");
+      else history.push("/dashboard/host");
+      dispatch(login(response));
+    }
   };
+
+  const handleRegister=()=>{
+    history.push("/user/register/user/");
+  }
+
+  const handleRegisterHost=()=>{
+    history.push("/user/register/host/");
+  }
+
   return (
     <Grid>
       <Paper elevation={10} className="paperStyle">
@@ -61,8 +69,8 @@ const LoginPage = () => {
           onSubmit={onSubmit}
           validationSchema={validationSchema}
         >
-          {(props:any) => (
-            <Form>
+          {(props: any) => (
+            <Form className="login-form">
               <Field
                 as={TextField}
                 name="email"
@@ -117,20 +125,27 @@ const LoginPage = () => {
             </Form>
           )}
         </Formik>
-        <Typography>
+        <Typography className="login-text-links">
           <Link href="#">Forgot Password ?</Link>
         </Typography>
-        <Typography>
+        <Typography className="login-text-links">
           {" "}
           Do you have an account ?
           <br />
-          <NavLink className="navLink" exact to="/user/register/user/">
+          {/* <NavLink className="navLink" exact to="/user/register/user/">
             Register
-          </NavLink>
+          </NavLink> */}
+          <Button onClick={handleRegister} fullWidth className="register-button">
+            Register
+          </Button>
           <br />
-          <NavLink className="navLink" exact to="/user/register/host/">
+          {/* <NavLink className="navLink" exact to="/user/register/host/">
             Register as a Host
-          </NavLink>
+          </NavLink> */}
+          <Button onClick={handleRegisterHost} fullWidth className="register-button">
+            Register as a Host
+          </Button>
+
         </Typography>
       </Paper>
     </Grid>
