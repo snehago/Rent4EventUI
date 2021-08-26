@@ -69,7 +69,7 @@ const RegistrationPage = () => {
           onSubmit={onSubmit}
         >
           {(props:any) => (
-            <Form>
+            <Form className="register-form">
               <Field
                 as={TextField}
                 name="firstName"
@@ -183,7 +183,7 @@ const RegistrationPage = () => {
             </Form>
           )}
         </Formik>
-        <Typography>
+        <Typography className="register-text-links">
           {" "}
           Already have an account ?
           <NavLink className="navLink" exact to="/user/login/">

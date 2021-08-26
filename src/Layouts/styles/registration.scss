@@ -4,26 +4,33 @@
   align-items: center;
 }
 .paperStyle {
-  padding: 30px 20px;
-  width: 500px;
+  padding:2% 1.5%;
+  width: 30%!important;
   margin: 20px auto;
 }
 .headerStyle {
   margin: 0;
 }
 .avatarStyle {
-  background-color: #1bbd7e !important;
+  background-color: #D3600C !important;
+}
+.register-form{
+  margin-top: 4%;
 }
 
 .textFieldStyle {
   margin-bottom: 5% !important;
 }
 .btnStyle {
-  margin: 8px 0;
+  margin-top: 2%!important;
 }
 .errorMsg {
   color: red;
 }
 .navLink {
   text-decoration: none;
+}
+
+.register-text-links{
+  margin-top: 2%!important;
 }
