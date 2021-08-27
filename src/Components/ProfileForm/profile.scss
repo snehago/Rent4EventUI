@@ -1,0 +1,42 @@
+@import '../../Shared/styles/colors';
+.profile-paper-container {
+  width: 96%;
+  margin-top: 1% !important;
+  margin-left: 2% !important;
+  margin-right: 2% !important;
+  margin-bottom: 1% !important;
+}
+.profile-main-grid-container {
+  width: 96% !important;
+  margin-top: 1% !important;
+  margin-left: 2% !important;
+  margin-right: 2% !important;
+  margin-bottom: 1% !important;
+}
+.profile-section-label {
+  text-align: left;
+  font: normal normal bold 120% Montserrat !important;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+
+.profile-pic-card {
+  max-width: 40vh;
+  max-height: 50vh;
+}
+.profile-pic-grid {
+  // background-color: yellow;
+}
+.profile-details-grid-container {
+  // background-color: yellowgreen;
+  box-sizing: border-box;
+  // background-color: #F4F4F4;
+  margin-left: 4%!important;
+  height: 100%!important;
+  box-sizing: border-box;
+}
+.profile-edit-button{
+  background-color: $banner-button-background-color!important;
+  color: $white!important;
+}
