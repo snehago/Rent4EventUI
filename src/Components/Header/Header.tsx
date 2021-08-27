@@ -20,10 +20,6 @@ const headerData = [
     label: "Venues",
     href: "/venue-list",
   },
-  {
-    label: "Login",
-    href: "/user/login",
-  },
 ];
 
 export default function Header() {
@@ -74,12 +70,12 @@ export default function Header() {
   };
 
   const getMenuButtons = () => {
-    return headerData.map(({ label, href}) => {
-      return !user || ( user && label !== "Login") ? (
+    let data:any = headerData.map(({ label, href}) => {
+      return  (
         <Button
           {...{
             key: label,
-            color: "inherit",
+            color:"inherit",
             to: href,
             component: RouterLink,
             className: "side-nav-button",
@@ -87,7 +83,24 @@ export default function Header() {
         >
           {label}
         </Button>
-      ) : (
+      )
+      
+      });
+      let loginSection = !user ? (
+        <Button
+          {...{
+            key: "Login",
+            color: "primary",
+            to: '/user/login',
+            component: RouterLink,
+            className: "side-nav-login-button",
+            variant: "contained",
+          }}
+        >
+          Login
+        </Button>
+      ):
+      (
         <>
           <IconButton
             aria-label="account of current user"
@@ -119,8 +132,9 @@ export default function Header() {
           </Menu>
         </>
       );
-    });
-  };
+      data.push(loginSection);
+      return data;
+}
 
   return (
     <header>

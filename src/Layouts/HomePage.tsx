@@ -186,8 +186,8 @@ const HomePage = () => {
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
         </div>
-        <Box p={6} style={{ marginLeft: 30 }}>
-          <Grid xs={12} container spacing={6}>
+        <Box style={{ marginLeft: 30 }} className="recommended-venue-box">
+          <Grid xs={12} container spacing={2}>
             {venues?.map((venue) => (
               <Grid item xs={12} md={6} lg={4}>
                 <CardItem

@@ -127,6 +127,7 @@ export default function CheckoutPage() {
             title="Booking successfull"
             content={`Your booking for venue is completed your booking id is ${venueId}`}
             open={open}
+            type="success"
             closeCallback={onModalClose}
           />
         </div>

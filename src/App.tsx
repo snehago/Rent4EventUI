@@ -13,8 +13,8 @@ const sharedService = new SharedService();
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#D3600C',
-    }
+      main: "#D3600C",
+    },
   },
 });
 
