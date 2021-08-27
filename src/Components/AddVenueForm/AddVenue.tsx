@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -16,6 +16,10 @@ import { Address } from "../../Shared/Interfaces/Address";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { of } from "await-of";
+import { FacilityService } from "../../Services/FacilityService";
+import { Facility } from "../../Shared/Interfaces/Facitlity";
+import { EventTypeService } from "../../Services/EventTypeService";
+import { EventType } from "../../Shared/Interfaces/EventType";
 const venueService = new VenueService();
 export default function AddVenue() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -78,6 +82,35 @@ export default function AddVenue() {
       props.setSubmitting(false);
     }
   };
+
+  const facilityService = new FacilityService();
+  const eventTypeService = new EventTypeService();
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [eventTypes, setEventTypes] = useState<EventType[]>([]);
+  useEffect(() => {
+    (async () => {
+      console.log("use effect of add venue page");
+      const [response, error] = await of(facilityService.getAllFacility());
+      if (error) {
+        alert(error.message);
+      }
+      if (response) {
+        setFacilities(response);
+      }
+    })();
+
+    (async () => {
+      console.log("use effect2 of add venue page");
+      const [response, error] = await of(eventTypeService.getAllEventType());
+      if (error) {
+        alert(error.message);
+      }
+      if (response) {
+        setEventTypes(response);
+      }
+    })();
+
+  }, []);
   return (
     <div>
       <Paper elevation={10} className="addVenuePaper">
@@ -269,30 +302,16 @@ export default function AddVenue() {
                     </Typography>
                   </Grid>
 
-                  <Grid item xs={3}>
-                    <Field
-                      as={FormControlLabel}
-                      name="Wifi"
-                      control={<Checkbox size="small" color="primary" />}
-                      label="Wifi"
-                    />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Field
-                      as={FormControlLabel}
-                      name="Conference"
-                      control={<Checkbox size="small" color="primary" />}
-                      label="Conference and meeting facilities"
-                    />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Field
-                      as={FormControlLabel}
-                      name="Banquet"
-                      control={<Checkbox size="small" color="primary" />}
-                      label="Banquet facilities"
-                    />
-                  </Grid>
+                  {facilities.map((item) => (
+                    <Grid item xs={3}>
+                      <Field
+                        as={FormControlLabel}
+                        name={item.name}
+                        control={<Checkbox size="small" color="primary" />}
+                        label={item.name}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
 
                 <Grid container item spacing={2}>
@@ -302,30 +321,16 @@ export default function AddVenue() {
                     </Typography>
                   </Grid>
 
-                  <Grid item xs={3}>
-                    <Field
-                      as={FormControlLabel}
-                      name="Marriage"
-                      control={<Checkbox size="small" color="primary" />}
-                      label="Marriage"
-                    />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Field
-                      as={FormControlLabel}
-                      name="Event"
-                      control={<Checkbox size="small" color="primary" />}
-                      label="Event"
-                    />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Field
-                      as={FormControlLabel}
-                      name="Production"
-                      control={<Checkbox size="small" color="primary" />}
-                      label="Production"
-                    />
-                  </Grid>
+                  {eventTypes.map((item) => (
+                    <Grid item xs={3}>
+                      <Field
+                        as={FormControlLabel}
+                        name={item.name}
+                        control={<Checkbox size="small" color="primary" />}
+                        label={item.name}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
 
                 <Grid item xs={12}>

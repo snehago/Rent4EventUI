@@ -40,7 +40,7 @@ class FacilityService{
 
   public async getAllFacility() {
     const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/facility`)
+      axios.get(`${this.BACKEND_URL}/admin/facility`)
     );
     if (error) {
       console.log(error);
@@ -48,7 +48,7 @@ class FacilityService{
     }
     if (response) {
       if (response.status >= 200 && response.status <= 210) {
-        return response.data.response;
+        return response.data;
       } else throw Error(response.data.message);
     }
   }
