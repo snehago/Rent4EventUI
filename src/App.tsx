@@ -26,6 +26,7 @@ function App() {
   useEffect(() => {
     if(sharedService.isUserLoggedIn() &&  !user) {
       let tempUser: User =JSON.parse(sharedService.getUser());
+      console.log("TU::",tempUser)
       dispatch(login(tempUser));
     }
   },[user,dispatch]);

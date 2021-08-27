@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import AddVenue from "../Components/AddVenueForm/AddVenue";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import UserForm from "../Components/UserForm";
+import Profile from "../Components/ProfileForm/Profile";
 import './styles/dashboard.scss';
 
 const sideBarItems: any = {
@@ -50,12 +50,18 @@ const Dashboard = () => {
         </div>
 
         <div className="main-content">
-          {selected===1 && <UserForm></UserForm>}
+          {selected===1 && <Profile userRole={userRole} />}
           {selected===2 && <p>Booking History</p>}
           {selected===3 && <AddVenue/>}
         </div>
       
       </div>
+
+      {/* Profile Section Starts Here */}
+
+        {/* <Profile userRole={userRole} /> */}
+
+      {/* Profile Section Ends Here */}
       <footer className="footer">
         <Footer></Footer>
       </footer>
