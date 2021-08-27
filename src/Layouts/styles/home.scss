@@ -50,9 +50,11 @@
 }
 .banner-background {
   position: relative;
-  top: 20%;
+  top: 0%;
   background-color: rgba(0, 0, 0, .3) !important;
   width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 .banner-heading {
   position: relative;
@@ -81,6 +83,7 @@
   color: $white !important;
   font-size: .7rem !important;
   padding: .5rem 1rem .5rem 1rem !important;
+  z-index: 2;
 }
 
 .filter-container {
@@ -88,10 +91,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  margin: 2rem;
+  margin: 2rem 4rem 0 4rem;
 }
 .select {
-  width: 15vw !important;
+  width: 18vw !important;
 }
 .label {
   width: 10vw !important;
@@ -103,7 +106,7 @@
   align-items: center;
   justify-content: center;
   grid-column-gap: 2%;
-  margin: 0 5rem;
+  margin: 2rem 5rem;
 }
 .textfield {
   width: 75%;

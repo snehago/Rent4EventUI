@@ -23,21 +23,21 @@
 }
 
 
-.filter-container {
+.venue-filter-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   overflow-x: hidden;
 }
-.select {
+.venue-select {
   width: 15vw !important;
 }
-.label {
+.venue-label {
   width: 10vw !important;
 }
 
-.search-container {
+.venue-search-container {
   display: flex;
   flex-direction: row;
   align-items: center;

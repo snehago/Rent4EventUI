@@ -58,7 +58,7 @@ const VenueListPage = () => {
       {/* header end */}
 
       {/* Filter and search  starts*/}
-      <div className="search-container">
+      <div className="venue-search-container">
         <TextField
           id="search"
           label="Search"
@@ -76,9 +76,9 @@ const VenueListPage = () => {
         </Button>
       </div>
 
-      <div className="filter-container">
+      <div className="venue-filter-container">
         <FormControl>
-          <InputLabel shrink id="event-type" className="label">
+          <InputLabel shrink id="event-type" className="venue-label">
             Event Type
           </InputLabel>
           <Select
@@ -87,7 +87,7 @@ const VenueListPage = () => {
             value={filter[0]}
             onChange={handleChange}
             displayEmpty
-            className="select"
+            className="venue-select"
           >
             <MenuItem value="">
               <em>None</em>
@@ -99,7 +99,7 @@ const VenueListPage = () => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="location" className="label">
+          <InputLabel shrink id="location" className="venue-label">
             Location
           </InputLabel>
           <Select
@@ -108,7 +108,7 @@ const VenueListPage = () => {
             value={filter[0]}
             onChange={handleChange}
             displayEmpty
-            className="select"
+            className="venue-select"
           >
             <MenuItem value="">
               <em>None</em>
@@ -120,7 +120,7 @@ const VenueListPage = () => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="capacity" className="label">
+          <InputLabel shrink id="capacity" className="venue-label">
             Capacity
           </InputLabel>
           <Select
@@ -129,7 +129,7 @@ const VenueListPage = () => {
             value={filter[0]}
             onChange={handleChange}
             displayEmpty
-            className="select"
+            className="venue-select"
           >
             <MenuItem value="">
               <em>None</em>
@@ -141,7 +141,7 @@ const VenueListPage = () => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="price" className="label">
+          <InputLabel shrink id="price" className="venue-label">
             Price
           </InputLabel>
           <Select
@@ -150,7 +150,7 @@ const VenueListPage = () => {
             value={filter[0]}
             onChange={handleChange}
             displayEmpty
-            className="select"
+            className="venue-select"
           >
             <MenuItem value="">
               <em>None</em>
@@ -163,7 +163,7 @@ const VenueListPage = () => {
       </div>
       <div className="filter-container">
         <FormControl>
-          <InputLabel shrink id="event-type" className="label">
+          <InputLabel shrink id="event-type" className="venue-label">
             Event Type
           </InputLabel>
           <Select
@@ -172,7 +172,7 @@ const VenueListPage = () => {
             value={filter[0]}
             onChange={handleChange}
             displayEmpty
-            className="select"
+            className="venue-select"
           >
             <MenuItem value="">
               <em>None</em>
@@ -184,7 +184,7 @@ const VenueListPage = () => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="location" className="label">
+          <InputLabel shrink id="location" className="venue-label">
             Location
           </InputLabel>
           <Select
@@ -193,7 +193,7 @@ const VenueListPage = () => {
             value={filter[0]}
             onChange={handleChange}
             displayEmpty
-            className="select"
+            className="venue-select"
           >
             <MenuItem value="">
               <em>None</em>
@@ -205,7 +205,7 @@ const VenueListPage = () => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="capacity" className="label">
+          <InputLabel shrink id="capacity" className="venue-label">
             Capacity
           </InputLabel>
           <Select
@@ -214,7 +214,7 @@ const VenueListPage = () => {
             value={filter[0]}
             onChange={handleChange}
             displayEmpty
-            className="select"
+            className="venue-select"
           >
             <MenuItem value="">
               <em>None</em>
@@ -226,7 +226,7 @@ const VenueListPage = () => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="price" className="label">
+          <InputLabel shrink id="price" className="venue-label">
             Price
           </InputLabel>
           <Select
@@ -235,7 +235,7 @@ const VenueListPage = () => {
             value={filter[0]}
             onChange={handleChange}
             displayEmpty
-            className="select"
+            className="venue-select"
           >
             <MenuItem value="">
               <em>None</em>

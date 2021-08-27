@@ -16,6 +16,7 @@ import { Venue } from "../Shared/Interfaces/Venue";
 // const sharedService = new SharedService();
 //const userService = new UserService();
 const venueService = new VenueService();
+
 const HomePage = () => {
   const history = useHistory();
   const [filter, setFilter] = useState<string[]>([]);
@@ -68,11 +69,11 @@ const HomePage = () => {
             venue with Rent4Event. It is one of the best and convenient way to
             showcase your venue as an event hotspot
           </div>
-        </div>
-        <div className="banner-button-container">
-          <Button href="/user/register/host" className="banner-host-button">
-            Become a Host
-          </Button>
+          <div className="banner-button-container">
+            <Button href="/user/register/host" className="banner-host-button">
+              Become a Host
+            </Button>
+          </div>
         </div>
       </div>
       {/* banner ends */}
