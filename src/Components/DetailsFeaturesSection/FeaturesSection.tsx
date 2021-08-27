@@ -1,9 +1,9 @@
 import { Box, Grid, Typography } from "@material-ui/core";
 import React, { useState } from "react";
-import MapContainer from "../MapSection/MapContainer";
 import { Rating } from "@material-ui/lab";
 import "./featuressection.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
+import MapComponent from "../MapSection/MapComponent";
 
 interface FSProps {
   venue: Venue;
@@ -120,7 +120,7 @@ export default function FeaturesSection({ venue }: FSProps) {
         </Grid>
 
         <Grid item xs={12} className="map-grid">
-          {/* <MapContainer /> */}
+          <MapComponent />
         </Grid>
       </Grid>
     </div>
