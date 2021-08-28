@@ -40,7 +40,7 @@ class EventTypeService{
 
   public async getAllEventType() {
     const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/event`)
+      axios.get(`${this.BACKEND_URL}/admin/event`)
     );
     if (error) {
       console.log(error);
@@ -49,8 +49,8 @@ class EventTypeService{
     if (response) {
       if (response.status >= 200 && response.status <= 210) {
         console.log(response.data);
-        return response.data.response;
-      } else throw Error(response.data.message);
+        return response.data;
+      } else throw Error(response.data);
     }
   }
 
