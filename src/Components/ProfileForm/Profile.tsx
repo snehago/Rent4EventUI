@@ -7,10 +7,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import profileImage from "../../assets/images/ppic.jpg";
 import { Paper, TextField } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { SharedService } from "../../Services/SharedService";
-import { login } from "../../Redux/reducers/AuthReducer";
 
 const sharedService = new SharedService();
 
@@ -35,15 +34,12 @@ const Profile = (props: any) => {
   useEffect(() => {
     console.log("use effect of profile");
     if (sharedService.isUserLoggedIn()) {
-      console.log(sharedService.getUser());
-      setProfileDetails(JSON.parse(sharedService.getUser()));
-      console.log("pd::", profileDetails);
-      setFirstName(profileDetails.firstName);
-      console.log(firstName);
-      setLastName(profileDetails.lastName);
-      setContactNumber(profileDetails.contactNumber);
-      setEmail(profileDetails.email);
-      setPaymentDetails(profileDetails.paymentDetails);
+      console.log("user::", user);
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+      setContactNumber(user.contactNumber);
+      setEmail(user.email);
+      setPaymentDetails(user.paymentDetails);
     }
   }, [user]);
 

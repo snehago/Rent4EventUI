@@ -2,26 +2,42 @@ import React, { useState, useEffect } from "react";
 import CardItem from "../Components/CardItem";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-//import { RootState } from "../Redux/store";
-//import {SharedService} from '../Services/SharedService';
-//import { UserService } from "../Services/UserService";
 import { VenueService } from "../Services/VenueService";
-import { Grid, Button, Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField } from "@material-ui/core";
+import { Grid, Button, Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Card } from "@material-ui/core";
 import "./styles/home.scss";
-//import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
+import Caraousel from 'react-multi-carousel';
+import "react-multi-carousel/lib/styles.css";
 
-// const sharedService = new SharedService();
-//const userService = new UserService();
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
+
+
 const venueService = new VenueService();
 
 const HomePage = () => {
   const history = useHistory();
   const [filter, setFilter] = useState<string[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
-  //const user = useSelector((state:RootState)=> state.auth.user);
 
   useEffect(()=> {
     (async ()=> {
@@ -186,20 +202,27 @@ const HomePage = () => {
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
         </div>
-        <Box style={{ marginLeft: 30 }} className="recommended-venue-box">
-          <Grid xs={12} container spacing={2}>
+        <div className="recommended-venue-box">
+          <Caraousel
+            swipeable={true}
+            showDots={false}
+            responsive={responsive}
+            infinite={true}
+            keyBoardControl={true}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
             {venues?.map((venue) => (
-              <Grid item xs={12} md={6} lg={4}>
+              <Box p={3}>
                 <CardItem
                   id={venue.id}
                   title={venue.title}
                   description={venue.description}
                   price={venue.price}
                 />
-              </Grid>
+              </Box>
             ))}
-          </Grid>
-        </Box>
+          </Caraousel>
+        </div>
 
         <div className="exploreButton">
           <Button
