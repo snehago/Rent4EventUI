@@ -1,4 +1,8 @@
 @import '../../Shared/styles/colors';
+.root {
+  margin: 0;
+  padding: 0;
+}
 .recommendedVenues {
   background-color: #f4f4f4;
   margin-top: 3%;
@@ -88,21 +92,21 @@
   z-index: 2;
 }
 
-.filter-container {
+.home-filter-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   margin: 2rem 4rem 0 4rem;
 }
-.select {
+.home-select {
   width: 16vw !important;
 }
-.label {
+.home-label {
   width: 10vw !important;
 }
 
-.search-container {
+.home-search-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -110,11 +114,11 @@
   grid-column-gap: 2%;
   margin: 2rem 5.5rem;
 }
-.textfield {
-  width: 70%;
+.home-textfield {
+  width: 75%;
 }
-.search-button {
-  width: 15% !important;
+.home-search-button {
+  width: 16% !important;
 }
 .home-footer {
   margin-top: 3%;

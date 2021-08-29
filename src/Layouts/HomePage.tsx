@@ -186,9 +186,9 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
       {/* banner ends */}
 
       {/* Filter and search  starts*/}
-      <div className="filter-container">
+      <div className="home-filter-container">
         <FormControl>
-          <InputLabel shrink id="event-type" className="label">
+          <InputLabel shrink id="event-type" className="home-label">
             Event Type
           </InputLabel>
           <Select
@@ -197,7 +197,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
             id="event-type-select"
             value={filters.eventTypeFilter}
             onChange={handleFilterChange}
-            className="select"
+            className="home-select"
           >
             <MenuItem value={-1}>
               <em>None</em>
@@ -209,7 +209,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="location" className="label">
+          <InputLabel shrink id="location" className="home-label">
             Location
           </InputLabel>
           <Select
@@ -218,7 +218,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
             name="locationFilter"
             value={filters.locationFilter}
             onChange={handleFilterChange}
-            className="select"
+            className="home-select"
           >
             <MenuItem value={-1}>
               <em>None</em>
@@ -230,7 +230,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="capacity" className="label">
+          <InputLabel shrink id="capacity" className="home-label">
             Capacity
           </InputLabel>
           <Select
@@ -239,7 +239,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
             name="capacityFilter"
             value={filters.capacityFilter}
             onChange={handleFilterChange}
-            className="select"
+            className="home-select"
           >
             <MenuItem value={-1}>
               <em>None</em>
@@ -251,7 +251,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="price" className="label">
+          <InputLabel shrink id="price" className="home-label">
             Price
           </InputLabel>
           <Select
@@ -260,7 +260,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
             name="priceFilter"
             value={filters.priceFilter}
             onChange={handleFilterChange}
-            className="select"
+            className="home-select"
           >
             <MenuItem value={-1}>
               <em>None</em>
@@ -280,13 +280,13 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
           </Select>
         </FormControl>
       </div>
-      <div className="search-container">
+      <div className="home-search-container">
         <TextField
           id="search"
           name="search"
           label="Search"
           variant="outlined"
-          className="textfield"
+          className="home-textfield"
           size="small"
           onChange={handleFilterChange}
         />
@@ -294,7 +294,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
           variant="contained"
           color="primary"
           size="medium"
-          className="search-button"
+          className="home-search-button"
           onClick ={applyAppropiateFilters}
         >
           search

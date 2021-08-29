@@ -24,20 +24,25 @@ const VenueListPage = () => {
   const history = useHistory();
   const [filter, setFilter] = useState<string[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
+  const [currentPage, setCurrentPage]= useState<number>(0);
+  const [disabled, setDisabled]=useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       console.log("use effect of home page");
-      const [response, error] = await of(venueService.getAllVenues());
+      const [response, error] = await of(venueService.getAllVenues(currentPage));
       if (error) {
         alert(error.message);
       }
       if (response) {
-        console.log(response);
-        setVenues(response);
+        if(response.length === 0) {
+          setDisabled(true);
+          return;
+        }
+        setVenues(prev => [...prev,...response]);
       }
     })();
-  }, []);
+  }, [currentPage]);
 
   const handleClick = () => {
     setTimeout(() => {
@@ -161,7 +166,7 @@ const VenueListPage = () => {
           </Select>
         </FormControl>
       </div>
-      <div className="filter-container">
+      <div className="venue-filter-container">
         <FormControl>
           <InputLabel shrink id="event-type" className="venue-label">
             Event Type
@@ -248,10 +253,10 @@ const VenueListPage = () => {
       </div>
       {/* Filter and search ends */}
       <div className="all-venues">
-        <Box className="venue-box" >
-          <Grid xs={12} container spacing={8} className="venue-grid" >
+        <Box className="venue-box">
+          <Grid xs={12} container spacing={8} className="venue-grid">
             {venues?.map((venue) => (
-              <Grid item xs={12} md={6} lg={6}>
+              <Grid item xs={12} md={6} lg={4}>
                 <CardItem
                   id={venue.id}
                   title={venue.title}
@@ -263,7 +268,10 @@ const VenueListPage = () => {
           </Grid>
         </Box>
       </div>
-      <footer>
+      <div className="venue-load-more-button-container" >
+          <Button variant="outlined" color="primary" onClick={()=> setCurrentPage(prev=> prev+1)} disabled={disabled} >load more..</Button>
+      </div>
+      <footer className="venue-footer" >
         <Footer></Footer>
       </footer>
     </>

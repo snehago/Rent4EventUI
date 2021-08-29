@@ -1,0 +1,78 @@
+@import '../../Shared/styles/colors';
+
+.booking-card-base {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 8vw;
+  min-width: 90% !important;
+  min-height: 20% !important;
+  background-color: $white;
+  margin: 1vw 2vw;
+  cursor: pointer;
+  box-shadow: 0px 8px 16px #00000029;
+  &:hover {
+    box-shadow: 0px 4px 8px $black;
+  }
+}
+.booking-card-image-container{
+  width: 20%;
+  height: 90%;
+  margin: .5vw;
+  background-color: #eaeaea;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.booking-card-info-section {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 100%;
+  align-items: flex-start;
+}
+.booking-card-venue-title {
+  padding: 1vw;
+  font-size: 1.3vw;
+  font-weight: 700;
+}
+.booking-card-venue-address {
+  padding: 0 1vw;
+  font-size: 1.1vw;
+}
+.booking-card-booking-date {
+  padding: 1vw;
+  font-size: 1.1vw;
+}
+.booking-card-days-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+.booking-card-status-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: end;
+  gap: 3vw;
+  width: 20%;
+  padding: 2vw;
+}
+.booking-card-status-label {
+  background-color: rgb(97, 243, 97);
+  color: $white;
+  font-size: 1.2vw;
+  font-weight: 700;
+  margin-top: -1vw;
+  padding: .3vw 1vw;
+}
+
+.booking-card-price-label {
+  color: $booking-card-price-label-color;
+  font-weight: 800;
+  font-size: 1.5vw;
+  margin-right: 1vw;
+}

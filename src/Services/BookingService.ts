@@ -51,7 +51,7 @@ class BookingService {
     }
     if (response) {
       if (response.status >= 200 && response.status <= 210) {
-        return response.data.response;
+        return response.data;
       } else throw Error(response.data.message);
     }
   }

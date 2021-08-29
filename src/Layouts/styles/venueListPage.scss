@@ -1,14 +1,16 @@
 @import '../../Shared/styles/colors';
-.root {
-  margin: 0;
-  padding: 0;
-}
+
 .all-venues {
   width: 100%;
-  margin-top: 1%;
+  margin-top: 5%;
+  height: 50vw;
+  overflow: auto;
 }
 .venue-box {
-  padding: 2rem 10rem 10rem 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
 }
 .venue-grid  {
   background-color: #eaeaea;
@@ -29,9 +31,11 @@
   align-items: center;
   justify-content: space-evenly;
   overflow-x: hidden;
+  margin-top: 2vw;
+  width: 100%;
 }
 .venue-select {
-  width: 15vw !important;
+  width: 13vw !important;
 }
 .venue-label {
   width: 10vw !important;
@@ -43,7 +47,7 @@
   align-items: center;
   justify-content: center;
   grid-column-gap: 2%;
-  margin: 12vh 5rem 0 5rem;
+  margin: 6vw 5rem 0 5rem;
   overflow-x: hidden;
 }
 .textfield {
@@ -51,4 +55,14 @@
 }
 .search-button {
   width: 16% !important;
+}
+.venue-footer {
+  margin-top: 3%;
+}
+.venue-load-more-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2vw;
+  padding: 2vw;
 }

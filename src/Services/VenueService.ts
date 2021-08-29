@@ -85,9 +85,9 @@ class VenueService {
       } else throw Error(response.data.message);
     }
   }
-  public async getAllVenues() {
+  public async getAllVenues(page:number) {
     const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/venue`)
+      axios.get(`${this.BACKEND_URL}/venue?page=${page}&limit=9`)
     );
     if (error) {
       console.log(error);
