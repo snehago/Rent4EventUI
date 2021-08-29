@@ -10,21 +10,71 @@ import { Paper, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { SharedService } from "../../Services/SharedService";
+import { UserService } from "../../Services/UserService";
+import { of } from "await-of";
 
 const sharedService = new SharedService();
 
 const Profile = (props: any) => {
   const [editProfile, setEditProfile] = useState(false);
   const [profileDetails, setProfileDetails] = useState<any>({});
+  const [userId, setUserId] = useState<any>();
   const [firstName, setFirstName] = useState<any>("");
   const [lastName, setLastName] = useState<any>("");
   const [contactNumber, setContactNumber] = useState<any>();
   const [email, setEmail] = useState<any>("");
   const [paymentDetails, setPaymentDetails] = useState<any>("");
+  const [role, setRole] = useState<any>("");
 
   const user = useSelector((state: RootState) => state.auth.user);
 
+  const userService = new UserService();
+
+  async function handleEditFormHost(user: any) {
+    console.log("edit the form");
+    const [response, error] = await of(userService.editProfile(user));
+    if (error) {
+      alert(error.message);
+    }
+    if (response) {
+      alert("edited profile");
+    }
+  }
+
+  async function handleEditFormClient(user: any) {
+    console.log("edit the form");
+    const [response, error] = await of(userService.editProfile(user));
+    if (error) {
+      alert(error.message);
+    }
+    if (response) {
+      alert("edited profile");
+    }
+  }
+
   const handleEditButton = () => {
+    if (editProfile && user.role === "host") {
+      const editedUser: any = {
+        id: userId,
+        firstName: firstName,
+        lasName: lastName,
+        contactNumber: contactNumber,
+        email: email,
+        paymentDetails: paymentDetails,
+        role: role,
+      };
+
+      handleEditFormHost(editedUser);
+    } else if (editProfile && user.role === "client") {
+      const editedUser: any = {
+        id: userId,
+        firstName: firstName,
+        lasName: lastName,
+        contactNumber: contactNumber,
+        email: email,
+      };
+      handleEditFormClient(editedUser);
+    }
     setEditProfile(!editProfile);
     console.log("EP:", editProfile);
   };
@@ -35,11 +85,13 @@ const Profile = (props: any) => {
     console.log("use effect of profile");
     if (sharedService.isUserLoggedIn()) {
       console.log("user::", user);
+      setUserId(user.id);
       setFirstName(user.firstName);
       setLastName(user.lastName);
       setContactNumber(user.contactNumber);
       setEmail(user.email);
       setPaymentDetails(user.paymentDetails);
+      setRole(user.role);
     }
   }, [user]);
 
