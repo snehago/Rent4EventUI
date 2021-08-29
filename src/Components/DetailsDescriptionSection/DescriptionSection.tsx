@@ -3,15 +3,21 @@ import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import "./description.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
-// import Calendar from "react-calendar";
-// import "react-calendar/dist/Calendar.css";
-
+import { NotificationType } from "../Notification";
+import Notification from "../Notification";
+import { addDate } from "../../Redux/reducers/CartReducer";
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 interface DSProps {
   venue: Venue;
 }
 export default function DescriptionSection({ venue }: DSProps) {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
+  const [open, setOpen] = useState<boolean>(false);
+  const [touched, setTouched] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleDateChange = (event: any) => {
     console.log(event.target.value);
@@ -21,14 +27,25 @@ export default function DescriptionSection({ venue }: DSProps) {
     if (event.target.value[1] !== endDate) {
       setEndDate(event.target.value[1]);
     }
-
+    setTouched(true);
     console.log("SD:", startDate);
     console.log("ED:", endDate);
   };
+
+  const checkout = () => {
+    if (!touched) 
+    {
+      setOpen(true);
+      return;
+    }
+    dispatch(addDate({ startDate, endDate }));
+    history.push(`/checkout/${venue?.id}`);
+  };
+
   const startDateValue: Date = new Date(
     new Date().getFullYear(),
-    new Date().getMonth(),
-    14
+    new Date().getMonth()+1,
+    new Date().getDay()
   );
   const endDateValue: Date = new Date(
     new Date().getFullYear(),
@@ -48,20 +65,29 @@ export default function DescriptionSection({ venue }: DSProps) {
 
   return (
     <div>
+      {open && (
+        <Notification
+          open={open}
+          type={NotificationType.error}
+          content="Please select data to book venue"
+        ></Notification>
+      )}
       <div className="descriptionContainer">
         <Grid container spacing={3}>
           <Grid item container spacing={2} xs={12}>
-            <Grid item xs={7}>
-              <Typography className="venueTitle" component="h2">
-                {venue?.title}
-              </Typography>
-              <Typography className="descriptionText">
-                {venue?.description}
-              </Typography>
+            <Grid item xs={8}>
+              <div className="description-container">
+                <Typography className="venueTitle" component="h2">
+                  {venue?.title}
+                </Typography>
+                <Typography className="descriptionText">
+                  {venue?.description}
+                </Typography>
+              </div>
             </Grid>
 
             {/* PRICE SECTION STARTS */}
-            <Grid item xs={5} container className="description-price-container">
+            <Grid item xs={4} container className="description-price-container">
               <Grid
                 item
                 container
@@ -79,7 +105,7 @@ export default function DescriptionSection({ venue }: DSProps) {
               <Grid item xs={12} style={{ marginTop: "5%" }}>
                 <DateRangePickerComponent
                   placeholder="Select Dates"
-                  // startDate={startDateValue}
+                  startDate={startDateValue}
                   // endDate={endDateValue}
                   // min={minDate}
                   // max={maxDate}
@@ -94,6 +120,7 @@ export default function DescriptionSection({ venue }: DSProps) {
                 <Button
                   className="description-checkout-button"
                   variant="contained"
+                  onClick={checkout}
                 >
                   CHECKOUT
                 </Button>

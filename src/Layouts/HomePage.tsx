@@ -3,7 +3,8 @@ import CardItem from "../Components/CardItem";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import { VenueService } from "../Services/VenueService";
-import { Grid, Button, Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField, Card } from "@material-ui/core";
+import { EventTypeService } from "../Services/EventTypeService";
+import { Button, Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField } from "@material-ui/core";
 import "./styles/home.scss";
 import { useHistory } from "react-router";
 import { of } from "await-of";
@@ -15,7 +16,7 @@ const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
-    items: 5,
+    items: 4,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -33,22 +34,47 @@ const responsive = {
 
 
 const venueService = new VenueService();
+const eventTypeService = new EventTypeService();
 
 const HomePage = () => {
   const history = useHistory();
-  const [filter, setFilter] = useState<string[]>([]);
+  const [filters, setFilters] = useState<any>({
+    capacityFilter:-1,
+    priceFilter:-1,
+    locationFilter:-1,
+    eventTypeFilter: -1,
+    search: ""
+  });
   const [venues, setVenues] = useState<Venue[]>([]);
+  const [eventTypes, setEventTypes]= useState([]);
+  const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
 
+  useEffect(() => {
+    (async () => {
+      const [eventResponse, eventError] = await of(eventTypeService.getAllEventType());
+      if (eventError) {
+        alert(eventError.message);
+      }
+      if (eventResponse) {
+        console.log(eventResponse);
+        setEventTypes(eventResponse);
+      }
+    })();
+  }, []);
+
+  useEffect(()=>{
+    applyAppropiateFilters();
+  },[filters])
   useEffect(()=> {
     (async ()=> {
-      console.log("use effect of home page")
-      const [response, error] = await of(venueService.getAllVenues());
+      const [response, error] = await of(venueService.getPromotedVenues());
       if(error) {
         alert(error.message);
       }
       if(response) {
         console.log(response);
         setVenues(response);
+        setOriginalVenues(response);
       }
     })();
   },[])
@@ -59,10 +85,73 @@ const HomePage = () => {
     }, 1000);
   };
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setFilter(prev => [...prev,event.target.value as string]);
+  const handleFilterChange =(event: React.ChangeEvent<any>) => {
+    console.log(event.target);
+    let temp:any={};
+    if(event.target.name ==="priceFilter")temp={...filters, priceFilter: event.target.value};
+    if (event.target.name === "capacityFilter")temp ={ ...filters, capacityFilter: event.target.value };
+    if (event.target.name === "eventTypeFilter")temp ={ ...filters, eventTypeFilter: event.target.value };
+    if (event.target.name === "locationFilter")temp ={ ...filters, locationFilter: event.target.value };
+    if (event.target.name === "search")
+      temp = { ...filters, search: event.target.value };
+    setFilters(temp);
   };
+  const applyAppropiateFilters = () => {
+    console.log(filters);
+    let tempVenues = originalVenues;
+    for(let i of Object.keys(filters)) {
+      if(filters[i]=== -1 )continue;
+      else {
+        if (i === "priceFilter") tempVenues=applyPriceFilter(filters[i],tempVenues);
+        if (i === "capacityFilter")tempVenues=applyCapacityFilter(filters[i], tempVenues);
+        if (i === "eventTypeFilter")tempVenues=applyEventTypeFilter(filters[i], tempVenues);
+      }
+    }
+    let toSearch = filters.search.trim().toUpperCase();
+    if(toSearch.length!==0) {
+      tempVenues = tempVenues.filter(
+        (venue) =>
+          venue.title.toUpperCase().includes(toSearch)
+      );
+    }
+    setVenues(tempVenues);
+  }
+  const applyPriceFilter =(filterType:any, tempVenues:Venue[] ) => {
+  console.log("priceFilter");
+  let temp:any=[];
+  console.log(typeof(filterType),filterType);
+  if(filterType === 1)temp= tempVenues.filter((venue)=> venue.price<=500);
+  if (filterType === 2)
+    temp = tempVenues.filter((venue) => venue.price > 500 && venue.price <= 1000);
+  if (filterType === 3)
+      temp = tempVenues.filter(
+        (venue) => venue.price > 1000 && venue.price <= 5000
+      );
+  if (filterType === 4)
+    temp = tempVenues.filter((venue) => venue.price > 5000);
+  return temp;
+};
 
+const applyCapacityFilter =(filterType:any, tempVenues:Venue[]) => {
+  let temp: any = [];
+  console.log("capacity",filterType);
+  if (filterType === 1)temp = tempVenues.filter((venue) => venue.capacity <= 500);
+  if (filterType === 2)temp = tempVenues.filter(
+      (venue) => venue.capacity > 500 && venue.capacity <= 1000
+    );
+  if (filterType === 3)temp = venues.filter((venue) => venue.capacity > 1000);
+  console.log("capacity",temp.length);
+  return temp;
+};
+const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
+  let temp: any = [];
+  temp = tempVenues.filter((venue) =>
+    venue.listOfEventTypes.filter(
+      (eventType: any) => eventType.id === filterType
+    ).length >0
+  );
+  return temp;
+};
   return (
     <>
       {/* header starts */}
@@ -102,18 +191,18 @@ const HomePage = () => {
           </InputLabel>
           <Select
             labelId="evert-type-select"
+            name="eventTypeFilter"
             id="event-type-select"
-            value={filter[0]}
-            onChange={handleChange}
-            displayEmpty
+            value={filters.eventTypeFilter}
+            onChange={handleFilterChange}
             className="select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {eventTypes?.map((event: any) => (
+              <MenuItem value={event.id}>{event.name}</MenuItem>
+            ))}
           </Select>
         </FormControl>
 
@@ -124,12 +213,12 @@ const HomePage = () => {
           <Select
             labelId="location-select"
             id="location-select"
-            value={filter[0]}
-            onChange={handleChange}
-            displayEmpty
+            name="locationFilter"
+            value={filters.locationFilter}
+            onChange={handleFilterChange}
             className="select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
             <MenuItem value={10}>Ten</MenuItem>
@@ -145,17 +234,17 @@ const HomePage = () => {
           <Select
             labelId="capacity-select"
             id="capacity-select"
-            value={filter[0]}
-            onChange={handleChange}
-            displayEmpty
+            name="capacityFilter"
+            value={filters.capacityFilter}
+            onChange={handleFilterChange}
             className="select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={1}>0-500</MenuItem>
+            <MenuItem value={2}>500-1000</MenuItem>
+            <MenuItem value={3}>&gt;1000</MenuItem>
           </Select>
         </FormControl>
 
@@ -166,33 +255,45 @@ const HomePage = () => {
           <Select
             labelId="price-select"
             id="price-select"
-            value={filter[0]}
-            onChange={handleChange}
-            displayEmpty
+            name="priceFilter"
+            value={filters.priceFilter}
+            onChange={handleFilterChange}
             className="select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem key={1} value={1}>
+              100-500
+            </MenuItem>
+            <MenuItem key={2} value={2}>
+              500-1000
+            </MenuItem>
+            <MenuItem key={3} value={3}>
+              1000-5000
+            </MenuItem>
+            <MenuItem key={4} value={4}>
+              &gt;5000
+            </MenuItem>
           </Select>
         </FormControl>
       </div>
       <div className="search-container">
         <TextField
           id="search"
+          name="search"
           label="Search"
           variant="outlined"
           className="textfield"
           size="small"
+          onChange={handleFilterChange}
         />
         <Button
           variant="contained"
           color="primary"
           size="medium"
           className="search-button"
+          onClick ={applyAppropiateFilters}
         >
           search
         </Button>
@@ -235,7 +336,7 @@ const HomePage = () => {
           </Button>
         </div>
       </div>
-      <footer>
+      <footer className="home-footer">
         <Footer></Footer>
       </footer>
     </>

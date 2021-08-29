@@ -10,6 +10,7 @@ import { Paper, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { SharedService } from "../../Services/SharedService";
+import { User } from "../../Shared/Interfaces/User";
 
 const sharedService = new SharedService();
 
@@ -22,7 +23,7 @@ const Profile = (props: any) => {
   const [email, setEmail] = useState<any>("");
   const [paymentDetails, setPaymentDetails] = useState<any>("");
 
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user:User = useSelector((state: RootState) => state.auth.user);
 
   const handleEditButton = () => {
     setEditProfile(!editProfile);
@@ -32,7 +33,7 @@ const Profile = (props: any) => {
   const handleBlankFunction = () => {};
 
   useEffect(() => {
-    console.log("use effect of profile");
+    console.log("use effect of profile",user);
     if (sharedService.isUserLoggedIn()) {
       console.log("user::", user);
       setFirstName(user.firstName);

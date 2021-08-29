@@ -4,6 +4,8 @@ export interface User {
   lastName: String;
   role : 'host' | 'client';
   email: String;
+  contactNumber: string,
+  paymentDetails?: string;
   passwordHash: String;
   dateOfBirth: Date;
 }

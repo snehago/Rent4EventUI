@@ -58,7 +58,7 @@ class VenueService {
 
   public async getPromotedVenues() {
     const [response, error] = await of(
-      axios.get(`${this.BACKEND_URL}/venue/promotional`)
+      axios.get(`${this.BACKEND_URL}/venue/promotional?page=0&limit=10`)
     );
     if (error) {
       console.log(error);
@@ -66,7 +66,7 @@ class VenueService {
     }
     if (response) {
       if (response.status >= 200 && response.status <= 210) {
-        return response.data.response;
+        return response.data;
       } else throw Error(response.data.message);
     }
   }

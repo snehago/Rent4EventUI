@@ -17,11 +17,14 @@ const CustomRoute = ({component:ComponentToRender ,path, user,...rest}:any) => {
         path === "/user/register/user" ||
         path === "/user/register/host"
       ) {
-        if(user) {
-          if(user.role==='client') return <Redirect to='/home' ></Redirect>;
-          if(user.role==='host') return <Redirect to='/dashboard/host'/>;
+        if (user) {
+          if (user.role === "client") return <Redirect to="/home"></Redirect>;
+          if (user.role === "host") return <Redirect to="/dashboard/host" />;
         }
-      }
+      } else if (path.includes("/checkout") && !user)
+        return <Redirect to="/user/login"></Redirect>;
+      else if (path.includes("/dashboard") && !user)
+        return <Redirect to="/user/login"></Redirect>;
       return <ComponentToRender {...props}></ComponentToRender>
     })} ></Route>
   );
@@ -49,8 +52,8 @@ export default function AppRouter({user}:any) {
           path="/venue-details/:venueId"
           component={VenueDetailsPage}
         />
-        <Route exact path="/dashboard/:userRole" component={Dashboard} />
-        <Route exact path="/checkout/:venueId" component={CheckoutPage} />
+        <CustomRoute exact path="/dashboard/:userRole" component={Dashboard} user={user} />
+        <CustomRoute exact path="/checkout/:venueId" component={CheckoutPage} user={user} />
         <Route component={ErrorPage} />
       </Switch>
     </>

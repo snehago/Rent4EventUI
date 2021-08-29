@@ -62,7 +62,7 @@ const Dashboard = () => {
         {/* <Profile userRole={userRole} /> */}
 
       {/* Profile Section Ends Here */}
-      <footer className="footer">
+      <footer className="dashboard-footer">
         <Footer></Footer>
       </footer>
     </>

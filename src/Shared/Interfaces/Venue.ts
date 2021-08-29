@@ -8,7 +8,7 @@ import { User } from "./User";
 
 export interface Venue {
   id: number;
-  capactiy: number;
+  capacity: number;
   price: number;
   bookingAmount: number;
   description: String;

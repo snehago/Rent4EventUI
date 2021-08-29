@@ -47,5 +47,6 @@ export default function CustomizedSnackbars({content, type}:any) {
 export const NotificationType = {
   success: 'success',
   warning: 'warning',
-  info: 'info'
+  info: 'info',
+  error: 'error'
 }

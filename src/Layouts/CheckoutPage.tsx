@@ -9,12 +9,21 @@ import SimpleModal from '../Components/Modal'
 import { useHistory } from 'react-router';
 import './styles/checkoutPage.scss';
 import { Button, Card, Divider, Grid, TextField } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { RootState } from '../Redux/store';
+import { BookingService } from '../Services/BookingService';
+const bookingService = new BookingService();
 const venueService = new VenueService();
 export default function CheckoutPage() {
   const { venueId } = useParams<any>();
   const [venue, setVenue]= useState<Venue|null>(null);
+
+  const [numberOfAttendees, setNumberOfAttendees]=useState<number>(0);
   const [open, setOpen]= useState<boolean>(false);
   const history = useHistory();
+  const user = useSelector((state:RootState)=> state.auth.user);
+  const dates = useSelector((state:RootState)=> state.cart.dates);
+  
   useEffect(()=>{
     (async ()=> {
       const [response,error] = await of(venueService.getVenueByVenueId(venueId));
@@ -26,14 +35,34 @@ export default function CheckoutPage() {
       }
     })();
   },[venueId]);
+  
   const onModalClose = ()=> {
     setOpen(false);
     history.push("/home");
   }
-  const onSubmit = (data:any) => {
+  const onSubmit =async (values:any) => {
+    console.log(values);
+    values.preventDefault();
+    const data: any = {
+      user: {
+        id: user.id,
+      },
+      venue: {
+        id: venueId,
+      },
+      from: dates?.startDate,
+      to: dates.endDate,
+      amountPaid: venue ? (venue?.price * 10) / 100 : 0,
+      numberOfAttendees,
+    };
     console.log(data);
-    data.preventDefault();
-    setOpen(true);
+    const [response, error] = await of(bookingService.addBooking(data));
+    if (error) {
+      alert(error.message);
+    }
+    if (response) {
+      setOpen(true);
+    }
   }
   return (
     <>
@@ -61,7 +90,7 @@ export default function CheckoutPage() {
                   Capacity
                 </Grid>
                 <Grid item lg={6}>
-                  {venue?.capactiy}
+                  {venue?.capacity}
                 </Grid>
                 <Grid item lg={6}>
                   Contact Details
@@ -70,7 +99,7 @@ export default function CheckoutPage() {
                   {venue && `${venue?.host.firstName} ${venue?.host.lastName}`}
                 </Grid>
                 <Grid item lg={12}>
-                  <Divider/>
+                  <Divider />
                 </Grid>
                 <Grid item lg={10}>
                   Total Price:
@@ -88,7 +117,7 @@ export default function CheckoutPage() {
             </Card>
           </Grid>
           <Grid item lg={5} className="form-container">
-            <form onSubmit={(data:any) => onSubmit(data)}>
+            <form onSubmit={(data: any) => onSubmit(data)}>
               <Grid container direction="column" spacing={4}>
                 <Grid item lg={12}>
                   <TextField
@@ -105,6 +134,9 @@ export default function CheckoutPage() {
                     name="numberOfAttendees"
                     label="Number of Attendees"
                     variant="outlined"
+                    onChange={(e: any) =>
+                      setNumberOfAttendees(Number(e.target.value))
+                    }
                     fullWidth
                   />
                 </Grid>
@@ -123,7 +155,7 @@ export default function CheckoutPage() {
           </Grid>
         </Grid>
         <div>
-          <SimpleModal 
+          <SimpleModal
             title="Booking successfull"
             content={`Your booking for venue is completed your booking id is ${venueId}`}
             open={open}
@@ -133,7 +165,7 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <footer>
+      <footer className="checkout-footer">
         <Footer></Footer>
       </footer>
     </>
