@@ -10,7 +10,7 @@ import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOut
 import { NotificationType } from "../Components/Notification";
 import Notification from "../Components/Notification";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-
+import MuiPhoneNumber from "material-ui-phone-number";
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
 import { of } from "await-of";
@@ -21,13 +21,14 @@ import { useState } from "react";
 const userService = new UserService();
 const RegistrationPageHost = () => {
   const history = useHistory();
-  const [open, setOpen]=useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const initialValues = {
     firstName: "",
     lastName: "",
     email: "",
     passwordHash: "",
     confirmPasswordHash: "",
+    contactNumber:null,
     dob: "",
   };
 
@@ -64,6 +65,9 @@ const RegistrationPageHost = () => {
     upiId: Yup.string()
       .required("Required")
       .matches(/^[\w.-]+@[\w.-]+$/, "Please Enter a Valid Upi Id"),
+    contactNumber: Yup.string()
+      .min(13, "Contact Number Should be of 10 digits")
+      .required("Required"),
   });
   return (
     <>
@@ -165,6 +169,22 @@ const RegistrationPageHost = () => {
                   required
                   helperText={
                     <ErrorMessage name="confirmPasswordHash">
+                      {(msg) => <div className="errorMsg">{msg}</div>}
+                    </ErrorMessage>
+                  }
+                />
+
+                <MuiPhoneNumber
+                  defaultCountry={"us"}
+                  name="contactNumber"
+                  onChange={(e: any) => props.setFieldValue("contactNumber", e)}
+                  variant="outlined"
+                  className="textFieldStyle"
+                  fullWidth
+                  label="Contact Number"
+                  required
+                  helperText={
+                    <ErrorMessage name="contactNumber">
                       {(msg) => <div className="errorMsg">{msg}</div>}
                     </ErrorMessage>
                   }

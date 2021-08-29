@@ -8,10 +8,11 @@ import {
 } from "@material-ui/core";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import MuiPhoneNumber from "material-ui-phone-number";
 
 import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
-import {of} from 'await-of';
+import { of } from "await-of";
 import { UserService } from "../Services/UserService";
 import { useHistory } from "react-router";
 import "./styles/registration.scss";
@@ -20,7 +21,7 @@ import { NotificationType } from "../Components/Notification";
 import { useState } from "react";
 const userService = new UserService();
 const RegistrationPage = () => {
-  const [open, setOpen]= useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const history = useHistory();
   const initialValues = {
     firstName: "",
@@ -28,20 +29,20 @@ const RegistrationPage = () => {
     email: "",
     passwordHash: "",
     confirmPasswordHash: "",
-    dob: "",
+    contactNumber:"",
+    dob: ""
   };
 
-  const onSubmit =async (values: any) => {
-    values.role = 'client';
+  const onSubmit = async (values: any) => {
+    values.role = "client";
     console.log(values);
     const [response, error] = await of(userService.signup(values));
-    if(error)alert(error.message);
-    if(response) {
+    if (error) alert(error.message);
+    if (response) {
       setOpen(true);
-      setTimeout(()=> {
+      setTimeout(() => {
         history.push("/user/login");
-      },3000)
-      
+      }, 3000);
     }
   };
 
@@ -57,6 +58,7 @@ const RegistrationPage = () => {
       .required("Required"),
 
     dob: Yup.string().required("Required"),
+    contactNumber:Yup.string().min(13,"Contact Number Should be of 10 digits").required("Required")
   });
   return (
     <>
@@ -158,6 +160,22 @@ const RegistrationPage = () => {
                   required
                   helperText={
                     <ErrorMessage name="confirmPasswordHash">
+                      {(msg) => <div className="errorMsg">{msg}</div>}
+                    </ErrorMessage>
+                  }
+                />
+
+                <MuiPhoneNumber
+                  defaultCountry={"us"}
+                  name="contactNumber"
+                  onChange={(e:any) => props.setFieldValue("contactNumber", e)}
+                  variant="outlined"
+                  className="textFieldStyle"
+                  fullWidth
+                  label="Contact Number"
+                  required
+                  helperText={
+                    <ErrorMessage name="contactNumber">
                       {(msg) => <div className="errorMsg">{msg}</div>}
                     </ErrorMessage>
                   }
