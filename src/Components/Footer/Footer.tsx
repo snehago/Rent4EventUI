@@ -150,7 +150,7 @@ export default function Footer() {
                     <TwitterIcon />
                   </Avatar>
                 </Grid>
-                <Grid
+                {/* <Grid
                   item
                   lg={2}
                   xs={12}
@@ -161,19 +161,11 @@ export default function Footer() {
                   <Avatar className="socalIconAvatar">
                     <YouTubeIcon />
                   </Avatar>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
 
-            <Grid item lg={2} xs={12} sm={4} md={4}>
-              <Box className="label">Go To Top</Box>
-              <p></p>
-              <Box>
-                <Avatar className="topAvatar" onClick={scrollToTop}>
-                  <ArrowUpwardIcon />
-                </Avatar>
-              </Box>
-            </Grid>
+           
           </Grid>
         </div>
       </Box>

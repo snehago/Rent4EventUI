@@ -114,6 +114,8 @@ export default function FeaturesSection({ venue }: FSProps) {
                     />
                   </div>
                 </Box>
+
+               
               </Grid>
             </Grid>
           </Grid>

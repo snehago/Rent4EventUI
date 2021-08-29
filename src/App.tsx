@@ -1,14 +1,17 @@
-import './App.scss';
-import { useEffect } from 'react';
-import AppRouter from './App.route';
-import {useSelector, useDispatch } from 'react-redux';
-import {RootState} from './Redux/store';
-import {SharedService} from './Services/SharedService';
-import { login } from './Redux/reducers/AuthReducer';
-import { User } from './Shared/Interfaces/User';
+import "./App.scss";
+import { useEffect } from "react";
+import AppRouter from "./App.route";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "./Redux/store";
+import { SharedService } from "./Services/SharedService";
+import { login } from "./Redux/reducers/AuthReducer";
+import { User } from "./Shared/Interfaces/User";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import ScrollToTop from "react-scroll-to-top";
+import GoTop from "./Components/GoToTop/GoTop";
+import "./App.scss";
 
-const sharedService = new SharedService(); 
+const sharedService = new SharedService();
 
 const theme = createTheme({
   palette: {
@@ -19,21 +22,25 @@ const theme = createTheme({
 });
 
 function App() {
-  
   const dispatch = useDispatch();
-  const user = useSelector((state:RootState)=> state.auth.user);
-  
+  const user = useSelector((state: RootState) => state.auth.user);
+
   useEffect(() => {
-    if(sharedService.isUserLoggedIn() &&  !user) {
-      let tempUser: User =JSON.parse(sharedService.getUser());
-      console.log("TU::",tempUser)
+    if (sharedService.isUserLoggedIn() && !user) {
+      let tempUser: User = JSON.parse(sharedService.getUser());
+      console.log("TU::", tempUser);
       dispatch(login(tempUser));
     }
-  },[user,dispatch]);
-  
+  }, [user, dispatch]);
+
   return (
-    <ThemeProvider theme={theme} >
+    <ThemeProvider theme={theme}>
       <div className="App">
+        <ScrollToTop
+          smooth
+          component={<GoTop />}
+          id="scroll-to-top-component"
+        />
         <AppRouter user={user}></AppRouter>
       </div>
     </ThemeProvider>
