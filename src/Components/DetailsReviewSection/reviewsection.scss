@@ -1,0 +1,46 @@
+@import '../../Shared/styles/colors';
+.details-reviews-container {
+  // background-color: yellowgreen;
+  margin-left: 2%;
+  margin-right: 2%;
+  padding: 2%;
+  margin-bottom: 2%;
+}
+.details-review-label {
+  text-align: left;
+  font: normal normal bold 100% Montserrat!important;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+  margin-bottom: 2%;
+}
+.review-rating-box{
+
+}
+.review-rating-container{
+  display: flex;
+  // margin-left: 5%;
+}
+#review-ratingValue{
+  text-align: left;
+  font: normal normal bold 150% Montserrat!important;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+}
+.review-subtitle{
+  margin-bottom: 2%;
+}
+#review-grade{
+  font-weight: 700;
+}
+#no-of-reviews{
+  color:#1B91E8;
+  font-weight:600;
+}
+.reviews-view-more-btn{
+  color: $banner-button-background-color!important;
+  border-color:$banner-button-background-color!important ;
+  width: 20%;
+}
+

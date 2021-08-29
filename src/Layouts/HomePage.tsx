@@ -11,6 +11,8 @@ import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 import Caraousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
+import ScrollToTop from "react-scroll-to-top";
+import GoTop from "../Components/GoToTop/GoTop";
 
 const responsive = {
   superLargeDesktop: {
