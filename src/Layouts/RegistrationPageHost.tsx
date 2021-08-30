@@ -30,6 +30,7 @@ const RegistrationPageHost = () => {
     confirmPasswordHash: "",
     contactNumber:null,
     dob: "",
+    paymentDetails:""
   };
 
   const onSubmit = async (values: any) => {
@@ -62,7 +63,7 @@ const RegistrationPageHost = () => {
       .oneOf([Yup.ref("passwordHash")], "Password not matched")
       .required("Required"),
     dob: Yup.string().required("Required"),
-    upiId: Yup.string()
+    paymentDetails: Yup.string()
       .required("Required")
       .matches(/^[\w.-]+@[\w.-]+$/, "Please Enter a Valid Upi Id"),
     contactNumber: Yup.string()
@@ -213,7 +214,7 @@ const RegistrationPageHost = () => {
 
                 <Field
                   as={TextField}
-                  name="upiId"
+                  name="paymentDetails"
                   required
                   className="textFieldStyle"
                   variant="outlined"
@@ -221,7 +222,7 @@ const RegistrationPageHost = () => {
                   label="Upi Id"
                   placeholder="Give your Upi Id"
                   helperText={
-                    <ErrorMessage name="upiId">
+                    <ErrorMessage name="paymentDetails">
                       {(msg) => <div className="errorMsg">{msg}</div>}
                     </ErrorMessage>
                   }

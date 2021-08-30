@@ -1,16 +1,26 @@
-.mainContainer {
-  width: 100%;
-  background-color: black;
-}
-.mainBox {
-  width: 100%;
-}
 
-.footerContainer {
-  background-color: black;
-  padding-left: 5%;
+// .mainContainer {
+//   width: 100%;
+//   background-color: black;
+// }
+// .mainBox {
+//   width: 100%;
+// }
+
+// .footerContainer {
+//   background-color: black;
+//   padding-left: 5%;
+//   color: white;
+//   width: 89vw;justify-content: center!important;
+  
+// }
+
+.footer-main-grid-container{
+  background-color: black!important;
   color: white;
-  width: 89vw;
+  height: 30vh!important;
+  padding: 2%!important;
+  overflow: hidden;
 }
 
 .label {
@@ -19,6 +29,7 @@
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
+  margin-bottom: 2%!important;
 }
 
 .aboutText {
