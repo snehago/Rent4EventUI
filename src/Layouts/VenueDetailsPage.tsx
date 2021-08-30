@@ -31,6 +31,8 @@ const VenueDetailsPage = () => {
         setVenue(response);
       }
     })();
+
+    window.scrollTo(0, 0);
   }, [venueId]);
 
   return (

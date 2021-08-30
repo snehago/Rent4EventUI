@@ -24,24 +24,28 @@ const VenueListPage = () => {
   const history = useHistory();
   const [filter, setFilter] = useState<string[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
-  const [currentPage, setCurrentPage]= useState<number>(0);
-  const [disabled, setDisabled]=useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       console.log("use effect of home page");
-      const [response, error] = await of(venueService.getAllVenues(currentPage));
+      const [response, error] = await of(
+        venueService.getAllVenues(currentPage)
+      );
       if (error) {
         alert(error.message);
       }
       if (response) {
-        if(response.length === 0) {
+        if (response.length === 0) {
           setDisabled(true);
           return;
         }
-        setVenues(prev => [...prev,...response]);
+        setVenues((prev) => [...prev, ...response]);
       }
     })();
+
+    window.scrollTo(0, 0);
   }, [currentPage]);
 
   const handleClick = () => {
@@ -268,10 +272,17 @@ const VenueListPage = () => {
           </Grid>
         </Box>
       </div>
-      <div className="venue-load-more-button-container" >
-          <Button variant="outlined" color="primary" onClick={()=> setCurrentPage(prev=> prev+1)} disabled={disabled} >load more..</Button>
+      <div className="venue-load-more-button-container">
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={disabled}
+        >
+          load more..
+        </Button>
       </div>
-      <footer className="venue-footer" >
+      <footer className="venue-footer">
         <Footer></Footer>
       </footer>
     </>
