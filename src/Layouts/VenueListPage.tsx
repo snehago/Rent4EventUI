@@ -17,19 +17,31 @@ import "./styles/venueListPage.scss";
 import { useHistory } from "react-router";
 import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
+import { EventTypeService } from "../Services/EventTypeService";
 
 const venueService = new VenueService();
-
+const eventTypeService = new EventTypeService();
 const VenueListPage = () => {
   const history = useHistory();
-  const [filter, setFilter] = useState<string[]>([]);
+  const [filters, setFilters] = useState<any>({
+    capacityFilter: -1,
+    priceFilter: -1,
+    locationFilter: -1,
+    eventTypeFilter: -1,
+    to: Date.now(),
+    from: Date.now(),
+    sort: -1,
+    facilityFilter: -1,
+    search: "",
+  });
   const [venues, setVenues] = useState<Venue[]>([]);
+  const [eventTypes, setEventTypes] = useState([]);
+  const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [currentPage, setCurrentPage]= useState<number>(0);
   const [disabled, setDisabled]=useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
-      console.log("use effect of home page");
       const [response, error] = await of(venueService.getAllVenues(currentPage));
       if (error) {
         alert(error.message);
@@ -39,19 +51,117 @@ const VenueListPage = () => {
           setDisabled(true);
           return;
         }
-        setVenues(prev => [...prev,...response]);
+        setOriginalVenues(prev => [...prev,...response]);
       }
     })();
   }, [currentPage]);
 
-  const handleClick = () => {
-    setTimeout(() => {
-      history.push("/venue-list");
-    }, 1000);
+  useEffect(() => {
+    (async () => {
+      const [eventResponse, eventError] = await of(
+        eventTypeService.getAllEventType()
+      );
+      if (eventError) {
+        alert(eventError.message);
+      }
+      if (eventResponse) {
+        console.log(eventResponse);
+        setEventTypes(eventResponse);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    applyAppropiateFilters();
+  }, [filters, originalVenues]);
+
+  const handleFilterChange = (event: React.ChangeEvent<any>) => {
+    console.log(event.target);
+    let temp: any = {};
+    if (event.target.name === "priceFilter")
+      temp = { ...filters, priceFilter: event.target.value };
+    if (event.target.name === "capacityFilter")
+      temp = { ...filters, capacityFilter: event.target.value };
+    if (event.target.name === "eventTypeFilter")
+      temp = { ...filters, eventTypeFilter: event.target.value };
+    if (event.target.name === "locationFilter")
+      temp = { ...filters, locationFilter: event.target.value };
+    if (event.target.name === "facilityFilter")
+      temp = { ...filters, facilityFilter: event.target.value };
+    if (event.target.name === "to")
+      temp = { ...filters, to: event.target.value };
+    if (event.target.name === "from")
+      temp = { ...filters, from: event.target.value };
+    if (event.target.name === "search")
+      temp = { ...filters, search: event.target.value };
+    if (event.target.name === "sort")
+      temp = { ...filters, sort: event.target.value };
+    setFilters(temp);
+  };
+  const applyAppropiateFilters = () => {
+    console.log(filters);
+    let tempVenues = originalVenues;
+    for (let i of Object.keys(filters)) {
+      if (filters[i] === -1) continue;
+      else {
+        if (i === "priceFilter")
+          tempVenues = applyPriceFilter(filters[i], tempVenues);
+        if (i === "capacityFilter")
+          tempVenues = applyCapacityFilter(filters[i], tempVenues);
+        if (i === "eventTypeFilter")
+          tempVenues = applyEventTypeFilter(filters[i], tempVenues);
+      }
+    }
+    let toSearch = filters.search.trim().toUpperCase();
+    if (toSearch.length !== 0) {
+      tempVenues = tempVenues.filter((venue) =>
+        venue.title.toUpperCase().includes(toSearch)
+      );
+    }
+    setVenues(tempVenues);
+  };
+  const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {
+    console.log("priceFilter");
+    let temp: any = [];
+    console.log(typeof filterType, filterType);
+    if (filterType === 1)
+      temp = tempVenues.filter((venue) => venue.price <= 500);
+    if (filterType === 2)
+      temp = tempVenues.filter(
+        (venue) => venue.price > 500 && venue.price <= 1000
+      );
+    if (filterType === 3)
+      temp = tempVenues.filter(
+        (venue) => venue.price > 1000 && venue.price <= 5000
+      );
+    if (filterType === 4)
+      temp = tempVenues.filter((venue) => venue.price > 5000);
+    return temp;
   };
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setFilter((prev) => [...prev, event.target.value as string]);
+  const applyCapacityFilter = (filterType: any, tempVenues: Venue[]) => {
+    let temp: any = [];
+    console.log("capacity", filterType);
+    if (filterType === 1)
+      temp = tempVenues.filter((venue) => venue.capacity <= 500);
+    if (filterType === 2)
+      temp = tempVenues.filter(
+        (venue) => venue.capacity > 500 && venue.capacity <= 1000
+      );
+    if (filterType === 3)
+      temp = venues.filter((venue) => venue.capacity > 1000);
+    console.log("capacity", temp.length);
+    return temp;
+  };
+  const applyEventTypeFilter = (filterType: any, tempVenues: Venue[]) => {
+    let temp: any = [];
+    temp = tempVenues.filter(
+      (venue) =>
+        venue.listOfEventTypes.filter(
+          (eventType: any) => eventType.id === filterType
+        ).length > 0
+    );
+    return temp;
   };
 
   return (
@@ -67,9 +177,11 @@ const VenueListPage = () => {
         <TextField
           id="search"
           label="Search"
+          name="search"
           variant="outlined"
           className="textfield"
           size="small"
+          onChange={handleFilterChange}
         />
         <Button
           variant="contained"
@@ -89,17 +201,18 @@ const VenueListPage = () => {
           <Select
             labelId="evert-type-select"
             id="event-type-select"
-            value={filter[0]}
-            onChange={handleChange}
+            name="eventTypeFilter"
+            value={filters.eventTypeFilter}
+            onChange={handleFilterChange}
             displayEmpty
             className="venue-select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {eventTypes?.map((event: any) => (
+              <MenuItem value={event.id}>{event.name}</MenuItem>
+            ))}
           </Select>
         </FormControl>
 
@@ -110,12 +223,13 @@ const VenueListPage = () => {
           <Select
             labelId="location-select"
             id="location-select"
-            value={filter[0]}
-            onChange={handleChange}
+            name="locationFilter"
+            value={filters.locationFilter}
+            onChange={handleFilterChange}
             displayEmpty
             className="venue-select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
             <MenuItem value={10}>Ten</MenuItem>
@@ -131,17 +245,18 @@ const VenueListPage = () => {
           <Select
             labelId="capacity-select"
             id="capacity-select"
-            value={filter[0]}
-            onChange={handleChange}
+            name="capacityFilter"
+            value={filters.capacityFilter}
+            onChange={handleFilterChange}
             displayEmpty
             className="venue-select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={1}>0-500</MenuItem>
+            <MenuItem value={2}>500-1000</MenuItem>
+            <MenuItem value={3}>&gt;1000</MenuItem>
           </Select>
         </FormControl>
 
@@ -152,34 +267,68 @@ const VenueListPage = () => {
           <Select
             labelId="price-select"
             id="price-select"
-            value={filter[0]}
-            onChange={handleChange}
+            name="priceFilter"
+            value={filters.priceFilter}
+            onChange={handleFilterChange}
             displayEmpty
             className="venue-select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem key={1} value={1}>
+              100-500
+            </MenuItem>
+            <MenuItem key={2} value={2}>
+              500-1000
+            </MenuItem>
+            <MenuItem key={3} value={3}>
+              1000-5000
+            </MenuItem>
+            <MenuItem key={4} value={4}>
+              &gt;5000
+            </MenuItem>
           </Select>
         </FormControl>
       </div>
       <div className="venue-filter-container">
         <FormControl>
-          <InputLabel shrink id="event-type" className="venue-label">
-            Event Type
+          <TextField
+            label="to"
+            id="to-date"
+            name="to"
+            value={filters.to}
+            onChange={handleFilterChange}
+            type="date"
+            className="venue-select"
+          />
+        </FormControl>
+
+        <FormControl>
+          <TextField
+            label="from"
+            id="from-date"
+            value={filters.from}
+            onChange={handleFilterChange}
+            type="date"
+            className="venue-select"
+          />
+        </FormControl>
+
+        <FormControl>
+          <InputLabel shrink id="facility-label" className="venue-label">
+            Facility
           </InputLabel>
           <Select
-            labelId="evert-type-select"
-            id="event-type-select"
-            value={filter[0]}
-            onChange={handleChange}
+            labelId="facility-label"
+            id="facility-select"
+            name="facilityFilter"
+            value={filters.facilityFilter}
+            onChange={handleFilterChange}
             displayEmpty
             className="venue-select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
             <MenuItem value={10}>Ten</MenuItem>
@@ -189,65 +338,23 @@ const VenueListPage = () => {
         </FormControl>
 
         <FormControl>
-          <InputLabel shrink id="location" className="venue-label">
-            Location
+          <InputLabel shrink id="sort-label" className="venue-label">
+            Sort By Price
           </InputLabel>
           <Select
-            labelId="location-select"
-            id="location-select"
-            value={filter[0]}
-            onChange={handleChange}
+            labelId="sort-label"
+            id="sort-select"
+            name="sort"
+            value={filters.sort}
+            onChange={handleFilterChange}
             displayEmpty
             className="venue-select"
           >
-            <MenuItem value="">
+            <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel shrink id="capacity" className="venue-label">
-            Capacity
-          </InputLabel>
-          <Select
-            labelId="capacity-select"
-            id="capacity-select"
-            value={filter[0]}
-            onChange={handleChange}
-            displayEmpty
-            className="venue-select"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel shrink id="price" className="venue-label">
-            Price
-          </InputLabel>
-          <Select
-            labelId="price-select"
-            id="price-select"
-            value={filter[0]}
-            onChange={handleChange}
-            displayEmpty
-            className="venue-select"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={1}>High to Low</MenuItem>
+            <MenuItem value={2}>Low to High</MenuItem>
           </Select>
         </FormControl>
       </div>
@@ -268,10 +375,17 @@ const VenueListPage = () => {
           </Grid>
         </Box>
       </div>
-      <div className="venue-load-more-button-container" >
-          <Button variant="outlined" color="primary" onClick={()=> setCurrentPage(prev=> prev+1)} disabled={disabled} >load more..</Button>
+      <div className="venue-load-more-button-container">
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={disabled}
+        >
+          load more..
+        </Button>
       </div>
-      <footer className="venue-footer" >
+      <footer className="venue-footer">
         <Footer></Footer>
       </footer>
     </>

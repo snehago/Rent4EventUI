@@ -27,6 +27,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [location, setLocation]= React.useState<string>(window.location.href);
   const open = Boolean(anchorEl);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -80,6 +81,7 @@ export default function Header() {
             component: RouterLink,
             className: "side-nav-button",
           }}
+          id= {href===location?'active-route':href}
         >
           {label}
         </Button>
@@ -94,7 +96,7 @@ export default function Header() {
             to: '/user/login',
             component: RouterLink,
             className: "side-nav-login-button",
-            variant: "contained",
+            variant: "outlined",
           }}
         >
           Login

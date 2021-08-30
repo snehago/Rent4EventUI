@@ -115,7 +115,7 @@ const LoginPage = () => {
                 type="submit"
                 fullWidth
                 color="primary"
-                className="btnStyle"
+                //className="btnStyle"
                 variant="contained"
                 // onClick={handleSubmit}
                 disabled={props.isSubmitting}
@@ -135,17 +135,28 @@ const LoginPage = () => {
           {/* <NavLink className="navLink" exact to="/user/register/user/">
             Register
           </NavLink> */}
-          <Button onClick={handleRegister} fullWidth className="register-button">
+          <Button
+            onClick={handleRegister}
+            variant="outlined"
+            color="primary"
+            fullWidth
+            className="register-button"
+          >
             Register
           </Button>
           <br />
           {/* <NavLink className="navLink" exact to="/user/register/host/">
             Register as a Host
           </NavLink> */}
-          <Button onClick={handleRegisterHost} fullWidth className="register-button">
+          <Button
+            onClick={handleRegisterHost}
+            variant="outlined"
+            color="primary"
+            fullWidth
+            className="register-button"
+          >
             Register as a Host
           </Button>
-
         </Typography>
       </Paper>
     </Grid>

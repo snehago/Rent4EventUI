@@ -24,6 +24,7 @@
 }
 .side-nav-button {
   color: $header-side-nave-button-color !important;
+  font-weight: 500 !important;
   margin-bottom: 1vh !important;
 }
 
@@ -40,4 +41,9 @@
   color: $header-side-nave-button-color;
   font-size: 2rem !important;
   margin-bottom: 1vh;
+}
+
+#active-route {
+  font-weight: 900 !important;
+  background-color: #eaeaea !important;
 }

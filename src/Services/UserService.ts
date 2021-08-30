@@ -16,7 +16,7 @@ class UserService {
       )
     );
     if (error) {
-      throw new Error(error.message);
+      throw new Error("Email already registered!");
     }
     if (response) {
       console.log({ response });
@@ -35,8 +35,7 @@ class UserService {
       )
     );
     if (error) {
-      console.log(error);
-      throw Error("Something went wrong");
+      throw Error("Invalid username or password!");
     }
     if (response) {
       if (response.status >= 200 && response.status <= 210) {
@@ -45,28 +44,35 @@ class UserService {
     }
   }
 
-  public async editProfile(user: any) {
-    console.log("edited User:", user);
-    if (user.role === "host") {
+  public async editHostProfile(user: any) {
       var [response, error] = await of(
-        axios.patch(
+        axios.put(
           `${this.BACKEND_URL}/user/host/${user.id}`,
           user,
           await sharedService.getHeader()
         )
       );
-    } else if (user.role === "client") {
+    if (error) {
+      console.log(error);
+      throw Error(error.message);
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data.response;
+      } else throw Error(response.data.message);
+    }
+  }
+  public async editClientProfile(user: any) {
       var [response, error] = await of(
-        axios.patch(
+        axios.put(
           `${this.BACKEND_URL}/user/client/${user.id}`,
           user,
           await sharedService.getHeader()
         )
       );
-    }
     if (error) {
       console.log(error);
-      throw Error("Something went wrong");
+      throw Error(error.message);
     }
     if (response) {
       if (response.status >= 200 && response.status <= 210) {

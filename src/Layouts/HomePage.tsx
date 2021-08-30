@@ -11,8 +11,6 @@ import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 import Caraousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
-import ScrollToTop from "react-scroll-to-top";
-import GoTop from "../Components/GoToTop/GoTop";
 
 const responsive = {
   superLargeDesktop: {
@@ -167,8 +165,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
         <div className="banner-background">
           <div className="banner-heading">
             <Typography variant="h5">
-              Your Venue Is Where The Magic Happens And The Exciting Journey
-              Begins
+              Your Venue Is Where The Magical Journey Begins
             </Typography>
           </div>
           <div className="banner-subheading">
@@ -295,7 +292,7 @@ const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
           color="primary"
           size="medium"
           className="home-search-button"
-          onClick ={applyAppropiateFilters}
+          onClick={applyAppropiateFilters}
         >
           search
         </Button>

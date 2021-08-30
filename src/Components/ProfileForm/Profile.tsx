@@ -33,7 +33,7 @@ const Profile = (props: any) => {
 
   async function handleEditFormHost(user: any) {
     console.log("edit the form");
-    const [response, error] = await of(userService.editProfile(user));
+    const [response, error] = await of(userService.editHostProfile(user));
     if (error) {
       alert(error.message);
     }
@@ -44,7 +44,7 @@ const Profile = (props: any) => {
 
   async function handleEditFormClient(user: any) {
     console.log("edit the form");
-    const [response, error] = await of(userService.editProfile(user));
+    const [response, error] = await of(userService.editClientProfile(user));
     if (error) {
       alert(error.message);
     }
@@ -53,7 +53,7 @@ const Profile = (props: any) => {
     }
   }
 
-  const handleEditButton = () => {
+  const handleEditButton = async () => {
     if (editProfile && user.role === "host") {
       const editedUser: any = {
         id: userId,
@@ -65,7 +65,7 @@ const Profile = (props: any) => {
         role: role,
       };
 
-      handleEditFormHost(editedUser);
+      await handleEditFormHost(editedUser);
     } else if (editProfile && user.role === "client") {
       const editedUser: any = {
         id: userId,
@@ -74,7 +74,7 @@ const Profile = (props: any) => {
         contactNumber: contactNumber,
         email: email,
       };
-      handleEditFormClient(editedUser);
+      await handleEditFormClient(editedUser);
     }
     setEditProfile(!editProfile);
     console.log("EP:", editProfile);
@@ -83,9 +83,7 @@ const Profile = (props: any) => {
   const handleBlankFunction = () => {};
 
   useEffect(() => {
-    console.log("use effect of profile",user);
     if (sharedService.isUserLoggedIn()) {
-      console.log("user::", user);
       setUserId(user.id);
       setFirstName(user.firstName);
       setLastName(user.lastName);

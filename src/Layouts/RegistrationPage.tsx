@@ -166,7 +166,7 @@ const RegistrationPage = () => {
                 />
 
                 <MuiPhoneNumber
-                  defaultCountry={"us"}
+                  defaultCountry={"in"}
                   name="contactNumber"
                   onChange={(e:any) => props.setFieldValue("contactNumber", e)}
                   variant="outlined"
@@ -206,7 +206,7 @@ const RegistrationPage = () => {
                   type="submit"
                   fullWidth
                   color="primary"
-                  className="btnStyle"
+                  //className="btnStyle"
                   disabled={props.isSubmitting}
                   variant="contained"
                   // onClick={handleSubmit}
