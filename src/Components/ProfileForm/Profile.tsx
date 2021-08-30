@@ -164,7 +164,7 @@ const Profile = (props: any) => {
               <TextField
                 size="small"
                 // variant="outlined"
-                type="number"
+                // type="number"
                 label="Phone Number"
                 InputLabelProps={{ shrink: true }}
                 value={contactNumber}

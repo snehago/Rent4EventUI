@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
+import { Button, Divider, Grid, TextField, Typography } from "@material-ui/core";
 import "./description.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
@@ -84,7 +84,22 @@ export default function DescriptionSection({ venue }: DSProps) {
                   {venue?.description}
                 </Typography>
               </div>
+              <Divider variant="middle" style={{marginTop:"2%"}} />
+
+              <div className="description-address-container" >
+                <div className="description-address-label">
+                  Address
+                </div>
+                <div className="description-venue-address">
+                {`${venue.address.streetAddress},${venue.address.city},${venue.address.state},${venue.address.country},${venue.address.pin}`}
+                </div>
+              </div>
+
             </Grid>
+
+            
+
+            
 
             {/* PRICE SECTION STARTS */}
             <Grid item xs={4} container className="description-price-container">
