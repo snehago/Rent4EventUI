@@ -63,6 +63,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@types/leaflet": "^1.7.4",
+    "@types/material-ui-phone-number": "^2.2.1",
     "@types/react-calendar": "^3.4.3",
     "@types/react-date-range": "^1.1.7",
     "@types/react-router-dom": "^5.1.8"

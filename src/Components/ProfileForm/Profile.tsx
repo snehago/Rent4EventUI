@@ -219,7 +219,7 @@ const Profile = (props: any) => {
               </Grid>
             )}
 
-            <Grid item>
+            <Grid item xs={12}>
               <Button
                 onClick={handleEditButton}
                 variant="contained"
