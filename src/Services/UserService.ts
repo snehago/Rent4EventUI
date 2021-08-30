@@ -56,12 +56,14 @@ class UserService {
         )
       );
     } else if (user.role === "client") {
+      console.log("EDIT CLIENTT")
       var [response, error] = await of(
         axios.patch(
           `${this.BACKEND_URL}/user/client/${user.id}`,
           user,
           await sharedService.getHeader()
         )
+        
       );
     }
     if (error) {

@@ -70,9 +70,10 @@ const Profile = (props: any) => {
       const editedUser: any = {
         id: userId,
         firstName: firstName,
-        lasName: lastName,
+        lastName: lastName,
         contactNumber: contactNumber,
         email: email,
+        role: role
       };
       handleEditFormClient(editedUser);
     }
