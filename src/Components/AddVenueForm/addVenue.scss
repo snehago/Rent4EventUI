@@ -1,35 +1,50 @@
-.addVenuePaper{
-    width: 95% !important;
-    margin: 2% 2% 2% 2% !important;
-    box-sizing: border-box;
+.addVenuePaper {
+  width: 95% !important;
+  margin: 2% 2% 2% 2% !important;
+  box-sizing: border-box;
 }
 .addVenueFormContainer {
   width: 100% !important;
-//   margin: 2% 2% 2% 2% !important;
+  //   margin: 2% 2% 2% 2% !important;
   padding: 2%;
   // margin-right: 2%!important;
   box-sizing: border-box;
 }
+
 .addVenueLabel {
   text-align: center;
   font: normal normal bold 26px/40px Montserrat !important;
   letter-spacing: 0px;
   color: #000000;
   opacity: 1;
-  margin-bottom: 5%!important;
+  margin-bottom: 5% !important;
 }
 .addVenueTextField {
   background-color: white;
 }
-.addVenueSubLabels{
-    text-align: left;
-font: normal normal bold 20px/40px Montserrat !important;
-letter-spacing: 0px;
-color: #000000;
-opacity: 1;
+.addVenueSubLabels {
+  text-align: left;
+  font: normal normal bold 20px/40px Montserrat !important;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
 }
-.addVenueButton{
-    background-color: #D3600C!important;
-    color: white !important;
-    margin-top: 4%!important;
+.addVenueButton {
+  background-color: #d3600c !important;
+  color: white !important;
+  margin-top: 4% !important;
+}
+.upload-btn-style {
+  border-color: #d3600c !important;
+  color: #d3600c !important;
+  font: normal normal 400 80% Montserrat !important;
+  margin: 1% !important;
+}
+
+.image-item {
+  margin: 1%;
+}
+
+.addvenue-upload-image-section {
+  margin-top: 2% !important;
 }
