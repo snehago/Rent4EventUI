@@ -47,13 +47,15 @@ const VenueListPage = () => {
         alert(error.message);
       }
       if (response) {
-        if(response.length === 0) {
+        if (response.length === 0) {
           setDisabled(true);
           return;
         }
         setOriginalVenues(prev => [...prev,...response]);
       }
     })();
+
+    window.scrollTo(0, 0);
   }, [currentPage]);
 
   useEffect(() => {

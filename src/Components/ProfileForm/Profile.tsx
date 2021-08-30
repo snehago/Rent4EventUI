@@ -70,9 +70,10 @@ const Profile = (props: any) => {
       const editedUser: any = {
         id: userId,
         firstName: firstName,
-        lasName: lastName,
+        lastName: lastName,
         contactNumber: contactNumber,
         email: email,
+        role: role
       };
       await handleEditFormClient(editedUser);
     }
@@ -162,7 +163,7 @@ const Profile = (props: any) => {
               <TextField
                 size="small"
                 // variant="outlined"
-                type="number"
+                // type="number"
                 label="Phone Number"
                 InputLabelProps={{ shrink: true }}
                 value={contactNumber}

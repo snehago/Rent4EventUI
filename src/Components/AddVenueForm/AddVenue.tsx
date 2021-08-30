@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
+  Divider,
   FormControlLabel,
   Grid,
   Paper,
@@ -20,6 +21,12 @@ import { FacilityService } from "../../Services/FacilityService";
 import { Facility } from "../../Shared/Interfaces/Facitlity";
 import { EventTypeService } from "../../Services/EventTypeService";
 import { EventType } from "../../Shared/Interfaces/EventType";
+import ImageUploading, { ImageListType } from "react-images-uploading";
+import PublishOutlinedIcon from "@material-ui/icons/PublishOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+
 const venueService = new VenueService();
 export default function AddVenue() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -87,6 +94,18 @@ export default function AddVenue() {
   const eventTypeService = new EventTypeService();
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [eventTypes, setEventTypes] = useState<EventType[]>([]);
+  const [images, setImages] = React.useState([]);
+  const maxNumber = 69;
+
+  const onChange = (
+    imageList: ImageListType,
+    addUpdateIndex: number[] | undefined
+  ) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList as never[]);
+  };
+
   useEffect(() => {
     (async () => {
       console.log("use effect of add venue page");
@@ -109,7 +128,6 @@ export default function AddVenue() {
         setEventTypes(response);
       }
     })();
-
   }, []);
   return (
     <div>
@@ -125,7 +143,7 @@ export default function AddVenue() {
           >
             {(props: any) => (
               <Form>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} className="add-venue-subsection-container">
                   <Grid item xs={4}>
                     <Field
                       as={TextField}
@@ -197,6 +215,8 @@ export default function AddVenue() {
                     />
                   </Grid>
                 </Grid>
+
+                <Divider variant="middle" style={{marginTop:"2%",marginBottom:"2%"}} />
 
                 <Grid
                   container
@@ -295,6 +315,8 @@ export default function AddVenue() {
                   </Grid>
                 </Grid>
 
+                <Divider variant="middle" style={{marginTop:"2%",marginBottom:"2%"}} />
+
                 <Grid container item spacing={2}>
                   <Grid item xs={12}>
                     <Typography className="addVenueSubLabels">
@@ -314,6 +336,8 @@ export default function AddVenue() {
                   ))}
                 </Grid>
 
+                <Divider variant="middle" style={{marginTop:"2%",marginBottom:"2%"}} />
+
                 <Grid container item spacing={2}>
                   <Grid item xs={12}>
                     <Typography className="addVenueSubLabels">
@@ -331,6 +355,80 @@ export default function AddVenue() {
                       />
                     </Grid>
                   ))}
+                </Grid>
+
+                <Divider variant="middle" style={{marginTop:"2%",marginBottom:"2%"}} />
+
+                <Grid item xs={12} className="addvenue-upload-image-section">
+                  <div className="addVenueSubLabels">
+                    Add Images Of The Venue
+                  </div>
+                  <ImageUploading
+                    multiple
+                    value={images}
+                    onChange={onChange}
+                    maxNumber={maxNumber}
+                  >
+                    {({
+                      imageList,
+                      onImageUpload,
+                      onImageRemoveAll,
+                      onImageUpdate,
+                      onImageRemove,
+                      isDragging,
+                      dragProps,
+                    }) => (
+                      // write your building UI
+                      <div className="upload__image-wrapper">
+                        <Button
+                          variant="outlined"
+                          className="upload-btn-style"
+                          onClick={onImageUpload}
+                          {...dragProps}
+                        >
+                          Click or Drop here &nbsp;
+                          <PublishOutlinedIcon />
+                        </Button>
+                        &nbsp;
+                        <Button
+                          variant="outlined"
+                          className="upload-btn-style"
+                          onClick={onImageRemoveAll}
+                        >
+                          Remove all images &nbsp;
+                          <RemoveCircleOutlineOutlinedIcon />
+                        </Button>
+                        {imageList.map((image, index) => (
+                          <div key={index} className="image-item">
+                            <img
+                              src={image.dataURL}
+                              alt=""
+                              width="400"
+                              height="200"
+                            />
+                            <div className="image-item__btn-wrapper">
+                              <Button
+                                variant="outlined"
+                                className="upload-btn-style"
+                                onClick={() => onImageUpdate(index)}
+                              >
+                                Update &nbsp;
+                                <EditOutlinedIcon />
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                className="upload-btn-style"
+                                onClick={() => onImageRemove(index)}
+                              >
+                                Remove &nbsp;
+                                <DeleteOutlinedIcon />
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </ImageUploading>
                 </Grid>
 
                 <Grid item xs={12}>

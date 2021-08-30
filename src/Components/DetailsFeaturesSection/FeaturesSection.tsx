@@ -38,12 +38,12 @@ export default function FeaturesSection({ venue }: FSProps) {
     <div className="features-main-container">
       <Grid container xs={12} className="features-grid-main-container">
         <Grid container xs={12}>
-          <Grid item container xs={6}>
+          <Grid item container xs={12}>
             {/* Facilities */}
             <Grid
               item
               container
-              xs={12}
+              xs={6}
               className="features-facilities-grid-container"
             >
               <h2 className="features-facilities-label">Facilities</h2>
@@ -66,7 +66,7 @@ export default function FeaturesSection({ venue }: FSProps) {
             <Grid
               item
               container
-              xs={12}
+              xs={5}
               className="features-offers-grid-container"
             >
               <h2 className="features-facilities-label">Offers &amp; Extras</h2>
@@ -82,7 +82,7 @@ export default function FeaturesSection({ venue }: FSProps) {
           </Grid>
 
           {/* SIDE BAR STARTS */}
-          <Grid item container xs={6}>
+          {/* <Grid item container xs={6}>
             <Grid
               item
               container
@@ -118,7 +118,7 @@ export default function FeaturesSection({ venue }: FSProps) {
                
               </Grid>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
 
         <Grid item xs={12} className="map-grid">

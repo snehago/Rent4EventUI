@@ -69,6 +69,7 @@ class UserService {
           user,
           await sharedService.getHeader()
         )
+        
       );
     if (error) {
       console.log(error);

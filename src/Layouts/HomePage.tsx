@@ -4,12 +4,21 @@ import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import { VenueService } from "../Services/VenueService";
 import { EventTypeService } from "../Services/EventTypeService";
-import { Button, Box, Typography, FormControl, InputLabel, Select, MenuItem, TextField } from "@material-ui/core";
+import {
+  Button,
+  Box,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+} from "@material-ui/core";
 import "./styles/home.scss";
 import { useHistory } from "react-router";
 import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
-import Caraousel from 'react-multi-carousel';
+import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const responsive = {
@@ -32,26 +41,27 @@ const responsive = {
   },
 };
 
-
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
 
 const HomePage = () => {
   const history = useHistory();
   const [filters, setFilters] = useState<any>({
-    capacityFilter:-1,
-    priceFilter:-1,
-    locationFilter:-1,
+    capacityFilter: -1,
+    priceFilter: -1,
+    locationFilter: -1,
     eventTypeFilter: -1,
-    search: ""
+    search: "",
   });
   const [venues, setVenues] = useState<Venue[]>([]);
-  const [eventTypes, setEventTypes]= useState([]);
+  const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
 
   useEffect(() => {
     (async () => {
-      const [eventResponse, eventError] = await of(eventTypeService.getAllEventType());
+      const [eventResponse, eventError] = await of(
+        eventTypeService.getAllEventType()
+      );
       if (eventError) {
         alert(eventError.message);
       }
@@ -62,22 +72,24 @@ const HomePage = () => {
     })();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     applyAppropiateFilters();
-  },[filters])
-  useEffect(()=> {
-    (async ()=> {
+  }, [filters]);
+  useEffect(() => {
+    (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
-      if(error) {
+      if (error) {
         alert(error.message);
       }
-      if(response) {
+      if (response) {
         console.log(response);
         setVenues(response);
         setOriginalVenues(response);
       }
     })();
-  },[])
+
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleClick = () => {
     setTimeout(() => {
@@ -85,13 +97,17 @@ const HomePage = () => {
     }, 1000);
   };
 
-  const handleFilterChange =(event: React.ChangeEvent<any>) => {
+  const handleFilterChange = (event: React.ChangeEvent<any>) => {
     console.log(event.target);
-    let temp:any={};
-    if(event.target.name ==="priceFilter")temp={...filters, priceFilter: event.target.value};
-    if (event.target.name === "capacityFilter")temp ={ ...filters, capacityFilter: event.target.value };
-    if (event.target.name === "eventTypeFilter")temp ={ ...filters, eventTypeFilter: event.target.value };
-    if (event.target.name === "locationFilter")temp ={ ...filters, locationFilter: event.target.value };
+    let temp: any = {};
+    if (event.target.name === "priceFilter")
+      temp = { ...filters, priceFilter: event.target.value };
+    if (event.target.name === "capacityFilter")
+      temp = { ...filters, capacityFilter: event.target.value };
+    if (event.target.name === "eventTypeFilter")
+      temp = { ...filters, eventTypeFilter: event.target.value };
+    if (event.target.name === "locationFilter")
+      temp = { ...filters, locationFilter: event.target.value };
     if (event.target.name === "search")
       temp = { ...filters, search: event.target.value };
     setFilters(temp);
@@ -99,59 +115,68 @@ const HomePage = () => {
   const applyAppropiateFilters = () => {
     console.log(filters);
     let tempVenues = originalVenues;
-    for(let i of Object.keys(filters)) {
-      if(filters[i]=== -1 )continue;
+    for (let i of Object.keys(filters)) {
+      if (filters[i] === -1) continue;
       else {
-        if (i === "priceFilter") tempVenues=applyPriceFilter(filters[i],tempVenues);
-        if (i === "capacityFilter")tempVenues=applyCapacityFilter(filters[i], tempVenues);
-        if (i === "eventTypeFilter")tempVenues=applyEventTypeFilter(filters[i], tempVenues);
+        if (i === "priceFilter")
+          tempVenues = applyPriceFilter(filters[i], tempVenues);
+        if (i === "capacityFilter")
+          tempVenues = applyCapacityFilter(filters[i], tempVenues);
+        if (i === "eventTypeFilter")
+          tempVenues = applyEventTypeFilter(filters[i], tempVenues);
       }
     }
     let toSearch = filters.search.trim().toUpperCase();
-    if(toSearch.length!==0) {
-      tempVenues = tempVenues.filter(
-        (venue) =>
-          venue.title.toUpperCase().includes(toSearch)
+    if (toSearch.length !== 0) {
+      tempVenues = tempVenues.filter((venue) =>
+        venue.title.toUpperCase().includes(toSearch)
       );
     }
     setVenues(tempVenues);
-  }
-  const applyPriceFilter =(filterType:any, tempVenues:Venue[] ) => {
-  console.log("priceFilter");
-  let temp:any=[];
-  console.log(typeof(filterType),filterType);
-  if(filterType === 1)temp= tempVenues.filter((venue)=> venue.price<=500);
-  if (filterType === 2)
-    temp = tempVenues.filter((venue) => venue.price > 500 && venue.price <= 1000);
-  if (filterType === 3)
+  };
+  const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {
+    console.log("priceFilter");
+    let temp: any = [];
+    console.log(typeof filterType, filterType);
+    if (filterType === 1)
+      temp = tempVenues.filter((venue) => venue.price <= 500);
+    if (filterType === 2)
+      temp = tempVenues.filter(
+        (venue) => venue.price > 500 && venue.price <= 1000
+      );
+    if (filterType === 3)
       temp = tempVenues.filter(
         (venue) => venue.price > 1000 && venue.price <= 5000
       );
-  if (filterType === 4)
-    temp = tempVenues.filter((venue) => venue.price > 5000);
-  return temp;
-};
+    if (filterType === 4)
+      temp = tempVenues.filter((venue) => venue.price > 5000);
+    return temp;
+  };
 
-const applyCapacityFilter =(filterType:any, tempVenues:Venue[]) => {
-  let temp: any = [];
-  console.log("capacity",filterType);
-  if (filterType === 1)temp = tempVenues.filter((venue) => venue.capacity <= 500);
-  if (filterType === 2)temp = tempVenues.filter(
-      (venue) => venue.capacity > 500 && venue.capacity <= 1000
+  const applyCapacityFilter = (filterType: any, tempVenues: Venue[]) => {
+    let temp: any = [];
+    console.log("capacity", filterType);
+    if (filterType === 1)
+      temp = tempVenues.filter((venue) => venue.capacity <= 500);
+    if (filterType === 2)
+      temp = tempVenues.filter(
+        (venue) => venue.capacity > 500 && venue.capacity <= 1000
+      );
+    if (filterType === 3)
+      temp = venues.filter((venue) => venue.capacity > 1000);
+    console.log("capacity", temp.length);
+    return temp;
+  };
+  const applyEventTypeFilter = (filterType: any, tempVenues: Venue[]) => {
+    let temp: any = [];
+    temp = tempVenues.filter(
+      (venue) =>
+        venue.listOfEventTypes.filter(
+          (eventType: any) => eventType.id === filterType
+        ).length > 0
     );
-  if (filterType === 3)temp = venues.filter((venue) => venue.capacity > 1000);
-  console.log("capacity",temp.length);
-  return temp;
-};
-const applyEventTypeFilter =(filterType:any, tempVenues:Venue[]) => {
-  let temp: any = [];
-  temp = tempVenues.filter((venue) =>
-    venue.listOfEventTypes.filter(
-      (eventType: any) => eventType.id === filterType
-    ).length >0
-  );
-  return temp;
-};
+    return temp;
+  };
   return (
     <>
       {/* header starts */}
