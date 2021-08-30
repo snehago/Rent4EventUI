@@ -5,6 +5,7 @@ import AddVenue from "../Components/AddVenueForm/AddVenue";
 import BookingList from "../Components/BookingList";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import HostVenuesList from "../Components/HostVenuesList";
 import Profile from "../Components/ProfileForm/Profile";
 import "./styles/dashboard.scss";
 
@@ -26,8 +27,12 @@ const sideBarItems: any = {
     },
     {
       id: 3,
-      value: "Add/Edit Venue",
+      value: "Add Venue",
     },
+    {
+      id:4,
+      value: "My Venues"
+    }
   ],
 };
 const Dashboard = () => {
@@ -68,12 +73,9 @@ const Dashboard = () => {
           {selected === 1 && <Profile userRole={userRole} />}
           {selected === 2 && <BookingList></BookingList>}
           {selected === 3 && <AddVenue />}
+          {selected === 4 && <HostVenuesList/>}
         </div>
       </div>
-
-      <footer className="dashboard-footer">
-        <Footer></Footer>
-      </footer>
     </>
   );
 };

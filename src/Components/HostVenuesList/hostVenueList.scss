@@ -1,0 +1,23 @@
+.added-venue-card-container {
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+}
+.host-venue-booking-container {
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  padding: 2vw;
+}
+.host-venue-booking-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1vw 1vw 1vw;
+  font-weight: 700;
+  font-size: 2vw;
+}

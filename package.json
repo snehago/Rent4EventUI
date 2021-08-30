@@ -28,8 +28,8 @@
     "react": "^17.0.2",
     "react-calendar": "^3.4.0",
     "react-dom": "^17.0.2",
-    "react-elastic-carousel": "^0.11.5",
     "react-images-uploading": "^3.1.3",
+    "react-infinite-scroller": "^1.2.4",
     "react-leaflet": "^3.2.1",
     "react-material-ui-carousel": "^2.3.1",
     "react-multi-carousel": "^2.6.5",
@@ -40,6 +40,7 @@
     "redux": "^4.1.1",
     "styled-components": "^5.3.1",
     "typescript": "^4.3.5",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
   },
@@ -67,6 +68,8 @@
     "@types/material-ui-phone-number": "^2.2.1",
     "@types/react-calendar": "^3.4.3",
     "@types/react-date-range": "^1.1.7",
-    "@types/react-router-dom": "^5.1.8"
+    "@types/react-infinite-scroller": "^1.2.2",
+    "@types/react-router-dom": "^5.1.8",
+    "@types/uuid": "^8.3.1"
   }
 }

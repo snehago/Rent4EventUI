@@ -14,15 +14,15 @@ import {
   TextField,
 } from "@material-ui/core";
 import "./styles/venueListPage.scss";
-import { useHistory } from "react-router";
 import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 import { EventTypeService } from "../Services/EventTypeService";
+import InfiniteScroll from "react-infinite-scroller";
+import { useRef } from "react";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
 const VenueListPage = () => {
-  const history = useHistory();
   const [filters, setFilters] = useState<any>({
     capacityFilter: -1,
     priceFilter: -1,
@@ -72,11 +72,11 @@ const VenueListPage = () => {
       }
     })();
   }, []);
-
+  
   useEffect(() => {
     applyAppropiateFilters();
   }, [filters, originalVenues]);
-
+  
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
     console.log(event.target);
     let temp: any = {};
@@ -165,6 +165,8 @@ const VenueListPage = () => {
     );
     return temp;
   };
+
+  
 
   return (
     <>
@@ -361,32 +363,36 @@ const VenueListPage = () => {
         </FormControl>
       </div>
       {/* Filter and search ends */}
-      <div className="all-venues">
-        <Box className="venue-box">
-          <Grid xs={12} container spacing={8} className="venue-grid">
-            {venues?.map((venue) => (
-              <Grid item xs={12} md={6} lg={4}>
-                <CardItem
-                  id={venue.id}
-                  title={venue.title}
-                  description={venue.description}
-                  price={venue.price}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </div>
-      <div className="venue-load-more-button-container">
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => setCurrentPage((prev) => prev + 1)}
-          disabled={disabled}
+      <div className="all-venues" >
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={() => setCurrentPage(prev => prev+1)}
+          hasMore={!disabled}
+          initialLoad={false}
+          loader={
+            <div className="loader" key={0}>
+              Loading ...
+            </div>
+          }
+          useWindow={false}
         >
-          load more..
-        </Button>
+          <Box className="venue-box">
+            <Grid xs={12} container spacing={8} className="venue-grid">
+              {venues?.map((venue) => (
+                <Grid item xs={12} md={6} lg={4}>
+                  <CardItem
+                    id={venue.id}
+                    title={venue.title}
+                    description={venue.description}
+                    price={venue.price}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </InfiniteScroll>
       </div>
+      
       <footer className="venue-footer">
         <Footer></Footer>
       </footer>

@@ -11,6 +11,7 @@ const bookingService = new BookingService();
 function BookingList() {
   const user:User = useSelector((state:RootState)=> state.auth.user);
   const [bookings, setBookings]= useState<Booking[]>([]);
+  
   useEffect(()=> {
     (async ()=> {
       const [response,error]= await of(bookingService.getBookingByUserId(user.id));
@@ -22,11 +23,12 @@ function BookingList() {
       }
     })();
   },[user])
-  
   return (
+    <>
     <div className="booking-card-container" >
       {bookings.map((booking)=> <BookingCard booking={booking} ></BookingCard> )}
     </div>
+    </>
   )
 }
 
