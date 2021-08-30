@@ -26,10 +26,13 @@ import PublishOutlinedIcon from "@material-ui/icons/PublishOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+import { useHistory } from "react-router";
+import Notification, { NotificationType } from "../Notification";
 
 const venueService = new VenueService();
 export default function AddVenue() {
   const user = useSelector((state: RootState) => state.auth.user);
+  const history = useHistory();
   const initialValues = {
     title: "",
     capacity: "",
@@ -40,12 +43,6 @@ export default function AddVenue() {
     city: "",
     pincode: "",
     street: "",
-    Wifi: false,
-    Conference: false,
-    Banquet: false,
-    Marriage: false,
-    Event: false,
-    Production: false,
   };
 
   const validationSchema = Yup.object().shape({
@@ -87,11 +84,16 @@ export default function AddVenue() {
       console.log(response);
       props.resetForm();
       props.setSubmitting(false);
+      setOpen(true);
+      setTimeout(() => {
+        history.push("/home");
+      }, 3000);
     }
   };
 
   const facilityService = new FacilityService();
   const eventTypeService = new EventTypeService();
+  const [open, setOpen] = useState<boolean>(false);
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [eventTypes, setEventTypes] = useState<EventType[]>([]);
   const [images, setImages] = React.useState([]);
@@ -131,6 +133,12 @@ export default function AddVenue() {
   }, []);
   return (
     <div>
+      {open && (
+        <Notification
+          type={NotificationType.success}
+          content="Venue Added Successfully successfully"
+        ></Notification>
+      )}
       <Paper elevation={10} className="addVenuePaper">
         <Grid container className="addVenueFormContainer" spacing={1}>
           <Grid className="addVenueLabel" item xs={12}>
@@ -143,7 +151,11 @@ export default function AddVenue() {
           >
             {(props: any) => (
               <Form>
-                <Grid container spacing={2} className="add-venue-subsection-container">
+                <Grid
+                  container
+                  spacing={2}
+                  className="add-venue-subsection-container"
+                >
                   <Grid item xs={4}>
                     <Field
                       as={TextField}
@@ -216,7 +228,10 @@ export default function AddVenue() {
                   </Grid>
                 </Grid>
 
-                <Divider variant="middle" style={{marginTop:"2%",marginBottom:"2%"}} />
+                <Divider
+                  variant="middle"
+                  style={{ marginTop: "2%", marginBottom: "2%" }}
+                />
 
                 <Grid
                   container
@@ -315,7 +330,10 @@ export default function AddVenue() {
                   </Grid>
                 </Grid>
 
-                <Divider variant="middle" style={{marginTop:"2%",marginBottom:"2%"}} />
+                <Divider
+                  variant="middle"
+                  style={{ marginTop: "2%", marginBottom: "2%" }}
+                />
 
                 <Grid container item spacing={2}>
                   <Grid item xs={12}>
@@ -336,7 +354,10 @@ export default function AddVenue() {
                   ))}
                 </Grid>
 
-                <Divider variant="middle" style={{marginTop:"2%",marginBottom:"2%"}} />
+                <Divider
+                  variant="middle"
+                  style={{ marginTop: "2%", marginBottom: "2%" }}
+                />
 
                 <Grid container item spacing={2}>
                   <Grid item xs={12}>
@@ -357,7 +378,10 @@ export default function AddVenue() {
                   ))}
                 </Grid>
 
-                <Divider variant="middle" style={{marginTop:"2%",marginBottom:"2%"}} />
+                <Divider
+                  variant="middle"
+                  style={{ marginTop: "2%", marginBottom: "2%" }}
+                />
 
                 <Grid item xs={12} className="addvenue-upload-image-section">
                   <div className="addVenueSubLabels">
