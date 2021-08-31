@@ -3,18 +3,23 @@
   flex-direction: column;
   align-items: center;
 }
+.reg-side-image {
+  width: 100%;
+  height: 100%;
+  filter: blur(2px);
+}
 .paperStyle {
-  padding:2% 1.5%;
-  width: 30%!important;
+  padding: 2% 1.5%;
+  width: 60% !important;
   margin: 20px auto;
 }
 .headerStyle {
   margin: 0;
 }
 .avatarStyle {
-  background-color: #D3600C !important;
+  background-color: #d3600c !important;
 }
-.register-form{
+.register-form {
   margin-top: 4%;
 }
 
@@ -22,7 +27,7 @@
   margin-bottom: 5% !important;
 }
 .btnStyle {
-  margin-top: 2%!important;
+  margin-top: 2% !important;
 }
 .errorMsg {
   color: red;
@@ -31,6 +36,6 @@
   text-decoration: none;
 }
 
-.register-text-links{
-  margin-top: 2%!important;
+.register-text-links {
+  margin-top: 2% !important;
 }

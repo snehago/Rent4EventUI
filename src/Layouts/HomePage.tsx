@@ -20,6 +20,9 @@ import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import CircularLoader from "../Components/CircularLoader/CircularLoader";
+import Aos from "aos";
+import "aos/dist/aos.css"
 
 const responsive = {
   superLargeDesktop: {
@@ -56,6 +59,11 @@ const HomePage = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Aos.init({duration:2000})
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -83,7 +91,11 @@ const HomePage = () => {
       }
       if (response) {
         console.log(response);
-        setVenues(response);
+        setTimeout(() => {
+          setVenues(response);
+          setLoading(false);
+        }, 2000);
+
         setOriginalVenues(response);
       }
     })();
@@ -179,6 +191,7 @@ const HomePage = () => {
   };
   return (
     <>
+      {loading && <CircularLoader />}
       {/* header starts */}
       <header>
         <Header></Header>
@@ -323,7 +336,7 @@ const HomePage = () => {
         </Button>
       </div>
       {/* Filter and search ends */}
-      <div className="recommendedVenues">
+      <div className="recommendedVenues" data-aos="zoom-in">
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
         </div>

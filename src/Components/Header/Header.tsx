@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppBar, Toolbar, Button, Box, Menu, MenuItem} from "@material-ui/core";
 import { RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +29,7 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [location, setLocation]= React.useState<string>(window.location.href);
   const open = Boolean(anchorEl);
+  const [loading,setLoading]=useState(true);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,7 +40,12 @@ export default function Header() {
   };
 
   const logoutUser = () => {
-    dispatch(logout());
+    setLoading(true)
+    setTimeout(() => {
+      dispatch(logout());
+      setLoading(false);
+    }, 1000);
+    
     setAnchorEl(null);
     history.push('/user/login');
   };

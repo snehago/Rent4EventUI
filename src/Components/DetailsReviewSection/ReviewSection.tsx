@@ -1,6 +1,6 @@
 import { Box, Button } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserReview from "../UserReview/UserReview";
 import "./reviewsection.scss";
 
@@ -11,36 +11,36 @@ function ReviewSection() {
   const [feedBacks, setFeedBacks] = useState([
     {
       id: 1,
-      name:"Vinayak Jaiswal",
+      name: "Vinayak Jaiswal",
       rating: 2.5,
       comment:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia autem alias sapiente non praesentium soluta adipisci? Magni delenitiquasi rem ullam, odio assumenda voluptates veritatis expedita sintipsam, vitae fuga.",
     },
     {
       id: 2,
-      name:"Rahul Jaiswal",
+      name: "Rahul Jaiswal",
       rating: 3,
       comment:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia autem alias sapiente non praesentium soluta adipisci? Magni delenitiquasi rem ullam, odio assumenda voluptates veritatis expedita sintipsam, vitae fuga.",
     },
     {
       id: 3,
-      name:"Rohit Singh",
+      name: "Rohit Singh",
       rating: 1,
       comment:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia autem alias sapiente non praesentium soluta adipisci? Magni delenitiquasi rem ullam, odio assumenda voluptates veritatis expedita sintipsam, vitae fuga.",
     },
     {
       id: 4,
-      name:"Mohit Singh",
+      name: "Mohit Singh",
       rating: 5,
       comment:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia autem alias sapiente non praesentium soluta adipisci? Magni delenitiquasi rem ullam, odio assumenda voluptates veritatis expedita sintipsam, vitae fuga.",
     },
-
   ]);
+  
   return (
-    <div className="details-reviews-container">
+    <div className="details-reviews-container" data-aos="slide-up">
       <div className="details-review-label">Review &amp; Ratings</div>
       <Box
         component="fieldset"
@@ -64,9 +64,11 @@ function ReviewSection() {
         <span id="no-of-reviews">{` ${totalReviews} Reviews`}</span>
       </div>
 
-      {
-        feedBacks.map((item)=><UserReview feedbackItem={item} />)
-      }
+      <div data-aos="fade-left">
+        {feedBacks.map((item) => (
+          <UserReview feedbackItem={item} />
+        ))}
+      </div>
 
       <div>
         <Button variant="outlined" className="reviews-view-more-btn">

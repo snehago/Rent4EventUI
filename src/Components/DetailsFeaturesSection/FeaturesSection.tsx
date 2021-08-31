@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Rating } from "@material-ui/lab";
 import "./featuressection.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
@@ -35,10 +35,10 @@ export default function FeaturesSection({ venue }: FSProps) {
 
   const [ratingValue, setRatingValue] = useState(2.5);
   return (
-    <div className="features-main-container">
+    <div className="features-main-container" data-aos="fade-up">
       <Grid container xs={12} className="features-grid-main-container">
         <Grid container xs={12}>
-          <Grid item container xs={12}>
+          <Grid item container xs={12} data-aos="fade-right">
             {/* Facilities */}
             <Grid
               item
@@ -68,6 +68,7 @@ export default function FeaturesSection({ venue }: FSProps) {
               container
               xs={5}
               className="features-offers-grid-container"
+              data-aos="fade-left"
             >
               <h2 className="features-facilities-label">Offers &amp; Extras</h2>
               <Grid item container spacing={2} xs={12}>
@@ -121,7 +122,7 @@ export default function FeaturesSection({ venue }: FSProps) {
           </Grid> */}
         </Grid>
 
-        <Grid item xs={12} className="map-grid">
+        <Grid item xs={12} className="map-grid" data-aos="zoom-in">
           <MapComponent />
         </Grid>
       </Grid>

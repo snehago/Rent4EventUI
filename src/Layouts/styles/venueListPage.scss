@@ -3,8 +3,8 @@
 .all-venues {
   width: 100%;
   margin-top: 5%;
-  height: 50vw;
-  overflow: auto;
+  height: 90vw;
+  overflow-x: hidden;
 }
 .venue-box {
   display: flex;

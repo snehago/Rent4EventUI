@@ -1,13 +1,17 @@
 import { Button } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import image from "../../assets/images/bgimage.jpg";
 import "./addedVenueCard.scss";
 
-function AddedVenueCard({ venue, onClick }: { venue: Venue, onClick:any }) {
+function AddedVenueCard({ venue, onClick }: { venue: Venue; onClick: any }) {
   return (
     <>
-      <div className="added-venue-card-base" onClick={()=> onClick(venue)} >
+      <div
+        className="added-venue-card-base"
+        onClick={() => onClick(venue)}
+        data-aos="flip-right"
+      >
         <div className="added-venue-card-image-container">
           <img src={image} alt="venueImage" />
         </div>
