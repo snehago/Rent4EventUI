@@ -34,6 +34,10 @@ const venueService = new VenueService();
 export default function AddVenue() {
   const user = useSelector((state: RootState) => state.auth.user);
   const history = useHistory();
+  const [coordinates, setCoordinates] = useState({
+    lat: 0,
+    lng: 0,
+  });
   const initialValues = {
     title: "",
     capacity: "",
@@ -44,6 +48,8 @@ export default function AddVenue() {
     city: "",
     pincode: "",
     street: "",
+    latitude:coordinates.lat,
+    longitude:coordinates.lng
   };
   const defaultPosition = {
     lat: 27.9878,
@@ -70,6 +76,8 @@ export default function AddVenue() {
       city: values.city,
       country: values.country,
       pin: values.pincode,
+      latitude:coordinates.lat,
+      longitude:coordinates.lng
     };
     let venue: any = {
       host: {
@@ -102,12 +110,8 @@ export default function AddVenue() {
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [eventTypes, setEventTypes] = useState<EventType[]>([]);
   const [images, setImages] = React.useState([]);
-  const [lat, setLat] = useState<any>(0);
-  const [lng, setLng] = useState<any>(0);
-  const [position, setPosition] = useState({
-    latitude: 0,
-    longitude: 0,
-  });
+  
+ 
   const [address, setAddress] = useState("");
 
   const maxNumber = 69;
@@ -145,10 +149,9 @@ export default function AddVenue() {
     })();
   }, []);
 
-  const handleLocationChange = ({ position, address, places }) => {
-    setPosition(position);
-    setAddress(address);
-    console.log(address);
+  const handleLocationChange = ({ position }) => {
+    setCoordinates(position);
+    console.log(coordinates)
   };
   return (
     <div>
@@ -474,7 +477,16 @@ export default function AddVenue() {
                   </ImageUploading>
                 </Grid>
 
+                <Divider
+                  variant="middle"
+                  style={{ marginTop: "2%", marginBottom: "2%" }}
+                />
+
                 <Grid item xs={12}>
+                  <div className="addVenueSubLabels">
+                    Mark Venue Location On Map
+                  </div>
+
                   <LocationPicker
                     containerElement={<div style={{ height: "100%" }} />}
                     mapElement={<div style={{ height: "400px" }} />}

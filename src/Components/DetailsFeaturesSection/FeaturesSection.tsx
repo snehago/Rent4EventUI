@@ -33,10 +33,10 @@ export default function FeaturesSection({ venue }: FSProps) {
   ];
 
   return (
-    <div className="features-main-container" data-aos="fade-up">
+    <div className="features-main-container" data-aos="fade-up" data-aos-once>
       <Grid container xs={12} className="features-grid-main-container">
         <Grid container xs={12}>
-          <Grid item container xs={12} data-aos="fade-right">
+          <Grid item container xs={12} data-aos="fade-right" data-aos-once>
             {/* Facilities */}
             <Grid
               item
@@ -67,6 +67,7 @@ export default function FeaturesSection({ venue }: FSProps) {
               xs={5}
               className="features-offers-grid-container"
               data-aos="fade-left"
+              data-aos-once
             >
               <h2 className="features-facilities-label">Offers &amp; Extras</h2>
               <Grid item container spacing={2} xs={12}>
@@ -120,8 +121,8 @@ export default function FeaturesSection({ venue }: FSProps) {
           </Grid> */}
         </Grid>
 
-        <Grid item xs={12} className="map-grid" data-aos="zoom-in">
-          <MapComponent />
+        <Grid item xs={12} className="map-grid" data-aos="zoom-in" data-aos-once>
+         {venue && <MapComponent venue={venue} />} 
         </Grid>
       </Grid>
     </div>
