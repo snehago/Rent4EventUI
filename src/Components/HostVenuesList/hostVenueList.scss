@@ -2,11 +2,13 @@
   width: 100vw !important;
   height: 100vh !important;
   display: flex;
+  overflow-y: scroll;
+  overflow-x: hidden;
   flex-direction: column;
 }
 .host-venue-booking-container {
-  width: 100vw !important;
-  height: 100vh !important;
+  width: 100% !important;
+  height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: flex-start !important;

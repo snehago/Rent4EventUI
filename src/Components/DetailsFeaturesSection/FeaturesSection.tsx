@@ -1,5 +1,5 @@
 import { Grid} from "@material-ui/core";
-import React from "react";
+import React, {useState} from "react";
 import "./featuressection.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import MapComponent from "../MapSection/MapComponent";
@@ -8,14 +8,7 @@ interface FSProps {
   venue: Venue;
 }
 export default function FeaturesSection({ venue }: FSProps) {
-  const facilities = [
-    "facility 1",
-    "facility 2",
-    "facility 3",
-    "facility 4",
-    "facility 5",
-    "facility 6",
-  ];
+  const [facilities, setFacilities]= useState(venue.listOfFacilities);
 
   const offers = [
     {
@@ -34,14 +27,15 @@ export default function FeaturesSection({ venue }: FSProps) {
 
   return (
     <div className="features-main-container" data-aos="fade-up" data-aos-once>
-      <Grid container xs={12} className="features-grid-main-container">
-        <Grid container xs={12}>
+      <Grid container xs={12}  className="features-grid-main-container">
+        <Grid container xs={12} >
           <Grid item container xs={12} data-aos="fade-right" data-aos-once>
             {/* Facilities */}
             <Grid
               item
               container
               xs={6}
+              lg={6}
               className="features-facilities-grid-container"
             >
               <h2 className="features-facilities-label">Facilities</h2>
@@ -49,11 +43,11 @@ export default function FeaturesSection({ venue }: FSProps) {
                 {facilities.map((item) => (
                   <Grid
                     className="features-facility-item"
-                    spacing={2}
+                    spacing={0}
                     item
                     xs={3}
                   >
-                    {item}
+                    {item.name}
                   </Grid>
                 ))}
               </Grid>
@@ -70,7 +64,7 @@ export default function FeaturesSection({ venue }: FSProps) {
               data-aos-once
             >
               <h2 className="features-facilities-label">Offers &amp; Extras</h2>
-              <Grid item container spacing={2} xs={12}>
+              <Grid item container spacing={2} xs={12} >
                 {offers.map((item) => (
                   <Grid className="offerItem" spacing={2} item xs={3}>
                     <div className="mainOffer">{item.offer}</div>

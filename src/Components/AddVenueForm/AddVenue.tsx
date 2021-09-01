@@ -31,9 +31,17 @@ import Notification, { NotificationType } from "../Notification";
 import LocationPicker from "react-location-picker";
 
 const venueService = new VenueService();
+const facilityService = new FacilityService();
+const eventTypeService = new EventTypeService();
+  
 export default function AddVenue() {
   const user = useSelector((state: RootState) => state.auth.user);
   const history = useHistory();
+  const [open, setOpen] = useState<boolean>(false);
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [eventTypes, setEventTypes] = useState<EventType[]>([]);
+  const [images, setImages] = React.useState([]);
+  const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({
     lat: 0,
     lng: 0,
@@ -76,8 +84,8 @@ export default function AddVenue() {
       city: values.city,
       country: values.country,
       pin: values.pincode,
-      latitude:coordinates.lat,
-      longitude:coordinates.lng
+      latitude: coordinates.lat,
+      longitude: coordinates.lng,
     };
     let venue: any = {
       host: {
@@ -89,6 +97,9 @@ export default function AddVenue() {
       title: values.title,
       description: values.description,
     };
+    console.log(venue);
+    console.log(coordinates);
+
     const [response, error] = await of(venueService.addVenue(venue));
     if (error) {
       alert(error.message);
@@ -98,21 +109,10 @@ export default function AddVenue() {
       props.resetForm();
       props.setSubmitting(false);
       setOpen(true);
-      setTimeout(() => {
-        history.push("/home");
-      }, 3000);
     }
   };
 
-  const facilityService = new FacilityService();
-  const eventTypeService = new EventTypeService();
-  const [open, setOpen] = useState<boolean>(false);
-  const [facilities, setFacilities] = useState<Facility[]>([]);
-  const [eventTypes, setEventTypes] = useState<EventType[]>([]);
-  const [images, setImages] = React.useState([]);
   
- 
-  const [address, setAddress] = useState("");
 
   const maxNumber = 69;
 
@@ -127,7 +127,6 @@ export default function AddVenue() {
 
   useEffect(() => {
     (async () => {
-      console.log("use effect of add venue page");
       const [response, error] = await of(facilityService.getAllFacility());
       if (error) {
         alert(error.message);
@@ -138,7 +137,6 @@ export default function AddVenue() {
     })();
 
     (async () => {
-      console.log("use effect2 of add venue page");
       const [response, error] = await of(eventTypeService.getAllEventType());
       if (error) {
         alert(error.message);
@@ -489,7 +487,7 @@ export default function AddVenue() {
 
                   <LocationPicker
                     containerElement={<div style={{ height: "100%" }} />}
-                    mapElement={<div style={{ height: "400px" }} />}
+                    mapElement={<div style={{ height: "30vw" }} />}
                     defaultPosition={defaultPosition}
                     onChange={handleLocationChange}
                   />

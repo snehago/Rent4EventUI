@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./profile.scss";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import profileImage from "../../assets/images/ppic.jpg";
 import { Paper, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
@@ -18,7 +16,7 @@ import ImageUploader from "react-images-upload";
 var FormData = require('form-data');
 
 const sharedService = new SharedService();
-
+const userService = new UserService();
 const Profile = (props: any) => {
   const [editProfile, setEditProfile] = useState(false);
   const [userId, setUserId] = useState<any>();
@@ -33,7 +31,17 @@ const Profile = (props: any) => {
 
   const user: User = useSelector((state: RootState) => state.auth.user);
 
-  const userService = new UserService();
+  useEffect(()=>{
+    (async ()=> {
+      const [response,error]= await of(userService.getProfilePicture(user.id));
+      if(error) {
+        alert(error.message);
+      }
+      if(response) {
+        setProfilePic(response);
+      }
+    })();
+  },[user])
 
   async function handleEditFormHost(user: any) {
     console.log("edit the form");
@@ -132,14 +140,14 @@ const Profile = (props: any) => {
           <Grid item xs={2} className="profile-pic-grid">
             <Card className="profile-pic-card">
               <CardActionArea>
-                {!profilePic && <ImageUploader
-                  withIcon={true}
+                {(!profilePic || editProfile) && <ImageUploader
+                  withIcon={false}
                   buttonText="Choose images"
                   onChange={onDrop}
                   imgExtension={[".jpg", ".gif", ".png", ".gif"]}
                   maxFileSize={5242880}
                 />}
-                {profilePic && <img src={profilePic} alt="profilePic" />}
+                {profilePic && !editProfile && <img src={profilePic} height="160vw" width="150vw" alt="profilePic" />}
               </CardActionArea>
             </Card>
           </Grid>

@@ -45,7 +45,7 @@ function Row({row}: any) {
           {moment(row.from).format('LL')}
         </TableCell>
         <TableCell>{moment(row.to).format('LL')}</TableCell>
-        <TableCell align="left">{(new Date(row.to).getDay()- new Date(row.from).getDay())} day(s)</TableCell>
+        <TableCell align="left">{(new Date(row.to).getDay()- new Date(row.from).getDay())+1} day(s)</TableCell>
         <TableCell align="left">${row.amountPaid}</TableCell>
         <TableCell align="center">
           <Button variant="contained" color="primary" onClick={() => console.log(row)}>Cancel</Button>
@@ -62,15 +62,16 @@ function Row({row}: any) {
                 <TableHead>
                   <TableRow>
                     <TableCell>Name</TableCell>
-                    {/* <TableCell>Contact Number</TableCell> */}
+                    <TableCell>Contact Number</TableCell>
                     <TableCell align="left">Transaction Id</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow key={row.user.id}>
                     <TableCell component="th" scope="row">
-                      {row.user.userName}
+                      {row.user.firstName +" "+ row.user.lastName}
                     </TableCell>
+                    <TableCell>{row.user.contactNumber}</TableCell>
                     <TableCell align="left" >{uuid()}</TableCell>
                   </TableRow>
                 </TableBody>

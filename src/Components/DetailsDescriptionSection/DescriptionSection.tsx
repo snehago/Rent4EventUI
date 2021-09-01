@@ -146,12 +146,13 @@ export default function DescriptionSection({ venue }: DSProps) {
                   {venue?.description}
                 </Typography>
               </div>
+              <br/>
               <Divider variant="middle" style={{ marginTop: "2%" }} />
 
               <div className="description-address-container">
                 <div className="description-address-label">Address</div>
                 <div className="description-venue-address">
-                  {`${venue.address.streetAddress},${venue.address.city},${venue.address.state},${venue.address.country},${venue.address.pin}`}
+                  {`${venue.address.streetAddress}, ${venue.address.city}, ${venue.address.state}, ${venue.address.country}`}
                 </div>
               </div>
             </Grid>

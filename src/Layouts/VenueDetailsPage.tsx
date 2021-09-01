@@ -16,8 +16,6 @@ const venueService = new VenueService();
 const VenueDetailsPage = () => {
   const [venue, setVenue] = useState<Venue | null>(null);
   const { venueId } = useParams<any>();
-
-  const [venues, setVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

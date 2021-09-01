@@ -3,13 +3,14 @@
 .added-venue-card-base {
   display: flex;
   flex-direction: row;
-  width: 90%;
+  width: 100% !important;
   height: 8vw;
   min-width: 90% !important;
   min-height: 20% !important;
   background-color: $white;
   margin: 1vw 2vw;
   cursor: pointer;
+  overflow: hidden;
   box-shadow: 0px 4px 8px #00000029;
   &:hover {
     box-shadow: 0px 4px 16px#00000029;
@@ -48,6 +49,10 @@
 .addded-venue-card-venue-description {
   padding: .5vw 1vw;
   font-size: .8vw;
+  width: 80%;
+  white-space: nowrap;
+  text-overflow: ellipsis !important;
+  overflow: hidden;
 }
 
 .added-venue-edit-button {

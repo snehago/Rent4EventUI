@@ -445,7 +445,7 @@ const VenueListPage = () => {
         <Box className="venue-box">
           <Grid xs={12} container spacing={8} className="venue-grid">
             {venues?.map((venue) => (
-              <Grid item xs={12} md={6} lg={4} data-aos="zoom-in">
+              <Grid item xs={12} md={6} lg={4} data-aos="zoom-in" data-aos-once>
                 <CardItem
                   id={venue.id}
                   title={venue.title}

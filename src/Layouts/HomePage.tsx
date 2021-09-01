@@ -82,7 +82,8 @@ const HomePage = () => {
 
   useEffect(() => {
     applyAppropiateFilters();
-  }, [filters]);
+  }, [filters,originalVenues]);
+
   useEffect(() => {
     (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
@@ -340,7 +341,7 @@ const HomePage = () => {
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
         </div>
-        <div className="recommended-venue-box" data-aos="zoom-in">
+        <div className="recommended-venue-box" data-aos="zoom-in" data-aos-once>
           <Caraousel
             swipeable={true}
             showDots={false}
