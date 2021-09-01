@@ -124,7 +124,7 @@ export default function FeaturesSection({ venue }: FSProps) {
         </Grid>
 
         <Grid item xs={12} className="map-grid" data-aos="zoom-in" data-aos-once>
-          <MapComponent />
+         {venue && <MapComponent venue={venue} />} 
         </Grid>
       </Grid>
     </div>
