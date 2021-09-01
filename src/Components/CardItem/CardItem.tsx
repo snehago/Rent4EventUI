@@ -9,13 +9,13 @@ import "./cardStyle.scss";
 import image from "../../assets/images/download.jpg";
 
 interface cardProps {
-  id: number,
+  id: number;
   title: String;
   description: String;
   price: number;
 }
 
-export default function CardItem({id,title, description, price} : cardProps) {
+export default function CardItem({ id, title, description, price }: cardProps) {
   // const classes = useStyles();
   const history = useHistory();
 

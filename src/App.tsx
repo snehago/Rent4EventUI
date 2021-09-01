@@ -10,6 +10,8 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import ScrollToTop from "react-scroll-to-top";
 import GoTop from "./Components/GoToTop/GoTop";
 import "./App.scss";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const sharedService = new SharedService();
 
@@ -24,6 +26,10 @@ const theme = createTheme({
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
 
   useEffect(() => {
     if (sharedService.isUserLoggedIn() && !user) {

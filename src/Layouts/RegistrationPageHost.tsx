@@ -18,6 +18,8 @@ import { UserService } from "../Services/UserService";
 import { useHistory } from "react-router";
 import "./styles/registration.scss";
 import { useState } from "react";
+import image from "../assets/images/banner1.jpeg";
+
 const userService = new UserService();
 const RegistrationPageHost = () => {
   const history = useHistory();
@@ -28,9 +30,9 @@ const RegistrationPageHost = () => {
     email: "",
     passwordHash: "",
     confirmPasswordHash: "",
-    contactNumber:null,
+    contactNumber: null,
     dob: "",
-    paymentDetails:""
+    paymentDetails: "",
   };
 
   const onSubmit = async (values: any) => {
@@ -78,177 +80,188 @@ const RegistrationPageHost = () => {
           content="User registered successfully"
         ></Notification>
       )}
-      <Grid>
-        <Paper elevation={20} className="paperStyle">
-          <Grid className="gridStyle">
-            <Avatar className="avatarStyle">
-              <AddCircleOutlineOutlinedIcon />
-            </Avatar>
-            <h2 className="headerStyle">Register as Host</h2>
-            <Typography variant="caption">
-              Please fill this form to create an account !
+      <Grid container>
+        <Grid item xs={6}>
+          <img src={image} className="reg-side-image" alt="" />
+          <div className="login-img-text">
+            GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US
+            !!
+          </div>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper elevation={20} className="paperStyle">
+            <Grid className="gridStyle">
+              <Avatar className="avatarStyle">
+                <AddCircleOutlineOutlinedIcon />
+              </Avatar>
+              <h2 className="headerStyle">Register as Host</h2>
+              <Typography variant="caption">
+                Please fill this form to create an account !
+              </Typography>
+            </Grid>
+
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(props) => (
+                <Form className="register-form">
+                  <Field
+                    as={TextField}
+                    name="firstName"
+                    className="textFieldStyle"
+                    variant="outlined"
+                    fullWidth
+                    label="First Name"
+                    placeholder="Enter your First name"
+                    required
+                    helperText={
+                      <ErrorMessage name="firstName">
+                        {(msg) => <div className="errorMsg">{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <Field
+                    as={TextField}
+                    name="lastName"
+                    className="textFieldStyle"
+                    variant="outlined"
+                    fullWidth
+                    label="Last Name"
+                    placeholder="Enter your Last name"
+                    required
+                    helperText={
+                      <ErrorMessage name="lastName">
+                        {(msg) => <div className="errorMsg">{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <Field
+                    as={TextField}
+                    name="email"
+                    className="textFieldStyle"
+                    variant="outlined"
+                    fullWidth
+                    label="Email"
+                    placeholder="Enter your Email Id"
+                    required
+                    helperText={
+                      <ErrorMessage name="email">
+                        {(msg) => <div className="errorMsg">{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <Field
+                    as={TextField}
+                    name="passwordHash"
+                    className="textFieldStyle"
+                    variant="outlined"
+                    fullWidth
+                    type="password"
+                    label="Password"
+                    placeholder="Enter a Password"
+                    required
+                    helperText={
+                      <ErrorMessage name="passwordHash">
+                        {(msg) => <div className="errorMsg">{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <Field
+                    as={TextField}
+                    name="confirmPasswordHash"
+                    className="textFieldStyle"
+                    variant="outlined"
+                    fullWidth
+                    type="password"
+                    label="Confirm Password"
+                    placeholder="Confirm your Password"
+                    required
+                    helperText={
+                      <ErrorMessage name="confirmPasswordHash">
+                        {(msg) => <div className="errorMsg">{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+
+                  <MuiPhoneNumber
+                    defaultCountry={"us"}
+                    name="contactNumber"
+                    onChange={(e: any) =>
+                      props.setFieldValue("contactNumber", e)
+                    }
+                    variant="outlined"
+                    className="textFieldStyle"
+                    fullWidth
+                    label="Contact Number"
+                    required
+                    helperText={
+                      <ErrorMessage name="contactNumber">
+                        {(msg) => <div className="errorMsg">{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+                  <Field
+                    as={TextField}
+                    name="dob"
+                    variant="outlined"
+                    fullWidth
+                    className="textFieldStyle"
+                    id="date"
+                    label="Date Of Birth"
+                    placeholder="Select your Date Of Birth"
+                    type="date"
+                    defaultValue="2021-08-10"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    required
+                    helperText={
+                      <ErrorMessage name="lastName">
+                        {(msg) => <div className="errorMsg">{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+
+                  <Field
+                    as={TextField}
+                    name="paymentDetails"
+                    required
+                    className="textFieldStyle"
+                    variant="outlined"
+                    fullWidth
+                    label="Upi Id"
+                    placeholder="Give your Upi Id"
+                    helperText={
+                      <ErrorMessage name="paymentDetails">
+                        {(msg) => <div className="errorMsg">{msg}</div>}
+                      </ErrorMessage>
+                    }
+                  />
+
+                  <Button
+                    type="submit"
+                    fullWidth
+                    color="primary"
+                    className="btnStyle"
+                    disabled={props.isSubmitting}
+                    variant="contained"
+                  >
+                    {props.isSubmitting ? "LOADING" : "REGISTER"}
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+            <Typography className="register-text-links">
+              {" "}
+              Already have an account ?
+              <NavLink className="navLink" exact to="/user/login/">
+                Login
+              </NavLink>
             </Typography>
-          </Grid>
-
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            {(props) => (
-              <Form className="register-form">
-                <Field
-                  as={TextField}
-                  name="firstName"
-                  className="textFieldStyle"
-                  variant="outlined"
-                  fullWidth
-                  label="First Name"
-                  placeholder="Enter your First name"
-                  required
-                  helperText={
-                    <ErrorMessage name="firstName">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-                <Field
-                  as={TextField}
-                  name="lastName"
-                  className="textFieldStyle"
-                  variant="outlined"
-                  fullWidth
-                  label="Last Name"
-                  placeholder="Enter your Last name"
-                  required
-                  helperText={
-                    <ErrorMessage name="lastName">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-                <Field
-                  as={TextField}
-                  name="email"
-                  className="textFieldStyle"
-                  variant="outlined"
-                  fullWidth
-                  label="Email"
-                  placeholder="Enter your Email Id"
-                  required
-                  helperText={
-                    <ErrorMessage name="email">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-                <Field
-                  as={TextField}
-                  name="passwordHash"
-                  className="textFieldStyle"
-                  variant="outlined"
-                  fullWidth
-                  type="password"
-                  label="Password"
-                  placeholder="Enter a Password"
-                  required
-                  helperText={
-                    <ErrorMessage name="passwordHash">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-                <Field
-                  as={TextField}
-                  name="confirmPasswordHash"
-                  className="textFieldStyle"
-                  variant="outlined"
-                  fullWidth
-                  type="password"
-                  label="Confirm Password"
-                  placeholder="Confirm your Password"
-                  required
-                  helperText={
-                    <ErrorMessage name="confirmPasswordHash">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-
-                <MuiPhoneNumber
-                  defaultCountry={"us"}
-                  name="contactNumber"
-                  onChange={(e: any) => props.setFieldValue("contactNumber", e)}
-                  variant="outlined"
-                  className="textFieldStyle"
-                  fullWidth
-                  label="Contact Number"
-                  required
-                  helperText={
-                    <ErrorMessage name="contactNumber">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-                <Field
-                  as={TextField}
-                  name="dob"
-                  variant="outlined"
-                  fullWidth
-                  className="textFieldStyle"
-                  id="date"
-                  label="Date Of Birth"
-                  placeholder="Select your Date Of Birth"
-                  type="date"
-                  defaultValue="2021-08-10"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  required
-                  helperText={
-                    <ErrorMessage name="lastName">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-
-                <Field
-                  as={TextField}
-                  name="paymentDetails"
-                  required
-                  className="textFieldStyle"
-                  variant="outlined"
-                  fullWidth
-                  label="Upi Id"
-                  placeholder="Give your Upi Id"
-                  helperText={
-                    <ErrorMessage name="paymentDetails">
-                      {(msg) => <div className="errorMsg">{msg}</div>}
-                    </ErrorMessage>
-                  }
-                />
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  color="primary"
-                  className="btnStyle"
-                  disabled={props.isSubmitting}
-                  variant="contained"
-                >
-                  {props.isSubmitting ? "LOADING" : "REGISTER"}
-                </Button>
-              </Form>
-            )}
-          </Formik>
-          <Typography className="register-text-links">
-            {" "}
-            Already have an account ?
-            <NavLink className="navLink" exact to="/user/login/">
-              Login
-            </NavLink>
-          </Typography>
-        </Paper>
+          </Paper>
+        </Grid>
       </Grid>
     </>
   );

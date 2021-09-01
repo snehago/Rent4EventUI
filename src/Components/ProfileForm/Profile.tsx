@@ -6,13 +6,14 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import profileImage from "../../assets/images/ppic.jpg";
-import { Paper, TextField } from "@material-ui/core";
+import { CircularProgress, Paper, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { SharedService } from "../../Services/SharedService";
 import { User } from "../../Shared/Interfaces/User";
 import { UserService } from "../../Services/UserService";
 import { of } from "await-of";
+import CircularLoader from "../CircularLoader/CircularLoader";
 
 const sharedService = new SharedService();
 
@@ -26,8 +27,9 @@ const Profile = (props: any) => {
   const [email, setEmail] = useState<any>("");
   const [paymentDetails, setPaymentDetails] = useState<any>("");
   const [role, setRole] = useState<any>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const user:User = useSelector((state: RootState) => state.auth.user);
+  const user: User = useSelector((state: RootState) => state.auth.user);
 
   const userService = new UserService();
 
@@ -73,7 +75,7 @@ const Profile = (props: any) => {
         lastName: lastName,
         contactNumber: contactNumber,
         email: email,
-        role: role
+        role: role,
       };
       await handleEditFormClient(editedUser);
     }
@@ -85,19 +87,24 @@ const Profile = (props: any) => {
 
   useEffect(() => {
     if (sharedService.isUserLoggedIn()) {
-      setUserId(user.id);
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-      setContactNumber(user.contactNumber);
-      setEmail(user.email);
-      setPaymentDetails(user.paymentDetails);
-      setRole(user.role);
+      setTimeout(() => {
+        setUserId(user.id);
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
+        setContactNumber(user.contactNumber);
+        setEmail(user.email);
+        setPaymentDetails(user.paymentDetails);
+        setRole(user.role);
+
+        setLoading(false);
+      }, 1000);
     }
   }, [user]);
 
   return (
     <div>
       <Paper elevation={10} className="profile-paper-container">
+        {loading && <CircularLoader />}
         <Grid container spacing={2} className="profile-main-grid-container">
           <Grid item xs={12}>
             <h2 className="profile-section-label">Profile</h2>
