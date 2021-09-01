@@ -28,6 +28,8 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { useHistory } from "react-router";
 import Notification, { NotificationType } from "../Notification";
+import LocationPicker from "react-location-picker";
+import MapPicker from "react-google-map-picker";
 
 const venueService = new VenueService();
 export default function AddVenue() {
@@ -43,6 +45,10 @@ export default function AddVenue() {
     city: "",
     pincode: "",
     street: "",
+  };
+  const defaultPosition = {
+    lat: 27.9878,
+    lng: 86.925,
   };
 
   const validationSchema = Yup.object().shape({
@@ -97,6 +103,14 @@ export default function AddVenue() {
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [eventTypes, setEventTypes] = useState<EventType[]>([]);
   const [images, setImages] = React.useState([]);
+  const [lat, setLat] = useState<any>(0);
+  const [lng, setLng] = useState<any>(0);
+  const [position, setPosition] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+  const [address, setAddress] = useState("");
+
   const maxNumber = 69;
 
   const onChange = (
@@ -131,6 +145,12 @@ export default function AddVenue() {
       }
     })();
   }, []);
+
+  const handleLocationChange = ({ position, address, places }) => {
+    setPosition(position);
+    setAddress(address);
+    console.log(address);
+  };
   return (
     <div>
       {open && (
@@ -453,6 +473,15 @@ export default function AddVenue() {
                       </div>
                     )}
                   </ImageUploading>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <LocationPicker
+                    containerElement={<div style={{ height: "100%" }} />}
+                    mapElement={<div style={{ height: "400px" }} />}
+                    defaultPosition={defaultPosition}
+                    onChange={handleLocationChange}
+                  />
                 </Grid>
 
                 <Grid item xs={12}>

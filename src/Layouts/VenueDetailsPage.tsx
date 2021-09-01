@@ -10,6 +10,7 @@ import "./styles/venueDetails.scss";
 import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 import ReviewSection from "../Components/DetailsReviewSection/ReviewSection";
+import CircularLoader from "../Components/CircularLoader/CircularLoader";
 
 const venueService = new VenueService();
 const VenueDetailsPage = () => {
@@ -17,6 +18,7 @@ const VenueDetailsPage = () => {
   const { venueId } = useParams<any>();
 
   const [venues, setVenues] = useState<Venue[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
@@ -28,7 +30,11 @@ const VenueDetailsPage = () => {
       }
       if (response) {
         console.log(response);
-        setVenue(response);
+
+        setTimeout(() => {
+          setVenue(response);
+          setLoading(false);
+        }, 1000);
       }
     })();
 
@@ -37,8 +43,9 @@ const VenueDetailsPage = () => {
 
   return (
     <>
+      {loading && <CircularLoader />}
       <Header></Header>
-      <div className="carouselContainer">
+      <div className="carouselContainer" data-aos="zoom-in">
         <DetailsCarousel />
       </div>
       {venue && <DescriptionSection venue={venue} />}

@@ -1,46 +1,53 @@
-import React,{useEffect, useState} from 'react';
-import { useParams} from "react-router-dom";
-import { VenueService } from '../Services/VenueService';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { VenueService } from "../Services/VenueService";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import { of } from 'await-of';
-import { Venue } from '../Shared/Interfaces/Venue';
-import SimpleModal from '../Components/Modal'
-import { useHistory } from 'react-router';
-import './styles/checkoutPage.scss';
-import { Button, Card, Divider, Grid, TextField } from '@material-ui/core';
-import { useSelector } from 'react-redux';
-import { RootState } from '../Redux/store';
-import { BookingService } from '../Services/BookingService';
+import { of } from "await-of";
+import { Venue } from "../Shared/Interfaces/Venue";
+import SimpleModal from "../Components/Modal";
+import { useHistory } from "react-router";
+import "./styles/checkoutPage.scss";
+import { Button, Card, Divider, Grid, TextField } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
+import { BookingService } from "../Services/BookingService";
+import CircularLoader from "../Components/CircularLoader/CircularLoader";
 const bookingService = new BookingService();
 const venueService = new VenueService();
 export default function CheckoutPage() {
   const { venueId } = useParams<any>();
-  const [venue, setVenue]= useState<Venue|null>(null);
+  const [venue, setVenue] = useState<Venue | null>(null);
 
-  const [numberOfAttendees, setNumberOfAttendees]=useState<number>(0);
-  const [open, setOpen]= useState<boolean>(false);
+  const [numberOfAttendees, setNumberOfAttendees] = useState<number>(0);
+  const [open, setOpen] = useState<boolean>(false);
   const history = useHistory();
-  const user = useSelector((state:RootState)=> state.auth.user);
-  const dates = useSelector((state:RootState)=> state.cart.dates);
-  
-  useEffect(()=>{
-    (async ()=> {
-      const [response,error] = await of(venueService.getVenueByVenueId(venueId));
-      if(error) {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const dates = useSelector((state: RootState) => state.cart.dates);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const [response, error] = await of(
+        venueService.getVenueByVenueId(venueId)
+      );
+      if (error) {
         alert(error.message);
       }
-      if(response) {
-        setVenue(response);
+      if (response) {
+        setTimeout(() => {
+          setVenue(response);
+          setLoading(false);
+        }, 1000);
       }
     })();
-  },[venueId]);
-  
-  const onModalClose = ()=> {
+  }, [venueId]);
+
+  const onModalClose = () => {
     setOpen(false);
     history.push("/home");
-  }
-  const onSubmit =async (values:any) => {
+  };
+  const onSubmit = async (values: any) => {
     console.log(values);
     values.preventDefault();
     const data: any = {
@@ -63,9 +70,10 @@ export default function CheckoutPage() {
     if (response) {
       setOpen(true);
     }
-  }
+  };
   return (
     <>
+      {loading && <CircularLoader />}
       <header>
         <Header></Header>
       </header>

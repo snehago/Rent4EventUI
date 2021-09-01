@@ -12,6 +12,7 @@ import {
   Select,
   MenuItem,
   TextField,
+  CircularProgress,
 } from "@material-ui/core";
 import "./styles/venueListPage.scss";
 import { of } from "await-of";
@@ -19,6 +20,7 @@ import { Venue } from "../Shared/Interfaces/Venue";
 import { EventTypeService } from "../Services/EventTypeService";
 import InfiniteScroll from "react-infinite-scroller";
 import { useRef } from "react";
+import CircularLoader from "../Components/CircularLoader/CircularLoader";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -37,12 +39,21 @@ const VenueListPage = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
-  const [currentPage, setCurrentPage]= useState<number>(0);
-  const [disabled, setDisabled]=useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const timeoutForLoading = () => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  };
 
   useEffect(() => {
     (async () => {
-      const [response, error] = await of(venueService.getAllVenues(currentPage));
+      const [response, error] = await of(
+        venueService.getAllVenues(currentPage)
+      );
       if (error) {
         alert(error.message);
       }
@@ -51,11 +62,15 @@ const VenueListPage = () => {
           setDisabled(true);
           return;
         }
-        setOriginalVenues(prev => [...prev,...response]);
+
+        setTimeout(() => {
+          setOriginalVenues((prev) => [...prev, ...response]);
+          setLoading(false);
+        }, 2000);
       }
     })();
 
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, [currentPage]);
 
   useEffect(() => {
@@ -72,11 +87,11 @@ const VenueListPage = () => {
       }
     })();
   }, []);
-  
+
   useEffect(() => {
     applyAppropiateFilters();
   }, [filters, originalVenues]);
-  
+
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
     console.log(event.target);
     let temp: any = {};
@@ -123,35 +138,51 @@ const VenueListPage = () => {
     setVenues(tempVenues);
   };
   const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {
+    setLoading(true);
     console.log("priceFilter");
     let temp: any = [];
     console.log(typeof filterType, filterType);
-    if (filterType === 1)
+    if (filterType === 1) {
       temp = tempVenues.filter((venue) => venue.price <= 500);
-    if (filterType === 2)
+      timeoutForLoading();
+    }
+    if (filterType === 2) {
       temp = tempVenues.filter(
         (venue) => venue.price > 500 && venue.price <= 1000
       );
-    if (filterType === 3)
+      timeoutForLoading();
+    }
+    if (filterType === 3) {
       temp = tempVenues.filter(
         (venue) => venue.price > 1000 && venue.price <= 5000
       );
-    if (filterType === 4)
+      timeoutForLoading();
+    }
+    if (filterType === 4) {
       temp = tempVenues.filter((venue) => venue.price > 5000);
+      timeoutForLoading();
+    }
     return temp;
   };
 
   const applyCapacityFilter = (filterType: any, tempVenues: Venue[]) => {
     let temp: any = [];
+    setLoading(true);
     console.log("capacity", filterType);
-    if (filterType === 1)
+    if (filterType === 1) {
       temp = tempVenues.filter((venue) => venue.capacity <= 500);
-    if (filterType === 2)
+      timeoutForLoading();
+    }
+    if (filterType === 2) {
       temp = tempVenues.filter(
         (venue) => venue.capacity > 500 && venue.capacity <= 1000
       );
-    if (filterType === 3)
+      timeoutForLoading();
+    }
+    if (filterType === 3) {
       temp = venues.filter((venue) => venue.capacity > 1000);
+      timeoutForLoading();
+    }
     console.log("capacity", temp.length);
     return temp;
   };
@@ -166,10 +197,10 @@ const VenueListPage = () => {
     return temp;
   };
 
-  
-
   return (
     <>
+      {loading && <CircularLoader />}
+
       {/* header starts */}
       <header>
         <Header></Header>
@@ -299,6 +330,7 @@ const VenueListPage = () => {
         <FormControl>
           <TextField
             label="to"
+            InputLabelProps={{ shrink: true }}
             id="to-date"
             name="to"
             value={filters.to}
@@ -311,6 +343,7 @@ const VenueListPage = () => {
         <FormControl>
           <TextField
             label="from"
+            InputLabelProps={{ shrink: true }}
             id="from-date"
             value={filters.from}
             onChange={handleFilterChange}
@@ -363,20 +396,20 @@ const VenueListPage = () => {
         </FormControl>
       </div>
       {/* Filter and search ends */}
-      <div className="all-venues" >
+      <div className="all-venues" data-aos="zoom-in">
         <InfiniteScroll
           pageStart={0}
-          loadMore={() => setCurrentPage(prev => prev+1)}
+          loadMore={() => setCurrentPage((prev) => prev + 1)}
           hasMore={!disabled}
           initialLoad={false}
           loader={
-            <div className="loader" key={0}>
-              Loading ...
-            </div>
+            <Grid style={{ display: "flex", justifyContent: "center" }}>
+              <CircularProgress />
+            </Grid>
           }
           useWindow={false}
         >
-          <Box className="venue-box">
+          <Box className="venue-box" data-aos="zoom-in">
             <Grid xs={12} container spacing={8} className="venue-grid">
               {venues?.map((venue) => (
                 <Grid item xs={12} md={6} lg={4}>
@@ -392,7 +425,7 @@ const VenueListPage = () => {
           </Box>
         </InfiniteScroll>
       </div>
-      
+
       <footer className="venue-footer">
         <Footer></Footer>
       </footer>

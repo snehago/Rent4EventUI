@@ -8,14 +8,16 @@ import { UserService } from "../../Services/UserService";
 import { User } from "../../Shared/Interfaces/User";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import AddedVenueCard from "../AddedVenueCard";
+import CircularLoader from "../CircularLoader/CircularLoader";
 import BookingTable from "./BookingTable";
 import "./hostVenueList.scss";
 const userService = new UserService();
 function VenuesList() {
   const user: User = useSelector((state: RootState) => state.auth.user);
   const [venues, setVenues] = useState<Venue[]>([]);
-  const [venueToView, setVenueToView]= useState<Venue|null>(null);
+  const [venueToView, setVenueToView] = useState<Venue | null>(null);
   const [bookingView, setBookingView] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     (async () => {
       const [response, error] = await of(userService.getHostById(user.id));
@@ -23,17 +25,22 @@ function VenuesList() {
         alert("error while fetching venues");
       }
       if (response) {
-        setVenues(response.listOfVenues);
+        setTimeout(() => {
+          setVenues(response.listOfVenues);
+        setLoading(false);
+        }, 1000);
+        
       }
     })();
   }, [user]);
 
-    const bookingsCallback = (venue: Venue) => {
-      setVenueToView(venue);
-      setBookingView(true);
-    };
+  const bookingsCallback = (venue: Venue) => {
+    setVenueToView(venue);
+    setBookingView(true);
+  };
   return (
     <>
+      {loading && <CircularLoader />}
       {!bookingView && (
         <div className="added-venue-card-container" hidden={bookingView}>
           {venues.map((venue) => (
@@ -47,9 +54,7 @@ function VenuesList() {
 
       {bookingView && (
         <div className="host-venue-booking-container" hidden={!bookingView}>
-          <div className="host-venue-booking-heading">
-            Bookings
-          </div>
+          <div className="host-venue-booking-heading">Bookings</div>
           <div hidden={venueToView?.bookings.length !== 0}>Not yet Booked</div>
           {venueToView && (
             <div hidden={venueToView?.bookings.length === 0}>
