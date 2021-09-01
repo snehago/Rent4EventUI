@@ -31,7 +31,7 @@ const RegistrationPage = () => {
     passwordHash: "",
     confirmPasswordHash: "",
     contactNumber: "",
-    dob: "",
+    dateOfBirth: "",
   };
 
   const onSubmit = async (values: any) => {
@@ -58,7 +58,7 @@ const RegistrationPage = () => {
       .oneOf([Yup.ref("passwordHash")], "Password not matched")
       .required("Required"),
 
-    dob: Yup.string().required("Required"),
+    dateOfBirth: Yup.date().required("Required"),
     contactNumber: Yup.string()
       .min(13, "Contact Number Should be of 10 digits")
       .required("Required"),
@@ -73,11 +73,7 @@ const RegistrationPage = () => {
       )}
       <Grid container>
         <Grid item xs={6}>
-          <img
-            src={image}
-            className="reg-side-image"
-            alt=""
-          />
+          <img src={image} className="reg-side-image" alt="" />
           <div className="login-img-text">
             GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US
             !!
@@ -199,7 +195,7 @@ const RegistrationPage = () => {
                   />
                   <Field
                     as={TextField}
-                    name="dob"
+                    name="dateOfBirth"
                     variant="outlined"
                     fullWidth
                     className="textFieldStyle"

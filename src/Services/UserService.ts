@@ -44,7 +44,7 @@ class UserService {
     }
   }
 
-  public async getHostById(id:number) {
+  public async getHostById(id: number) {
     const [response, error] = await of(
       axios.get(
         `${this.BACKEND_URL}/user/host/${id}`,
@@ -84,6 +84,25 @@ class UserService {
         `${this.BACKEND_URL}/user/client/${user.id}`,
         user,
         await sharedService.getHeader()
+      )
+    );
+    if (error) {
+      console.log(error);
+      throw Error(error.message);
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data.response;
+      } else throw Error(response.data.message);
+    }
+  }
+  
+  public async uploadProfilePicture(data:any) {
+    
+    var [response, error] = await of(
+      axios.post(
+        `${this.BACKEND_URL}/gcp/profile/upload/`,
+        data
       )
     );
     if (error) {

@@ -14,6 +14,8 @@ import { User } from "../../Shared/Interfaces/User";
 import { UserService } from "../../Services/UserService";
 import { of } from "await-of";
 import CircularLoader from "../CircularLoader/CircularLoader";
+import ImageUploader from "react-images-upload";
+var FormData = require('form-data');
 
 const sharedService = new SharedService();
 
@@ -26,6 +28,7 @@ const Profile = (props: any) => {
   const [email, setEmail] = useState<any>("");
   const [paymentDetails, setPaymentDetails] = useState<any>("");
   const [role, setRole] = useState<any>("");
+  const [profilePic, setProfilePic]=useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const user: User = useSelector((state: RootState) => state.auth.user);
@@ -100,6 +103,23 @@ const Profile = (props: any) => {
     }
   }, [user]);
 
+  const onDrop = async (picture:File[])=> {
+    console.log(await picture[picture.length - 1].arrayBuffer());
+    var data = new FormData();
+    data.append(
+      "file",
+      picture[picture.length-1]
+    );
+    data.append("userId", "1");
+    const [response, error]= await of(userService.uploadProfilePicture(data));
+    if(error){
+      alert(error.message);
+    }
+    if(response) {
+      console.log({response});
+      setProfilePic(response);
+    }
+  }
   return (
     <div>
       <Paper elevation={10} className="profile-paper-container">
@@ -112,11 +132,14 @@ const Profile = (props: any) => {
           <Grid item xs={2} className="profile-pic-grid">
             <Card className="profile-pic-card">
               <CardActionArea>
-                <CardMedia
-                  component="img"
-                  src={profileImage}
-                  title="Profile Image"
-                />
+                {!profilePic && <ImageUploader
+                  withIcon={true}
+                  buttonText="Choose images"
+                  onChange={onDrop}
+                  imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                  maxFileSize={5242880}
+                />}
+                {profilePic && <img src={profilePic} alt="profilePic" />}
               </CardActionArea>
             </Card>
           </Grid>

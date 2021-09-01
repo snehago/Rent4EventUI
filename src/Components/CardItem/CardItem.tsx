@@ -39,7 +39,7 @@ export default function CardItem({ id, title, description, price }: cardProps) {
           >
             {title.toUpperCase()}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="p" className="text" >
             {description}
           </Typography>
         </CardContent>

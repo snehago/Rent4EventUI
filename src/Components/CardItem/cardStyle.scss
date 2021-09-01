@@ -11,6 +11,16 @@
 
 .card-content {
   height: 40% !important;
+  width: 90%;
+  text-overflow: ellipsis !important;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.text {
+  width: 100%;
+  white-space:nowrap;
+  text-overflow: ellipsis !important;
+  overflow: hidden;
 }
 .media {
   height: 30%!important;

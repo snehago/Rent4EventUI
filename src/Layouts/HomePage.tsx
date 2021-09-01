@@ -336,11 +336,11 @@ const HomePage = () => {
         </Button>
       </div>
       {/* Filter and search ends */}
-      <div className="recommendedVenues" data-aos="zoom-in">
+      <div className="recommendedVenues">
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
         </div>
-        <div className="recommended-venue-box">
+        <div className="recommended-venue-box" data-aos="zoom-in">
           <Caraousel
             swipeable={true}
             showDots={false}

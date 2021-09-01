@@ -3,8 +3,8 @@
 .all-venues {
   width: 100%;
   margin-top: 5%;
-  height: 90vw;
-  overflow-x: hidden;
+  height: 100% !important;
+  overflow:visible;
 }
 .venue-box {
   display: flex;
@@ -46,9 +46,68 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  grid-column-gap: 2%;
-  margin: 6vw 5rem 0 5rem;
+  overflow: hidden;
+  gap: 2%;
+  width: 80%;
+  input {
+    background-color: $white;
+    border: 1px solid #707070;
+    border-radius: .25rem;
+    opacity: 1;
+    width: 100%;
+  }
+}
+.venue-search-division {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  align-items: center;
+  height: 24vw;
+  gap:5%;
+  width: 100%;
+  margin-top: 4.5vw;
+  background: transparent url('../../assets/images/venueListPageBackground.png') 0% 0% no-repeat padding-box;
+  background-position: bottom;
+  background-size: cover;
+}
+.venue-search-heading {
+  font-weight: 700 !important;
+}
+.venue-search-subheading {
+  font-weight: 100 !important;
+}
+.filter-button-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 2.5vw;
+  margin-bottom: -2.2vw;
+  justify-content: flex-end;
+  align-items: flex-end;
+  button {
+    background-color: $white !important;
+    border-radius: 0 !important;
+    margin-right: 2vw;
+  }
+}
+.dark-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   overflow-x: hidden;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.venue-search-text-area {
+  text-align: center;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
 }
 .textfield {
   width: 75%;
@@ -58,11 +117,4 @@
 }
 .venue-footer {
   margin-top: 5%;
-}
-.venue-load-more-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2vw;
-  padding: 2vw;
 }
