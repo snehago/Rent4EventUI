@@ -1,0 +1,11 @@
+steps:
+    # build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'asia.gcr.io/$PROJECT_ID/rent4event-frontend', '.' ]
+    # push the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'asia.gcr.io/$PROJECT_ID/rent4event-frontend']
+    # deploy to Cloud Run
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ['run', 'deploy', 'rent4event-frontend', '--image', 'asia.gcr.io/$PROJECT_ID/rent4event-frontend', '--region', 'asia-southeast1', '--platform', 'managed', '--allow-unauthenticated']
+logsBucket: 'gs://rent4event'
