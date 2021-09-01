@@ -1,0 +1,35 @@
+.additional-service-item {
+  background-color: #eaeaea;
+  border-radius: 1rem;
+  // margin:2%;
+  padding: 1%;
+  margin-top: 1% !important;
+  margin-left: 1%!important;
+  margin-bottom: 1%;
+  padding-right: 1% !important;
+  box-sizing: border-box;
+  min-width: 30%;
+  text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+.additional-paper-style{
+    padding:1%;
+    width: 100%;
+    margin-bottom: 10%!important;
+}
+
+.additional-form-labels{
+    font-family: Montserrat;
+    font-weight: 600;
+    margin-bottom: 2%;
+}
+.additional-service-price{
+    display: flex; 
+    align-items: center;
+    font-family: Montserrat; 
+    font-weight: 600;
+    color: #D3600C;
+}
