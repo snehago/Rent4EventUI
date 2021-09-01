@@ -1,6 +1,6 @@
 import { Box, Button } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UserReview from "../UserReview/UserReview";
 import "./reviewsection.scss";
 

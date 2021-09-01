@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AddVenue from "../Components/AddVenueForm/AddVenue";
 import BookingList from "../Components/BookingList";
-import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import HostVenuesList from "../Components/HostVenuesList";
 import Profile from "../Components/ProfileForm/Profile";

@@ -5,18 +5,10 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import YouTubeIcon from "@material-ui/icons/YouTube";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import "./footer.scss";
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-      /* you can also use 'auto' behaviour
-         in place of 'smooth' */
-    });
-  };
+ 
   return (
     <Grid container spacing={0} className="footer-main-grid-container">
       <Grid item xs={4} lg={2} style={{marginLeft:"6%",marginRight:"4%"}}>

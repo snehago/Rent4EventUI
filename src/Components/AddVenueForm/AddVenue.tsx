@@ -29,7 +29,6 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { useHistory } from "react-router";
 import Notification, { NotificationType } from "../Notification";
 import LocationPicker from "react-location-picker";
-import MapPicker from "react-google-map-picker";
 
 const venueService = new VenueService();
 export default function AddVenue() {

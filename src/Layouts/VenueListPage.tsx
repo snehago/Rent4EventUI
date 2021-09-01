@@ -19,7 +19,6 @@ import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 import { EventTypeService } from "../Services/EventTypeService";
 import InfiniteScroll from "react-infinite-scroller";
-import { useRef } from "react";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 
 const venueService = new VenueService();

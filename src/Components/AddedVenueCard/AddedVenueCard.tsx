@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React from "react";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import image from "../../assets/images/bgimage.jpg";
 import "./addedVenueCard.scss";
