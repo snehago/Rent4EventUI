@@ -1,6 +1,5 @@
-import { Box, Grid, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { Rating } from "@material-ui/lab";
+import { Grid} from "@material-ui/core";
+import React from "react";
 import "./featuressection.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import MapComponent from "../MapSection/MapComponent";
@@ -33,7 +32,6 @@ export default function FeaturesSection({ venue }: FSProps) {
     },
   ];
 
-  const [ratingValue, setRatingValue] = useState(2.5);
   return (
     <div className="features-main-container" data-aos="fade-up" data-aos-once>
       <Grid container xs={12} className="features-grid-main-container">

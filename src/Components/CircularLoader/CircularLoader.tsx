@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress, Grid } from "@material-ui/core";
+import { Backdrop, CircularProgress } from "@material-ui/core";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import "./circularloader.scss";

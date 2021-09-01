@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Divider,
-  Grid,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Button, Divider, Grid, Typography } from "@material-ui/core";
 import "./description.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
@@ -53,21 +47,6 @@ export default function DescriptionSection({ venue }: DSProps) {
     new Date().getFullYear(),
     new Date().getMonth() + 1,
     new Date().getDay()
-  );
-  const endDateValue: Date = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth() + 1,
-    15
-  );
-  const minDate: Date = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    8
-  );
-  const maxDate: Date = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth() + 1,
-    20
   );
 
   const IMAGES = [

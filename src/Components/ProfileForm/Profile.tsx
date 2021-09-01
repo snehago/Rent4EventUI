@@ -6,7 +6,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import profileImage from "../../assets/images/ppic.jpg";
-import { CircularProgress, Paper, TextField } from "@material-ui/core";
+import { Paper, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { SharedService } from "../../Services/SharedService";
@@ -19,7 +19,6 @@ const sharedService = new SharedService();
 
 const Profile = (props: any) => {
   const [editProfile, setEditProfile] = useState(false);
-  const [profileDetails, setProfileDetails] = useState<any>({});
   const [userId, setUserId] = useState<any>();
   const [firstName, setFirstName] = useState<any>("");
   const [lastName, setLastName] = useState<any>("");
