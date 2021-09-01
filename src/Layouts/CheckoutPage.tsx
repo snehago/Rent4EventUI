@@ -1,21 +1,96 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { VenueService } from "../Services/VenueService";
-import Footer from "../Components/Footer";
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Paper from "@material-ui/core/Paper";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import Typography from "@material-ui/core/Typography";
 import Header from "../Components/Header";
-import { of } from "await-of";
+import AdditionalForm from "../Components/AdditionalForm/AdditionalForm";
+import OrderSummaryForm from "../Components/OrderSummary/OrderSummaryForm";
+import { BookingService } from "../Services/BookingService";
+import { VenueService } from "../Services/VenueService";
+import { useHistory, useParams } from "react-router-dom";
 import { Venue } from "../Shared/Interfaces/Venue";
-import SimpleModal from "../Components/Modal";
-import { useHistory } from "react-router";
-import "./styles/checkoutPage.scss";
-import { Button, Card, Divider, Grid, TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
-import { BookingService } from "../Services/BookingService";
+import { of } from "await-of";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
+import SimpleModal from "../Components/Modal";
+
 const bookingService = new BookingService();
 const venueService = new VenueService();
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    position: "relative",
+  },
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    marginTop: "5%",
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      width: 600,
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
+  },
+  stepper: {
+    padding: theme.spacing(3, 0, 5),
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const steps = ["Additional Services", "Order Summary"];
+
 export default function CheckoutPage() {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
+
   const { venueId } = useParams<any>();
   const [venue, setVenue] = useState<Venue | null>(null);
 
@@ -36,12 +111,27 @@ export default function CheckoutPage() {
       }
       if (response) {
         setTimeout(() => {
+          console.log("Venue:",response)
           setVenue(response);
           setLoading(false);
         }, 1000);
       }
     })();
+
+    window.scrollTo(0, 0);
   }, [venueId]);
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AdditionalForm venue={venue} />;
+      case 1:
+        return <OrderSummaryForm venue={venue} />;
+
+      default:
+        throw new Error("Unknown step");
+    }
+  }
 
   const onModalClose = () => {
     setOpen(false);
@@ -49,6 +139,7 @@ export default function CheckoutPage() {
   };
   const onSubmit = async (values: any) => {
     console.log(values);
+    setLoading(true);
     values.preventDefault();
     const data: any = {
       user: {
@@ -68,114 +159,100 @@ export default function CheckoutPage() {
       alert(error.message);
     }
     if (response) {
+      setLoading(false)
       setOpen(true);
+      
     }
   };
+
   return (
-    <>
+    <React.Fragment>
       {loading && <CircularLoader />}
-      <header>
-        <Header></Header>
-      </header>
-      <div className="checkout-main-content">
-        <Grid container spacing={2} className="venue-details-card">
-          <Grid item lg={6}>
-            <Card>
-              <Grid container spacing={4}>
-                <Grid item lg={6}>
-                  Venue Name
-                </Grid>
-                <Grid item lg={6}>
-                  {venue?.title.toUpperCase()}
-                </Grid>
-                <Grid item lg={6}>
-                  Description
-                </Grid>
-                <Grid item lg={6}>
-                  {venue?.description}
-                </Grid>
-                <Grid item lg={6}>
-                  Capacity
-                </Grid>
-                <Grid item lg={6}>
-                  {venue?.capacity}
-                </Grid>
-                <Grid item lg={6}>
-                  Contact Details
-                </Grid>
-                <Grid item lg={6}>
-                  {venue && `${venue?.host.firstName} ${venue?.host.lastName}`}
-                </Grid>
-                <Grid item lg={12}>
-                  <Divider />
-                </Grid>
-                <Grid item lg={10}>
-                  Total Price:
-                </Grid>
-                <Grid item lg={2}>
-                  ${venue?.price}
-                </Grid>
-                <Grid item lg={10}>
-                  Booking amount:
-                </Grid>
-                <Grid item lg={2}>
-                  ${venue && (venue?.price * 10) / 100}
-                </Grid>
-              </Grid>
-            </Card>
-          </Grid>
-          <Grid item lg={5} className="form-container">
-            <form onSubmit={(data: any) => onSubmit(data)}>
-              <Grid container direction="column" spacing={4}>
-                <Grid item lg={12}>
-                  <TextField
-                    id="contactNumber"
-                    name="contactNumnber"
-                    label="Contact Number"
-                    variant="outlined"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item lg={12}>
-                  <TextField
-                    id="numberOfAttendees"
-                    name="numberOfAttendees"
-                    label="Number of Attendees"
-                    variant="outlined"
-                    onChange={(e: any) =>
-                      setNumberOfAttendees(Number(e.target.value))
-                    }
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item>
-                  <Button
+      <CssBaseline />
+      <Header />
+      <main className={classes.layout}>
+        <Paper elevation={10} className={classes.paper}>
+          <Typography component="h1" variant="h4" align="center">
+            Checkout
+          </Typography>
+          <Stepper activeStep={activeStep} className={classes.stepper}>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <React.Fragment>
+            {activeStep === steps.length ? (
+              <React.Fragment>
+                <Typography variant="h5" gutterBottom>
+                  Thank you for your order.
+                </Typography>
+                <Typography variant="subtitle1">
+                  Your order number is #2001539. We have emailed your order
+                  confirmation, and will send you an update when your order has
+                  shipped.
+                </Typography>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {getStepContent(activeStep)}
+                <div className={classes.buttons}>
+                  {activeStep !== 0 && (
+                    <Button onClick={handleBack} className={classes.button}>
+                      Back
+                    </Button>
+                  )}
+
+                  {activeStep <= steps.length - 2 && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      Next
+                    </Button>
+                  )}
+
+                  {activeStep === steps.length - 1 && (
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      color="primary"
+                      className={classes.button}
+                      onClick={onSubmit}
+                    >
+                      Book The Venue
+                    </Button>
+                  )}
+
+                  {/* <Button
                     type="submit"
                     variant="contained"
                     color="primary"
                     fullWidth
+                    onClick={onSubmit}
                   >
-                    Proceed To Pay
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </Grid>
-        </Grid>
-        <div>
-          <SimpleModal
-            title="Booking successfull"
-            content={`Your booking for venue is completed your booking id is ${venueId}`}
-            open={open}
-            type="success"
-            closeCallback={onModalClose}
-          />
-        </div>
-      </div>
+                    Book The Venue
+                  </Button> */}
+                </div>
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        </Paper>
+        <Copyright />
+      </main>
 
-      <footer className="checkout-footer">
-        <Footer></Footer>
-      </footer>
-    </>
+      <div>
+        <SimpleModal
+          title="Booking successfull"
+          content={`Your booking for venue is completed your booking id is ${venueId}`}
+          open={open}
+          type="success"
+          closeCallback={onModalClose}
+        />
+      </div>
+    </React.Fragment>
   );
 }

@@ -40,7 +40,7 @@ function ReviewSection() {
   ]);
   
   return (
-    <div className="details-reviews-container" data-aos="slide-up">
+    <div className="details-reviews-container" data-aos="slide-up" data-aos-once>
       <div className="details-review-label">Review &amp; Ratings</div>
       <Box
         component="fieldset"
@@ -64,7 +64,7 @@ function ReviewSection() {
         <span id="no-of-reviews">{` ${totalReviews} Reviews`}</span>
       </div>
 
-      <div data-aos="fade-left">
+      <div data-aos="fade-left" data-aos-once>
         {feedBacks.map((item) => (
           <UserReview feedbackItem={item} />
         ))}

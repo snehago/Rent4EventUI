@@ -4,6 +4,8 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
+  IconButton,
+  Input,
   Link,
   Paper,
   TextField,
@@ -20,10 +22,21 @@ import { login } from "../Redux/reducers/AuthReducer";
 import "./styles/login.scss";
 import { useHistory } from "react-router-dom";
 import image from "../assets/images/banner1.jpeg";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { useState } from "react";
+
 const userService = new UserService();
 const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const initialValues = {
     email: "",
     passwordHash: "",
@@ -32,7 +45,7 @@ const LoginPage = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Please enter valid email").required("Required"),
-    passwordHash: Yup.string().required("Required"),
+    passwordHash: Yup.string().min(8,"Password Incorrect").required("Required"),
   });
 
   const onSubmit = async (values: any) => {
@@ -59,11 +72,7 @@ const LoginPage = () => {
   return (
     <Grid container className="login-root-grid">
       <Grid item xs={6}>
-        <img
-          src={image}
-          className="login-side-image"
-          alt=""
-        />
+        <img src={image} className="login-side-image" alt="" />
         <div className="login-img-text">
           GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US !!
         </div>
@@ -100,21 +109,35 @@ const LoginPage = () => {
                     </ErrorMessage>
                   }
                 />
+
                 <Field
-                  as={TextField}
+                  as={Input}
+                  id="standard-adornment-password"
+                  type={showPassword ? "text" : "password"}
                   name="passwordHash"
                   // value={password}
                   // onChange={passwordHandler}
                   label="Password"
                   placeholder="Enter Password"
-                  type="password"
+                  // type="password"
                   // variant="outlined"
                   fullWidth
                   required
                   helperText={
-                    <ErrorMessage name="password">
+                    <ErrorMessage name="passwordHash">
                       {(msg) => <div className="errorMsg">{msg}</div>}
                     </ErrorMessage>
+                  }
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        // onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
                   }
                 />
                 <Field

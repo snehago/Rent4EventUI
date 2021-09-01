@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Button, Divider, Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import "./description.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
@@ -8,6 +14,8 @@ import Notification from "../Notification";
 import { addDate } from "../../Redux/reducers/CartReducer";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
+import Gallery from "react-grid-gallery";
+
 interface DSProps {
   venue: Venue;
 }
@@ -33,8 +41,7 @@ export default function DescriptionSection({ venue }: DSProps) {
   };
 
   const checkout = () => {
-    if (!touched) 
-    {
+    if (!touched) {
       setOpen(true);
       return;
     }
@@ -44,7 +51,7 @@ export default function DescriptionSection({ venue }: DSProps) {
 
   const startDateValue: Date = new Date(
     new Date().getFullYear(),
-    new Date().getMonth()+1,
+    new Date().getMonth() + 1,
     new Date().getDay()
   );
   const endDateValue: Date = new Date(
@@ -63,6 +70,79 @@ export default function DescriptionSection({ venue }: DSProps) {
     20
   );
 
+  const IMAGES = [
+    {
+      src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
+      thumbnail:
+        "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 174,
+      isSelected: true,
+      caption: "After Rain (Jeshu John - designerspics.com)",
+    },
+    {
+      src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
+      thumbnail:
+        "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
+      tags: [
+        { value: "Ocean", title: "Ocean" },
+        { value: "People", title: "People" },
+      ],
+      caption: "Boats (Jeshu John - designerspics.com)",
+    },
+    {
+      src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
+      thumbnail:
+        "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 174,
+      isSelected: true,
+      caption: "After Rain (Jeshu John - designerspics.com)",
+    },
+    {
+      src: "../../../assets/images/banner1.jpeg",
+      thumbnail: "../../../assets/images/banner1.jpeg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
+      tags: [
+        { value: "Ocean", title: "Ocean" },
+        { value: "People", title: "People" },
+      ],
+      caption: "Boats (Jeshu John - designerspics.com)",
+    },
+
+    {
+      src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
+      thumbnail:
+        "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
+    },
+    {
+      src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
+      thumbnail:
+        "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 174,
+      isSelected: true,
+      caption: "After Rain (Jeshu John - designerspics.com)",
+    },
+    {
+      src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
+      thumbnail:
+        "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
+      tags: [
+        { value: "Ocean", title: "Ocean" },
+        { value: "People", title: "People" },
+      ],
+      caption: "Boats (Jeshu John - designerspics.com)",
+    },
+  ];
+
   return (
     <div>
       {open && (
@@ -74,6 +154,9 @@ export default function DescriptionSection({ venue }: DSProps) {
       )}
       <div className="descriptionContainer">
         <Grid container spacing={3}>
+          {/* <Grid item xs={12}>
+            <Gallery images={IMAGES} />
+          </Grid> */}
           <Grid item container spacing={2} xs={12}>
             <Grid item xs={8}>
               <div className="description-container">
@@ -84,25 +167,23 @@ export default function DescriptionSection({ venue }: DSProps) {
                   {venue?.description}
                 </Typography>
               </div>
-              <Divider variant="middle" style={{marginTop:"2%"}} />
+              <Divider variant="middle" style={{ marginTop: "2%" }} />
 
-              <div className="description-address-container" >
-                <div className="description-address-label">
-                  Address
-                </div>
+              <div className="description-address-container">
+                <div className="description-address-label">Address</div>
                 <div className="description-venue-address">
-                {`${venue.address.streetAddress},${venue.address.city},${venue.address.state},${venue.address.country},${venue.address.pin}`}
+                  {`${venue.address.streetAddress},${venue.address.city},${venue.address.state},${venue.address.country},${venue.address.pin}`}
                 </div>
               </div>
-
             </Grid>
 
-            
-
-            
-
             {/* PRICE SECTION STARTS */}
-            <Grid item xs={4} container className="description-price-container">
+            <Grid
+              item
+              xs={4}
+              container
+              className="description-price-container"
+            >
               <Grid
                 item
                 container

@@ -2,6 +2,8 @@ import {
   Avatar,
   Button,
   Grid,
+  IconButton,
+  Input,
   Paper,
   TextField,
   Typography,
@@ -20,10 +22,20 @@ import Notification from "../Components/Notification";
 import { NotificationType } from "../Components/Notification";
 import { useState } from "react";
 import image from "../assets/images/banner1.jpeg";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
 const userService = new UserService();
 const RegistrationPage = () => {
   const [open, setOpen] = useState<boolean>(false);
   const history = useHistory();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -73,11 +85,7 @@ const RegistrationPage = () => {
       )}
       <Grid container>
         <Grid item xs={6}>
-          <img
-            src={image}
-            className="reg-side-image"
-            alt=""
-          />
+          <img src={image} className="reg-side-image" alt="" />
           <div className="login-img-text">
             GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US
             !!
@@ -148,12 +156,14 @@ const RegistrationPage = () => {
                     }
                   />
                   <Field
+                    // as={Input}
                     as={TextField}
+                    // id="outlined-adornment-password"
+                    type={showPassword ? "text" : "password"}
                     name="passwordHash"
                     className="textFieldStyle"
                     variant="outlined"
                     fullWidth
-                    type="password"
                     label="Password"
                     placeholder="Enter a Password"
                     required
@@ -161,6 +171,17 @@ const RegistrationPage = () => {
                       <ErrorMessage name="passwordHash">
                         {(msg) => <div className="errorMsg">{msg}</div>}
                       </ErrorMessage>
+                    }
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          // onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
                     }
                   />
                   <Field

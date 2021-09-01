@@ -475,7 +475,16 @@ export default function AddVenue() {
                   </ImageUploading>
                 </Grid>
 
+                <Divider
+                  variant="middle"
+                  style={{ marginTop: "2%", marginBottom: "2%" }}
+                />
+
                 <Grid item xs={12}>
+                  <div className="addVenueSubLabels">
+                    Mark Venue Location On Map
+                  </div>
+
                   <LocationPicker
                     containerElement={<div style={{ height: "100%" }} />}
                     mapElement={<div style={{ height: "400px" }} />}
