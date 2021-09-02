@@ -20,7 +20,7 @@ import { of } from "await-of";
 import { login } from "../Redux/reducers/AuthReducer";
 import "./styles/login.scss";
 import { useHistory } from "react-router-dom";
-import image from "../assets/images/banner1.jpeg";
+import image from "../assets/images/login2.jpg";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -44,7 +44,9 @@ const LoginPage = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Please enter valid email").required("Required"),
-    passwordHash: Yup.string().min(8,"Password Incorrect").required("Required"),
+    passwordHash: Yup.string()
+      .min(8, "Password Incorrect")
+      .required("Required"),
   });
 
   const onSubmit = async (values: any) => {
