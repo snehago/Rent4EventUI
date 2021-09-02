@@ -18,7 +18,7 @@ import { UserService } from "../Services/UserService";
 import { useHistory } from "react-router";
 import "./styles/registration.scss";
 import { useState } from "react";
-import image from "../assets/images/banner1.jpeg";
+import image from "../assets/images/login2.jpg";
 
 const userService = new UserService();
 const RegistrationPageHost = () => {
@@ -72,6 +72,11 @@ const RegistrationPageHost = () => {
       .min(13, "Contact Number Should be of 10 digits")
       .required("Required"),
   });
+
+  const handleLogin = () => {
+    history.push("/user/login");
+  };
+
   return (
     <>
       {open && (
@@ -256,9 +261,14 @@ const RegistrationPageHost = () => {
             <Typography className="register-text-links">
               {" "}
               Already have an account ?
-              <NavLink className="navLink" exact to="/user/login/">
+              <Button
+                size="small"
+                onClick={handleLogin}
+                variant="outlined"
+                className="register-login-btn"
+              >
                 Login
-              </NavLink>
+              </Button>
             </Typography>
           </Paper>
         </Grid>

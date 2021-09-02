@@ -21,7 +21,7 @@ import "./styles/registration.scss";
 import Notification from "../Components/Notification";
 import { NotificationType } from "../Components/Notification";
 import { useState } from "react";
-import image from "../assets/images/banner1.jpeg";
+import image from "../assets/images/login2.jpg";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -54,7 +54,7 @@ const RegistrationPage = () => {
     if (response) {
       setOpen(true);
       setTimeout(() => {
-        history.push("/user/login");
+        history.push("/user/login/");
       }, 3000);
     }
   };
@@ -75,6 +75,11 @@ const RegistrationPage = () => {
       .min(13, "Contact Number Should be of 10 digits")
       .required("Required"),
   });
+
+  const handleLogin = () => {
+    history.push("/user/login");
+  };
+
   return (
     <>
       {open && (
@@ -257,9 +262,14 @@ const RegistrationPage = () => {
             <Typography className="register-text-links">
               {" "}
               Already have an account ?
-              <NavLink className="navLink" exact to="/user/login/">
+              <Button
+                onClick={handleLogin}
+                size="small"
+                variant="outlined"
+                className="register-login-btn"
+              >
                 Login
-              </NavLink>
+              </Button>
             </Typography>
           </Paper>
         </Grid>
