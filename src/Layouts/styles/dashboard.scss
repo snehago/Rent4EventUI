@@ -18,7 +18,8 @@
   grid-template-columns: 20% 80%;
   height: 100vw !important;
   margin-top: 10vh;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .side-nav {

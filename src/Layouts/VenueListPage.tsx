@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CardItem from "../Components/CardItem";
-import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import { VenueService } from "../Services/VenueService";
 import { Collapse } from "react-collapse";
@@ -458,10 +457,6 @@ const VenueListPage = () => {
         </Box>
         </InfiniteScroll>
       </div>
-
-      {/* <footer className="venue-footer">
-        <Footer></Footer>
-      </footer> */}
     </>
   );
 };

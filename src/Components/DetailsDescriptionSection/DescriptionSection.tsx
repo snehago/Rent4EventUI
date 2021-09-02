@@ -128,7 +128,7 @@ export default function DescriptionSection({ venue }: DSProps) {
         <Notification
           open={open}
           type={NotificationType.error}
-          content="Please select data to book venue"
+          content="Please select date to book venue"
         ></Notification>
       )}
       <div className="descriptionContainer">
