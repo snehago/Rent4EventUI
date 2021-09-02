@@ -12,14 +12,13 @@ import Notification from "../Components/Notification";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import MuiPhoneNumber from "material-ui-phone-number";
 import * as Yup from "yup";
-import { NavLink } from "react-router-dom";
 import { of } from "await-of";
 import { UserService } from "../Services/UserService";
 import { useHistory } from "react-router";
 import "./styles/registration.scss";
 import { useState } from "react";
-import image from "../assets/images/banner1.jpeg";
 import swal from "sweetalert";
+import image from "../assets/images/login2.jpg";
 
 const userService = new UserService();
 const RegistrationPageHost = () => {
@@ -73,6 +72,11 @@ const RegistrationPageHost = () => {
       .min(13, "Contact Number Should be of 10 digits")
       .required("Required"),
   });
+
+  const handleLogin = () => {
+    history.push("/user/login");
+  };
+
   return (
     <>
       {open && (
@@ -257,9 +261,14 @@ const RegistrationPageHost = () => {
             <Typography className="register-text-links">
               {" "}
               Already have an account ?
-              <NavLink className="navLink" exact to="/user/login/">
+              <Button
+                size="small"
+                onClick={handleLogin}
+                variant="outlined"
+                className="register-login-btn"
+              >
                 Login
-              </NavLink>
+              </Button>
             </Typography>
           </Paper>
         </Grid>
