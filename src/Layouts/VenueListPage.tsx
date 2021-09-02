@@ -451,6 +451,7 @@ const VenueListPage = () => {
                   title={venue.title}
                   description={venue.description}
                   price={venue.price}
+                  host={venue.host}
                 />
               </Grid>
             ))}

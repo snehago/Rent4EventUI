@@ -6,20 +6,38 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import "./cardStyle.scss";
-import image from "../../assets/images/download.jpg";
+import imageSrc from "../../assets/images/download.jpg";
+import { VenueService } from "../../Services/VenueService";
+import { useEffect } from "react";
+import { useState } from "react";
+import { of } from "await-of";
 
 interface cardProps {
   id: number;
   title: String;
   description: String;
   price: number;
+  host:any;
 }
-
-export default function CardItem({ id, title, description, price }: cardProps) {
+const venueService = new VenueService();
+export default function CardItem({ id, title, description, price, host }: cardProps) {
   // const classes = useStyles();
+  const [image, setImage]= useState<any>(imageSrc);
   const history = useHistory();
-
   const handleClick = () => history.push(`/venue-details/${id}`);
+
+  useEffect(()=>{
+    (async ()=> {
+      const [response,error]= await of(venueService.getVenuePictures(id,host?.id));
+      if(error || response.length===0) {
+        setImage(imageSrc);
+        return
+      }
+      if(response) {
+        setImage(response[0]);
+      }
+    })();
+  },[])
 
   return (
     <Card className="root">

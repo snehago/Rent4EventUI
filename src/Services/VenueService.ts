@@ -20,11 +20,39 @@ class VenueService {
     if (response) {
       console.log({ response });
       if (response.status >= 200 && response.status <= 210) {
-        return response.data;
+        return response.data.response;
       } else throw Error(response.data.message);
     }
   }
 
+  public async uploadVenuePictures(data: any) {
+    const [response, error] = await of(
+      axios.post(`${this.BACKEND_URL}/gcp/venue/upload/`, data)
+    );
+    if (error) {
+      throw new Error(error.message);
+    }
+    if (response) {
+      console.log({ response });
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data.response;
+      } else throw Error(response.data.message);
+    }
+  }
+  public async getVenuePictures(venueId:any, hostId:any) {
+    const [response, error] = await of(
+      axios.get(`${this.BACKEND_URL}/gcp/venue/?hostId=${hostId}&venueId=${venueId}`)
+    );
+    if (error) {
+      throw new Error(error.message);
+    }
+    if (response) {
+      console.log({ response });
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data.response;
+      } else throw Error(response.data.message);
+    }
+  }
   public async getVenueByVenueId(id: number) {
     const [response, error] = await of(
       axios.get(`${this.BACKEND_URL}/venue/${id}`)
@@ -85,7 +113,7 @@ class VenueService {
       } else throw Error(response.data.message);
     }
   }
-  public async getAllVenues(page:number) {
+  public async getAllVenues(page: number) {
     const [response, error] = await of(
       axios.get(`${this.BACKEND_URL}/venue?page=${page}&limit=9`)
     );
