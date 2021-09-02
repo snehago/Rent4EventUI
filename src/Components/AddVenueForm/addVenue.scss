@@ -1,3 +1,7 @@
+.scroll-div {
+  overflow: auto;
+  height: 90vh !important;
+}
 .addVenuePaper {
   width: 95% !important;
   margin: 2% 2% 2% 2% !important;
@@ -5,10 +9,10 @@
 }
 .addVenueFormContainer {
   width: 100% !important;
-  //   margin: 2% 2% 2% 2% !important;
   padding: 2%;
-  // margin-right: 2%!important;
   box-sizing: border-box;
+  height: 100%;
+  overflow: visible;
 }
 
 .addVenueLabel {

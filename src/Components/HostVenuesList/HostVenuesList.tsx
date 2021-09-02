@@ -10,6 +10,7 @@ import { Venue } from "../../Shared/Interfaces/Venue";
 import AddedVenueCard from "../AddedVenueCard";
 import CircularLoader from "../CircularLoader/CircularLoader";
 import BookingTable from "./BookingTable";
+import swal from 'sweetalert';
 import "./hostVenueList.scss";
 const userService = new UserService();
 function VenuesList() {
@@ -22,7 +23,7 @@ function VenuesList() {
     (async () => {
       const [response, error] = await of(userService.getHostById(user.id));
       if (error) {
-        alert("error while fetching venues");
+        swal("error while fetching venues","error");
       }
       if (response) {
         setTimeout(() => {

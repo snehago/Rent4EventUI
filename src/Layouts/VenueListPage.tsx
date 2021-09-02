@@ -24,6 +24,7 @@ import { Venue } from "../Shared/Interfaces/Venue";
 import { EventTypeService } from "../Services/EventTypeService";
 import InfiniteScroll from "react-infinite-scroller";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
+import swal from "sweetalert";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -63,7 +64,7 @@ const VenueListPage = () => {
         venueService.getAllVenues(currentPage)
       );
       if (error) {
-        alert(error.message);
+        swal("Unable to fetch venues","error");
       }
       if (response) {
         if (response.length === 0) {
@@ -88,7 +89,7 @@ const VenueListPage = () => {
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        alert(eventError.message);
+        swal("Unable to fetch event types","error");
       }
       if (eventResponse) {
         console.log(eventResponse);
@@ -444,7 +445,7 @@ const VenueListPage = () => {
         <Box className="venue-box">
           <Grid xs={12} container spacing={8} className="venue-grid">
             {venues?.map((venue) => (
-              <Grid item xs={12} md={6} lg={4} data-aos="zoom-in" data-aos-once>
+              <Grid item xs={12} md={6} lg={4} data-aos="fade-up" data-aos-once>
                 <CardItem
                   id={venue.id}
                   title={venue.title}

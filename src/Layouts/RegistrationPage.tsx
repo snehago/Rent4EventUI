@@ -25,6 +25,7 @@ import image from "../assets/images/banner1.jpeg";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import swal from "sweetalert";
 
 const userService = new UserService();
 const RegistrationPage = () => {
@@ -50,7 +51,7 @@ const RegistrationPage = () => {
     values.role = "client";
     console.log(values);
     const [response, error] = await of(userService.signup(values));
-    if (error) alert(error.message);
+    if (error) swal("something went wrong","error");
     if (response) {
       setOpen(true);
       setTimeout(() => {

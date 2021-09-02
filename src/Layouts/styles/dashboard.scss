@@ -14,15 +14,17 @@
 }
 
 .main {
+  position: sticky;
   display: grid;
   grid-template-columns: 20% 80%;
-  height: 100vw !important;
+  height: 90vh !important;
   margin-top: 10vh;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
 .side-nav {
+  position: sticky;
   height: 100% 100vh !important;
   border: 1px solid #707070;
   background-color: #001509;

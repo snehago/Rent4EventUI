@@ -11,6 +11,7 @@ import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 import ReviewSection from "../Components/DetailsReviewSection/ReviewSection";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
+import swal from "sweetalert";
 
 const venueService = new VenueService();
 const VenueDetailsPage = () => {
@@ -24,7 +25,7 @@ const VenueDetailsPage = () => {
         venueService.getVenueByVenueId(venueId)
       );
       if (error) {
-        alert(error.message);
+        swal("Unable to fetch venue details","error");
       }
       if (response) {
         console.log(response);
@@ -43,7 +44,7 @@ const VenueDetailsPage = () => {
     <>
       {loading && <CircularLoader />}
       <Header></Header>
-      <div className="carouselContainer" data-aos="zoom-in">
+      <div className="carouselContainer" data-aos="fade-up">
         <DetailsCarousel />
       </div>
       {venue && <DescriptionSection venue={venue} />}

@@ -25,6 +25,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { useState } from "react";
+import swal from "sweetalert";
 
 const userService = new UserService();
 const LoginPage = () => {
@@ -51,7 +52,7 @@ const LoginPage = () => {
     console.log(values);
     const [response, error] = await of(userService.login(values));
     if (error) {
-      alert(error);
+      swal("Invalid Username or Password","error");
     }
     if (response) {
       if (response.role === "client") history.push("/home");

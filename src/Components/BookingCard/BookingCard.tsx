@@ -8,6 +8,7 @@ import { Venue } from "../../Shared/Interfaces/Venue";
 import image from '../../assets/images/bgimage.jpg'
 import "./bookingCard.scss";
 import { useHistory } from "react-router-dom";
+import swal from 'sweetalert';
 const venueService = new VenueService();
 function BookingCard({ booking }: { booking: Booking }) {
   const [venue, setVenue] = useState<Venue | null>(null);
@@ -18,7 +19,7 @@ function BookingCard({ booking }: { booking: Booking }) {
         venueService.getVenueByVenueId(booking.venue.id)
       );
       if (error) {
-        alert(error.message);
+        swal("Venue details not found","error");
       }
       if (response) {
         setVenue(response);

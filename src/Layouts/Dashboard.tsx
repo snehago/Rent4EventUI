@@ -11,32 +11,32 @@ import "./styles/dashboard.scss";
 const sideBarItems: any = {
   client: [
     {
-      id: 1,
-      value: "View/Edit profile",
-    },
-    {
       id: 2,
       value: "Booking History",
+    },
+    {
+      id: 1,
+      value: "My profile",
     },
   ],
   host: [
     {
-      id: 1,
-      value: "View/Edit profile",
+      id: 4,
+      value: "My Venues",
     },
     {
       id: 3,
       value: "Add Venue",
     },
     {
-      id:4,
-      value: "My Venues"
-    }
+      id: 1,
+      value: "My profile",
+    },
   ],
 };
 const Dashboard = () => {
   const { userRole } = useParams<any>();
-  const [selected, setSelected] = useState<number>(1);
+  const [selected, setSelected] = useState<number>(userRole==="host"?4:2);
   const changeView = (id: number) => {
     setSelected(id);
   };

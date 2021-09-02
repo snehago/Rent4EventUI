@@ -13,6 +13,7 @@ import { UserService } from "../../Services/UserService";
 import { of } from "await-of";
 import CircularLoader from "../CircularLoader/CircularLoader";
 import ImageUploader from "react-images-upload";
+import swal from "sweetalert";
 var FormData = require('form-data');
 
 const sharedService = new SharedService();
@@ -35,7 +36,7 @@ const Profile = (props: any) => {
     (async ()=> {
       const [response,error]= await of(userService.getProfilePicture(user.id));
       if(error) {
-        alert(error.message);
+        swal("Not able to fetch profile picture","error");
       }
       if(response) {
         setProfilePic(response);
@@ -44,24 +45,22 @@ const Profile = (props: any) => {
   },[user])
 
   async function handleEditFormHost(user: any) {
-    console.log("edit the form");
     const [response, error] = await of(userService.editHostProfile(user));
     if (error) {
-      alert(error.message);
+      swal("Unable to update details","error");
     }
     if (response) {
-      alert("edited profile");
+      swal("profile updated successfully","success");
     }
   }
 
   async function handleEditFormClient(user: any) {
-    console.log("edit the form");
     const [response, error] = await of(userService.editClientProfile(user));
     if (error) {
-      alert(error.message);
+     swal("Unable to update details", "error");
     }
     if (response) {
-      alert("edited profile");
+      swal("profile updated successfully", "success");
     }
   }
 
@@ -121,10 +120,10 @@ const Profile = (props: any) => {
     data.append("userId", "1");
     const [response, error]= await of(userService.uploadProfilePicture(data));
     if(error){
-      alert(error.message);
+      swal("Unable to upload profile picture","error");
     }
     if(response) {
-      console.log({response});
+      swal("Profile picture updated","success");
       setProfilePic(response);
     }
   }

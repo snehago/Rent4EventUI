@@ -22,6 +22,7 @@ import { RootState } from "../Redux/store";
 import { of } from "await-of";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import SimpleModal from "../Components/Modal";
+import swal from "sweetalert";
 
 const bookingService = new BookingService();
 const venueService = new VenueService();
@@ -107,7 +108,7 @@ export default function CheckoutPage() {
         venueService.getVenueByVenueId(venueId)
       );
       if (error) {
-        alert(error.message);
+        swal("Unable to fetch venue details","error");
       }
       if (response) {
         setTimeout(() => {
@@ -156,12 +157,11 @@ export default function CheckoutPage() {
     console.log(data);
     const [response, error] = await of(bookingService.addBooking(data));
     if (error) {
-      alert(error.message);
+      swal("Something went wrong try again!","error");
     }
     if (response) {
       setLoading(false)
-      setOpen(true);
-      
+      swal("Booking Successfull",`your booking id is ${response.id}`,"success").then(value => onModalClose());
     }
   };
 

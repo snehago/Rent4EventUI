@@ -29,6 +29,7 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import { useHistory } from "react-router";
 import Notification, { NotificationType } from "../Notification";
 import LocationPicker from "react-location-picker";
+import swal from 'sweetalert';
 
 const venueService = new VenueService();
 const facilityService = new FacilityService();
@@ -102,7 +103,7 @@ export default function AddVenue() {
 
     const [response, error] = await of(venueService.addVenue(venue));
     if (error) {
-      alert(error.message);
+      swal("Invalid data","error");
     }
     if (response) {
       console.log(response);
@@ -129,7 +130,7 @@ export default function AddVenue() {
     (async () => {
       const [response, error] = await of(facilityService.getAllFacility());
       if (error) {
-        alert(error.message);
+        swal("Unable to fetch facilities","error");
       }
       if (response) {
         setFacilities(response);
@@ -139,7 +140,7 @@ export default function AddVenue() {
     (async () => {
       const [response, error] = await of(eventTypeService.getAllEventType());
       if (error) {
-        alert(error.message);
+        swal("Unable to fetch event types","error");
       }
       if (response) {
         setEventTypes(response);
@@ -152,7 +153,7 @@ export default function AddVenue() {
     console.log(coordinates)
   };
   return (
-    <div>
+    <div className="scroll-div" >
       {open && (
         <Notification
           type={NotificationType.success}

@@ -7,6 +7,7 @@ import { Booking } from '../../Shared/Interfaces/Booking';
 import { User } from '../../Shared/Interfaces/User';
 import BookingCard from '../BookingCard';
 import './bookingList.scss';
+import swal from 'sweetalert';
 const bookingService = new BookingService();
 function BookingList() {
   const user:User = useSelector((state:RootState)=> state.auth.user);
@@ -16,7 +17,7 @@ function BookingList() {
     (async ()=> {
       const [response,error]= await of(bookingService.getBookingByUserId(user.id));
       if(error) {
-        alert(error.message);
+        swal("Unable to fetch your bookings","error");
       }
       if(response) {
         setBookings(response);

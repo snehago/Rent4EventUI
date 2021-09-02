@@ -19,6 +19,7 @@ import { useHistory } from "react-router";
 import "./styles/registration.scss";
 import { useState } from "react";
 import image from "../assets/images/banner1.jpeg";
+import swal from "sweetalert";
 
 const userService = new UserService();
 const RegistrationPageHost = () => {
@@ -39,7 +40,7 @@ const RegistrationPageHost = () => {
     values.role = "host";
     console.log(values);
     const [response, error] = await of(userService.signup(values));
-    if (error) alert(error.message);
+    if (error) swal("Something went wrong","error");
     if (response) {
       setOpen(true);
       setTimeout(() => {

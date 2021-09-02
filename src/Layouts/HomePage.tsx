@@ -23,6 +23,7 @@ import "react-multi-carousel/lib/styles.css";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import Aos from "aos";
 import "aos/dist/aos.css"
+import swal from "sweetalert";
 
 const responsive = {
   superLargeDesktop: {
@@ -71,7 +72,7 @@ const HomePage = () => {
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        alert(eventError.message);
+        swal("unable to fetch event type","error");
       }
       if (eventResponse) {
         console.log(eventResponse);
@@ -88,7 +89,7 @@ const HomePage = () => {
     (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
       if (error) {
-        alert(error.message);
+        swal("Unable to fetch venues","error");
       }
       if (response) {
         console.log(response);
@@ -341,7 +342,7 @@ const HomePage = () => {
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
         </div>
-        <div className="recommended-venue-box" data-aos="zoom-in" data-aos-once>
+        <div className="recommended-venue-box" data-aos="fade-up" data-aos-once>
           <Caraousel
             swipeable={true}
             showDots={false}

@@ -11,11 +11,13 @@ export default function Footer() {
  
   return (
     <Grid container spacing={0} className="footer-main-grid-container">
-      <Grid item xs={4} lg={2} style={{marginLeft:"6%",marginRight:"4%"}}>
+      <Grid item xs={4} lg={2} style={{ marginLeft: "6%", marginRight: "4%" }}>
         <Box className="label">About Us</Box>
         <Box className="aboutText">
-          Vestibulum eget nisi malesuada, blandit augue faucibus, mollis lectus.
-          Integer pharetra blandit elit at eleifend.
+          Rent4You is designed to bring clients and hosts together to create a
+          quick and easy event planning experience. We also serve the
+          hospitality industry by helping event venues grow their events
+          business in our cloud-based service
         </Box>
       </Grid>
 
@@ -23,19 +25,19 @@ export default function Footer() {
         <Box className="label">Services</Box>
         <Box>
           <Link className="contentText" href="/" color="inherit">
-            Services 1
+            Caterine
           </Link>
           <p></p>
         </Box>
         <Box>
           <Link className="contentText" href="/" color="inherit">
-            Services 1
+            Decoration
           </Link>
           <p></p>
         </Box>
         <Box>
           <Link className="contentText" href="/" color="inherit">
-            Services 1
+            Music Systems
           </Link>
         </Box>
       </Grid>
@@ -88,7 +90,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={2} lg={2} >
+      <Grid item xs={2} lg={2}>
         <Box className="label" id="followLabel">
           Follow Us
         </Box>
@@ -108,18 +110,11 @@ export default function Footer() {
               <TwitterIcon />
             </Avatar>
           </Grid>
-          <Grid
-                  item
-                  lg={2}
-                  xs={12}
-                  sm={4}
-                  md={3}
-                  className="avatarGridItem"
-                >
-                  <Avatar className="socalIconAvatar">
-                    <YouTubeIcon />
-                  </Avatar>
-                </Grid>
+          <Grid item lg={2} xs={12} sm={4} md={3} className="avatarGridItem">
+            <Avatar className="socalIconAvatar">
+              <YouTubeIcon />
+            </Avatar>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
