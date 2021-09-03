@@ -11,6 +11,7 @@ import { VenueService } from "../../Services/VenueService";
 import { useEffect } from "react";
 import { useState } from "react";
 import { of } from "await-of";
+import { v4 } from "uuid";
 
 interface cardProps {
   id: number;
@@ -43,13 +44,15 @@ export default function CardItem({ id, title, description, price, host }: cardPr
     <Card className="root">
       <CardActionArea onClick={handleClick}>
         <CardMedia
+          key={v4()}
           component="img"
           className="media"
           src={image}
           title="Venue Image"
         />
-        <CardContent className="card-content">
+        <CardContent key={v4()} className="card-content">
           <Typography
+            key={v4()}
             gutterBottom
             variant="h5"
             component="h2"
@@ -57,12 +60,18 @@ export default function CardItem({ id, title, description, price, host }: cardPr
           >
             {title.toUpperCase()}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p" className="text" >
+          <Typography
+            key={v4()}
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            className="text"
+          >
             {description}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions key={v4()}>
         <p className="venue-card-price">${price}</p>
       </CardActions>
     </Card>

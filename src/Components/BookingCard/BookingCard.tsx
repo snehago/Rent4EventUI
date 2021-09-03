@@ -7,6 +7,7 @@ import { Booking } from "../../Shared/Interfaces/Booking";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import "./bookingCard.scss";
 import swal from 'sweetalert';
+import { v4 } from "uuid";
 const venueService = new VenueService();
 
 function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
@@ -33,29 +34,42 @@ function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
   }, [booking]);
   
   return (
-    <div className="booking-card-base" onClick={()=> onClick(venue,booking)}>
-      <div className="booking-card-image-container">
-        <img
-          src={image}
-          alt="venue-logo"
-        ></img>
+    <div
+      key={v4()}
+      className="booking-card-base"
+      onClick={() => onClick(venue, booking)}
+    >
+      <div key={v4()} className="booking-card-image-container">
+        <img src={image} alt="venue-logo"></img>
       </div>
-      <div className="booking-card-info-section">
-        <div className="booking-card-venue-title">{venue?.title}</div>
-        <div className="booking-card-venue-address">{`${venue?.address.streetAddress}, ${venue?.address.city}, ${venue?.address.state}, ${venue?.address.country}, ${venue?.address.pin}`}</div>
-        <div className="booking-card-booking-date">
+      <div key={v4()} className="booking-card-info-section">
+        <div key={v4()} className="booking-card-venue-title">
+          {venue?.title}
+        </div>
+        <div
+          key={v4()}
+          className="booking-card-venue-address"
+        >{`${venue?.address.streetAddress}, ${venue?.address.city}, ${venue?.address.state}, ${venue?.address.country}, ${venue?.address.pin}`}</div>
+        <div key={v4()} className="booking-card-booking-date">
           {" "}
           <b>from:</b> {moment(booking.from).format("LL")} - <b>to:</b>{" "}
           {moment(booking.to).format("LL")}
         </div>
       </div>
-      <div className="booking-card-days-section">
-        for {Math.abs(new Date(booking.to).getDay() - new Date(booking.from).getDay())}{" "}
+      <div key={v4()} className="booking-card-days-section">
+        for{" "}
+        {Math.abs(
+          new Date(booking.to).getDay() - new Date(booking.from).getDay()
+        )}{" "}
         day(s).
       </div>
-      <div className="booking-card-status-section">
-        <div className="booking-card-status-label">Booked</div>
-        <div className="booking-card-price-label">${booking.amountPaid}</div>
+      <div key={v4()} className="booking-card-status-section">
+        <div key={v4()} className="booking-card-status-label">
+          Booked
+        </div>
+        <div key={v4()} className="booking-card-price-label">
+          ${booking.amountPaid}
+        </div>
       </div>
     </div>
   );

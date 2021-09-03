@@ -3,6 +3,7 @@ import ListItem from '@material-ui/core/ListItem/ListItem';
 import { of } from 'await-of';
 import React from 'react'
 import swal from 'sweetalert';
+import { v4 } from 'uuid';
 import { BookingService } from '../../Services/BookingService';
 import './bookingDetails.scss';
 
@@ -37,45 +38,45 @@ function BookingDetails({venue, booking, onBack}:any) {
     }
   }
   return (
-    <>
-      <Paper className="bd-paper">
+    <div className="bd-paper-container">
+      <div className="bd-paper">
         <Box p={2}>
           <Typography variant="h6" align="center" gutterBottom>
             Booking Details
           </Typography>
           <List>
-            <ListItem className={classes.listItem} key={venue.id}>
+            <ListItem key={v4()} className={classes.listItem}>
               <ListItemText primary="Title" />
               <Typography variant="body2">{venue.title}</Typography>
             </ListItem>
-            <ListItem className={classes.listItem} key={venue.id + 1}>
+            <ListItem className={classes.listItem} key={v4()}>
               <ListItemText primary="Capacity" />
               <Typography variant="body2">{venue.capacity}</Typography>
             </ListItem>
-            <ListItem className={classes.listItem} key={venue.id + 3}>
+            <ListItem className={classes.listItem} key={v4()}>
               <ListItemText primary="Price" />
               <Typography variant="body2">${venue.price}</Typography>
             </ListItem>
-            <ListItem className={classes.listItem} key={venue.id + 4}>
+            <ListItem className={classes.listItem} key={v4()}>
               <ListItemText primary="Booking amount" />
               <Typography variant="body2">${booking.amountPaid}</Typography>
             </ListItem>
             {booking?.listOfServices?.map((service) => (
-              <ListItem className={classes.listItem} key={service.id + 11}>
+              <ListItem className={classes.listItem} key={v4()}>
                 <ListItemText primary={service.name} />
                 <Typography variant="body2">${service.price}</Typography>
               </ListItem>
             ))}
             <Divider />
-            <ListItem className={classes.listItem}>
+            <ListItem className={classes.listItem} key={v4()}>
               <ListItemText primary="Total" />
               <Typography variant="subtitle1" className={classes.total}>
                 ${booking?.amountPaid}
               </Typography>
             </ListItem>
           </List>
-          <Grid container>
-            <Grid item lg={6}>
+          <Grid container key={v4()}>
+            <Grid item lg={6} key={v4()}>
               <Button
                 className="bd-back-button"
                 variant="outlined"
@@ -87,6 +88,7 @@ function BookingDetails({venue, booking, onBack}:any) {
             </Grid>
             <Grid item lg={6}>
               <Button
+                key={v4()}
                 variant="contained"
                 className="bd-cancel-button"
                 onClick={cancelConfirmation}
@@ -96,8 +98,8 @@ function BookingDetails({venue, booking, onBack}:any) {
             </Grid>
           </Grid>
         </Box>
-      </Paper>
-    </>
+      </div>
+    </div>
   );
 }
 

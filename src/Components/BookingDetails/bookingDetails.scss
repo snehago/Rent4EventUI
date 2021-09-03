@@ -1,8 +1,19 @@
 @import '../../Shared/styles/colors';
 .bd-paper {
-  width: 40vw;
+  background-color: $white !important;
+  width: 50vw;
+  display: flex;
+  height: 90vh;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.bd-paper-container {
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  overflow: auto;
 }
 .bd-back-button{
   width: 20%;

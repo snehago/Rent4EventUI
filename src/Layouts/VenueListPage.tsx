@@ -25,6 +25,7 @@ import { EventTypeService } from "../Services/EventTypeService";
 import InfiniteScroll from "react-infinite-scroller";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
+import { v4 } from "uuid";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -429,7 +430,7 @@ const VenueListPage = () => {
         </div>
       </Collapse>
       {/* Filter and search ends */}
-      <div className="all-venues" >
+      <div className="all-venues">
         <InfiniteScroll
           pageStart={0}
           loadMore={loadMore}
@@ -442,21 +443,29 @@ const VenueListPage = () => {
           }
           useWindow
         >
-        <Box className="venue-box">
-          <Grid xs={12} container spacing={8} className="venue-grid">
-            {venues?.map((venue) => (
-              <Grid item xs={12} md={6} lg={4} data-aos="fade-up" data-aos-once>
-                <CardItem
-                  id={venue.id}
-                  title={venue.title}
-                  description={venue.description}
-                  price={venue.price}
-                  host={venue.host}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+          <Box className="venue-box">
+            <Grid xs={12} container spacing={8} className="venue-grid">
+              {venues?.map((venue) => (
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  lg={4}
+                  data-aos="fade-up"
+                  data-aos-once
+                >
+                  <CardItem
+                    id={venue.id}
+                    title={venue.title}
+                    description={venue.description}
+                    price={venue.price}
+                    host={venue.host}
+                    key={v4()}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </InfiniteScroll>
       </div>
     </>

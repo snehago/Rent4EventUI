@@ -24,6 +24,7 @@ import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import Aos from "aos";
 import "aos/dist/aos.css"
 import swal from "sweetalert";
+import { v4 } from "uuid";
 
 const responsive = {
   superLargeDesktop: {
@@ -344,6 +345,7 @@ const HomePage = () => {
         </div>
         <div className="recommended-venue-box" data-aos="fade-up" data-aos-once>
           <Caraousel
+            key={v4()}
             swipeable={true}
             showDots={false}
             responsive={responsive}
@@ -359,6 +361,7 @@ const HomePage = () => {
                   description={venue.description}
                   price={venue.price}
                   host={venue.host}
+                  key={v4()}
                 />
               </Box>
             ))}

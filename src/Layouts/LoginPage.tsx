@@ -7,7 +7,6 @@ import {
   IconButton,
   Input,
   Link,
-  Paper,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -98,11 +97,8 @@ const LoginPage = () => {
                 <Field
                   as={TextField}
                   name="email"
-                  // value={email}
-                  // onChange={emailHandler}
                   label="Email"
                   placeholder="Enter Email"
-                  // variant="outlined"
                   fullWidth
                   required
                   style={{ marginBottom: "5%" }}

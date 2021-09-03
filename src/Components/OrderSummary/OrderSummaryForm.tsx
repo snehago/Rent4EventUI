@@ -8,56 +8,18 @@ import Grid from "@material-ui/core/Grid";
 import { v4 as uuidv4 } from "uuid";
 import "./ordersummary.scss";
 import DividerComponent from "../DividerComponent/DividerComponent";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
+import moment from "moment";
+import { User } from "../../Shared/Interfaces/User";
+import { Button } from "@material-ui/core";
 
-
-// Your Details(done)
-
-// const venue = {
-//   title: "Grand Continental",
-//   desc: "Popular in Allahabad for marriages",
-//   capacity: "600",
-//   price: 50000,
-// };
-
-const addresses = [
-  "1 Material-UI Drive",
-  "Reactville",
-  "Anytown",
-  "99999",
-  "USA",
-];
-
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, "0");
-var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-var yyyy = today.getFullYear();
-
-var todayDate = dd + "/" + mm + "/" + yyyy;
 const payments = [
   { name: "Booking Id", detail: uuidv4() },
-  { name: "Booking Date", detail: todayDate },
+  { name: "Booking Date", detail: moment(Date.now()).format('LL') },
 ];
 
-const servicesOpted = [
-  {
-    id: 1,
-    name: "Catering",
-    price: 5000,
-  },
-  {
-    id: 2,
-    name: "Decoration",
-    price: 5000,
-  },
-  {
-    id: 3,
-    name: "DJ Nights",
-    price: 5000,
-  },
-];
 
-var servicesPrice = 0;
-servicesOpted.forEach((element) => (servicesPrice += element.price));
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -73,11 +35,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OrderSummaryForm(props) {
   const classes = useStyles();
-
+  const { startDate, endDate }:any = useSelector(
+    (state: RootState) => state.cart.dates
+  );
+  const user:User =useSelector((state:RootState)=> state.auth.user);
   const venue = props.venue;
-  const bookingPrice = (venue.price * 10) / 100;
-  var totalPrice = bookingPrice + venue.price;
-  totalPrice += servicesPrice;
+  const data = props?.formValues;
+  const servicesOpted = props?.services;
+  var servicesPrice = 0;
+  servicesOpted?.forEach((element) => (servicesPrice += element.price));
+  const numberOfDays= Math.abs(new Date(startDate).getDay()-new Date(endDate).getDay())+1;
+  const bookingPrice = ((venue.price * 10) / 100)*numberOfDays;
+  var totalPrice = bookingPrice + servicesPrice;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -92,7 +61,19 @@ export default function OrderSummaryForm(props) {
             primary={venue.title}
             secondary={`Capacity: ${venue.capacity}`}
           />
-          <div className="order-summary-price">${venue.price}</div>
+          <div className="order-summary-price">${venue.price}/day</div>
+        </ListItem>
+
+        <ListItem className={classes.listItem} key={venue.title}>
+          <ListItemText
+            primary="Booking Date:"
+            secondary={`Number of day(s): ${numberOfDays}`}
+          />
+          <div>
+            <b>from:</b>
+            {moment(startDate).format("LL")} - <b>to:</b>
+            {moment(endDate).format("LL")}
+          </div>
         </ListItem>
 
         <ListItem className={classes.listItem} key={venue.title}>
@@ -103,7 +84,7 @@ export default function OrderSummaryForm(props) {
         <DividerComponent />
 
         <div className="order-summary-labels">Additional Services Added</div>
-        {servicesOpted.map((service) => (
+        {servicesOpted?.map((service) => (
           <ListItem className={classes.listItem} key={service.id}>
             <ListItemText primary={service.name} />
             <div className="order-summary-price">${service.price}</div>
@@ -122,8 +103,12 @@ export default function OrderSummaryForm(props) {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={5} className="payment-details-box">
           <div className="order-summary-labels">Your Details</div>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          <Typography gutterBottom>
+            {user.firstName + " " + user.lastName}
+          </Typography>
+          <Typography
+            gutterBottom
+          >{`${data?.address1}, ${data?.address2}, ${data?.city}, ${data?.state}, ${data?.country}, ${data?.zip}`}</Typography>
         </Grid>
         <Grid
           item
@@ -152,8 +137,18 @@ export default function OrderSummaryForm(props) {
             ))}
           </Grid>
         </Grid>
+        <Grid lg={12} >
+          <Button
+            variant="contained"
+            type="submit"
+            color="primary"
+            className="osf-button"
+            onClick={()=> props.onSubmit(totalPrice)}
+          >
+            Book The Venue
+          </Button>
+        </Grid>
       </Grid>
-
     </React.Fragment>
   );
 }

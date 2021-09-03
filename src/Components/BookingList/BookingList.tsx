@@ -9,6 +9,7 @@ import BookingCard from '../BookingCard';
 import './bookingList.scss';
 import swal from 'sweetalert';
 import BookingDetails from '../BookingDetails';
+import { v4 } from 'uuid';
 const bookingService = new BookingService();
 function BookingList() {
   const user:User = useSelector((state:RootState)=> state.auth.user);
@@ -38,12 +39,21 @@ function BookingList() {
       {!bookingView && (
         <div className="booking-card-container">
           {bookings.map((booking) => (
-            <BookingCard booking={booking} onClick={showBookingDetails} ></BookingCard>
+            <BookingCard
+              key={v4()}
+              booking={booking}
+              onClick={showBookingDetails}
+            ></BookingCard>
           ))}
         </div>
       )}
       {bookingView && (
-        <BookingDetails venue={venue} booking={booking} onBack={()=> setBookingView(false)}></BookingDetails>
+        <BookingDetails
+          venue={venue}
+          booking={booking}
+          key={v4()}
+          onBack={() => setBookingView(false)}
+        ></BookingDetails>
       )}
     </>
   );

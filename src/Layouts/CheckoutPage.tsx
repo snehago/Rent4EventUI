@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     marginTop: "5%",
+    height:"auto",
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       marginLeft: "auto",
@@ -82,19 +83,10 @@ const steps = ["Additional Services", "Order Summary"];
 export default function CheckoutPage() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-
   const { venueId } = useParams<any>();
   const [venue, setVenue] = useState<Venue | null>(null);
-
-  const [numberOfAttendees, setNumberOfAttendees] = useState<number>(0);
+  const [formValues, setFormValues] = useState<any>({});
+  const [servicesSelected, setServicesSelected] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const history = useHistory();
   const user = useSelector((state: RootState) => state.auth.user);
@@ -107,11 +99,11 @@ export default function CheckoutPage() {
         venueService.getVenueByVenueId(venueId)
       );
       if (error) {
-        swal("Unable to fetch venue details","error");
+        swal("Unable to fetch venue details", "error");
       }
       if (response) {
         setTimeout(() => {
-          console.log("Venue:",response)
+          console.log("Venue:", response);
           setVenue(response);
           setLoading(false);
         }, 1000);
@@ -121,26 +113,24 @@ export default function CheckoutPage() {
     window.scrollTo(0, 0);
   }, [venueId]);
 
-  function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return <AdditionalForm venue={venue} />;
-      case 1:
-        return <OrderSummaryForm venue={venue} />;
+  const handleNext = (values:any, services:any) => {
+    setFormValues(values);
+    setServicesSelected(services);
+    setActiveStep(activeStep + 1);
+  };
 
-      default:
-        throw new Error("Unknown step");
-    }
-  }
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
 
   const onModalClose = () => {
     setOpen(false);
     history.push("/dashboard/client");
   };
-  const onSubmit = async (values: any) => {
-    console.log(values);
+
+
+  const onSubmit = async (totalPrice:any) => {
     setLoading(true);
-    values.preventDefault();
     const data: any = {
       user: {
         id: user.id,
@@ -150,8 +140,10 @@ export default function CheckoutPage() {
       },
       from: dates?.startDate,
       to: dates.endDate,
-      amountPaid: venue ? (venue?.price * 10) / 100 : 0,
-      numberOfAttendees,
+      amountPaid: totalPrice,
+      numberOfAttendees: formValues.noOfAttendees,
+      listOfServices: servicesSelected,
+      status:"booked"
     };
     console.log(data);
     const [response, error] = await of(bookingService.addBooking(data));
@@ -164,6 +156,23 @@ export default function CheckoutPage() {
     }
   };
 
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AdditionalForm venue={venue} handleNext={handleNext} />;
+      case 1:
+        return (
+          <OrderSummaryForm
+            venue={venue}
+            services={servicesSelected}
+            formValues={formValues}
+            onSubmit={onSubmit}
+          />
+        );
+      default:
+        throw new Error("Unknown step");
+    }
+  }
   return (
     <React.Fragment>
       {loading && <CircularLoader />}
@@ -202,30 +211,6 @@ export default function CheckoutPage() {
                       Back
                     </Button>
                   )}
-
-                  {activeStep <= steps.length - 2 && (
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      Next
-                    </Button>
-                  )}
-
-                  {activeStep === steps.length - 1 && (
-                    <Button
-                      variant="contained"
-                      type="submit"
-                      color="primary"
-                      className={classes.button}
-                      onClick={onSubmit}
-                    >
-                      Book The Venue
-                    </Button>
-                  )}
-
                 </div>
               </React.Fragment>
             )}

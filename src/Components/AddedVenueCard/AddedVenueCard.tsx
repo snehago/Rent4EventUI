@@ -5,6 +5,7 @@ import "./addedVenueCard.scss";
 import { useEffect } from "react";
 import { of } from "await-of";
 import { VenueService } from "../../Services/VenueService";
+import { v4 } from "uuid";
 const venueService = new VenueService();
 function AddedVenueCard({ venue, onClick }: { venue: Venue; onClick: any }) {
   const [image, setImage]= useState<any>(null);
@@ -19,20 +20,26 @@ function AddedVenueCard({ venue, onClick }: { venue: Venue; onClick: any }) {
       <div
         className="added-venue-card-base"
         onClick={() => onClick(venue)}
+        key={v4()}
         data-aos="flip-right"
       >
-        <div className="added-venue-card-image-container">
-          <img src={image} alt="venueImage" />
+        <div key={v4()} className="added-venue-card-image-container">
+          <img key={v4()} src={image} alt="venueImage" />
         </div>
-        <div className="added-venue-card-info-section">
-          <div className="addded-venue-card-venue-title">{venue?.title}</div>
-          <div className="addded-venue-card-venue-description">
+        <div key={v4()} className="added-venue-card-info-section">
+          <div key={v4()} className="addded-venue-card-venue-title">
+            {venue?.title}
+          </div>
+          <div key={v4()} className="addded-venue-card-venue-description">
             {venue.description}
           </div>
-          <div className="added-venue-card-venue-address">{`${venue?.address.streetAddress}, ${venue?.address.city}, ${venue?.address.state}, ${venue?.address.country}`}</div>
+          <div
+            key={v4()}
+            className="added-venue-card-venue-address"
+          >{`${venue?.address.streetAddress}, ${venue?.address.city}, ${venue?.address.state}, ${venue?.address.country}`}</div>
         </div>
-        <div className="added-venue-edit-button ">
-          <Button variant="contained" color="primary">
+        <div key={v4()} className="added-venue-edit-button ">
+          <Button key={v4()} variant="contained" color="primary">
             Edit
           </Button>
         </div>
