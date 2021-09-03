@@ -26,10 +26,17 @@ import InfiniteScroll from "react-infinite-scroller";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
 import Footer from "../Components/Footer";
+import { UserService } from "../Services/UserService";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
+import { SharedService } from "../Services/SharedService";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
+const userService = new UserService();
+const sharedService = new SharedService();
 const VenueListPage = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
   const [filters, setFilters] = useState<any>({
     capacityFilter: -1,
     priceFilter: -1,
@@ -48,6 +55,9 @@ const VenueListPage = () => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [filterStatus, setFilterStatus] = useState<boolean>(false);
+
+  const [listOfWishlist, setListOfWishlist] = useState([]);
+  const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
 
   const loadMore = () => {
     setCurrentPage((prev) => prev + 1);
@@ -207,6 +217,30 @@ const VenueListPage = () => {
     );
     return temp;
   };
+
+  useEffect(() => {
+    if (sharedService.isUserLoggedIn()) {
+      (async () => {
+        const [wishlistResponse, wishlistError] = await of(
+          userService.getWishlistOfUser(user)
+        );
+        if (wishlistError) {
+          // swal("Unable to fetch Wishlist", "error");
+        }
+        if (wishlistResponse) {
+          console.log(wishlistResponse);
+          setListOfWishlist(wishlistResponse);
+          console.log("ListOfWishlist", listOfWishlist);
+          const tempArray: any = [];
+          listOfWishlist.forEach((element: any) => {
+            tempArray.push(element.id);
+          });
+          setListOfWishlistId(tempArray);
+          console.log("ListOfWishlistId", listOfWishlistId);
+        }
+      })();
+    }
+  }, [user, venues, originalVenues]);
 
   return (
     <>
@@ -454,14 +488,27 @@ const VenueListPage = () => {
                   data-aos="fade-up"
                   data-aos-once
                 >
-                  <CardItem
-                    id={venue.id}
-                    title={venue.title}
-                    description={venue.description}
-                    price={venue.price}
-                    host={venue.host}
-                    wish={false}
-                  />
+                  {listOfWishlistId.includes(venue.id) ? (
+                    <div>
+                      <CardItem
+                        id={venue.id}
+                        title={venue.title}
+                        description={venue.description}
+                        price={venue.price}
+                        host={venue.host}
+                        wish={true}
+                      />
+                    </div>
+                  ) : (
+                    <CardItem
+                      id={venue.id}
+                      title={venue.title}
+                      description={venue.description}
+                      price={venue.price}
+                      host={venue.host}
+                      wish={false}
+                    />
+                  )}
                 </Grid>
               ))}
             </Grid>

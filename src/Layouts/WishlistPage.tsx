@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
-import { User } from "../Shared/Interfaces/User";
-import { useParams } from "react-router-dom";
 import { UserService } from "../Services/UserService";
 import { useState } from "react";
 import { of } from "await-of";
@@ -14,42 +12,32 @@ import Footer from "../Components/Footer";
 
 const userService = new UserService();
 function WishlistPage() {
-  //   const { user } = useParams<any>();
   const user: any = useSelector((state: RootState) => state.auth.user);
 
-  const [userDetails, setUserDetails] = useState({});
   const [listOfWishlist, setListOfWishlist] = useState([]);
-  const [disabled, setDisabled] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(0);
-
-  var low = [];
 
   useEffect(() => {
     (async () => {
-      const [response, error] = await of(userService.getClientById(user.id));
+      const [response, error] = await of(userService.getWishlistOfUser(user));
       if (error) {
-        alert(error.message);
+        // alert(error.message);
       }
       if (response) {
         console.log("RES:", response);
       }
 
-      setUserDetails(response);
-      console.log("USER:::", userDetails);
-      setListOfWishlist(response.listOfWishlist);
-      low = response.listOfWishlist;
+      setListOfWishlist(response);
       console.log(listOfWishlist);
     })();
-  }, []);
 
-  useEffect(() => {
-    console.log(userDetails);
-  }, []);
+    window.scrollTo(0, 0);
+  }, [user]);
 
   const loadMore = () => {
-    setCurrentPage(prev=> prev+1);
-  }
-  
+    setCurrentPage((prev) => prev + 1);
+  };
+
   return (
     <div>
       <Header />
@@ -66,12 +54,12 @@ function WishlistPage() {
           </div>
         </div>
       </div>
-      
-      <div className="all-venues" >
+
+      <div className="all-venues">
         <InfiniteScroll
           pageStart={0}
           loadMore={loadMore}
-        //   hasMore={!disabled}
+          //   hasMore={!disabled}
           initialLoad={false}
           loader={
             <Grid style={{ display: "flex", justifyContent: "center" }}>
@@ -80,22 +68,29 @@ function WishlistPage() {
           }
           useWindow
         >
-        <Box className="venue-box">
-          <Grid xs={12} container spacing={8} className="venue-grid">
-            {listOfWishlist?.map((venue:any,id) => (
-              <Grid item xs={12} md={6} lg={4} data-aos="fade-up" data-aos-once>
-                <CardItem
-                  id={id}
-                  title={venue.title}
-                  description={venue.description}
-                  price={venue.price}
-                  host={venue.host}
-                  wish={true}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+          <Box className="venue-box">
+            <Grid xs={12} container spacing={8} className="venue-grid">
+              {listOfWishlist?.map((venue: any, id) => (
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  lg={4}
+                  data-aos="fade-up"
+                  data-aos-once
+                >
+                  <CardItem
+                    id={id}
+                    title={venue.title}
+                    description={venue.description}
+                    price={venue.price}
+                    host={venue.host}
+                    wish={true}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </InfiniteScroll>
       </div>
 

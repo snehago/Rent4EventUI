@@ -55,7 +55,7 @@ const userService = new UserService();
 const sharedService = new SharedService();
 
 const HomePage = () => {
-  var user = useSelector((state: RootState) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   // const user: any = useSelector((state: RootState) => state.auth.user);
   const history = useHistory();
@@ -70,25 +70,37 @@ const HomePage = () => {
   const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
-  const [userDetails, setUserDetails] = useState({});
   const [listOfWishlist, setListOfWishlist] = useState([]);
+  const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
   // const [userId, setUserId] = useState<any>();
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
 
-  // useEffect(() => {
-  //   if (sharedService.isUserLoggedIn()) {
-  //     setUserId(user.id);
-  //   }
-  // }, [user]);
-
-  // useEffect(() => {
-  //   if(sharedService.isUserLoggedIn()){
-  //     userService.
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (sharedService.isUserLoggedIn()) {
+      (async () => {
+        const [wishlistResponse, wishlistError] = await of(
+          userService.getWishlistOfUser(user)
+        );
+        if (wishlistError) {
+          // swal("Unable to fetch Wishlist", "error");
+        }
+        if (wishlistResponse) {
+          console.log(wishlistResponse);
+          setListOfWishlist(wishlistResponse);
+          console.log("ListOfWishlist", listOfWishlist);
+          const tempArray: any = [];
+          listOfWishlist.forEach((element: any) => {
+            tempArray.push(element.id);
+          });
+          setListOfWishlistId(tempArray);
+          console.log("ListOfWishlistId", listOfWishlistId);
+        }
+      })();
+    }
+  }, [user, venues, originalVenues]);
 
   useEffect(() => {
     (async () => {
@@ -103,26 +115,7 @@ const HomePage = () => {
         setEventTypes(eventResponse);
       }
     })();
-
-    // (async () => {
-    //   const [response, error] = await of(userService.getClientById(user.id));
-    //   if (error) {
-    //     alert(error.message);
-    //   }
-    //   if (response) {
-    //     console.log("RES:", response);
-    //   }
-
-    //   setUserDetails(response);
-    //   console.log("USER:::", userDetails);
-    //   setListOfWishlist(response.listOfWishlist);
-    //   console.log("LOW:", listOfWishlist);
-    // })();
   }, []);
-
-  // useEffect(() => {
-
-  // }, []);
 
   useEffect(() => {
     applyAppropiateFilters();
@@ -396,7 +389,29 @@ const HomePage = () => {
           >
             {venues?.map((venue) => (
               <Box p={3}>
-                {sharedService.isUserLoggedIn() ? (
+                {listOfWishlistId.includes(venue.id) ? (
+                  <div>
+                    <CardItem
+                      id={venue.id}
+                      title={venue.title}
+                      description={venue.description}
+                      price={venue.price}
+                      host={venue.host}
+                      wish={true}
+                    />
+                  </div>
+                ) : (
+                  <CardItem
+                    id={venue.id}
+                    title={venue.title}
+                    description={venue.description}
+                    price={venue.price}
+                    host={venue.host}
+                    wish={false}
+                  />
+                )}
+
+                {/* {sharedService.isUserLoggedIn() ? (
                   <CardItem
                     id={venue.id}
                     title={venue.title}
@@ -414,7 +429,7 @@ const HomePage = () => {
                     host={venue.host}
                     wish={false}
                   />
-                )}
+                )} */}
                 {/* <CardItem
                   id={venue.id}
                   title={venue.title}
