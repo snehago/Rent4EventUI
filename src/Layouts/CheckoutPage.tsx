@@ -23,6 +23,7 @@ import { of } from "await-of";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import SimpleModal from "../Components/Modal";
 import swal from "sweetalert";
+import { v4 } from "uuid";
 
 const bookingService = new BookingService();
 const venueService = new VenueService();
@@ -136,7 +137,7 @@ export default function CheckoutPage() {
 
   const onModalClose = () => {
     setOpen(false);
-    history.push("/home");
+    history.push("/dashboard/client");
   };
   const onSubmit = async (values: any) => {
     console.log(values);
@@ -161,7 +162,7 @@ export default function CheckoutPage() {
     }
     if (response) {
       setLoading(false)
-      swal("Booking Successfull",`your booking id is ${response.id}`,"success").then(value => onModalClose());
+      swal("Booking Successfull",`your booking id is ${v4()}`,"success").then(value => onModalClose());
     }
   };
 
@@ -227,15 +228,6 @@ export default function CheckoutPage() {
                     </Button>
                   )}
 
-                  {/* <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    onClick={onSubmit}
-                  >
-                    Book The Venue
-                  </Button> */}
                 </div>
               </React.Fragment>
             )}

@@ -80,7 +80,8 @@ const LoginPage = () => {
         </div>
       </Grid>
       <Grid container xs={6} className="login-form-section">
-        <Paper elevation={10} className="paperStyle">
+        {/* <Paper elevation={10} className="paperStyle"> */}
+        <div className="paperStyle">
           <Grid item className="gridStyle">
             <Avatar className="avatarStyle">
               <LockOpenOutlinedIcon />
@@ -195,7 +196,8 @@ const LoginPage = () => {
               Register as a Host
             </Button>
           </Typography>
-        </Paper>
+        {/* </Paper> */}
+      </div>
       </Grid>
     </Grid>
   );

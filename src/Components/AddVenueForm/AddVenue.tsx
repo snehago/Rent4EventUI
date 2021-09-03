@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import "./addVenue.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "../../Redux/store";
-import { useHistory } from "react-router";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -52,9 +49,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddVenue() {
-  const user = useSelector((state: RootState) => state.auth.user);
-  const history = useHistory();
-  const [open, setOpen] = useState<boolean>(false);
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = React.useState(0);

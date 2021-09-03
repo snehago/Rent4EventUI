@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, CircularProgress, Grid, Paper } from "@material-ui/core";
+import { Button, Grid, Paper } from "@material-ui/core";
 import "./addVenue.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
@@ -9,6 +9,7 @@ import PublishOutlinedIcon from "@material-ui/icons/PublishOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+import CircularLoader from '../CircularLoader/CircularLoader';
 import { useHistory } from "react-router";
 import Notification, { NotificationType } from "../Notification";
 import "./addenueimages.scss";
@@ -60,14 +61,8 @@ export default function AddVenueImages({ handleBack, venueId }:any) {
 
   return (
     <div>
-      {open && (
-        <Notification
-          type={NotificationType.success}
-          content="Venue Added Successfully successfully"
-        ></Notification>
-      )}
-      {loading && <CircularProgress></CircularProgress>}
-      {!loading && <Paper elevation={10} className="addvenue-images-paper">
+      {loading && <CircularLoader/>}
+      <Paper elevation={10} className="addvenue-images-paper">
         <Grid item xs={12} className="addvenue-upload-image-section">
           <div className="addVenueSubLabels">Add Images Of The Venue</div>
           <ImageUploading
@@ -140,7 +135,7 @@ export default function AddVenueImages({ handleBack, venueId }:any) {
         >
           Submit
         </Button>
-      </Paper>}
+      </Paper>
     </div>
   );
 }

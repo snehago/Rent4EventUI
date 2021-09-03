@@ -17,6 +17,7 @@ const venueService = new VenueService();
 const VenueDetailsPage = () => {
   const [venue, setVenue] = useState<Venue | null>(null);
   const { venueId } = useParams<any>();
+  const [images, setImages] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -28,13 +29,21 @@ const VenueDetailsPage = () => {
         swal("Unable to fetch venue details","error");
       }
       if (response) {
-        console.log(response);
-
+        setVenue(response);
         setTimeout(() => {
-          setVenue(response);
           setLoading(false);
         }, 1000);
+        const [imagesResponse, imageError] = await of(
+          venueService.getVenuePictures(response.id,response.host.id)
+        );
+        if(imageError) {
+          swal("Error","Unable to fetch photos of venue","error");
+        }
+        if(imagesResponse) {
+          setImages(imagesResponse);
+        }
       }
+      
     })();
 
     window.scrollTo(0, 0);
@@ -45,7 +54,7 @@ const VenueDetailsPage = () => {
       {loading && <CircularLoader />}
       <Header></Header>
       <div className="carouselContainer" data-aos="fade-up">
-        <DetailsCarousel />
+        <DetailsCarousel  images={images} />
       </div>
       {venue && <DescriptionSection venue={venue} />}
       {venue && <FeaturesSection venue={venue} />}

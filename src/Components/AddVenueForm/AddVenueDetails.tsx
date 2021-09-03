@@ -21,21 +21,19 @@ import { FacilityService } from "../../Services/FacilityService";
 import { Facility } from "../../Shared/Interfaces/Facitlity";
 import { EventTypeService } from "../../Services/EventTypeService";
 import { EventType } from "../../Shared/Interfaces/EventType";
-import Notification, { NotificationType } from "../Notification";
 import LocationPicker from "react-location-picker";
-import CircularLoader from "../CircularLoader/CircularLoader";
 import swal from "sweetalert";
 
 const venueService = new VenueService();
 const facilityService = new FacilityService();
 const eventTypeService = new EventTypeService();
-const steps = ["Additional Services", "Order Summary"];
 
 export default function AddVenueDetails({ handleNext }) {
   const user = useSelector((state: RootState) => state.auth.user);
-  const [open, setOpen] = useState<boolean>(false);
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [eventTypes, setEventTypes] = useState<EventType[]>([]);
+  const [selectedFacilities, setSelectedFacilities] = useState<number[]>([]);
+  const [selectedEventTypes, setSelectedEventTypes] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
   const [coordinates, setCoordinates] = useState({
     lat: 0,
@@ -71,46 +69,6 @@ export default function AddVenueDetails({ handleNext }) {
     pincode: Yup.number().required("Required"),
   });
 
-  const onSubmit = async (values: any, props: any) => {
-    setLoading(true);
-    console.log(values);
-    let address: Address = {
-      streetAddress: values.street,
-      state: values.state,
-      city: values.city,
-      country: values.country,
-      pin: values.pincode,
-      latitude: coordinates.lat,
-      longitude: coordinates.lng,
-    };
-    let venue: any = {
-      host: {
-        id: user.id,
-      },
-      price: values.price,
-      address,
-      capacity: values.capacity,
-      title: values.title,
-      description: values.description,
-      listOfFacilities: facilities,
-      listOfEventTypes: eventTypes,
-    };
-    const [response, error] = await of(venueService.addVenue(venue));
-    if (error) {
-      swal("Too long description provided","error");
-      setLoading(false);
-    }
-    if (response) {
-      setTimeout(() => {
-        setLoading(false);
-        console.log(response);
-        props.resetForm();
-        props.setSubmitting(false);
-        handleNext(response);
-      }, 1000);
-    }
-  };
-
   useEffect(() => {
     (async () => {
       const [response, error] = await of(facilityService.getAllFacility());
@@ -133,25 +91,72 @@ export default function AddVenueDetails({ handleNext }) {
     })();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const onSubmit = async (values: any, props: any) => {
+    setLoading(true);
+    const tempFacilities =selectedFacilities.map((id) => ({ id }));
+    const tempEventTypes =selectedEventTypes.map((id) => ({ id }));
+    let address: Address = {
+      streetAddress: values.street,
+      state: values.state,
+      city: values.city,
+      country: values.country,
+      pin: values.pincode,
+      latitude: coordinates.lat,
+      longitude: coordinates.lng,
+    };
+    let venue: any = {
+      host: {
+        id: user.id,
+      },
+      price: values.price,
+      address,
+      capacity: values.capacity,
+      title: values.title,
+      description: values.description,
+      listOfFacilities: tempFacilities,
+      listOfEventTypes: tempEventTypes,
+    };
+    console.log(venue);
+    const [response, error] = await of(venueService.addVenue(venue));
+    if (error) {
+      swal("Error", "Too long description provided", "error");
+      setLoading(false);
+    }
+    if (response) {
+      setTimeout(() => {
+        setLoading(false);
+        console.log(response);
+        props.resetForm();
+        props.setSubmitting(false);
+        handleNext(response);
+      }, 1000);
+    }
+  };
+
   const handleLocationChange = ({ position }) => {
     setCoordinates(position);
     console.log(coordinates);
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const setFacilityChecked = (e) => {
+    const value = e.target.value;
+    if (selectedFacilities.includes(value)) {
+      setSelectedFacilities(selectedFacilities.filter((v) => v !== value));
+    } else setSelectedFacilities((prev) => [...prev, value]);
+  };
 
+  const setEventTypeChecked = (e) => {
+    const value = e.target.value;
+    if (selectedEventTypes.includes(value)) {
+      setSelectedEventTypes(selectedEventTypes.filter((v) => v !== value));
+    } else setSelectedEventTypes((prev) => [...prev, value]);
+  };
   return (
     <div>
-      {loading && <CircularLoader />}
-      {open && (
-        <Notification
-          type={NotificationType.success}
-          content="Venue Added Successfully successfully"
-        ></Notification>
-      )}
-
       <Paper elevation={5} className="addVenuePaper">
         <Grid container className="addVenueFormContainer" spacing={1}>
           <Grid className="addVenueLabel" item xs={12}>
@@ -360,7 +365,14 @@ export default function AddVenueDetails({ handleNext }) {
                       <Field
                         as={FormControlLabel}
                         name={item.name}
-                        control={<Checkbox size="small" color="primary" />}
+                        control={
+                          <Checkbox
+                            onChange={setFacilityChecked}
+                            value={item.id}
+                            size="small"
+                            color="primary"
+                          />
+                        }
                         label={item.name}
                       />
                     </Grid>
@@ -384,7 +396,14 @@ export default function AddVenueDetails({ handleNext }) {
                       <Field
                         as={FormControlLabel}
                         name={item.name}
-                        control={<Checkbox size="small" color="primary" />}
+                        control={
+                          <Checkbox
+                            onChange={setEventTypeChecked}
+                            value={item.id}
+                            size="small"
+                            color="primary"
+                          />
+                        }
                         label={item.name}
                       />
                     </Grid>

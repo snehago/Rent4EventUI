@@ -7,15 +7,16 @@ import image1 from "../../assets/images/venue.png";
 import image2 from "../../assets/images/hotel.png";
 import image3 from "../../assets/images/resort.jpg";
 
-export default function DetailsCarousel() {
+export default function DetailsCarousel({images}:any) {
   // const breakPoints = [
   //   { width: 500, itemsToShow: 1 },
   //   { width: 768, itemsToShow: 2 },
   //   { width: 1200, itemsToShow: 3 },
   //   { width: 1500, itemsToShow: 4 },
   // ];
-
-  var items = [image1, image2, image3, image1, image2, image3];
+  if (images.length > 0) var items = images; 
+  else items = [image1, image2, image3, image1, image2, image3];
+  
 
   return (
     <Carousel

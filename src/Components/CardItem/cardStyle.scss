@@ -23,7 +23,9 @@
   overflow: hidden;
 }
 .media {
-  height: 30%!important;
+  max-height: 30% !important;
+  height: 30% !important;
+  overflow: hidden !important;
 }
 
 .title {
