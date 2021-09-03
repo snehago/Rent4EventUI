@@ -11,33 +11,103 @@ import { VenueService } from "../../Services/VenueService";
 import { useEffect } from "react";
 import { useState } from "react";
 import { of } from "await-of";
+import { Button, Icon } from "@material-ui/core";
+import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import { IconButton } from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
+import { User } from "../../Shared/Interfaces/User";
+import { SharedService } from "../../Services/SharedService";
 
 interface cardProps {
   id: number;
   title: String;
   description: String;
   price: number;
-  host:any;
+  host: any;
+  wish: any;
 }
 const venueService = new VenueService();
-export default function CardItem({ id, title, description, price, host }: cardProps) {
+const sharedService = new SharedService();
+export default function CardItem({
+  id,
+  title,
+  description,
+  price,
+  host,
+  wish,
+}: cardProps) {
   // const classes = useStyles();
-  const [image, setImage]= useState<any>(imageSrc);
+  const user: User = useSelector((state: RootState) => state.auth.user);
+  const [image, setImage] = useState<any>(imageSrc);
   const history = useHistory();
   const handleClick = () => history.push(`/venue-details/${id}`);
 
-  useEffect(()=>{
-    (async ()=> {
-      const [response,error]= await of(venueService.getVenuePictures(id,host?.id));
-      if(error || response.length===0) {
+  const [wishlisted, setWishlisted] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const [response, error] = await of(
+        venueService.getVenuePictures(id, host?.id)
+      );
+      if (error || response.length === 0) {
         setImage(imageSrc);
-        return
+        return;
       }
-      if(response) {
+      if (response) {
         setImage(response[0]);
       }
     })();
-  },[])
+
+    console.log("CardUser:", user);
+  }, []);
+
+  useEffect(() => {
+    // list.forEach(element => {
+    //   if(element.id===id){
+    //     setWishlisted(true);
+    //   }
+    // });
+    if (wish) {
+      setWishlisted(true);
+    }
+  }, []);
+
+  const handleAddToWishlist = async () => {
+    const venue = {
+      userId: user.id,
+      venueId: id,
+    };
+
+    console.log(venue);
+
+    if (!wishlisted) {
+      const [response, error] = await of(
+        venueService.addVenueToWishlist(venue)
+      );
+      if (error) {
+        sweetAlert("Not able to add to wishlist");
+      }
+      if (response) {
+        sweetAlert(`${title} is added to your wishlist`);
+        setWishlisted(!wishlisted);
+        console.log(user);
+        console.log(await of(venueService.getVenueByVenueId(id)));
+      }
+    } else {
+      const [response, error] = await of(
+        venueService.removeVenueToWishlist(venue)
+      );
+      if (error) {
+        sweetAlert("Not able to remove from wishlist");
+      }
+      if (response) {
+        sweetAlert(`${title} is removed from your wishlist`);
+        setWishlisted(!wishlisted);
+      }
+    }
+  };
 
   return (
     <Card className="root">
@@ -57,13 +127,64 @@ export default function CardItem({ id, title, description, price, host }: cardPr
           >
             {title.toUpperCase()}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p" className="text" >
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            className="text"
+          >
             {description}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions className="card-item-price-section">
         <p className="venue-card-price">${price}</p>
+
+        {sharedService.isUserLoggedIn() ? (
+          <div>
+            {wishlisted ? (
+              <IconButton
+                onClick={handleAddToWishlist}
+                className="card-item-wishlist-btn"
+              >
+                <FavoriteIcon />
+              </IconButton>
+            ) : (
+              <IconButton
+                onClick={handleAddToWishlist}
+                className="card-item-wishlist-btn"
+              >
+                <FavoriteBorderOutlinedIcon />
+              </IconButton>
+            )}
+          </div>
+        ) : (
+          <div></div>
+        )}
+        {/* <div>
+        { wishlisted ? (
+          <IconButton
+            onClick={handleAddToWishlist}
+            className="card-item-wishlist-btn"
+          >
+            <FavoriteIcon />
+          </IconButton>
+        ) : (
+          <IconButton
+            onClick={handleAddToWishlist}
+            className="card-item-wishlist-btn"
+          >
+            <FavoriteBorderOutlinedIcon />
+          </IconButton>
+        )}
+        </div> */}
+
+        {/* <IconButton
+          onClick={handleAddToWishlist}
+          className="card-item-wishlist-btn"
+        >
+          <FavoriteBorderOutlinedIcon />
+        </IconButton> */}
       </CardActions>
     </Card>
   );

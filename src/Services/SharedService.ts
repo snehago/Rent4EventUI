@@ -1,7 +1,7 @@
 class SharedService {
   BACKEND_URL: string | undefined = process.env.BACKEND_URL;
   HEADER: any = {
-    "content-type": "application/json",
+    "content-type": "application/json"
   };
   public async getHeader() {
     return this.HEADER;
@@ -12,6 +12,7 @@ class SharedService {
       "content-length": fileSize
     };;
   }
+  
   public isUserLoggedIn() {
     if (localStorage.getItem("user")) return true;
     return false;

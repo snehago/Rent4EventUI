@@ -60,6 +60,23 @@ class UserService {
       } else throw Error(response.data.message);
     }
   }
+
+  public async getClientById(id: number) {
+    const [response, error] = await of(
+      axios.get(
+        `${this.BACKEND_URL}/user/client/${id}`,
+        await sharedService.getHeader()
+      )
+    );
+    if (error) {
+      throw Error("Invalid User id");
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data;
+      } else throw Error(response.data.message);
+    }
+  }
   public async editHostProfile(user: any) {
     var [response, error] = await of(
       axios.put(

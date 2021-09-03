@@ -8,6 +8,7 @@ import RegistrationPage from "./Layouts/RegistrationPage";
 import RegistrationPageHost from "./Layouts/RegistrationPageHost";
 import VenueDetailsPage from "./Layouts/VenueDetailsPage";
 import VenueListPage from "./Layouts/VenueListPage";
+import WishlistPage from "./Layouts/WishlistPage";
 
 const CustomRoute = ({component:ComponentToRender ,path, user,...rest}:any) => {
   return (
@@ -54,6 +55,7 @@ export default function AppRouter({user}:any) {
         />
         <CustomRoute exact path="/dashboard/:userRole" component={Dashboard} user={user} />
         <CustomRoute exact path="/checkout/:venueId" component={CheckoutPage} user={user} />
+        <CustomRoute exact path="/wishlist" component={WishlistPage} user={user} />
         <Route component={ErrorPage} />
       </Switch>
     </>

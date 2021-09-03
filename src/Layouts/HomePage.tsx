@@ -22,8 +22,12 @@ import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import Aos from "aos";
-import "aos/dist/aos.css"
+import "aos/dist/aos.css";
 import swal from "sweetalert";
+import { UserService } from "../Services/UserService";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
+import { SharedService } from "../Services/SharedService";
 
 const responsive = {
   superLargeDesktop: {
@@ -47,8 +51,13 @@ const responsive = {
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
+const userService = new UserService();
+const sharedService = new SharedService();
 
 const HomePage = () => {
+  var user = useSelector((state: RootState) => state.auth.user);
+
+  // const user: any = useSelector((state: RootState) => state.auth.user);
   const history = useHistory();
   const [filters, setFilters] = useState<any>({
     capacityFilter: -1,
@@ -61,10 +70,25 @@ const HomePage = () => {
   const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userDetails, setUserDetails] = useState({});
+  const [listOfWishlist, setListOfWishlist] = useState([]);
+  // const [userId, setUserId] = useState<any>();
 
   useEffect(() => {
-    Aos.init({duration:2000})
-  }, [])
+    Aos.init({ duration: 2000 });
+  }, []);
+
+  // useEffect(() => {
+  //   if (sharedService.isUserLoggedIn()) {
+  //     setUserId(user.id);
+  //   }
+  // }, [user]);
+
+  // useEffect(() => {
+  //   if(sharedService.isUserLoggedIn()){
+  //     userService.
+  //   }
+  // }, [])
 
   useEffect(() => {
     (async () => {
@@ -72,24 +96,43 @@ const HomePage = () => {
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        swal("unable to fetch event type","error");
+        swal("unable to fetch event type", "error");
       }
       if (eventResponse) {
         console.log(eventResponse);
         setEventTypes(eventResponse);
       }
     })();
+
+    // (async () => {
+    //   const [response, error] = await of(userService.getClientById(user.id));
+    //   if (error) {
+    //     alert(error.message);
+    //   }
+    //   if (response) {
+    //     console.log("RES:", response);
+    //   }
+
+    //   setUserDetails(response);
+    //   console.log("USER:::", userDetails);
+    //   setListOfWishlist(response.listOfWishlist);
+    //   console.log("LOW:", listOfWishlist);
+    // })();
   }, []);
+
+  // useEffect(() => {
+
+  // }, []);
 
   useEffect(() => {
     applyAppropiateFilters();
-  }, [filters,originalVenues]);
+  }, [filters, originalVenues]);
 
   useEffect(() => {
     (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
       if (error) {
-        swal("Unable to fetch venues","error");
+        swal("Unable to fetch venues", "error");
       }
       if (response) {
         console.log(response);
@@ -353,13 +396,33 @@ const HomePage = () => {
           >
             {venues?.map((venue) => (
               <Box p={3}>
-                <CardItem
+                {sharedService.isUserLoggedIn() ? (
+                  <CardItem
+                    id={venue.id}
+                    title={venue.title}
+                    description={venue.description}
+                    price={venue.price}
+                    host={venue.host}
+                    wish={false}
+                  />
+                ) : (
+                  <CardItem
+                    id={venue.id}
+                    title={venue.title}
+                    description={venue.description}
+                    price={venue.price}
+                    host={venue.host}
+                    wish={false}
+                  />
+                )}
+                {/* <CardItem
                   id={venue.id}
                   title={venue.title}
                   description={venue.description}
                   price={venue.price}
                   host={venue.host}
-                />
+                  wish={false}
+                /> */}
               </Box>
             ))}
           </Caraousel>

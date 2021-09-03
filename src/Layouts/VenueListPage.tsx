@@ -25,6 +25,7 @@ import { EventTypeService } from "../Services/EventTypeService";
 import InfiniteScroll from "react-infinite-scroller";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
+import Footer from "../Components/Footer";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -47,11 +48,11 @@ const VenueListPage = () => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [filterStatus, setFilterStatus] = useState<boolean>(false);
- 
+
   const loadMore = () => {
-    setCurrentPage(prev=> prev+1);
-  }
-  
+    setCurrentPage((prev) => prev + 1);
+  };
+
   const timeoutForLoading = () => {
     setTimeout(() => {
       setLoading(false);
@@ -64,7 +65,7 @@ const VenueListPage = () => {
         venueService.getAllVenues(currentPage)
       );
       if (error) {
-        swal("Unable to fetch venues","error");
+        swal("Unable to fetch venues", "error");
       }
       if (response) {
         if (response.length === 0) {
@@ -89,7 +90,7 @@ const VenueListPage = () => {
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        swal("Unable to fetch event types","error");
+        swal("Unable to fetch event types", "error");
       }
       if (eventResponse) {
         console.log(eventResponse);
@@ -429,7 +430,7 @@ const VenueListPage = () => {
         </div>
       </Collapse>
       {/* Filter and search ends */}
-      <div className="all-venues" >
+      <div className="all-venues">
         <InfiniteScroll
           pageStart={0}
           loadMore={loadMore}
@@ -442,23 +443,32 @@ const VenueListPage = () => {
           }
           useWindow
         >
-        <Box className="venue-box">
-          <Grid xs={12} container spacing={8} className="venue-grid">
-            {venues?.map((venue) => (
-              <Grid item xs={12} md={6} lg={4} data-aos="fade-up" data-aos-once>
-                <CardItem
-                  id={venue.id}
-                  title={venue.title}
-                  description={venue.description}
-                  price={venue.price}
-                  host={venue.host}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+          <Box className="venue-box">
+            <Grid xs={12} container spacing={8} className="venue-grid">
+              {venues?.map((venue) => (
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  lg={4}
+                  data-aos="fade-up"
+                  data-aos-once
+                >
+                  <CardItem
+                    id={venue.id}
+                    title={venue.title}
+                    description={venue.description}
+                    price={venue.price}
+                    host={venue.host}
+                    wish={false}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </InfiniteScroll>
       </div>
+      <Footer />
     </>
   );
 };
