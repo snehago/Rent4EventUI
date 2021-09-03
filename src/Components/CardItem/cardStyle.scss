@@ -18,7 +18,7 @@
 }
 .text {
   width: 100%;
-  white-space:nowrap;
+  white-space: nowrap;
   text-overflow: ellipsis !important;
   overflow: hidden;
 }
@@ -37,10 +37,19 @@
 }
 
 .venue-card-price {
-  padding-left: .6vw;
-  padding-top: .3rem;
+  padding-left: 0.6vw;
+  padding-top: 0.3rem;
   font: normal normal bold 1rem Montserrat !important;
   letter-spacing: 0;
   color: #d3600c;
   opacity: 1;
+}
+
+.card-item-price-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-item-wishlist-btn{
+  color: red!important;
 }

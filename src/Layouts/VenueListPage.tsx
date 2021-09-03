@@ -26,10 +26,18 @@ import InfiniteScroll from "react-infinite-scroller";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
 import { v4 } from "uuid";
+import Footer from "../Components/Footer";
+import { UserService } from "../Services/UserService";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
+import { SharedService } from "../Services/SharedService";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
+const userService = new UserService();
+const sharedService = new SharedService();
 const VenueListPage = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
   const [filters, setFilters] = useState<any>({
     capacityFilter: -1,
     priceFilter: -1,
@@ -48,11 +56,14 @@ const VenueListPage = () => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [filterStatus, setFilterStatus] = useState<boolean>(false);
- 
+
+  const [listOfWishlist, setListOfWishlist] = useState([]);
+  const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
+
   const loadMore = () => {
-    setCurrentPage(prev=> prev+1);
-  }
-  
+    setCurrentPage((prev) => prev + 1);
+  };
+
   const timeoutForLoading = () => {
     setTimeout(() => {
       setLoading(false);
@@ -65,7 +76,7 @@ const VenueListPage = () => {
         venueService.getAllVenues(currentPage)
       );
       if (error) {
-        swal("Unable to fetch venues","error");
+        swal("Unable to fetch venues", "error");
       }
       if (response) {
         if (response.length === 0) {
@@ -90,7 +101,7 @@ const VenueListPage = () => {
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        swal("Unable to fetch event types","error");
+        swal("Unable to fetch event types", "error");
       }
       if (eventResponse) {
         console.log(eventResponse);
@@ -207,6 +218,30 @@ const VenueListPage = () => {
     );
     return temp;
   };
+
+  useEffect(() => {
+    if (sharedService.isUserLoggedIn()) {
+      (async () => {
+        const [wishlistResponse, wishlistError] = await of(
+          userService.getWishlistOfUser(user)
+        );
+        if (wishlistError) {
+          // swal("Unable to fetch Wishlist", "error");
+        }
+        if (wishlistResponse) {
+          console.log(wishlistResponse);
+          setListOfWishlist(wishlistResponse);
+          console.log("ListOfWishlist", listOfWishlist);
+          const tempArray: any = [];
+          listOfWishlist.forEach((element: any) => {
+            tempArray.push(element.id);
+          });
+          setListOfWishlistId(tempArray);
+          console.log("ListOfWishlistId", listOfWishlistId);
+        }
+      })();
+    }
+  }, [user, venues, originalVenues]);
 
   return (
     <>
@@ -453,21 +488,38 @@ const VenueListPage = () => {
                   lg={4}
                   data-aos="fade-up"
                   data-aos-once
+                  key={v4()}
                 >
-                  <CardItem
-                    id={venue.id}
-                    title={venue.title}
-                    description={venue.description}
-                    price={venue.price}
-                    host={venue.host}
-                    key={v4()}
-                  />
+                  {listOfWishlistId.includes(venue.id) ? (
+                    <div>
+                      <CardItem
+                        id={venue.id}
+                        title={venue.title}
+                        description={venue.description}
+                        price={venue.price}
+                        host={venue.host}
+                        wish={true}
+                        key={v4()}
+                      />
+                    </div>
+                  ) : (
+                    <CardItem
+                      id={venue.id}
+                      title={venue.title}
+                      description={venue.description}
+                      price={venue.price}
+                      host={venue.host}
+                      wish={false}
+                      key={v4()}
+                    />
+                  )}
                 </Grid>
               ))}
             </Grid>
           </Box>
         </InfiniteScroll>
       </div>
+      <Footer />
     </>
   );
 };

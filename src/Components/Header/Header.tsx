@@ -52,7 +52,7 @@ export default function Header() {
 
   const moveToWishlist = () => {
     setAnchorEl(null);
-    history.push("/user/login");
+    history.push("/wishlist");
   };
 
   const moveToDashboard = () => {
@@ -134,7 +134,7 @@ export default function Header() {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={moveToWishlist}>Whishlist</MenuItem>
+            <MenuItem onClick={moveToWishlist}>Wishlist</MenuItem>
             <MenuItem onClick={moveToDashboard}>My Dashboard</MenuItem>
             <MenuItem onClick={logoutUser}>Logout</MenuItem>
           </Menu>

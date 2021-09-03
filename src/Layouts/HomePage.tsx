@@ -22,9 +22,13 @@ import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import Aos from "aos";
-import "aos/dist/aos.css"
+import "aos/dist/aos.css";
 import swal from "sweetalert";
 import { v4 } from "uuid";
+import { UserService } from "../Services/UserService";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
+import { SharedService } from "../Services/SharedService";
 
 const responsive = {
   superLargeDesktop: {
@@ -48,8 +52,13 @@ const responsive = {
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
+const userService = new UserService();
+const sharedService = new SharedService();
 
 const HomePage = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  // const user: any = useSelector((state: RootState) => state.auth.user);
   const history = useHistory();
   const [filters, setFilters] = useState<any>({
     capacityFilter: -1,
@@ -62,10 +71,37 @@ const HomePage = () => {
   const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
+  const [listOfWishlist, setListOfWishlist] = useState([]);
+  const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
+  // const [userId, setUserId] = useState<any>();
 
   useEffect(() => {
-    Aos.init({duration:2000})
-  }, [])
+    Aos.init({ duration: 2000 });
+  }, []);
+
+  useEffect(() => {
+    if (sharedService.isUserLoggedIn()) {
+      (async () => {
+        const [wishlistResponse, wishlistError] = await of(
+          userService.getWishlistOfUser(user)
+        );
+        if (wishlistError) {
+          // swal("Unable to fetch Wishlist", "error");
+        }
+        if (wishlistResponse) {
+          console.log(wishlistResponse);
+          setListOfWishlist(wishlistResponse);
+          console.log("ListOfWishlist", listOfWishlist);
+          const tempArray: any = [];
+          listOfWishlist.forEach((element: any) => {
+            tempArray.push(element.id);
+          });
+          setListOfWishlistId(tempArray);
+          console.log("ListOfWishlistId", listOfWishlistId);
+        }
+      })();
+    }
+  }, [user, venues, originalVenues]);
 
   useEffect(() => {
     (async () => {
@@ -73,7 +109,7 @@ const HomePage = () => {
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        swal("unable to fetch event type","error");
+        swal("unable to fetch event type", "error");
       }
       if (eventResponse) {
         console.log(eventResponse);
@@ -84,13 +120,13 @@ const HomePage = () => {
 
   useEffect(() => {
     applyAppropiateFilters();
-  }, [filters,originalVenues]);
+  }, [filters, originalVenues]);
 
   useEffect(() => {
     (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
       if (error) {
-        swal("Unable to fetch venues","error");
+        swal("Unable to fetch venues", "error");
       }
       if (response) {
         console.log(response);
@@ -355,14 +391,28 @@ const HomePage = () => {
           >
             {venues?.map((venue) => (
               <Box p={3}>
-                <CardItem
-                  id={venue.id}
-                  title={venue.title}
-                  description={venue.description}
-                  price={venue.price}
-                  host={venue.host}
-                  key={v4()}
-                />
+                {listOfWishlistId.includes(venue.id) ? (
+                  <div>
+                    <CardItem
+                      id={venue.id}
+                      title={venue.title}
+                      description={venue.description}
+                      price={venue.price}
+                      host={venue.host}
+                      wish={true}
+                    />
+                  </div>
+                ) : (
+                  <CardItem
+                    id={venue.id}
+                    title={venue.title}
+                    description={venue.description}
+                    price={venue.price}
+                    host={venue.host}
+                    wish={false}
+                    key={v4()}
+                  />
+                )}
               </Box>
             ))}
           </Caraousel>

@@ -14,7 +14,7 @@ import { of } from "await-of";
 import CircularLoader from "../CircularLoader/CircularLoader";
 import ImageUploader from "react-images-upload";
 import swal from "sweetalert";
-var FormData = require('form-data');
+var FormData = require("form-data");
 
 const sharedService = new SharedService();
 const userService = new UserService();
@@ -27,37 +27,39 @@ const Profile = (props: any) => {
   const [email, setEmail] = useState<any>("");
   const [paymentDetails, setPaymentDetails] = useState<any>("");
   const [role, setRole] = useState<any>("");
-  const [profilePic, setProfilePic]=useState<any>(null);
+  const [profilePic, setProfilePic] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const user: User = useSelector((state: RootState) => state.auth.user);
 
-  useEffect(()=>{
-    (async ()=> {
-      const [response,error]= await of(userService.getProfilePicture(user.id));
-      if(error) {
-        swal("Not able to fetch profile picture","error");
+  useEffect(() => {
+    (async () => {
+      const [response, error] = await of(
+        userService.getProfilePicture(user.id)
+      );
+      if (error) {
+        swal("Not able to fetch profile picture", "error");
       }
-      if(response) {
+      if (response) {
         setProfilePic(response);
       }
     })();
-  },[user])
+  }, [user]);
 
   async function handleEditFormHost(user: any) {
     const [response, error] = await of(userService.editHostProfile(user));
     if (error) {
-      swal("Unable to update details","error");
+      swal("Unable to update details", "error");
     }
     if (response) {
-      swal("profile updated successfully","success");
+      swal("profile updated successfully", "success");
     }
   }
 
   async function handleEditFormClient(user: any) {
     const [response, error] = await of(userService.editClientProfile(user));
     if (error) {
-     swal("Unable to update details", "error");
+      swal("Unable to update details", "error");
     }
     if (response) {
       swal("profile updated successfully", "success");
@@ -110,23 +112,20 @@ const Profile = (props: any) => {
     }
   }, [user]);
 
-  const onDrop = async (picture:File[])=> {
+  const onDrop = async (picture: File[]) => {
     console.log(await picture[picture.length - 1].arrayBuffer());
     var data = new FormData();
-    data.append(
-      "file",
-      picture[picture.length-1]
-    );
+    data.append("file", picture[picture.length - 1]);
     data.append("userId", "1");
-    const [response, error]= await of(userService.uploadProfilePicture(data));
-    if(error){
-      swal("Unable to upload profile picture","error");
+    const [response, error] = await of(userService.uploadProfilePicture(data));
+    if (error) {
+      swal("Unable to upload profile picture", "error");
     }
-    if(response) {
-      swal("Profile picture updated","success");
+    if (response) {
+      swal("Profile picture updated", "success");
       setProfilePic(response);
     }
-  }
+  };
   return (
     <div>
       <Paper elevation={10} className="profile-paper-container">
@@ -139,14 +138,23 @@ const Profile = (props: any) => {
           <Grid item xs={2} className="profile-pic-grid">
             <Card className="profile-pic-card">
               <CardActionArea>
-                {(!profilePic || editProfile) && <ImageUploader
-                  withIcon={false}
-                  buttonText="Choose images"
-                  onChange={onDrop}
-                  imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                  maxFileSize={5242880}
-                />}
-                {profilePic && !editProfile && <img src={profilePic} height="160vw" width="150vw" alt="profilePic" />}
+                {(!profilePic || editProfile) && (
+                  <ImageUploader
+                    withIcon={false}
+                    buttonText="Choose images"
+                    onChange={onDrop}
+                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                    maxFileSize={5242880}
+                  />
+                )}
+                {profilePic && !editProfile && (
+                  <img
+                    src={profilePic}
+                    height="160vw"
+                    width="150vw"
+                    alt="profilePic"
+                  />
+                )}
               </CardActionArea>
             </Card>
           </Grid>
