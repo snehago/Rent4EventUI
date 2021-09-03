@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Grid, Paper } from "@material-ui/core";
 import "./addVenue.scss";
 import { useSelector } from "react-redux";
@@ -10,16 +10,12 @@ import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutl
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CircularLoader from '../CircularLoader/CircularLoader';
-import { useHistory } from "react-router";
-import Notification, { NotificationType } from "../Notification";
 import "./addenueimages.scss";
 import { VenueService } from "../../Services/VenueService";
 import swal from "sweetalert";
 const venueService = new VenueService();
 export default function AddVenueImages({ handleBack, venueId }:any) {
   const user = useSelector((state: RootState) => state.auth.user);
-  const history = useHistory();
-  const [open, setOpen] = useState<boolean>(false);
   const [imageFiles, setImageFiles] = React.useState([]); 
   const [images, setImages] = React.useState([]);
   const [loading, setLoading]= React.useState(false);
@@ -51,7 +47,7 @@ export default function AddVenueImages({ handleBack, venueId }:any) {
         "Successfully uploaded photos",
         "your photos are saved",
         "success"
-      ).then((value) => history.push("/home"));
+      ).then((value) => window.location.reload());
     }
     setLoading(false);
   }

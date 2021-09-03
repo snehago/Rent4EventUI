@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -24,6 +21,7 @@ import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import SimpleModal from "../Components/Modal";
 import swal from "sweetalert";
 import { v4 } from "uuid";
+import { Paper } from "@material-ui/core";
 
 const bookingService = new BookingService();
 const venueService = new VenueService();
@@ -158,7 +156,7 @@ export default function CheckoutPage() {
     console.log(data);
     const [response, error] = await of(bookingService.addBooking(data));
     if (error) {
-      swal("Something went wrong try again!","error");
+      swal("Error","Something went wrong !","error");
     }
     if (response) {
       setLoading(false)

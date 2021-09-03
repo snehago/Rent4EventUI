@@ -1,0 +1,17 @@
+@import '../../Shared/styles/colors';
+.bd-paper {
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+}
+.bd-back-button{
+  width: 20%;
+  margin: 0 auto !important;
+}
+.bd-cancel-button {
+  float: right;
+  width: 20%;
+  background-color: red !important;
+  color: $white !important;
+  margin: 0 auto !important;
+}

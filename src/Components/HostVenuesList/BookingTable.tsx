@@ -15,20 +15,51 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { Button } from "@material-ui/core";
 import { v4 as uuid } from "uuid";
-import moment from 'moment';
+import moment from "moment";
+import swal from "sweetalert";
+import { BookingService } from "../../Services/BookingService";
+import { of } from "await-of";
 const useRowStyles = makeStyles({
   root: {
     "& > *": {
       borderBottom: "unset",
     },
   },
-})
+});
 
-
-function Row({row}: any) {
+const bookingService = new BookingService();
+function Row({ row }: any) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
-
+  const cancelConfirmation = (booking: any) => {
+    swal("Do you want to cancel the booking ?", {
+      buttons: ["Cancel", "Ok"],
+    }).then((value) =>
+      swal("Please enter the reason for cancellation", {
+        content: {
+          element: "input",
+          attributes: {
+            placeholder: "reason",
+          },
+        },
+      }).then(value=> cancelBooking(booking,value))
+    );
+  };
+  const cancelBooking = async (booking,reason) => {
+    const [response, error] = await of(
+      bookingService.cancelBookingFromHost(booking,reason)
+    );
+    if (error) {
+      swal("Error", "Something went wrong", "error");
+    }
+    if (response) {
+      swal(
+        "Booking Cancelled",
+        "You have successfully canceled the booking",
+        "success"
+      ).then((value) => window.location.reload());
+    }
+  };
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
@@ -42,13 +73,22 @@ function Row({row}: any) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {moment(row.from).format('LL')}
+          {moment(row.from).format("LL")}
         </TableCell>
-        <TableCell>{moment(row.to).format('LL')}</TableCell>
-        <TableCell align="left">{(new Date(row.to).getDay()- new Date(row.from).getDay())+1} day(s)</TableCell>
+        <TableCell>{moment(row.to).format("LL")}</TableCell>
+        <TableCell align="left">
+          {Math.abs(new Date(row.to).getDay() - new Date(row.from).getDay())}{" "}
+          day(s)
+        </TableCell>
         <TableCell align="left">${row.amountPaid}</TableCell>
         <TableCell align="center">
-          <Button variant="contained" color="primary" onClick={() => console.log(row)}>Cancel</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => cancelConfirmation(row)}
+          >
+            Cancel
+          </Button>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -69,10 +109,10 @@ function Row({row}: any) {
                 <TableBody>
                   <TableRow key={row.user.id}>
                     <TableCell component="th" scope="row">
-                      {row.user.firstName +" "+ row.user.lastName}
+                      {row.user.firstName + " " + row.user.lastName}
                     </TableCell>
                     <TableCell>{row.user.contactNumber}</TableCell>
-                    <TableCell align="left" >{uuid()}</TableCell>
+                    <TableCell align="left">{uuid()}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -84,11 +124,11 @@ function Row({row}: any) {
   );
 }
 
-export default function BookingTable({rows}: any) {
+export default function BookingTable({ rows }: any) {
   return (
-    <TableContainer style={{width:"70vw"}} component={Paper}>
+    <TableContainer style={{ width: "70vw" }} component={Paper}>
       <Table aria-label="collapsible table">
-        <TableHead style={{backgroundColor:"#eaeaea"}} >
+        <TableHead style={{ backgroundColor: "#eaeaea" }}>
           <TableRow>
             <TableCell />
             <TableCell>Booking from</TableCell>
@@ -99,8 +139,8 @@ export default function BookingTable({rows}: any) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row:any) => (
-            <Row key={(row.id)} row={row} />
+          {rows.map((row: any) => (
+            <Row key={row.id} row={row} />
           ))}
         </TableBody>
       </Table>

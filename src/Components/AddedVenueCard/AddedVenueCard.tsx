@@ -1,10 +1,19 @@
 import { Button } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { Venue } from "../../Shared/Interfaces/Venue";
-import image from "../../assets/images/bgimage.jpg";
 import "./addedVenueCard.scss";
-
+import { useEffect } from "react";
+import { of } from "await-of";
+import { VenueService } from "../../Services/VenueService";
+const venueService = new VenueService();
 function AddedVenueCard({ venue, onClick }: { venue: Venue; onClick: any }) {
+  const [image, setImage]= useState<any>(null);
+  useEffect(()=>{
+    (async ()=>{
+      const [response]= await of(venueService.getVenuePictures(venue.id,venue.host.id));
+      if(response && response.length>0)setImage(response[0]);
+    })();
+  },[venue])
   return (
     <>
       <div

@@ -3,20 +3,20 @@ import { Button, Divider, Grid, Typography } from "@material-ui/core";
 import "./description.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { NotificationType } from "../Notification";
-import Notification from "../Notification";
 import { addDate } from "../../Redux/reducers/CartReducer";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
-import Gallery from "react-grid-gallery";
+import swal from "sweetalert";
+import { BookingService } from "../../Services/BookingService";
+import { of } from "await-of";
 
 interface DSProps {
   venue: Venue;
 }
+const bookingService = new BookingService();
 export default function DescriptionSection({ venue }: DSProps) {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
-  const [open, setOpen] = useState<boolean>(false);
   const [touched, setTouched] = useState<boolean>(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -34,9 +34,29 @@ export default function DescriptionSection({ venue }: DSProps) {
     console.log("ED:", endDate);
   };
 
-  const checkout = () => {
+  const checkout =async () => {
     if (!touched) {
-      setOpen(true);
+      swal({
+        title: "Please select date before checkout",
+        icon:"warning"
+      });
+      return;
+    }
+    const [response,error]= await of(bookingService.checkAvaibility({
+      venueId: venue.id,
+      dateFrom: startDate,
+      dateTo: endDate
+    }))
+    if(error){
+      swal(
+        "Not available",
+        "Venue is not available for booking on desired date",
+        "info"
+      );
+      return;
+    }
+    if(!response) {
+      swal("Not available", "Venue is not available for booking on desired date", "info");
       return;
     }
     dispatch(addDate({ startDate, endDate }));
@@ -49,88 +69,9 @@ export default function DescriptionSection({ venue }: DSProps) {
     new Date().getDay()
   );
 
-  const IMAGES = [
-    {
-      src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-      thumbnail:
-        "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 174,
-      isSelected: true,
-      caption: "After Rain (Jeshu John - designerspics.com)",
-    },
-    {
-      src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
-      thumbnail:
-        "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-      tags: [
-        { value: "Ocean", title: "Ocean" },
-        { value: "People", title: "People" },
-      ],
-      caption: "Boats (Jeshu John - designerspics.com)",
-    },
-    {
-      src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-      thumbnail:
-        "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 174,
-      isSelected: true,
-      caption: "After Rain (Jeshu John - designerspics.com)",
-    },
-    {
-      src: "../../../assets/images/banner1.jpeg",
-      thumbnail: "../../../assets/images/banner1.jpeg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-      tags: [
-        { value: "Ocean", title: "Ocean" },
-        { value: "People", title: "People" },
-      ],
-      caption: "Boats (Jeshu John - designerspics.com)",
-    },
-
-    {
-      src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
-      thumbnail:
-        "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-    },
-    {
-      src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-      thumbnail:
-        "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 174,
-      isSelected: true,
-      caption: "After Rain (Jeshu John - designerspics.com)",
-    },
-    {
-      src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
-      thumbnail:
-        "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-      tags: [
-        { value: "Ocean", title: "Ocean" },
-        { value: "People", title: "People" },
-      ],
-      caption: "Boats (Jeshu John - designerspics.com)",
-    },
-  ];
 
   return (
     <div>
-      {open && (
-        <Notification
-          open={open}
-          type={NotificationType.error}
-          content="Please select date to book venue"
-        ></Notification>
-      )}
       <div className="descriptionContainer">
         <Grid container spacing={3}>
           {/* <Grid item xs={12}>

@@ -8,11 +8,15 @@ import { User } from '../../Shared/Interfaces/User';
 import BookingCard from '../BookingCard';
 import './bookingList.scss';
 import swal from 'sweetalert';
+import BookingDetails from '../BookingDetails';
 const bookingService = new BookingService();
 function BookingList() {
   const user:User = useSelector((state:RootState)=> state.auth.user);
   const [bookings, setBookings]= useState<Booking[]>([]);
-  
+  const [venue, setVenue] = useState<any>(null);
+  const [booking, setBooking] = useState<any>(null);
+  const [bookingView, setBookingView]=useState<boolean>(false);
+
   useEffect(()=> {
     (async ()=> {
       const [response,error]= await of(bookingService.getBookingByUserId(user.id));
@@ -23,14 +27,26 @@ function BookingList() {
         setBookings(response);
       }
     })();
-  },[user])
+  },[user,bookingView])
+  const showBookingDetails = (venue:any,booking:any)=> {
+    setVenue(venue);
+    setBooking(booking);
+    setBookingView(true);
+  }
   return (
     <>
-    <div className="booking-card-container" >
-      {bookings.map((booking)=> <BookingCard booking={booking} ></BookingCard> )}
-    </div>
+      {!bookingView && (
+        <div className="booking-card-container">
+          {bookings.map((booking) => (
+            <BookingCard booking={booking} onClick={showBookingDetails} ></BookingCard>
+          ))}
+        </div>
+      )}
+      {bookingView && (
+        <BookingDetails venue={venue} booking={booking} onBack={()=> setBookingView(false)}></BookingDetails>
+      )}
     </>
-  )
+  );
 }
 
 export default BookingList

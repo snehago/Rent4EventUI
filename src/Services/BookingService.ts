@@ -25,6 +25,25 @@ class BookingService {
     }
   }
 
+  public async checkAvaibility(bookingDates: any) {
+    const [response, error] = await of(
+      axios.post(
+        `${this.BACKEND_URL}/booking/validate`,
+        bookingDates,
+        await sharedService.getHeader()
+      )
+    );
+    if (error) {
+      throw new Error(error.message);
+    }
+    if (response) {
+      console.log({ response });
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data.response;
+      } else throw Error(response.data.message);
+    }
+  }
+
   public async getBookingByVenueId(id: number) {
     const [response, error] = await of(
       axios.get(`${this.BACKEND_URL}/booking/venue/${id}`)
@@ -71,9 +90,32 @@ class BookingService {
     }
   }
 
-  public async deleteBooking(id: number) {
+  public async cancelBookingFromHost(booking: any, reason:any) {
     const [response, error] = await of(
-      axios.delete(`${this.BACKEND_URL}/booking/${id}`)
+      axios.delete(`${this.BACKEND_URL}/booking/deleteFromHost?message=${reason}`, {
+        headers: await sharedService.getHeader(),
+        data: booking,
+      })
+    );
+    if (error) {
+      console.log(error);
+      throw Error("Something went wrong");
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data.response;
+      } else throw Error(response.data.message);
+    }
+  }
+  public async cancelBookingFromClient(booking: any) {
+    const [response, error] = await of(
+      axios.delete(
+        `${this.BACKEND_URL}/booking/deleteFromClient?message="cancel"`,
+        {
+          headers: await sharedService.getHeader(),
+          data: booking,
+        }
+      )
     );
     if (error) {
       console.log(error);

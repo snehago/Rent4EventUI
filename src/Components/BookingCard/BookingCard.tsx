@@ -5,14 +5,14 @@ import { useEffect } from "react";
 import { VenueService } from "../../Services/VenueService";
 import { Booking } from "../../Shared/Interfaces/Booking";
 import { Venue } from "../../Shared/Interfaces/Venue";
-import image from '../../assets/images/bgimage.jpg'
 import "./bookingCard.scss";
-import { useHistory } from "react-router-dom";
 import swal from 'sweetalert';
 const venueService = new VenueService();
-function BookingCard({ booking }: { booking: Booking }) {
+
+function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
   const [venue, setVenue] = useState<Venue | null>(null);
-  const history = useHistory();
+  const [image, setImage]=useState<any>(null);
+
   useEffect(() => {
     (async () => {
       const [response, error] = await of(
@@ -23,14 +23,17 @@ function BookingCard({ booking }: { booking: Booking }) {
       }
       if (response) {
         setVenue(response);
+        const [images, imagesError] = await of(venueService.getVenuePictures(response?.id,response.host?.id));
+        if(imagesError || images.length === 0) {
+          return;
+        }
+        if(images)setImage(images[0]);
       }
     })();
   }, [booking]);
-  const moveToVenueDetails = ()=> {
-    history.push(`/venue-details/${venue?.id}`);
-  }
+  
   return (
-    <div className="booking-card-base" onClick={moveToVenueDetails}>
+    <div className="booking-card-base" onClick={()=> onClick(venue,booking)}>
       <div className="booking-card-image-container">
         <img
           src={image}
@@ -47,7 +50,7 @@ function BookingCard({ booking }: { booking: Booking }) {
         </div>
       </div>
       <div className="booking-card-days-section">
-        for {new Date(booking.to).getDay() - new Date(booking.from).getDay()}{" "}
+        for {Math.abs(new Date(booking.to).getDay() - new Date(booking.from).getDay())}{" "}
         day(s).
       </div>
       <div className="booking-card-status-section">
