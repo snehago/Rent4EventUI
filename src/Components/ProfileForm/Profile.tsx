@@ -14,6 +14,8 @@ import { of } from "await-of";
 import CircularLoader from "../CircularLoader/CircularLoader";
 import ImageUploader from "react-images-upload";
 import swal from "sweetalert";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
 var FormData = require("form-data");
 
 const sharedService = new SharedService();
@@ -268,7 +270,15 @@ const Profile = (props: any) => {
                 variant="contained"
                 className="profile-edit-button"
               >
-                {editProfile ? "Save" : "Edit"}
+                {editProfile ? (
+                  <div style={{display:"flex",justifyContent:"center"}}>
+                    <SaveOutlinedIcon /> &nbsp; Save
+                  </div>
+                ) : (
+                  <div style={{display:"flex",justifyContent:"center"}}>
+                    <EditOutlinedIcon /> &nbsp; Edit
+                  </div>
+                )}
               </Button>
             </Grid>
           </Grid>

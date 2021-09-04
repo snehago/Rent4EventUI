@@ -7,36 +7,46 @@ import Header from "../Components/Header";
 import HostVenuesList from "../Components/HostVenuesList";
 import Profile from "../Components/ProfileForm/Profile";
 import "./styles/dashboard.scss";
+import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
+import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import EventOutlinedIcon from '@material-ui/icons/EventOutlined';
+import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 
 const sideBarItems: any = {
   client: [
     {
       id: 2,
       value: "Booking History",
+      icon: <HistoryOutlinedIcon />
     },
     {
       id: 1,
       value: "My profile",
+      icon: <PersonOutlineOutlinedIcon />
     },
   ],
   host: [
     {
       id: 4,
       value: "My Venues",
+      icon:<RoomOutlinedIcon />
     },
     {
       id: 3,
       value: "Add Venue",
+      icon:<AddBoxOutlinedIcon />
     },
     {
       id: 1,
       value: "My profile",
+      icon: <PersonOutlineOutlinedIcon />
     },
   ],
 };
 const Dashboard = () => {
   const { userRole } = useParams<any>();
-  const [selected, setSelected] = useState<number>(userRole==="host"?4:2);
+  const [selected, setSelected] = useState<number>(userRole === "host" ? 4 : 2);
   const changeView = (id: number) => {
     setSelected(id);
   };
@@ -51,7 +61,7 @@ const Dashboard = () => {
       <div className="main">
         <div className="side-nav">
           <List component="nav" aria-label="secondary mailbox folders">
-            {sideBarItems[userRole].map(({ id, value }: any) => (
+            {sideBarItems[userRole].map(({ id, value,icon }: any) => (
               <>
                 {" "}
                 <ListItem
@@ -60,7 +70,9 @@ const Dashboard = () => {
                   onClick={() => changeView(id)}
                   button
                 >
+                  {icon}&nbsp;
                   <ListItemText primary={value} />
+                  
                 </ListItem>
                 <Divider></Divider>
               </>
@@ -72,7 +84,7 @@ const Dashboard = () => {
           {selected === 1 && <Profile userRole={userRole} />}
           {selected === 2 && <BookingList></BookingList>}
           {selected === 3 && <AddVenue />}
-          {selected === 4 && <HostVenuesList/>}
+          {selected === 4 && <HostVenuesList />}
         </div>
       </div>
     </>
