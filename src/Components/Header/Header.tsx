@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Button, Box, Menu, MenuItem} from "@material-ui/core";
 import { RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +30,11 @@ export default function Header() {
   const [location, setLocation]= React.useState<string>(window.location.href);
   const open = Boolean(anchorEl);
   const [loading,setLoading]=useState(true);
-
+  
+  useEffect(()=> {
+    setLocation(window.location.href);
+  },[])
+  
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -87,7 +91,7 @@ export default function Header() {
             component: RouterLink,
             className: "side-nav-button",
           }}
-          id= {href===location?'active-route':href}
+          id= {location.toLowerCase().includes(href.toLowerCase())?'activeRoute':href}
         >
           {label}
         </Button>

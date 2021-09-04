@@ -23,9 +23,16 @@
   overflow: hidden;
 }
 .media {
+  min-height: 30% !important;
   max-height: 30% !important;
   height: 30% !important;
   overflow: hidden !important;
+  img {
+    min-height: 100% !important;
+    max-height: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
 }
 
 .title {

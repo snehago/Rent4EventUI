@@ -87,24 +87,22 @@ export default function DescriptionSection({ venue }: DSProps) {
                   {venue?.description}
                 </Typography>
               </div>
-              <br/>
+              <br />
               <Divider variant="middle" style={{ marginTop: "2%" }} />
 
               <div className="description-address-container">
-                <div className="description-address-label">Address</div>
+                <div className="description-address-label">Address </div>
                 <div className="description-venue-address">
                   {`${venue.address.streetAddress}, ${venue.address.city}, ${venue.address.state}, ${venue.address.country}`}
                 </div>
+                <span className="ds-capacity-label">
+                  <b>Capacity:</b> {venue.capacity}
+                </span>
               </div>
             </Grid>
 
             {/* PRICE SECTION STARTS */}
-            <Grid
-              item
-              xs={4}
-              container
-              className="description-price-container"
-            >
+            <Grid item xs={4} container className="description-price-container">
               <Grid
                 item
                 container

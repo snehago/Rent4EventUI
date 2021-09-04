@@ -28,33 +28,33 @@ const venueService = new VenueService();
 const facilityService = new FacilityService();
 const eventTypeService = new EventTypeService();
 
-export default function AddVenueDetails({ handleNext }) {
+export default function AddVenueDetails({ handleNext, venue }) {
   const user = useSelector((state: RootState) => state.auth.user);
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [eventTypes, setEventTypes] = useState<EventType[]>([]);
   const [selectedFacilities, setSelectedFacilities] = useState<number[]>([]);
   const [selectedEventTypes, setSelectedEventTypes] = useState<number[]>([]);
-  const [loading, setLoading] = useState(false);
   const [coordinates, setCoordinates] = useState({
     lat: 0,
     lng: 0,
   });
   const initialValues = {
-    title: "",
-    capacity: "",
-    price: "",
-    description: "",
-    country: "",
-    state: "",
-    city: "",
-    pincode: "",
-    street: "",
-    latitude: coordinates.lat,
-    longitude: coordinates.lng,
+    title: venue?.title,
+    capacity: venue?.capacity,
+    price: venue?.price,
+    description: venue?.description,
+    country: venue?.address?.country,
+    state: venue?.address?.state,
+    city: venue?.address?.city,
+    pincode: venue?.address?.pin,
+    street: venue?.address?.streetAddress,
+    latitude: venue?.address?.latitude,
+    longitude: venue?.address?.longitude,
   };
+
   const defaultPosition = {
-    lat: 27.9878,
-    lng: 86.925,
+    lat: venue?.address?.latitude || 27.9878,
+    lng: venue?.address?.longitude || 80.9878,
   };
 
   const validationSchema = Yup.object().shape({
@@ -68,7 +68,7 @@ export default function AddVenueDetails({ handleNext }) {
     street: Yup.string().required("Required"),
     pincode: Yup.number().required("Required"),
   });
-
+  
   useEffect(() => {
     (async () => {
       const [response, error] = await of(facilityService.getAllFacility());
@@ -96,7 +96,6 @@ export default function AddVenueDetails({ handleNext }) {
   }, []);
 
   const onSubmit = async (values: any, props: any) => {
-    setLoading(true);
     const tempFacilities =selectedFacilities.map((id) => ({ id }));
     const tempEventTypes =selectedEventTypes.map((id) => ({ id }));
     let address: Address = {
@@ -108,7 +107,7 @@ export default function AddVenueDetails({ handleNext }) {
       latitude: coordinates.lat,
       longitude: coordinates.lng,
     };
-    let venue: any = {
+    let venueToAdd: any = {
       host: {
         id: user.id,
       },
@@ -120,20 +119,34 @@ export default function AddVenueDetails({ handleNext }) {
       listOfFacilities: tempFacilities,
       listOfEventTypes: tempEventTypes,
     };
-    console.log(venue);
-    const [response, error] = await of(venueService.addVenue(venue));
-    if (error) {
-      swal("Error", "Too long description provided", "error");
-      setLoading(false);
-    }
-    if (response) {
-      setTimeout(() => {
-        setLoading(false);
-        console.log(response);
-        props.resetForm();
-        props.setSubmitting(false);
-        handleNext(response);
-      }, 1000);
+    console.log(venueToAdd);
+    if(venue) {
+      venueToAdd.id = venue.id;
+      const [response, error] = await of(venueService.addVenue(venueToAdd));
+      if (error) {
+        swal("Error", "Too long description provided", "error");
+      }
+      if (response) {
+        setTimeout(() => {
+          console.log(response);
+          props.resetForm();
+          props.setSubmitting(false);
+          handleNext(response);
+        }, 1000);
+      }
+    } else {
+      const [response, error] = await of(venueService.addVenue(venueToAdd));
+      if (error) {
+        swal("Error", "Too long description provided", "error");
+      }
+      if (response) {
+        setTimeout(() => {
+          console.log(response);
+          props.resetForm();
+          props.setSubmitting(false);
+          handleNext(response);
+        }, 1000);
+      }
     }
   };
 

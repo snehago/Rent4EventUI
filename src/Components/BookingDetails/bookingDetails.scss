@@ -1,9 +1,9 @@
 @import '../../Shared/styles/colors';
 .bd-paper {
-  background-color: $white !important;
+  background-color: #eaeaea !important;
   width: 50vw;
   display: flex;
-  height: 90vh;
+  height: 100% !important;
   flex-direction: column;
   margin: 0 auto;
 }

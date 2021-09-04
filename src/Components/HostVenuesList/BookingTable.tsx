@@ -77,7 +77,7 @@ function Row({ row }: any) {
         </TableCell>
         <TableCell>{moment(row.to).format("LL")}</TableCell>
         <TableCell align="left">
-          {Math.abs(new Date(row.to).getDay() - new Date(row.from).getDay())}{" "}
+          {Math.abs(new Date(row.to).getDay() - new Date(row.from).getDay())+1}{" "}
           day(s)
         </TableCell>
         <TableCell align="left">${row.amountPaid}</TableCell>

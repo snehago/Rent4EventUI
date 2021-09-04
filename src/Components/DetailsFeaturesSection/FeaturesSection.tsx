@@ -1,14 +1,15 @@
-import { Grid} from "@material-ui/core";
+import { Chip, Grid} from "@material-ui/core";
 import React, {useState} from "react";
 import "./featuressection.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import MapComponent from "../MapSection/MapComponent";
+import { v4 } from "uuid";
 
 interface FSProps {
   venue: Venue;
 }
 export default function FeaturesSection({ venue }: FSProps) {
-  const [facilities, setFacilities]= useState(venue.listOfFacilities);
+  const [facilities]= useState(venue.listOfFacilities);
 
   const offers = [
     {
@@ -26,10 +27,10 @@ export default function FeaturesSection({ venue }: FSProps) {
   ];
 
   return (
-    <div className="features-main-container" data-aos="fade-up" data-aos-once>
-      <Grid container xs={12}  className="features-grid-main-container">
-        <Grid container xs={12} >
-          <Grid item container xs={12} data-aos="fade-right" data-aos-once>
+    <div className="features-main-container">
+      <Grid container xs={12} className="features-grid-main-container">
+        <Grid container xs={12}>
+          <Grid item container xs={12}>
             {/* Facilities */}
             <Grid
               item
@@ -37,17 +38,17 @@ export default function FeaturesSection({ venue }: FSProps) {
               xs={6}
               lg={6}
               className="features-facilities-grid-container"
+              key={v4()}
             >
               <h2 className="features-facilities-label">Facilities</h2>
-              <Grid item container spacing={2} xs={12}>
+              <Grid item container spacing={0} xs={12}>
                 {facilities.map((item) => (
-                  <Grid
-                    className="features-facility-item"
-                    spacing={0}
-                    item
-                    xs={3}
-                  >
-                    {item.name}
+                  <Grid spacing={0} item xs={3} lg={4} key={v4()}>
+                    <Chip
+                      className="features-facility-item"
+                      label={item.name}
+                      variant="outlined"
+                    />
                   </Grid>
                 ))}
               </Grid>
@@ -60,15 +61,22 @@ export default function FeaturesSection({ venue }: FSProps) {
               container
               xs={5}
               className="features-offers-grid-container"
-              data-aos="fade-left"
-              data-aos-once
+              key={v4()}
             >
               <h2 className="features-facilities-label">Offers &amp; Extras</h2>
-              <Grid item container spacing={2} xs={12} >
+              <Grid item container spacing={2} xs={12}>
                 {offers.map((item) => (
-                  <Grid className="offerItem" spacing={2} item xs={3}>
-                    <div className="mainOffer">{item.offer}</div>
-                    <div>{item.subtitle}</div>
+                  <Grid
+                    key={v4()}
+                    className="offerItem"
+                    spacing={2}
+                    item
+                    xs={3}
+                  >
+                    <div key={v4()} className="mainOffer">
+                      {item.offer}
+                    </div>
+                    <div key={v4()}>{item.subtitle}</div>
                   </Grid>
                 ))}
               </Grid>
@@ -115,8 +123,14 @@ export default function FeaturesSection({ venue }: FSProps) {
           </Grid> */}
         </Grid>
 
-        <Grid item xs={12} className="map-grid" data-aos="fade-up" data-aos-once>
-         {venue && <MapComponent venue={venue} />} 
+        <Grid
+          item
+          xs={12}
+          className="map-grid"
+          data-aos="fade-up"
+          data-aos-once
+        >
+          {venue && <MapComponent venue={venue} />}
         </Grid>
       </Grid>
     </div>

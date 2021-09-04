@@ -20,7 +20,7 @@ function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
         venueService.getVenueByVenueId(booking.venue.id)
       );
       if (error) {
-        swal("Venue details not found","error");
+        swal("Error","Venue details not found","error");
       }
       if (response) {
         setVenue(response);
@@ -60,12 +60,12 @@ function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
         for{" "}
         {Math.abs(
           new Date(booking.to).getDay() - new Date(booking.from).getDay()
-        )}{" "}
+        )+1}{" "}
         day(s).
       </div>
       <div key={v4()} className="booking-card-status-section">
         <div key={v4()} className="booking-card-status-label">
-          Booked
+          {booking?.status?.toUpperCase() || 'Booked'}
         </div>
         <div key={v4()} className="booking-card-price-label">
           ${booking.amountPaid}

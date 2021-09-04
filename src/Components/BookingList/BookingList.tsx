@@ -37,7 +37,11 @@ function BookingList() {
   return (
     <>
       {!bookingView && (
-        <div className="booking-card-container">
+        <div
+          className="booking-card-container"
+          data-aos="slide-left"
+          data-aos-once
+        >
           {bookings.map((booking) => (
             <BookingCard
               key={v4()}

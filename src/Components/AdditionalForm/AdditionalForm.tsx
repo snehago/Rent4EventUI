@@ -13,7 +13,6 @@ import { Field, Form, Formik } from "formik";
 const eventTypeService = new EventTypeService();
 export default function AdditionalForm(props) {
   const [additionalServices, setAdditionalServices]=useState<any>([]);
-  const [formValues, setFormValues]=useState<any>({});
   const [servicesSelected, setServicesSelected]=useState<any[]>([]);
   const initialValues = {
     noOfAttendees: 0,
@@ -40,8 +39,6 @@ export default function AdditionalForm(props) {
     })();
   },[])
   const next = (values:any) => {
-    setFormValues(values);
-    console.log(servicesSelected);
     const temp:any[] = servicesSelected.map((id:any) => {
       for(let service of additionalServices) {
         if(service.id === Number(id) ) return service;

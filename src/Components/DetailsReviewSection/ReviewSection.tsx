@@ -64,7 +64,7 @@ function ReviewSection() {
         <span id="no-of-reviews">{` ${totalReviews} Reviews`}</span>
       </div>
 
-      <div data-aos="fade-left" data-aos-once>
+      <div data-aos="fade-up" data-aos-once>
         {feedBacks.map((item) => (
           <UserReview feedbackItem={item} />
         ))}

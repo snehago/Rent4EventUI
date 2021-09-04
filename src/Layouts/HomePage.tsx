@@ -29,6 +29,7 @@ import { UserService } from "../Services/UserService";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
+import { ICity } from "country-state-city/dist/lib/interface";
 
 const responsive = {
   superLargeDesktop: {
@@ -71,6 +72,7 @@ const HomePage = () => {
   const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
+  const [cities, setCities]= useState<ICity[]>(sharedService.getCityByCountryCode("IN") || []);
   const [listOfWishlist, setListOfWishlist] = useState([]);
   const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
   // const [userId, setUserId] = useState<any>();
@@ -179,8 +181,10 @@ const HomePage = () => {
     }
     let toSearch = filters.search.trim().toUpperCase();
     if (toSearch.length !== 0) {
-      tempVenues = tempVenues.filter((venue) =>
-        venue.title.toUpperCase().includes(toSearch)
+      tempVenues = tempVenues.filter(
+        (venue) =>
+          venue.title.toUpperCase().includes(toSearch) ||
+          venue?.address?.city?.toUpperCase().includes(toSearch)
       );
     }
     setVenues(tempVenues);
@@ -297,9 +301,7 @@ const HomePage = () => {
             <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            { cities?.map(city => <MenuItem key={city.stateCode+ city.countryCode} value={city.name}>{city.name}</MenuItem>)}
           </Select>
         </FormControl>
 
@@ -379,7 +381,7 @@ const HomePage = () => {
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
         </div>
-        <div className="recommended-venue-box" data-aos="fade-up" data-aos-once>
+        <div className="recommended-venue-box" data-aos="slide-up" data-aos-once>
           <Caraousel
             key={v4()}
             swipeable={true}

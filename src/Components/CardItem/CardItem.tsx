@@ -6,13 +6,11 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import "./cardStyle.scss";
-import imageSrc from "../../assets/images/download.jpg";
 import { VenueService } from "../../Services/VenueService";
 import { useEffect } from "react";
 import { useState } from "react";
 import { of } from "await-of";
 import { v4 } from "uuid";
-import { Button, Icon } from "@material-ui/core";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import { IconButton } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -20,6 +18,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { User } from "../../Shared/Interfaces/User";
 import { SharedService } from "../../Services/SharedService";
+import image1 from "../../assets/images/banner1.jpeg";
+import image2 from "../../assets/images/hotel.png";
+import image3 from "../../assets/images/resort.jpg";
+const images = [image1,image2, image3];
 
 interface cardProps {
   id: number;
@@ -41,7 +43,7 @@ export default function CardItem({
 }: cardProps) {
   // const classes = useStyles();
   const user: User = useSelector((state: RootState) => state.auth.user);
-  const [image, setImage] = useState<any>(imageSrc);
+  const [image, setImage] = useState<any>(null);
   const history = useHistory();
   const handleClick = () => history.push(`/venue-details/${id}`);
 
@@ -53,23 +55,21 @@ export default function CardItem({
         venueService.getVenuePictures(id, host?.id)
       );
       if (error || response.length === 0) {
-        setImage(imageSrc);
+        setImage(images[Math.floor(Math.random() * (3 - 0) + 1)-1]);
         return;
       }
       if (response) {
         setImage(response[0]);
       }
     })();
-
-    console.log("CardUser:", user);
-  }, []);
+  }, [user,host,id]);
 
   useEffect(() => {
     if (wish) {
       setWishlisted(true);
     }
   }, [wish]);
-
+  
   const handleAddToWishlist = async () => {
     const venue = {
       userId: user.id,
@@ -145,22 +145,23 @@ export default function CardItem({
               <IconButton
                 onClick={handleAddToWishlist}
                 className="card-item-wishlist-btn"
+                key={v4()}
               >
-                <FavoriteIcon />
+                <FavoriteIcon key={v4()} />
               </IconButton>
             ) : (
               <IconButton
                 onClick={handleAddToWishlist}
                 className="card-item-wishlist-btn"
+                key={v4()}
               >
-                <FavoriteBorderOutlinedIcon />
+                <FavoriteBorderOutlinedIcon key={v4()} />
               </IconButton>
             )}
           </div>
         ) : (
           <div></div>
         )}
-
       </CardActions>
     </Card>
   );

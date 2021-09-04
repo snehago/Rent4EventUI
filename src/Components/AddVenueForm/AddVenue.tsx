@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddVenue() {
+export default function AddVenue({venue}:any) {
   const classes = useStyles();
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -67,7 +67,7 @@ export default function AddVenue() {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <AddVenueDetails handleNext={handleNext} />;
+        return <AddVenueDetails handleNext={handleNext} venue={venue} />;
       case 1:
         return <AddVenueImages handleBack={handleBack} venueId={venueId} />;
 

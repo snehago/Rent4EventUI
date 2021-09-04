@@ -12,11 +12,9 @@
   border-radius: 0.4rem;
 }
 .features-facility-item {
-  background-color: #eaeaea;
-  border-radius: 1rem;
+  background-color: #eaeaea !important;
   margin: 2% 2% 2% 6% !important;
-
-  text-align: center;
+  width: 80% !important;
   font: normal normal 600 .7rem Montserrat !important;
   letter-spacing: 0px;
   color: $black;

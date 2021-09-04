@@ -26,14 +26,16 @@ import InfiniteScroll from "react-infinite-scroller";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
 import { v4 } from "uuid";
-import Footer from "../Components/Footer";
 import { UserService } from "../Services/UserService";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
+import { FacilityService } from "../Services/FacilityService";
+import { ICity } from "country-state-city/dist/lib/interface";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
+const facilityService = new FacilityService();
 const userService = new UserService();
 const sharedService = new SharedService();
 const VenueListPage = () => {
@@ -50,24 +52,19 @@ const VenueListPage = () => {
     search: "",
   });
   const [venues, setVenues] = useState<Venue[]>([]);
+  const [cities, setCities]= useState<ICity[]>(sharedService.getCityByCountryCode("IN") || [])
   const [eventTypes, setEventTypes] = useState([]);
+  const [facilities, setFacilities] = useState<any[]>([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [filterStatus, setFilterStatus] = useState<boolean>(false);
-
   const [listOfWishlist, setListOfWishlist] = useState([]);
   const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
 
   const loadMore = () => {
     setCurrentPage((prev) => prev + 1);
-  };
-
-  const timeoutForLoading = () => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   };
 
   useEffect(() => {
@@ -76,7 +73,7 @@ const VenueListPage = () => {
         venueService.getAllVenues(currentPage)
       );
       if (error) {
-        swal("Unable to fetch venues", "error");
+        swal("Error","Unable to fetch venues", "error");
       }
       if (response) {
         if (response.length === 0) {
@@ -88,11 +85,8 @@ const VenueListPage = () => {
           setOriginalVenues((prev) => [...prev, ...response]);
           setLoading(false);
         }, 4000);
-        setLoading(false);
       }
     })();
-
-    // window.scrollTo(0, 0);
   }, [currentPage]);
 
   useEffect(() => {
@@ -101,19 +95,28 @@ const VenueListPage = () => {
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        swal("Unable to fetch event types", "error");
+        swal("Error","Unable to fetch event types", "error");
       }
       if (eventResponse) {
-        console.log(eventResponse);
         setEventTypes(eventResponse);
       }
     })();
   }, []);
 
   useEffect(() => {
-    applyAppropiateFilters();
-  }, [filters, originalVenues]);
-
+    (async () => {
+      const [response, error] = await of(
+        facilityService.getAllFacility()
+      );
+      if (error) {
+        swal("Error","Unable to fetch facilities", "error");
+      }
+      if (response) {
+        setFacilities(response);
+      }
+    })();
+  }, []);
+  
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
     console.log(event.target);
     let temp: any = {};
@@ -149,63 +152,65 @@ const VenueListPage = () => {
           tempVenues = applyCapacityFilter(filters[i], tempVenues);
         if (i === "eventTypeFilter")
           tempVenues = applyEventTypeFilter(filters[i], tempVenues);
+        if (i === "facilityFilter")
+          tempVenues = applyFacilityFilter(filters[i], tempVenues);
+        if (i === "locationFilter")
+          tempVenues = applyLocationFilter(filters[i], tempVenues);
+        if (i === "sort")
+          tempVenues = sort(filters[i], tempVenues);
       }
     }
     let toSearch = filters.search.trim().toUpperCase();
     if (toSearch.length !== 0) {
-      tempVenues = tempVenues.filter((venue) =>
-        venue.title.toUpperCase().includes(toSearch)
+      tempVenues = tempVenues.filter(
+        (venue) =>
+          venue.title.toUpperCase().includes(toSearch) ||
+          venue?.address?.city?.toUpperCase().includes(toSearch)
       );
     }
     setVenues(tempVenues);
   };
+  useEffect(() => {
+    applyAppropiateFilters();
+  }, [filters, originalVenues]);
+
   const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {
-    setLoading(true);
     console.log("priceFilter");
     let temp: any = [];
     console.log(typeof filterType, filterType);
     if (filterType === 1) {
       temp = tempVenues.filter((venue) => venue.price <= 500);
-      timeoutForLoading();
     }
     if (filterType === 2) {
       temp = tempVenues.filter(
         (venue) => venue.price > 500 && venue.price <= 1000
       );
-      timeoutForLoading();
     }
     if (filterType === 3) {
       temp = tempVenues.filter(
         (venue) => venue.price > 1000 && venue.price <= 5000
       );
-      timeoutForLoading();
     }
     if (filterType === 4) {
       temp = tempVenues.filter((venue) => venue.price > 5000);
-      timeoutForLoading();
     }
     return temp;
   };
 
   const applyCapacityFilter = (filterType: any, tempVenues: Venue[]) => {
     let temp: any = [];
-    setLoading(true);
     console.log("capacity", filterType);
     if (filterType === 1) {
       temp = tempVenues.filter((venue) => venue.capacity <= 500);
-      timeoutForLoading();
     }
     if (filterType === 2) {
       temp = tempVenues.filter(
         (venue) => venue.capacity > 500 && venue.capacity <= 1000
       );
-      timeoutForLoading();
     }
     if (filterType === 3) {
       temp = venues.filter((venue) => venue.capacity > 1000);
-      timeoutForLoading();
     }
-    console.log("capacity", temp.length);
     return temp;
   };
   const applyEventTypeFilter = (filterType: any, tempVenues: Venue[]) => {
@@ -219,6 +224,38 @@ const VenueListPage = () => {
     return temp;
   };
 
+  const applyFacilityFilter = (filterType: any, tempVenues: Venue[]) => {
+    let temp: any = [];
+    temp = tempVenues.filter(
+      (venue) =>
+        venue.listOfFacilities.filter(
+          (facility: any) => facility.id === filterType
+        ).length > 0
+    );
+    return temp;
+  };
+
+  const applyLocationFilter = (filterType: any, tempVenues: Venue[]) => {
+    let toSearch = filterType?.trim()?.toUpperCase();
+    let temp:any =[];
+    if (toSearch?.length !== 0) {
+      temp = tempVenues.filter(
+        (venue) =>
+          venue.title.toUpperCase().includes(toSearch) ||
+          venue?.address?.city?.toUpperCase().includes(toSearch)
+      );
+    }
+    return temp;
+  };
+
+  const sort = (filterType: any, tempVenues: Venue[]) => {
+    setLoading(true);
+    let temp: any = [];
+    if(filterType===2)temp = tempVenues.sort((a,b)=> a.price-b.price);
+    if(filterType===1)temp = tempVenues.sort((a, b) => b.price - a.price);
+    setLoading(false);
+    return temp;
+  };
   useEffect(() => {
     if (sharedService.isUserLoggedIn()) {
       (async () => {
@@ -335,9 +372,7 @@ const VenueListPage = () => {
               <MenuItem value={-1}>
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {cities?.map(city => <MenuItem key={city.countryCode+city.stateCode} value={city.name}>{city.name}</MenuItem>)}
             </Select>
           </FormControl>
 
@@ -436,9 +471,7 @@ const VenueListPage = () => {
               <MenuItem value={-1}>
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              { facilities?.map(facility =><MenuItem key={facility.id} value={facility.id}>{facility.name}</MenuItem>)}
             </Select>
           </FormControl>
 
@@ -480,7 +513,7 @@ const VenueListPage = () => {
         >
           <Box className="venue-box">
             <Grid xs={12} container spacing={8} className="venue-grid">
-              {venues?.map((venue) => (
+              {venues?.map((venue,index) => (
                 <Grid
                   item
                   xs={12}
@@ -488,10 +521,10 @@ const VenueListPage = () => {
                   lg={4}
                   data-aos="fade-up"
                   data-aos-once
-                  key={v4()}
+                  key={index*index}
                 >
                   {listOfWishlistId.includes(venue.id) ? (
-                    <div>
+                    <Box p={1} >
                       <CardItem
                         id={venue.id}
                         title={venue.title}
@@ -499,10 +532,11 @@ const VenueListPage = () => {
                         price={venue.price}
                         host={venue.host}
                         wish={true}
-                        key={v4()}
+                        key={venue.id}
                       />
-                    </div>
+                    </Box>
                   ) : (
+                    <Box p={1} >
                     <CardItem
                       id={venue.id}
                       title={venue.title}
@@ -510,8 +544,9 @@ const VenueListPage = () => {
                       price={venue.price}
                       host={venue.host}
                       wish={false}
-                      key={v4()}
+                      key={venue.id}
                     />
+                    </Box>
                   )}
                 </Grid>
               ))}
@@ -519,7 +554,6 @@ const VenueListPage = () => {
           </Box>
         </InfiniteScroll>
       </div>
-      <Footer />
     </>
   );
 };

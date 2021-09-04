@@ -38,8 +38,8 @@ function BookingDetails({venue, booking, onBack}:any) {
     }
   }
   return (
-    <div className="bd-paper-container">
-      <div className="bd-paper">
+    <div className="bd-paper-container" data-aos="slide-left" data-aos-once>
+      <Paper className="bd-paper" >
         <Box p={2}>
           <Typography variant="h6" align="center" gutterBottom>
             Booking Details
@@ -98,7 +98,7 @@ function BookingDetails({venue, booking, onBack}:any) {
             </Grid>
           </Grid>
         </Box>
-      </div>
+      </Paper>
     </div>
   );
 }
