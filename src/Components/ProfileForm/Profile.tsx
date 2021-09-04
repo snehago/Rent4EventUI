@@ -16,6 +16,7 @@ import ImageUploader from "react-images-upload";
 import swal from "sweetalert";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
+import image from "../../assets/images/ppic.jpg";
 var FormData = require("form-data");
 
 const sharedService = new SharedService();
@@ -129,7 +130,7 @@ const Profile = (props: any) => {
     }
   };
   return (
-    <div>
+    <div className="scroll-div">
       <Paper elevation={10} className="profile-paper-container">
         {loading && <CircularLoader />}
         <Grid container spacing={2} className="profile-main-grid-container">
@@ -137,28 +138,31 @@ const Profile = (props: any) => {
             <h2 className="profile-section-label">Profile</h2>
           </Grid>
           {/* Profile Picture Sidebar starts here */}
-          <Grid item xs={2} className="profile-pic-grid">
-            <Card className="profile-pic-card">
-              <CardActionArea>
-                {(!profilePic || editProfile) && (
-                  <ImageUploader
-                    withIcon={false}
-                    buttonText="Choose images"
-                    onChange={onDrop}
-                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                    maxFileSize={5242880}
-                  />
-                )}
-                {profilePic && !editProfile && (
-                  <img
-                    src={profilePic}
-                    height="160vw"
-                    width="150vw"
-                    alt="profilePic"
-                  />
-                )}
-              </CardActionArea>
-            </Card>
+          <Grid item xs={12} className="profile-pic-grid">
+            <Paper elevation={8} style={{ borderRadius: "50%" }}>
+              <Card className="profile-pic-card">
+                <CardActionArea>
+                  {(!profilePic || editProfile) && (
+                    <ImageUploader
+                      withIcon={false}
+                      buttonText="Choose images"
+                      onChange={onDrop}
+                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      maxFileSize={5242880}
+                    />
+                  )}
+                  {profilePic && !editProfile && (
+                    <img
+                      className="profile-image"
+                      src={image}
+                      height="160vh"
+                      width="150vw"
+                      alt="profilePic"
+                    />
+                  )}
+                </CardActionArea>
+              </Card>
+            </Paper>
           </Grid>
 
           {/* Profile Picture Sidebar ends here */}
@@ -169,7 +173,7 @@ const Profile = (props: any) => {
             container
             spacing={7}
             item
-            xs={8}
+            xs={12}
             className="profile-details-grid-container"
           >
             <Grid item xs={6}>
@@ -271,11 +275,11 @@ const Profile = (props: any) => {
                 className="profile-edit-button"
               >
                 {editProfile ? (
-                  <div style={{display:"flex",justifyContent:"center"}}>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <SaveOutlinedIcon /> &nbsp; Save
                   </div>
                 ) : (
-                  <div style={{display:"flex",justifyContent:"center"}}>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <EditOutlinedIcon /> &nbsp; Edit
                   </div>
                 )}
