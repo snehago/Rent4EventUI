@@ -154,7 +154,7 @@ const Profile = (props: any) => {
                   {profilePic && !editProfile && (
                     <img
                       className="profile-image"
-                      src={image}
+                      src={profilePic}
                       height="160vh"
                       width="150vw"
                       alt="profilePic"

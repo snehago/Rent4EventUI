@@ -1,3 +1,4 @@
+@import '../../Shared/styles/colors';
 .scroll-div {
   overflow: auto;
   height: 90vh !important;
@@ -36,13 +37,13 @@
   opacity: 1;
 }
 .addVenueButton {
-  background-color: #d3600c !important;
+  background-color: $theme-primary !important;
   color: white !important;
   margin-top: 4% !important;
 }
 .upload-btn-style {
-  border-color: #d3600c !important;
-  color: #d3600c !important;
+  border-color: $theme-primary !important;
+  color: $theme-primary !important;
   font: normal normal 400 80% Montserrat !important;
   margin: 1% !important;
 }

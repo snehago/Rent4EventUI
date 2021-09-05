@@ -39,7 +39,7 @@
   max-width: 40vh;
   max-height: 50vh;
   border-radius: 50%!important;
-  border: 3px solid $banner-button-background-color!important ;
+  border: 3px solid $theme-primary!important ;
 }
 .profile-details-grid-container {
   // background-color: yellowgreen;
@@ -51,6 +51,6 @@
   box-sizing: border-box;
 }
 .profile-edit-button{
-  background-color: $banner-button-background-color!important;
+  background-color: $theme-primary!important;
   color: $white!important;
 }

@@ -18,7 +18,7 @@ const sharedService = new SharedService();
 const theme = createTheme({
   palette: {
     text: {
-      primary: "#001509",
+      primary: "#000000",
     },
     primary: {
       main: "#D3600C",
