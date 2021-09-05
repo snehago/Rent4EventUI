@@ -68,11 +68,12 @@ const HomePage = () => {
     eventTypeFilter: -1,
     search: "",
   });
-  const [venues, setVenues] = useState<Venue[]>([]);
+  
   const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
   const [cities, setCities]= useState<ICity[]>(sharedService.getCityByCountryCode("IN") || []);
+  const [venues, setVenues] = useState<Venue[]>([]);
   const [listOfWishlist, setListOfWishlist] = useState([]);
   const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
   // const [userId, setUserId] = useState<any>();
@@ -420,7 +421,7 @@ const HomePage = () => {
           </Caraousel>
         </div>
 
-        <div className="exploreButton">
+        <div className="exploreButton" data-aos="fade-up" data-aos-once >
           <Button
             onClick={handleClick}
             size="large"

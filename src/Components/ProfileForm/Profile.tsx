@@ -17,6 +17,7 @@ import swal from "sweetalert";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
 import image from "../../assets/images/ppic.jpg";
+import moment from "moment";
 var FormData = require("form-data");
 
 const sharedService = new SharedService();
@@ -29,6 +30,9 @@ const Profile = (props: any) => {
   const [contactNumber, setContactNumber] = useState<any>();
   const [email, setEmail] = useState<any>("");
   const [paymentDetails, setPaymentDetails] = useState<any>("");
+  const [dateOfBirth, setDateOfBirth] = useState<any>(
+    moment(Date.now()).format("YYYY-MM-DD")
+  );
   const [role, setRole] = useState<any>("");
   const [profilePic, setProfilePic] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -41,31 +45,32 @@ const Profile = (props: any) => {
         userService.getProfilePicture(user.id)
       );
       if (error) {
-        swal("Not able to fetch profile picture", "error");
+        swal("Error","Not able to fetch profile picture", "error");
       }
       if (response) {
+        console.log(response);
         setProfilePic(response);
       }
     })();
-  }, [user]);
+  }, [user,editProfile]);
 
   async function handleEditFormHost(user: any) {
     const [response, error] = await of(userService.editHostProfile(user));
     if (error) {
-      swal("Unable to update details", "error");
+      swal("Error","Unable to update details", "error");
     }
     if (response) {
-      swal("profile updated successfully", "success");
+      swal("Success","profile updated successfully", "success");
     }
   }
 
   async function handleEditFormClient(user: any) {
     const [response, error] = await of(userService.editClientProfile(user));
     if (error) {
-      swal("Unable to update details", "error");
+      swal("Error", "Unable to update details", "error");
     }
     if (response) {
-      swal("profile updated successfully", "success");
+      swal("Success", "profile updated successfully", "success");
     }
   }
 
@@ -78,6 +83,8 @@ const Profile = (props: any) => {
         contactNumber: contactNumber,
         email: email,
         paymentDetails: paymentDetails,
+        passwordHash: user.passwordHash,
+        dateOfBirth: dateOfBirth,
         role: role,
       };
 
@@ -89,6 +96,8 @@ const Profile = (props: any) => {
         lastName: lastName,
         contactNumber: contactNumber,
         email: email,
+        passwordHash: user.passwordHash,
+        dateOfBirth: dateOfBirth,
         role: role,
       };
       await handleEditFormClient(editedUser);
@@ -109,7 +118,8 @@ const Profile = (props: any) => {
         setEmail(user.email);
         setPaymentDetails(user.paymentDetails);
         setRole(user.role);
-
+        console.log("dob",user.dateOfBirth);
+        setDateOfBirth(moment(user.dateOfBirth).format("YYYY-MM-DD"));
         setLoading(false);
       }, 1000);
     }
@@ -122,10 +132,10 @@ const Profile = (props: any) => {
     data.append("userId", "1");
     const [response, error] = await of(userService.uploadProfilePicture(data));
     if (error) {
-      swal("Unable to upload profile picture", "error");
+      swal("Error","Unable to upload profile picture", "error");
     }
     if (response) {
-      swal("Profile picture updated", "success");
+      swal("Profile picture updated","", "success");
       setProfilePic(response);
     }
   };
@@ -145,13 +155,14 @@ const Profile = (props: any) => {
                   {(!profilePic || editProfile) && (
                     <ImageUploader
                       withIcon={false}
+                      className="profile-image-upload"
                       buttonText="Choose images"
                       onChange={onDrop}
                       imgExtension={[".jpg", ".gif", ".png", ".gif"]}
                       maxFileSize={5242880}
                     />
                   )}
-                  {profilePic && !editProfile && (
+                  {profilePic && !editProfile &&  (
                     <img
                       className="profile-image"
                       src={profilePic}
@@ -180,10 +191,9 @@ const Profile = (props: any) => {
               <TextField
                 size="small"
                 InputLabelProps={{ shrink: true }}
-                // variant="outlined"
                 label="First Name"
-                // value={profileDetails.firstName}
                 value={firstName}
+                disabled={!editProfile}
                 onChange={
                   editProfile
                     ? (e: any) => {
@@ -197,10 +207,10 @@ const Profile = (props: any) => {
             <Grid item xs={6}>
               <TextField
                 size="small"
-                // variant="outlined"
                 label="Last Name"
                 InputLabelProps={{ shrink: true }}
                 value={lastName}
+                disabled={!editProfile}
                 onChange={
                   editProfile
                     ? (e: any) => setLastName(e.target.value)
@@ -217,6 +227,7 @@ const Profile = (props: any) => {
                 label="Phone Number"
                 InputLabelProps={{ shrink: true }}
                 value={contactNumber}
+                disabled={!editProfile}
                 onChange={
                   editProfile
                     ? (e: any) => setContactNumber(e.target.value)
@@ -231,7 +242,14 @@ const Profile = (props: any) => {
                 InputLabelProps={{ shrink: true }}
                 // variant="outlined"
                 type="date"
+                value={dateOfBirth}
                 label="Date Of Birth"
+                disabled={!editProfile}
+                onChange={
+                  editProfile
+                    ? (e: any) => setDateOfBirth(e.target.value)
+                    : handleBlankFunction
+                }
               />
             </Grid>
 
@@ -243,6 +261,7 @@ const Profile = (props: any) => {
                 label="Email"
                 InputLabelProps={{ shrink: true }}
                 value={email}
+                disabled={!editProfile}
                 onChange={
                   editProfile
                     ? (e: any) => setEmail(e.target.value)
@@ -259,6 +278,7 @@ const Profile = (props: any) => {
                   label="Payment"
                   InputLabelProps={{ shrink: true }}
                   value={paymentDetails}
+                  disabled={!editProfile}
                   onChange={
                     editProfile
                       ? (e: any) => setPaymentDetails(e.target.value)

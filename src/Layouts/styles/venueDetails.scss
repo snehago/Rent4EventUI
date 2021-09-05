@@ -4,3 +4,17 @@
   display: flex;
   justify-content: center;
 }
+
+.vdp-recommended-venues {
+  display: flex;
+  flex-direction: column;
+  height: 37vw;
+  width: 100% !important;
+  background-color: #eaeaea;
+}
+.vdp-recommended-title {
+  font: normal normal 700 1.5vw Montserrat !important;
+  letter-spacing: 0;
+  opacity: 1;
+  padding-top: 1%;
+}
