@@ -1,3 +1,4 @@
+@import '../../Shared/styles/colors';
 .gridStyle {
   display: flex;
   flex-direction: column;
@@ -16,7 +17,7 @@
   margin: 0;
 }
 .avatarStyle {
-  background-color: #d3600c !important;
+  background-color: $theme-primary !important;
 }
 .register-form {
   margin-top: 4%;
@@ -43,8 +44,8 @@
 }
 
 .register-login-btn{
-  color:#d3600c !important ;
-  background-color:#d3600c;
-  border: 1px solid #d3600c!important;
+  color:$theme-primary !important ;
+  background-color:$theme-primary;
+  border: 1px solid $theme-primary!important;
   margin: 1%!important;
 }

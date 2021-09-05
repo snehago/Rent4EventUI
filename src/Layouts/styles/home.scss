@@ -1,10 +1,14 @@
 @import '../../Shared/styles/colors';
+body{
+  // background-color: $background-color-primary;
+}
 .root {
   margin: 0;
   padding: 0;
 }
 .recommendedVenues {
-  background-color: #f4f4f4;
+  // background-color: #f4f4f4;
+  background-color: $background-color-primary;
   margin-top: 3%;
 }
 .recommended-venue-box {
@@ -26,9 +30,9 @@
 }
 .btnStyle {
   text-align: center;
-  color: #d3600c !important;
+  color: $theme-primary !important;
   background-color: #ffffff !important;
-  border-color: #d3600c !important;
+  border-color: $theme-primary !important;
   font: normal normal bold .8rem Montserrat !important;
   letter-spacing: 0px;
   opacity: 1;
@@ -87,7 +91,7 @@
   left: 5%;  
 }
 .banner-host-button {
-  background: $banner-button-background-color 0% 0% no-repeat padding-box !important;
+  background: $theme-primary 0% 0% no-repeat padding-box !important;
   color: $white !important;
   font-size: .7rem !important;
   padding: .5rem 1rem .5rem 1rem !important;

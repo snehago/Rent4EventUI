@@ -83,44 +83,7 @@ export default function FeaturesSection({ venue }: FSProps) {
             </Grid>
           </Grid>
 
-          {/* SIDE BAR STARTS */}
-          {/* <Grid item container xs={6}>
-            <Grid
-              item
-              container
-              xs={12}
-              className="features-side-bar-grid-container"
-            >
-              <h2 className="contact-details-label">Contact Details</h2>
-
-              <Grid item xs={12} className="venue-address-grid">
-                <Typography className="venue-address">
-                  {`${venue.address.streetAddress},${venue.address.city},${venue.address.state},${venue.address.country},${venue.address.pin}`}
-                </Typography>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Box
-                  component="fieldset"
-                  className="feature-rating-box"
-                  borderColor="transparent"
-                >
-                  <div className="feature-rating-container">
-                    <div id="ratingValue">{ratingValue}</div>
-                    <Rating
-                      name="read-only"
-                      className="rating"
-                      size="small"
-                      value={ratingValue}
-                      readOnly
-                    />
-                  </div>
-                </Box>
-
-               
-              </Grid>
-            </Grid>
-          </Grid> */}
+         
         </Grid>
 
         <Grid

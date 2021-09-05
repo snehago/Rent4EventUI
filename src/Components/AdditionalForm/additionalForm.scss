@@ -1,3 +1,5 @@
+@import '../../Shared/styles/colors';
+
 .additional-service-item {
   border-radius: 1rem;
   // margin:2%;
@@ -30,7 +32,7 @@
     align-items: center;
     font-family: Montserrat; 
     font-weight: 600;
-    color: #D3600C;
+    color: $theme-primary;
 }
 
 .af-button {
