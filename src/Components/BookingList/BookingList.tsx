@@ -61,13 +61,6 @@ function BookingList() {
             </div>
           </div>
 
-          {/* <img
-            style={{ alignSelf: "center" }}
-            src={bookingImage}
-            alt="book"
-            height="58%"
-            width="58%"
-          /> */}
         </div>
       )}
       {!bookingView && (

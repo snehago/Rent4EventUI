@@ -1,4 +1,8 @@
 @import '../../Shared/styles/colors';
+.scroll-div {
+  overflow: auto;
+  height: 90vh !important;
+}
 .bd-paper {
   background-color: #eaeaea !important;
   width: 50vw;

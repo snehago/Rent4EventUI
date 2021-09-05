@@ -21,8 +21,8 @@
   position: relative;
   z-index: 1;
   // padding: 2%!important;
-  white-space: nowrap;
-  min-width: 155%!important;
+  // white-space: nowrap;
+  min-width: 75vw!important;
   min-height: 80vh!important;
   // border: 1px solid blue;
   font-size: 2rem;
@@ -38,7 +38,7 @@
 }
 
 #get-started-text{
-  font-weight: 900!important;
+  font-weight: 700!important;
   background: wheat;
   border-radius: 0.5rem;
   padding: 1%;
