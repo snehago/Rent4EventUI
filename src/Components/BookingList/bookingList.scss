@@ -1,8 +1,50 @@
 @import '../../Shared/styles/colors';
 
+
 .booking-card-container {
   width: 100vw !important;
   height: 100vh !important;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.booking-list-empty-container{
+  padding: 2%!important;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.empty-list-text{
+  background-image: url(../../assets/images/bookOnline3.gif);
+  background-size: contain;
+  position: relative;
+  z-index: 1;
+  // padding: 2%!important;
+  white-space: nowrap;
+  min-width: 155%!important;
+  min-height: 80vh!important;
+  // border: 1px solid blue;
+  font-size: 2rem;
+  font-family: Montserrat;
+  font-weight: 700;
+  text-align: center!important;
+  // color: $theme-primary;
+}
+
+.transparent-background{
+  background-color: rgba(0, 0, 0, .3) !important;
+  height: 80vh!important;
+}
+
+#get-started-text{
+  font-weight: 900!important;
+  background: wheat;
+  border-radius: 0.5rem;
+  padding: 1%;
+}
+
+#get-started-text:hover{
+  cursor: pointer;
+  color: rgba(235, 153, 23, 0.44);
 }

@@ -14,7 +14,7 @@ import swal from "sweetalert";
 import "./hostVenueList.scss";
 import AddVenue from "../AddVenueForm/AddVenue";
 const userService = new UserService();
-function VenuesList() {
+function VenuesList({changeView}:any) {
   const user: User = useSelector((state: RootState) => state.auth.user);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [venueToView, setVenueToView] = useState<Venue | null>(null);
@@ -50,6 +50,23 @@ function VenuesList() {
   return (
     <>
       {loading && <CircularLoader />}
+      {venues.length === 0 && (
+        <div className="booking-list-empty-container">
+          <div className="empty-list-text">
+            <div className="transparent-background">
+              You have not added any Venues yet...
+              <br />
+              <br />
+              <span id="get-started-text" onClick={()=>changeView(3)} >
+                Get Started !
+              </span>
+              <div style={{marginTop:"1%"}}>Host a venue with us..</div>
+            </div>
+          </div>
+
+          
+        </div>
+      )}
       {!bookingView && !editView && (
         <div className="added-venue-card-container" hidden={bookingView}>
           {venues.map((venue) => (
