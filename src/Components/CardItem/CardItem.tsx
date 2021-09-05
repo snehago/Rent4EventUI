@@ -21,6 +21,7 @@ import { SharedService } from "../../Services/SharedService";
 import image1 from "../../assets/images/banner1.jpeg";
 import image2 from "../../assets/images/hotel.png";
 import image3 from "../../assets/images/resort.jpg";
+import { Skeleton } from "@material-ui/lab";
 const images = [image1, image2, image3];
 
 interface cardProps {
@@ -58,7 +59,10 @@ export default function CardItem({
       );
       if (error || response.length === 0) {
         setImage(images[Math.floor(Math.random() * (3 - 0) + 1) - 1]);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
+        
         return;
       }
       if (response) {
@@ -114,7 +118,8 @@ export default function CardItem({
       <CardActionArea onClick={handleClick}>
         {loading && (
           <div className="card-item-image-loader">
-            <CircularProgress />
+            {/* <CircularProgress /> */}
+            <Skeleton animation="wave" variant="rect" width={343} height={200} />
           </div>
         )}
         {!loading && (
