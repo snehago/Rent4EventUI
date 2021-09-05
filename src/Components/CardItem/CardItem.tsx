@@ -156,7 +156,7 @@ export default function CardItem({
       <CardActions key={v4()} className="card-item-price-section">
         <p className="venue-card-price">${price}</p>
 
-        {sharedService.isUserLoggedIn() ? (
+        {sharedService.isUserLoggedIn() && user.role==='client' ? (
           <div>
             {wishlisted ? (
               <IconButton
