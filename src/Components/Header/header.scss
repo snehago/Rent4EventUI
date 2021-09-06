@@ -4,6 +4,7 @@
   background-color: $header-background-color !important;
   box-shadow: 0px 8px 16px #00000029 !important;
   height: 9vh;
+  overflow: hidden;
 }
 
 .header-text {
@@ -16,7 +17,10 @@
 
 .logo {
   margin: 0 .5vw 2vh 3vw;
-  height: 7vh;
+  height: 25vh;
+  width: 10vw;
+  margin-top: -1%;
+
 }
 
 .header-logo-section {

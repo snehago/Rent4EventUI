@@ -84,7 +84,7 @@ const Dashboard = () => {
           {selected === 1 && <Profile userRole={userRole} />}
           {selected === 2 && <BookingList></BookingList>}
           {selected === 3 && <AddVenue />}
-          {selected === 4 && <HostVenuesList />}
+          {selected === 4 && <HostVenuesList changeView={changeView} />}
         </div>
       </div>
     </>

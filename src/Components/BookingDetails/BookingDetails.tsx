@@ -38,9 +38,9 @@ function BookingDetails({venue, booking, onBack}:any) {
     }
   }
   return (
-    <div className="bd-paper-container" data-aos="slide-left" data-aos-once>
-      <Paper className="bd-paper" >
-        <Box p={2}>
+    <div className="bd-paper-container " data-aos="slide-left" data-aos-once>
+      <Paper elevation={5} className="bd-paper " >
+        <Box p={2} className="scroll-div">
           <Typography variant="h6" align="center" gutterBottom>
             Booking Details
           </Typography>

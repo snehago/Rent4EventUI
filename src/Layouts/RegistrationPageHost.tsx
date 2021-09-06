@@ -264,6 +264,7 @@ const RegistrationPageHost = () => {
               <Button
                 size="small"
                 onClick={handleLogin}
+                fullWidth
                 variant="outlined"
                 className="register-login-btn"
               >

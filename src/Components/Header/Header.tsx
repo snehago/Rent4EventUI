@@ -6,7 +6,7 @@ import { logout } from '../../Redux/reducers/AuthReducer';
 import { Link as RouterLink, useHistory } from "react-router-dom";
 
 import "./header.scss";
-import logo from "../../assets/images/logo.svg";
+import logo from "../../assets/images/logo2.png";
 import { IconButton } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import { User } from '../../Shared/Interfaces/User';
@@ -68,11 +68,11 @@ export default function Header() {
     return (
       <>
         <Toolbar>
-          <Box display='flex' flexGrow={1} >
-            {/* <img className="logo" src={logo} alt="logo" /> */}
-            <a className="header-text" href="/home">
+          <Box display='flex' style={{display:"flex",alignItems:"center"}} flexGrow={1} >
+            <img className="logo" src={logo} alt="logo" />
+            {/* <a className="header-text" href="/home">
               Rent4Event
-            </a>
+            </a> */}
           </Box>
           <div className="toolbar-side-nav">{getMenuButtons()}</div>
         </Toolbar>

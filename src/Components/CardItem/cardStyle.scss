@@ -3,11 +3,15 @@
   max-width: 100% !important;
   box-shadow: 5px !important;
   margin: 5rem;
+  background: linear-gradient(135deg, rgba(0,0,0,0.22), rgba(255,255,255,0.25));
 }
 .root:hover {
   width: 101% !important;
   height: 101% !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  // box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 20px 20px 50px gray , 
+  -20px -20px 80px $theme-secondary !important;
+
 }
 
 .card-content {
@@ -60,4 +64,9 @@
 
 .card-item-wishlist-btn{
   color: red!important;
+}
+
+.card-item-image-loader{
+  display: flex;
+  justify-content: center;
 }
