@@ -69,7 +69,7 @@ export default function Header() {
       <>
         <Toolbar>
           <Box display='flex' flexGrow={1} >
-            <img className="logo" src={logo} alt="logo" />
+            {/* <img className="logo" src={logo} alt="logo" /> */}
             <a className="header-text" href="/home">
               Rent4Event
             </a>

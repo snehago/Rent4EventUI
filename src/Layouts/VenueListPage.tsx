@@ -524,7 +524,7 @@ const VenueListPage = () => {
                   key={index*index}
                 >
                   {listOfWishlistId.includes(venue.id) ? (
-                    <Box p={1} >
+                    <Box>
                       <CardItem
                         id={venue.id}
                         title={venue.title}
@@ -536,7 +536,7 @@ const VenueListPage = () => {
                       />
                     </Box>
                   ) : (
-                    <Box p={1} >
+                    <Box>
                     <CardItem
                       id={venue.id}
                       title={venue.title}
