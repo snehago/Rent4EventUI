@@ -30,6 +30,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import { ICity } from "country-state-city/dist/lib/interface";
+import MainStepsSection from "../Components/StepsSection/MainStepsSection";
 
 const responsive = {
   superLargeDesktop: {
@@ -431,6 +432,12 @@ const HomePage = () => {
             Explore More!
           </Button>
         </div>
+
+
+      </div>
+
+      <div>
+        <MainStepsSection  />
       </div>
       <footer className="home-footer">
         <Footer></Footer>
