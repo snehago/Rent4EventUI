@@ -32,6 +32,7 @@ import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import { FacilityService } from "../Services/FacilityService";
 import { ICity } from "country-state-city/dist/lib/interface";
+import Footer from "../Components/Footer";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -554,6 +555,8 @@ const VenueListPage = () => {
           </Box>
         </InfiniteScroll>
       </div>
+
+      <Footer />
     </>
   );
 };

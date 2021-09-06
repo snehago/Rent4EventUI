@@ -265,6 +265,7 @@ const RegistrationPage = () => {
               Already have an account ?
               <Button
                 onClick={handleLogin}
+                fullWidth
                 size="small"
                 variant="outlined"
                 className="register-login-btn"
