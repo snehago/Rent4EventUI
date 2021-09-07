@@ -11,6 +11,8 @@ import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined"
 import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
+import AnalyticsPage from "../Components/AnalyticsSection/AnalyticsPage";
+import DonutLargeOutlinedIcon from '@material-ui/icons/DonutLargeOutlined';
 
 const sideBarItems: any = {
   client: [
@@ -26,6 +28,7 @@ const sideBarItems: any = {
     },
   ],
   host: [
+   
     {
       id: 4,
       value: "My Venues",
@@ -41,6 +44,11 @@ const sideBarItems: any = {
       value: "My profile",
       icon: <PersonOutlineOutlinedIcon />
     },
+    {
+      id: 5,
+      value: "Analytics",
+      icon:<DonutLargeOutlinedIcon />
+    }
   ],
 };
 const Dashboard = () => {
@@ -84,6 +92,7 @@ const Dashboard = () => {
           {selected === 2 && <BookingList></BookingList>}
           {selected === 3 && <AddVenue />}
           {selected === 4 && <HostVenuesList changeView={changeView} />}
+          {selected === 5 && <AnalyticsPage />}
         </div>
       </div>
     </>
