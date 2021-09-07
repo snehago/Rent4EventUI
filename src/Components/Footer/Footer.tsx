@@ -10,8 +10,13 @@ import "./footer.scss";
 export default function Footer() {
  
   return (
-    <Grid container spacing={0} className="footer-main-grid-container">
-      <Grid item xs={4} lg={2} style={{ marginLeft: "6%", marginRight: "4%" }}>
+    <Grid container spacing={4} className="footer-main-grid-container">
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        lg={2}
+      >
         <Box className="label">About Us</Box>
         <Box className="aboutText">
           Rent4You is designed to bring clients and hosts together to create a
@@ -21,7 +26,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={4} lg={2}>
+      <Grid item xs={12} sm={12} lg={2}>
         <Box className="label">Services</Box>
         <Box>
           <Link className="contentText" href="/" color="inherit">
@@ -42,7 +47,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={2} lg={2}>
+      <Grid item xs={12} sm={12} lg={2}>
         <Box className="label">Terms&nbsp;and&nbsp;Conditions</Box>
         <Box>
           <Link className="contentText" href="/" color="inherit">
@@ -63,7 +68,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={2} lg={2}>
+      <Grid item xs={12} sm={12} lg={2}>
         <Box className="label">Contact Us</Box>
         <Box>
           <Link id="blueLink" className="contentText" href="/" color="inherit">
@@ -90,27 +95,27 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={2} lg={2}>
+      <Grid item xs={12} sm={12} lg={2}>
         <Box className="label" id="followLabel">
           Follow Us
         </Box>
         <Grid container spacing={5}>
-          <Grid item lg={2} xs={12} sm={4} md={3} className="avatarGridItem">
+          <Grid item lg={2} xs={3} sm={3} md={3} className="avatarGridItem">
             <Avatar className="socalIconAvatar">
               <FacebookIcon />
             </Avatar>
           </Grid>
-          <Grid item lg={2} xs={12} sm={4} md={3} className="avatarGridItem">
+          <Grid item lg={2} xs={3} sm={3} md={3} className="avatarGridItem">
             <Avatar className="socalIconAvatar">
               <InstagramIcon />
             </Avatar>
           </Grid>
-          <Grid item lg={2} xs={12} sm={4} md={3} className="avatarGridItem">
+          <Grid item lg={2} xs={3} sm={3} md={3} className="avatarGridItem">
             <Avatar className="socalIconAvatar">
               <TwitterIcon />
             </Avatar>
           </Grid>
-          <Grid item lg={2} xs={12} sm={4} md={3} className="avatarGridItem">
+          <Grid item lg={2} xs={3} sm={3} md={3} className="avatarGridItem">
             <Avatar className="socalIconAvatar">
               <YouTubeIcon />
             </Avatar>

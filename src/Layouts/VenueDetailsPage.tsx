@@ -13,7 +13,7 @@ import { Venue } from "../Shared/Interfaces/Venue";
 //import ReviewSection from "../Components/DetailsReviewSection/ReviewSection";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Container, Typography } from "@material-ui/core";
 import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { v4 } from "uuid";
@@ -129,74 +129,76 @@ useEffect(() => {
 
   return (
     <>
-      {loading && <CircularLoader />}
-      <Header></Header>
-      <div className="carouselContainer" data-aos="fade-up">
-        <DetailsCarousel images={images} />
-      </div>
-      {venue && (
-        <>
-          <div className="vdp-description-section">
-            <div className="vdp-description">
-              <DescriptionSection venue={venue} />
+      <Container maxWidth="lg" className="details-page-container">
+        {loading && <CircularLoader />}
+        <Header></Header>
+        <div className="carouselContainer" data-aos="fade-up">
+          <DetailsCarousel images={images} />
+        </div>
+        {venue && (
+          <>
+            <div className="vdp-description-section">
+              <div className="vdp-description">
+                <DescriptionSection venue={venue} />
+              </div>
+              <div className="vdp-price">
+                <PriceSection venue={venue} />
+              </div>
             </div>
-            <div className="vdp-price">
-              <PriceSection venue={venue} />
-            </div>
-          </div>
-        </>
-      )}
-      {venue && <FeaturesSection venue={venue} />}
-      {/* {venue && <ReviewSection />} */}
+          </>
+        )}
+        {venue && <FeaturesSection venue={venue} />}
+        {/* {venue && <ReviewSection />} */}
 
-      <div className="vdp-recommended-venues">
-        <Typography className="vdp-recommended-title" align="center">
-          Recommended Venues
-        </Typography>
-        <div
-          className="vdp-recommended-venue-box"
-          data-aos="slide-up"
-          data-aos-once
-        >
-          <Caraousel
-            key={v4()}
-            swipeable={true}
-            showDots={false}
-            responsive={responsive}
-            infinite={true}
-            keyBoardControl={true}
-            removeArrowOnDeviceType={["tablet", "mobile"]}
+        <div className="vdp-recommended-venues">
+          <Typography className="vdp-recommended-title" align="center">
+            Recommended Venues
+          </Typography>
+          <div
+            className="vdp-recommended-venue-box"
+            data-aos="slide-up"
+            data-aos-once
           >
-            {venues?.map((venue) => (
-              <Box p={5}>
-                {listOfWishlistId.includes(venue.id) ? (
-                  <div>
+            <Caraousel
+              key={v4()}
+              swipeable={true}
+              showDots={false}
+              responsive={responsive}
+              infinite={true}
+              keyBoardControl={true}
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+            >
+              {venues?.map((venue) => (
+                <Box p={5}>
+                  {listOfWishlistId.includes(venue.id) ? (
+                    <div>
+                      <CardItem
+                        id={venue.id}
+                        title={venue.title}
+                        description={venue.description}
+                        price={venue.price}
+                        host={venue.host}
+                        wish={true}
+                      />
+                    </div>
+                  ) : (
                     <CardItem
                       id={venue.id}
                       title={venue.title}
                       description={venue.description}
                       price={venue.price}
                       host={venue.host}
-                      wish={true}
+                      wish={false}
+                      key={v4()}
                     />
-                  </div>
-                ) : (
-                  <CardItem
-                    id={venue.id}
-                    title={venue.title}
-                    description={venue.description}
-                    price={venue.price}
-                    host={venue.host}
-                    wish={false}
-                    key={v4()}
-                  />
-                )}
-              </Box>
-            ))}
-          </Caraousel>
+                  )}
+                </Box>
+              ))}
+            </Caraousel>
+          </div>
         </div>
-      </div>
-      <Footer />
+        <Footer />
+      </Container>
     </>
   );
 };

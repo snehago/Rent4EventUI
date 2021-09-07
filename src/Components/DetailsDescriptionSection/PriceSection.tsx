@@ -2,11 +2,13 @@ import { Button, Grid, Tooltip, Typography } from "@material-ui/core";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { of } from "await-of";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import swal from "sweetalert";
 import { addDate } from "../../Redux/reducers/CartReducer";
+import { RootState } from "../../Redux/store";
 import { BookingService } from "../../Services/BookingService";
+import { User } from "../../Shared/Interfaces/User";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import "./description.scss";
 interface DSProps {
@@ -15,6 +17,7 @@ interface DSProps {
 const bookingService = new BookingService();
 
 export default function PriceSection({ venue }: DSProps) {
+  const user:User = useSelector((state:RootState)=> state.auth.user);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [touched, setTouched] = useState<boolean>(false);
@@ -123,11 +126,16 @@ export default function PriceSection({ venue }: DSProps) {
           <Button
             className="description-checkout-button"
             variant="contained"
+            color="primary"
             onClick={checkout}
+            disabled={user.role !== "client"}
           >
             CHECKOUT
           </Button>
         </Grid>
+        {user.role !== "client" && (
+          <span>&#9432; You can not book the venue.</span>
+        )}
       </Grid>
     </>
   );

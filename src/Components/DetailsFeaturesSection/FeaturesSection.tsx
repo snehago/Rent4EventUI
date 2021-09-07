@@ -1,4 +1,4 @@
-import { Grid, IconButton} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React, {useState} from "react";
 import "./featuressection.scss";
 import { Venue } from "../../Shared/Interfaces/Venue";
@@ -41,69 +41,72 @@ export default function FeaturesSection({ venue }: FSProps) {
 
   return (
     <div className="features-main-container">
-      <Grid container xs={12} className="features-grid-main-container">
-        <Grid container xs={12}>
-          <Grid item container xs={12}>
-            {/* Facilities */}
+      <Grid container xs={12} lg={12} className="features-grid-main-container">
+        <Grid item container xs={12} lg={12}>
+          {/* Facilities */}
+          <Grid
+            item
+            container
+            xs={12}
+            sm={12}
+            lg={6}
+            className="features-facilities-grid-container"
+            key={v4()}
+          >
+            <h2 className="features-facilities-label">Facilities</h2>
             <Grid
               item
               container
-              xs={6}
-              lg={6}
-              className="features-facilities-grid-container"
-              key={v4()}
+              direction="column"
+              className="fs-facility-container"
+              xs={12}
+              sm={12}
+              lg={12}
             >
-              <h2 className="features-facilities-label">Facilities</h2>
-              <Grid
-                item
-                container
-                direction="column"
-                className="fs-facility-container"
-                xs={12}
-              >
-                {facilities.map((item) => (
-                  <Grid spacing={0} item xs={6} lg={4} key={v4()}>
-                    <span className="fs-facility-label">
-                      {icons[`${item.name}`]} {item.name}
-                    </span>
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
-
-            {/* Offers */}
-
-            <Grid
-              item
-              container
-              className="features-offers-grid-container"
-              key={v4()}
-            >
-              <h2 className="features-facilities-label">Offers &amp; Extras</h2>
-              <Grid className="fs-offer-container"  spacing={4} xs={12} lg={12}>
-                <Grid item container direction="row" spacing={0} xs={12}>
-                  {offers.map((item) => (
-                    <Grid key={v4()} spacing={0} item xs={12}>
-                      <span>
-                        <li>{item.offer + " " + item.subtitle}</li>
-                      </span>
-                    </Grid>
-                  ))}
+              {facilities.map((item) => (
+                <Grid spacing={0} item xs={3} sm={3} lg={4} key={v4()}>
+                  <span className="fs-facility-label">
+                    {icons[`${item.name}`]} {item.name}
+                  </span>
                 </Grid>
-              </Grid>
+              ))}
             </Grid>
           </Grid>
-        </Grid>
 
-        <Grid
-          item
-          xs={12}
-          className="map-grid"
-          data-aos="fade-up"
-          data-aos-once
-        >
-          {venue && <MapComponent venue={venue} />}
+          {/* Offers */}
+
+          <Grid
+            item
+            container
+            className="features-offers-grid-container"
+            key={v4()}
+            xs={12}
+            sm={12}
+            lg={6}
+          >
+            <h2 className="features-facilities-label">Offers &amp; Extras</h2>
+            <div className="fs-offer-container">
+              {offers.map((item) => (
+                <Grid key={v4()} spacing={0} item xs={12} sm={12} lg={12}>
+                  <span>
+                    <li>{item.offer + " " + item.subtitle}</li>
+                  </span>
+                </Grid>
+              ))}
+            </div>
+          </Grid>
         </Grid>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        lg={12}
+        className="map-grid"
+        data-aos="fade-up"
+        data-aos-once
+      >
+        {venue && <MapComponent venue={venue} />}
       </Grid>
     </div>
   );

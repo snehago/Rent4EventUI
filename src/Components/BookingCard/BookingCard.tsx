@@ -60,13 +60,20 @@ function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
         for{" "}
         {Math.abs(
           new Date(booking.to).getDay() - new Date(booking.from).getDay()
-        )+1}{" "}
+        ) + 1}{" "}
         day(s).
       </div>
       <div key={v4()} className="booking-card-status-section">
-        <div key={v4()} className="booking-card-status-label">
-          {booking?.status?.toUpperCase() || 'Booked'}
-        </div>
+        {booking?.status?.toUpperCase() === "BOOKED" && (
+          <div key={v4()} className="booking-card-booked-status-label">
+            {booking?.status?.toUpperCase()}
+          </div>
+        )}
+        {booking?.status?.toUpperCase() === "CANCELLED" && (
+          <div key={v4()} className="booking-card-cancel-status-label">
+            {booking?.status?.toUpperCase()}
+          </div>
+        )}
         <div key={v4()} className="booking-card-price-label">
           ${booking.amountPaid}
         </div>

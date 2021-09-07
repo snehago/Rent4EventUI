@@ -1,4 +1,4 @@
-import { Avatar, Grid } from "@material-ui/core";
+import { Avatar, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import "./clientsteps.scss";
 import login from "../../assets/illustrations/login.svg";
@@ -38,8 +38,14 @@ const clientSteps = [
 function ClientSteps() {
   return (
     <Grid container spacing={2} className="client-steps-container">
-      <Grid item xs={12} className="client-steps-container-heading">
-        Book a venue with us in no time following 5 easy steps..
+      <Grid item xs={12} sm={12} className="client-steps-container-heading">
+        <Typography
+          variant="h5"
+          align="center"
+          className="hp-event-type-filter-heading"
+        >
+          Book a venue with us in no time following 5 easy steps..
+        </Typography>
       </Grid>
 
       <Grid
@@ -52,7 +58,9 @@ function ClientSteps() {
           <Grid
             container
             item
-            xs={3}
+            xs={12}
+            sm={12}
+            lg={3}
             className="client-steps-item"
             data-aos="zoom-in"
             data-aos-once

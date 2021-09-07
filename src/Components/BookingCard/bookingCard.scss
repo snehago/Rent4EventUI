@@ -6,7 +6,7 @@
   width: 90%;
   height: 10vw;
   min-width: 90% !important;
-  min-height: 20% !important;
+  min-height: 22% !important;
   background-color: $white;
   margin: 1vw 2vw;
   cursor: pointer;
@@ -61,7 +61,7 @@
   width: 20%;
   padding: 2vw;
 }
-.booking-card-status-label {
+.booking-card-booked-status-label {
   background-color: #EDF7ED;
   color: #5CB660;
   font-size: 1.2vw;
@@ -69,7 +69,14 @@
   margin-top: 1vw;
   padding: .3vw 1vw;
 }
-
+.booking-card-cancel-status-label {
+  background-color: #FDECEA;
+  color: #F55448;
+  font-size: 1.2vw;
+  font-weight: 700;
+  margin-top: 1vw;
+  padding: .3vw 1vw;
+}
 .booking-card-price-label {
   color: $booking-card-price-label-color;
   font-weight: 700;

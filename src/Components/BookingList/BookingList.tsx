@@ -12,7 +12,6 @@ import BookingDetails from "../BookingDetails";
 import { v4 } from "uuid";
 import { useHistory } from "react-router-dom";
 import travelBooking from '../../assets/illustrations/travelBooking.svg'
-import { updateNonNullExpression } from "typescript";
 
 const bookingService = new BookingService();
 function BookingList() {

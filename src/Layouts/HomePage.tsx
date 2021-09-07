@@ -115,7 +115,8 @@ const HomePage = () => {
     (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
       if (error) {
-        swal("Unable to fetch venues", "error");
+        swal("error","Unable to fetch venues", "error");
+        setLoading(false);
       }
       if (response) {
         console.log(response);
@@ -123,7 +124,6 @@ const HomePage = () => {
           setVenues(response);
           setLoading(false);
         }, 2000);
-
         setOriginalVenues(response);
       }
     })();
@@ -204,8 +204,8 @@ const HomePage = () => {
         <Typography variant="h5" className="hp-event-type-filter-heading">
           Search according to your need
         </Typography>
-        <Grid spacing={2} container lg={12}>
-          <Grid item lg={3}>
+        <Grid spacing={4} container sm={12} lg={12}>
+          <Grid container direction="row" item sm={12} lg={3}>
             <CardMedia
               component="img"
               image={weddingEventTypeImage}
@@ -213,11 +213,11 @@ const HomePage = () => {
               className="hp-event-type-icon"
               onClick={() => history.push("/venue-list?even_type=1")}
             />
-            <Typography className="hp-event-type-filter-heading">
+            <Typography className="hp-event-type-filter-heading" gutterBottom>
               Wedding
             </Typography>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item sm={12} lg={3}>
             <CardMedia
               component="img"
               image={meetingEventTypeImage}
@@ -229,7 +229,7 @@ const HomePage = () => {
               Meetings
             </Typography>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item sm={12} lg={3}>
             <CardMedia
               component="img"
               image={productionEventTypeImage}
@@ -241,7 +241,7 @@ const HomePage = () => {
               Production
             </Typography>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item sm={12} lg={3}>
             <CardMedia
               component="img"
               image={photoshootEventTypeImage}
@@ -258,7 +258,9 @@ const HomePage = () => {
       {/* event type cads ends here */}
       <div className="recommendedVenues">
         <div>
-          <Typography className="recommendedTitle">Popular Venues</Typography>
+          <Typography variant="h5" align="center" className="hp-event-type-filter-heading">
+            Popular Venues
+          </Typography>
         </div>
         <div
           className="recommended-venue-box"
@@ -285,6 +287,7 @@ const HomePage = () => {
                       price={venue.price}
                       host={venue.host}
                       wish={true}
+                      key={venue.id}
                     />
                   </div>
                 ) : (
@@ -295,7 +298,7 @@ const HomePage = () => {
                     price={venue.price}
                     host={venue.host}
                     wish={false}
-                    key={v4()}
+                    key={venue.id}
                   />
                 )}
               </Box>
