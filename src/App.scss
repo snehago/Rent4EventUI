@@ -1,3 +1,4 @@
+@import './Shared/styles/colors';
 body{
   overflow-x: hidden;
 }
@@ -22,4 +23,11 @@ body{
 
 #scroll-to-top-component{
   border-radius: 50%!important;
+}
+.swal-button--confirm {
+  background-color: $theme-primary ;
+  border: none !important;
+  &:hover {
+  background-color: $theme-secondary !important;
+  }
 }

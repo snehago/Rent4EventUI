@@ -51,7 +51,6 @@ body{
 .banner {
   width: 100%;
   height: 100vh;
-  margin-top: 9vh;  
   background: transparent url('../../assets/images/banner2.png') no-repeat bottom center;
   background-size:cover;
   overflow:hidden;
@@ -70,19 +69,22 @@ body{
 .banner-heading {
   position: relative;
   color: $white !important;
-  font-variant: bolder;
-  font-weight: 900;
   width: 100%;
   top: 35%;
-  left: 28%;  
+  left: 32%;  
+}
+.home-search-heading {
+  font-size: 2.5vw !important;
+  font-variant: bolder;
+  font-weight: 900;
 }
 .banner-subheading {
   position: relative;
   color: $white !important;
   font-size: .8rem !important;
-  width: 50%;
-  top: 37%;
-  left: 28%;  
+  width: 40%;
+  top: 36%;
+  left: 35%;  
 }
 .banner-button-container {
   position: relative;
@@ -99,29 +101,19 @@ body{
   z-index: 2;
 }
 
-.home-filter-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 2rem 4rem 0 4rem;
-}
-.home-select {
-  width: 16vw !important;
-}
-.home-label {
-  width: 10vw !important;
-}
-
 .home-search-container {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   grid-column-gap: 2%;
   margin: 2rem 5.5rem;
+  top: 37%;
 }
 .home-textfield {
+  background-color: $white;
+  border-radius: .5vw;
   width: 75%;
 }
 .home-search-button {

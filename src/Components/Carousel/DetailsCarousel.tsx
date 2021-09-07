@@ -6,6 +6,7 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import image1 from "../../assets/images/venue.png";
 import image2 from "../../assets/images/hotel.png";
 import image3 from "../../assets/images/resort.jpg";
+import { useEffect, useState } from "react";
 
 export default function DetailsCarousel({images}:any) {
   // const breakPoints = [
@@ -14,8 +15,12 @@ export default function DetailsCarousel({images}:any) {
   //   { width: 1200, itemsToShow: 3 },
   //   { width: 1500, itemsToShow: 4 },
   // ];
-  if (images.length > 0) var items = images; 
-  else items = [image1, image2, image3, image1, image2, image3];
+  const [items, setItems]= useState<any>();
+  useEffect(() => {
+  if (images.length > 0)setItems(images);
+  else setItems([image1, image2, image3, image1, image2, image3]);  
+  }, [images])
+  
   
 
   return (
@@ -52,7 +57,7 @@ export default function DetailsCarousel({images}:any) {
         },
       }}
     >
-      {items.map((item, i) => (
+      {items?.map((item, i) => (
         <CarouselCard key={i} item={item} />
       ))}
     </Carousel>

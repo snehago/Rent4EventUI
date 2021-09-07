@@ -15,7 +15,6 @@ import {
   MenuItem,
   TextField,
   CircularProgress,
-  Typography,
 } from "@material-ui/core";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -31,14 +30,10 @@ import { UserService } from "../Services/UserService";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
-import { FacilityService } from "../Services/FacilityService";
-import { ICity } from "country-state-city/dist/lib/interface";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
-import venueSearch from "../assets/illustrations/venueSearch.svg";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
-const facilityService = new FacilityService();
 const userService = new UserService();
 const sharedService = new SharedService();
 const VenueListPage = (props) => {
@@ -61,11 +56,7 @@ const VenueListPage = (props) => {
     search: "",
   });
   const [venues, setVenues] = useState<Venue[]>([]);
-  const [cities] = useState<ICity[]>(
-    sharedService.getCityByCountryCode("IN") || []
-  );
   const [eventTypes, setEventTypes] = useState([]);
-  const [facilities, setFacilities] = useState<any[]>([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -120,18 +111,6 @@ const VenueListPage = (props) => {
     })();
   }, [currentPage]);
 
-  useEffect(() => {
-    (async () => {
-      const [response, error] = await of(facilityService.getAllFacility());
-      if (error) {
-        swal("Error", "Unable to fetch facilities", "error");
-      }
-      if (response) {
-        setFacilities(response);
-      }
-    })();
-  }, []);
-
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
     console.log(event.target);
     let temp: any = {};
@@ -141,14 +120,6 @@ const VenueListPage = (props) => {
       temp = { ...filters, capacityFilter: event.target.value };
     if (event.target.name === "eventTypeFilter")
       temp = { ...filters, eventTypeFilter: event.target.value };
-    if (event.target.name === "locationFilter")
-      temp = { ...filters, locationFilter: event.target.value };
-    if (event.target.name === "facilityFilter")
-      temp = { ...filters, facilityFilter: event.target.value };
-    if (event.target.name === "to")
-      temp = { ...filters, to: event.target.value };
-    if (event.target.name === "from")
-      temp = { ...filters, from: event.target.value };
     if (event.target.name === "search")
       temp = { ...filters, search: event.target.value };
     if (event.target.name === "sort")
@@ -167,10 +138,6 @@ const VenueListPage = (props) => {
           tempVenues = applyCapacityFilter(filters[i], tempVenues);
         if (i === "eventTypeFilter")
           tempVenues = applyEventTypeFilter(filters[i], tempVenues);
-        if (i === "facilityFilter")
-          tempVenues = applyFacilityFilter(filters[i], tempVenues);
-        if (i === "locationFilter")
-          tempVenues = applyLocationFilter(filters[i], tempVenues);
         if (i === "sort") tempVenues = sort(filters[i], tempVenues);
       }
     }
@@ -238,30 +205,6 @@ const VenueListPage = (props) => {
     return temp;
   };
 
-  const applyFacilityFilter = (filterType: any, tempVenues: Venue[]) => {
-    let temp: any = [];
-    temp = tempVenues.filter(
-      (venue) =>
-        venue.listOfFacilities.filter(
-          (facility: any) => facility.id === filterType
-        ).length > 0
-    );
-    return temp;
-  };
-
-  const applyLocationFilter = (filterType: any, tempVenues: Venue[]) => {
-    let toSearch = filterType?.trim()?.toUpperCase();
-    let temp: any = [];
-    if (toSearch?.length !== 0) {
-      temp = tempVenues.filter(
-        (venue) =>
-          venue.title.toUpperCase().includes(toSearch) ||
-          venue?.address?.city?.toUpperCase().includes(toSearch)
-      );
-    }
-    return temp;
-  };
-
   const sort = (filterType: any, tempVenues: Venue[]) => {
     setLoading(true);
     let temp: any = [];
@@ -307,17 +250,6 @@ const VenueListPage = (props) => {
       {/* Filter and search  starts*/}
       <div className="venue-search-division">
         <div className="dark-overlay">
-          <br />
-          <br />
-          <div className="venue-search-text-area">
-            <Typography variant="h4" className="venue-search-heading">
-              <b>Find your perfect Venue!</b>
-            </Typography>
-            <Typography variant="subtitle2" className="venue-search-subheading">
-              Browse and price out thousands of venues.
-            </Typography>
-            <br />
-          </div>
           <div className="venue-search-container">
             <TextField
               id="search"
@@ -340,7 +272,6 @@ const VenueListPage = (props) => {
               search
             </Button>
           </div>
-          <br />
           <div className="filter-button-container">
             <Button onClick={() => setFilterStatus(!filterStatus)}>
               <FilterListIcon /> Filter
@@ -350,9 +281,6 @@ const VenueListPage = (props) => {
         </div>
       </div>
       <Collapse isOpened={filterStatus}>
-        <div className="search-img">
-          <img src={venueSearch} alt="" height="20%" width="20%" />
-        </div>
         <div className="venue-filter-container">
           <FormControl>
             <InputLabel shrink id="event-type" className="venue-label">
@@ -372,33 +300,6 @@ const VenueListPage = (props) => {
               </MenuItem>
               {eventTypes?.map((event: any) => (
                 <MenuItem value={event.id}>{event.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControl>
-            <InputLabel shrink id="location" className="venue-label">
-              Location
-            </InputLabel>
-            <Select
-              labelId="location-select"
-              id="location-select"
-              name="locationFilter"
-              value={filters.locationFilter}
-              onChange={handleFilterChange}
-              displayEmpty
-              className="venue-select"
-            >
-              <MenuItem value={-1}>
-                <em>None</em>
-              </MenuItem>
-              {cities?.map((city) => (
-                <MenuItem
-                  key={city.countryCode + city.stateCode}
-                  value={city.name}
-                >
-                  {city.name}
-                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -457,55 +358,6 @@ const VenueListPage = (props) => {
           </FormControl>
         </div>
         <div className="venue-filter-container">
-          <FormControl>
-            <TextField
-              label="to"
-              InputLabelProps={{ shrink: true }}
-              id="to-date"
-              name="to"
-              value={filters.to}
-              onChange={handleFilterChange}
-              type="date"
-              className="venue-select"
-            />
-          </FormControl>
-
-          <FormControl>
-            <TextField
-              label="from"
-              InputLabelProps={{ shrink: true }}
-              id="from-date"
-              value={filters.from}
-              onChange={handleFilterChange}
-              type="date"
-              className="venue-select"
-            />
-          </FormControl>
-
-          <FormControl>
-            <InputLabel shrink id="facility-label" className="venue-label">
-              Facility
-            </InputLabel>
-            <Select
-              labelId="facility-label"
-              id="facility-select"
-              name="facilityFilter"
-              value={filters.facilityFilter}
-              onChange={handleFilterChange}
-              displayEmpty
-              className="venue-select"
-            >
-              <MenuItem value={-1}>
-                <em>None</em>
-              </MenuItem>
-              {facilities?.map((facility) => (
-                <MenuItem key={facility.id} value={facility.id}>
-                  {facility.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
           <FormControl>
             <InputLabel shrink id="sort-label" className="venue-label">
               Sort By Price
