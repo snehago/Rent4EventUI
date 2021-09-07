@@ -10,9 +10,8 @@ import "./bookingList.scss";
 import swal from "sweetalert";
 import BookingDetails from "../BookingDetails";
 import { v4 } from "uuid";
-import bookingImage from "../../assets/images/bookOnline3.gif";
-import { Grid, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import travelBooking from '../../assets/illustrations/travelBooking.svg'
 
 const bookingService = new BookingService();
 function BookingList() {
@@ -57,9 +56,13 @@ function BookingList() {
               <span id="get-started-text" onClick={goToVenuesList}>
                 Get Started !
               </span>
-              <div style={{marginTop:"1%"}}>Book a venue with us..</div>
+              <div style={{marginTop:"1%",marginBottom:"2%"}}>Book a venue with us..</div>
+              <img src={travelBooking} alt="" height="60%" width="100%"/>
             </div>
+            
           </div>
+
+          
 
         </div>
       )}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { VenueService } from "../Services/VenueService";
@@ -9,7 +10,7 @@ import Header from "../Components/Header";
 import "./styles/venueDetails.scss";
 import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
-import ReviewSection from "../Components/DetailsReviewSection/ReviewSection";
+//import ReviewSection from "../Components/DetailsReviewSection/ReviewSection";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
 import { Box, Typography } from "@material-ui/core";

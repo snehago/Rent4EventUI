@@ -18,7 +18,7 @@ export default function ErrorPage() {
         </Grid>
 
         <Grid item xs={5}>
-          <img src={errorImg} className="error-img" />
+          <img src={errorImg} alt="errorImage" className="error-img" />
         </Grid>
       </Grid>
     </div>

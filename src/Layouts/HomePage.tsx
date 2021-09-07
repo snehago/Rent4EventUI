@@ -1,17 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import CardItem from "../Components/CardItem";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import { VenueService } from "../Services/VenueService";
-import { EventTypeService } from "../Services/EventTypeService";
 import {
   Button,
   Box,
   Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   TextField,
 } from "@material-ui/core";
 import "./styles/home.scss";
@@ -33,10 +29,12 @@ import { UserService } from "../Services/UserService";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
-import { ICity } from "country-state-city/dist/lib/interface";
 import { Container } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import { CardMedia } from "@material-ui/core";
+import MainStepsSection from "../Components/StepsSection/MainStepsSection";
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 
 const responsive = {
   superLargeDesktop: {
@@ -59,7 +57,6 @@ const responsive = {
 };
 
 const venueService = new VenueService();
-const eventTypeService = new EventTypeService();
 const userService = new UserService();
 const sharedService = new SharedService();
 
@@ -174,7 +171,7 @@ const HomePage = () => {
           </div>
           <div className="banner-button-container">
             <Button href="/user/register/host" className="banner-host-button">
-              Become a Host
+              Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
             </Button>
           </div>
         </div>
@@ -298,7 +295,9 @@ const HomePage = () => {
           className="home-search-button"
           onClick={applyAppropiateFilters}
         >
+          <SearchOutlinedIcon /> &nbsp;
           search
+          
         </Button>
       </div>
       {/* Filter and search ends */}
@@ -417,6 +416,12 @@ const HomePage = () => {
             Explore More!
           </Button>
         </div>
+
+
+      </div>
+
+      <div>
+        <MainStepsSection  />
       </div>
       <footer className="home-footer">
         <Footer></Footer>

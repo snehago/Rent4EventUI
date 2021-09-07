@@ -12,7 +12,6 @@ import { useState } from "react";
 import { of } from "await-of";
 import { v4 } from "uuid";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
-import { CircularProgress, IconButton } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
@@ -22,6 +21,7 @@ import image1 from "../../assets/images/banner1.jpeg";
 import image2 from "../../assets/images/hotel.png";
 import image3 from "../../assets/images/resort.jpg";
 import { Skeleton } from "@material-ui/lab";
+import { IconButton } from "@material-ui/core";
 const images = [image1, image2, image3];
 
 interface cardProps {

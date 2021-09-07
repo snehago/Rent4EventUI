@@ -58,7 +58,7 @@ export default function AddVenueImages({ handleBack, venueId }:any) {
   return (
     <div>
       {loading && <CircularLoader/>}
-      <Paper elevation={10} className="addvenue-images-paper">
+      <Paper elevation={5} className="addvenue-images-paper">
         <Grid item xs={12} className="addvenue-upload-image-section">
           <div className="addVenueSubLabels">Add Images Of The Venue</div>
           <ImageUploading

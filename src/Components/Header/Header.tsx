@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Toolbar, Button, Box, Menu, MenuItem} from "@material-ui/core";
 import { RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +29,6 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [location, setLocation]= React.useState<string>(window.location.href);
   const open = Boolean(anchorEl);
-  const [loading,setLoading]=useState(true);
   
   useEffect(()=> {
     setLocation(window.location.href);
@@ -44,10 +43,8 @@ export default function Header() {
   };
 
   const logoutUser = () => {
-    setLoading(true)
     setTimeout(() => {
       dispatch(logout());
-      setLoading(false);
     }, 1000);
     
     setAnchorEl(null);

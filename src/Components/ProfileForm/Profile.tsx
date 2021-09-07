@@ -16,7 +16,7 @@ import ImageUploader from "react-images-upload";
 import swal from "sweetalert";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
-import image from "../../assets/images/ppic.jpg";
+//import image from "../../assets/images/ppic.jpg";
 import moment from "moment";
 var FormData = require("form-data");
 

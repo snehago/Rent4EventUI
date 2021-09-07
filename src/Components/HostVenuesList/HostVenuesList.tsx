@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { of } from "await-of";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -14,6 +14,8 @@ import swal from "sweetalert";
 import "./hostVenueList.scss";
 import AddVenue from "../AddVenueForm/AddVenue";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import travelBooking from '../../assets/illustrations/travelBooking.svg'
+
 const userService = new UserService();
 function VenuesList({changeView}:any) {
   const user: User = useSelector((state: RootState) => state.auth.user);
@@ -65,7 +67,8 @@ function VenuesList({changeView}:any) {
               <span id="get-started-text" onClick={() => changeView(3)}>
                 Get Started !
               </span>
-              <div style={{ marginTop: "1%" }}>Host a venue with us..</div>
+              <div style={{marginTop:"1%",marginBottom:"2%"}}>Host a venue with us..</div>
+              <img src={travelBooking} alt="" height="60%" width="100%"/>
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import CardItem from "../Components/CardItem";
 import Header from "../Components/Header";
@@ -32,6 +33,8 @@ import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import { FacilityService } from "../Services/FacilityService";
 import { ICity } from "country-state-city/dist/lib/interface";
+import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import venueSearch from "../assets/illustrations/venueSearch.svg";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -333,6 +336,7 @@ const VenueListPage = (props) => {
               size="medium"
               className="search-button"
             >
+              <SearchOutlinedIcon />
               search
             </Button>
           </div>
@@ -346,6 +350,9 @@ const VenueListPage = (props) => {
         </div>
       </div>
       <Collapse isOpened={filterStatus}>
+        <div className="search-img">
+          <img src={venueSearch} alt="" height="20%" width="20%" />
+        </div>
         <div className="venue-filter-container">
           <FormControl>
             <InputLabel shrink id="event-type" className="venue-label">

@@ -10,13 +10,15 @@
 }
 
 .booking-list-empty-container{
+  background-color: #ffd1b0;
   padding: 2%!important;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw!important;
+  height: 100vh;
 }
 .empty-list-text{
-  background-image: url(../../assets/images/bookOnline3.gif);
+  // background-image: url(../../assets/images/bookOnline3.gif);
   background-size: contain;
   position: relative;
   z-index: 1;
@@ -33,7 +35,7 @@
 }
 
 .transparent-background{
-  background-color: rgba(0, 0, 0, .3) !important;
+  // background-color: rgba(0, 0, 0, .3) !important;
   height: 80vh!important;
 }
 

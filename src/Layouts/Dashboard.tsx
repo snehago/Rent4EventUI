@@ -10,7 +10,6 @@ import "./styles/dashboard.scss";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
-import EventOutlinedIcon from '@material-ui/icons/EventOutlined';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 
 const sideBarItems: any = {
