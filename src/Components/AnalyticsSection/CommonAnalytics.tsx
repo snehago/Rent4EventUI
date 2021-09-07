@@ -3,15 +3,19 @@ import "./commonAnalytics.scss";
 import Donut from "react-donut";
 import { PieChart } from "react-minimal-pie-chart";
 import DoughnutChart from "./DoughnutChart";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
+import { User } from "../../Shared/Interfaces/User";
 
 function CommonAnalytics() {
+    const user: User = useSelector((state: RootState) => state.auth.user);
   return (
     <div className="common-analytics-container">
       <div className="common-analytics-booking-all-venues">
         <div className="analytics-label">Bookings Of All Venues</div>
 
         <div className="doughnut-chart-container">
-           <DoughnutChart />
+           <DoughnutChart userId={user.id} />
         </div>
       </div>
     </div>

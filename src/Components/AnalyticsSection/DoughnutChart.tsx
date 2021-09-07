@@ -7,9 +7,13 @@ import swal from "sweetalert";
 
 const analyticsService = new AnalyticsService();
 
-function DoughnutChart() {
+function DoughnutChart({ userId }) {
   const [pieColors, setPieColors] = useState([]);
+  const [venues, setVenues] = useState([]);
   const [robj, setRobj] = useState({});
+  const [dataSet, setDataSet] = useState([]);
+  const [labels, setLabels] = useState([]);
+  const [changed, setChanged] = useState(false);
   var dynamicColors = function () {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
@@ -17,41 +21,73 @@ function DoughnutChart() {
     return "rgb(" + r + "," + g + "," + b + ")";
   };
 
-  const venues = [
-    {
-      id: 1,
-      name: "Grand Continental",
-    },
-  ];
+  // const venues = [
+  //   {
+  //     id: 1,
+  //     name: "Grand Continental",
+  //   },
+  // ];
+
+  useEffect(() => {
+    setChanged(!changed);
+  }, []);
 
   useEffect(() => {
     (async () => {
       const [response, error] = await of(
-        analyticsService.getAllBookingsHost(3)
+        analyticsService.getAllBookingsHost(userId)
       );
       if (error) {
         swal("Error", "Unable to fetch", "error");
       }
       if (response) {
         console.log(response);
-        setRobj(response);
+        setRobj(response.response);
       }
     })();
 
+    console.log("Robj:", robj);
+    console.log(robj[5]);
+
     var tcolors: any = [];
-    for (var i in venues) {
+    for (var i = 0; i < Object.keys(robj).length; i++) {
       tcolors.push(dynamicColors());
     }
     // robj.map((id) => tcolors.push(dynamicColors()));
     setPieColors(tcolors);
-  }, []);
+
+    var tempAr: any = [];
+
+    for (const key in robj) {
+      if (robj.hasOwnProperty(key)) {
+        tempAr.push(robj[key]);
+      }
+    }
+
+    console.log("ta:", tempAr);
+
+    setDataSet(tempAr);
+
+    var tempLabel: any = [];
+    for (const key in robj) {
+      if (robj.hasOwnProperty(key)) {
+        tempLabel.push(key);
+      }
+    }
+
+    console.log("ta:", tempLabel);
+
+    setLabels(tempLabel);
+  }, [userId]);
 
   const data = {
-    labels: ["Grand Continental"],
+    // labels: ["Grand Continental"],
+    labels: labels,
     datasets: [
       {
         label: "Sales 2020 (M)",
-        data: [3],
+        // data: [robj[5]],
+        data: dataSet,
         // backgroundColor: [
         //   "rgba(255, 99, 132, 1)",
         //   "rgba(255, 205, 86, 1)",
