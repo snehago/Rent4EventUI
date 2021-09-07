@@ -141,6 +141,7 @@ export default function CheckoutPage() {
       from: dates?.startDate,
       to: dates.endDate,
       amountPaid: totalPrice,
+      transactionId: v4(),
       numberOfAttendees: formValues.noOfAttendees,
       listOfServices: servicesSelected,
       status:"booked"
@@ -152,6 +153,18 @@ export default function CheckoutPage() {
     }
     if (response) {
       setLoading(false)
+      const blob = new Blob([response]);
+      const fileName = 'bookingSummary.txt';
+      const link = document.createElement("a");
+      if (link.download !== undefined) {
+          const url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", fileName);
+          link.style.visibility = "hidden";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
       swal("Booking Successfull",`your booking id is ${v4()}`,"success").then(value => onModalClose());
     }
   };

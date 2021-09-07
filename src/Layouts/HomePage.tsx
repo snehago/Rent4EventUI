@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   TextField,
+  IconButton,
 } from "@material-ui/core";
 import "./styles/home.scss";
 import { useHistory } from "react-router";
@@ -33,6 +34,7 @@ import { Container } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import { CardMedia } from "@material-ui/core";
 import MainStepsSection from "../Components/StepsSection/MainStepsSection";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 //import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 
@@ -300,20 +302,17 @@ const HomePage = () => {
             ))}
           </Caraousel>
         </div>
-
         <div className="exploreButton" data-aos="fade-up" data-aos-once>
-          <Button
+          <IconButton
             onClick={handleClick}
-            size="large"
-            variant="outlined"
-            className="btnStyle"
+            className="home-explore-more-button"
           >
-            Explore More!
-          </Button>
+            Explore More
+            <ArrowForwardIcon />
+          </IconButton>
         </div>
       </div>
 
-      
       {/* <Container>
         <Grid lg={12}>
           <Grid lg={6}>

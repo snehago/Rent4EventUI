@@ -54,11 +54,13 @@
   opacity: 1;
 }
 .description-price-container {
+  position: -webkit-sticky !important;
+  position: sticky !important;
   border-radius: 0.4rem;
   height: 15rem;
   padding: 2% !important;
   background: linear-gradient(135deg, rgba(0,0,0,0.22), rgba(255,255,255,0.25));
-  z-index: 1000;
+  top:10px !important;
 }
 .description-section-price {
   text-align: right;
@@ -97,4 +99,7 @@
   align-self: flex-end;
   font-weight: 400 !important;
   margin-top: 1vw;
+}
+.light-gray {
+  color: gray !important;
 }

@@ -24,19 +24,8 @@ body{
 }
 .exploreButton {
   display: flex;
-  justify-content: center;
-  padding-bottom: 2%
-}
-.btnStyle {
-  text-align: center;
-  color: $theme-primary !important;
-  background-color: #ffffff !important;
-  border-color: $theme-primary !important;
-  font: normal normal bold .8rem Montserrat !important;
-  letter-spacing: 0px;
-  opacity: 1;
-  padding: .5rem !important;
-  min-width: 27% !important;
+  justify-content: flex-end;
+  padding-bottom: 0
 }
 
 .card:hover {
@@ -141,4 +130,15 @@ body{
   margin-top: 2%;
   display: flex;
   justify-content: center;
+}
+.home-explore-more-button {
+  text-align: center;
+  float: right;
+  color: #000000 !important;
+  font: normal normal bold 1.2vw Montserrat !important;
+  letter-spacing: 0px;
+  opacity: 1;
+  padding: .5vw !important;
+  margin-top: -1vw !important;
+  min-width: 27% !important;
 }

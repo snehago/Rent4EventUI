@@ -20,7 +20,6 @@ function CircularLoader() {
             <CircularProgress className={classes.backdrop} color="primary" />
           </div>
           <div className="loader-message">
-            Wait !! We are getting things ready for you
           </div>
         </div>
       </Backdrop>

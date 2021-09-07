@@ -1,10 +1,9 @@
 import { Avatar, Box } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./userreview.scss";
 function UserReview(props: any) {
   useEffect(() => {});
-  const [userRatingValue, setUserRatingValue] = useState(2.5);
   return (
     <div className="user-review-container">
       <Avatar>{props.feedbackItem.name[0]}</Avatar>

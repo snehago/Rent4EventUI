@@ -12,12 +12,13 @@ import BookingDetails from "../BookingDetails";
 import { v4 } from "uuid";
 import { useHistory } from "react-router-dom";
 import travelBooking from '../../assets/illustrations/travelBooking.svg'
+import { updateNonNullExpression } from "typescript";
 
 const bookingService = new BookingService();
 function BookingList() {
   const history = useHistory();
   const user: User = useSelector((state: RootState) => state.auth.user);
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookings, setBookings] = useState<Booking[]|null>(null);
   const [venue, setVenue] = useState<any>(null);
   const [booking, setBooking] = useState<any>(null);
   const [bookingView, setBookingView] = useState<boolean>(false);
@@ -29,6 +30,7 @@ function BookingList() {
       );
       if (error) {
         swal("Unable to fetch your bookings", "error");
+        setBookings([]);
       }
       if (response) {
         setBookings(response);
@@ -46,7 +48,7 @@ function BookingList() {
   };
   return (
     <>
-      {bookings.length === 0 && (
+      {bookings?.length === 0 && (
         <div className="booking-list-empty-container">
           <div className="empty-list-text">
             <div className="transparent-background">
@@ -61,9 +63,6 @@ function BookingList() {
             </div>
             
           </div>
-
-          
-
         </div>
       )}
       {!bookingView && (
@@ -72,7 +71,7 @@ function BookingList() {
           data-aos="slide-left"
           data-aos-once
         >
-          {bookings.map((booking) => (
+          {bookings?.map((booking) => (
             <BookingCard
               key={v4()}
               booking={booking}

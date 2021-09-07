@@ -8,6 +8,7 @@ import { VenueService } from "../../Services/VenueService";
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import swal from "sweetalert";
 import { Skeleton } from "@material-ui/lab";
+import EditIcon from "@material-ui/icons/Edit";
 const venueService = new VenueService();
 function AddedVenueCard({ venue, onClick, onEditClick,onDelete}: { venue: Venue; onClick: any, onEditClick:any,onDelete:any}) {
   const [image, setImage]= useState<any>(null);
@@ -62,13 +63,12 @@ function AddedVenueCard({ venue, onClick, onEditClick,onDelete}: { venue: Venue;
             </div>
             <div className="added-venue-card-venue-address">{`${venue?.address.streetAddress}, ${venue?.address.city}, ${venue?.address.state}, ${venue?.address.country}`}</div>
           </div>
-          <div className="added-venue-edit-button ">
+          <div className="added-venue-edit-button-container">
             <Button
-              variant="contained"
-              color="primary"
+              className="added-venue-edit-button"
               onClick={() => onEditClick(venue)}
             >
-              Edit
+              <EditIcon/>
             </Button>
             <Button className="avc-delete-button" onClick={deleteVenue}>
               <DeleteOutlineIcon />

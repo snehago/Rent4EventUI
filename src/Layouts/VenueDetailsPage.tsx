@@ -23,6 +23,7 @@ import { UserService } from "../Services/UserService";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { User } from "../Shared/Interfaces/User";
+import PriceSection from "../Components/DetailsDescriptionSection/PriceSection";
 
 const responsive = {
   superLargeDesktop: {
@@ -133,13 +134,30 @@ useEffect(() => {
       <div className="carouselContainer" data-aos="fade-up">
         <DetailsCarousel images={images} />
       </div>
-      {venue && <DescriptionSection venue={venue} />}
+      {venue && (
+        <>
+          <div className="vdp-description-section">
+            <div className="vdp-description">
+              <DescriptionSection venue={venue} />
+            </div>
+            <div className="vdp-price">
+              <PriceSection venue={venue} />
+            </div>
+          </div>
+        </>
+      )}
       {venue && <FeaturesSection venue={venue} />}
       {/* {venue && <ReviewSection />} */}
 
       <div className="vdp-recommended-venues">
-        <Typography className="vdp-recommended-title" align="center" >Recommended Venues</Typography>
-        <div className="vdp-recommended-venue-box" data-aos="slide-up" data-aos-once>
+        <Typography className="vdp-recommended-title" align="center">
+          Recommended Venues
+        </Typography>
+        <div
+          className="vdp-recommended-venue-box"
+          data-aos="slide-up"
+          data-aos-once
+        >
           <Caraousel
             key={v4()}
             swipeable={true}
@@ -176,7 +194,7 @@ useEffect(() => {
               </Box>
             ))}
           </Caraousel>
-          </div>
+        </div>
       </div>
       <Footer />
     </>

@@ -1,12 +1,11 @@
 import axios from "axios";
 import { SharedService } from "./SharedService";
 import { of } from "await-of";
-import { EventType } from "../Shared/Interfaces/EventType";
 const sharedService = new SharedService();
 class EventTypeService {
   BACKEND_URL: string | undefined = process.env.REACT_APP_BACKEND_URL;
 
-  public async addEventType(eventType: EventType) {
+  public async addEventType(eventType:any) {
     const [response, error] = await of(
       axios.post(
         `${this.BACKEND_URL}/admin/event`,

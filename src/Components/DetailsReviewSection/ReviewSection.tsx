@@ -5,10 +5,10 @@ import UserReview from "../UserReview/UserReview";
 import "./reviewsection.scss";
 
 function ReviewSection() {
-  const [ratingValue, setRatingValue] = useState(2.5);
-  const [totalReviews, setTotalReview] = useState(50);
+  const [ratingValue] = useState(2.5);
+  const [totalReviews] = useState(50);
 
-  const [feedBacks, setFeedBacks] = useState([
+  const [feedBacks] = useState([
     {
       id: 1,
       name: "Vinayak Jaiswal",

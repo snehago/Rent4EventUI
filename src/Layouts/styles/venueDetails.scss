@@ -1,6 +1,6 @@
 
 .carouselContainer {
-  margin-top: 10%;
+  margin-top: 5%;
   display: flex;
   justify-content: center;
 }
@@ -17,4 +17,22 @@
   letter-spacing: 0;
   opacity: 1;
   padding-top: 1%;
+}
+.vdp-description-section {
+  display: flex;
+  flex-direction: row;
+}
+.vdp-description {
+  flex-grow: 1;
+  margin-left: 1vw;
+  width: 65%;
+}
+.vdp-price {
+  flex-grow: 1;
+  width: 35%;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  margin: 2vw 3vw 0 0;
+  padding: 1vw 1vw 0 0;
+  top: -1px;
 }

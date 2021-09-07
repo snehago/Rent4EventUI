@@ -119,17 +119,18 @@ export default function CardItem({
         {loading && (
           <div className="card-item-image-loader">
             {/* <CircularProgress /> */}
-            <Skeleton animation="wave" variant="rect" width={343} height={200} />
+            <Skeleton
+              animation="wave"
+              variant="rect"
+              width={343}
+              height={200}
+            />
           </div>
         )}
         {!loading && (
-          <CardMedia
-            key={v4()}
-            component="img"
-            className="media"
-            src={image}
-            title="Venue Image"
-          />
+          <CardMedia key={id}  title="Venue Image">
+            <img src={image} className="media" alt="venueImages" />
+          </CardMedia>
         )}
 
         <CardContent key={v4()} className="card-content">
@@ -156,7 +157,7 @@ export default function CardItem({
       <CardActions key={v4()} className="card-item-price-section">
         <p className="venue-card-price">${price}</p>
 
-        {sharedService.isUserLoggedIn() && user.role==='client' ? (
+        {sharedService.isUserLoggedIn() && user.role === "client" ? (
           <div>
             {wishlisted ? (
               <IconButton

@@ -21,6 +21,7 @@ const CustomRoute = ({component:ComponentToRender ,path, user,...rest}:any) => {
         if (user) {
           if (user.role === "client") return <Redirect to="/home"></Redirect>;
           if (user.role === "host") return <Redirect to="/dashboard/host" />;
+          if (user.role === "admin") return <Redirect to="/dashboard/admin"/>;
         }
       } else if (path.includes("/checkout") && !user)
         return <Redirect to="/user/login"></Redirect>;
