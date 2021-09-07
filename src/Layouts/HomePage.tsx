@@ -31,6 +31,9 @@ import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import { ICity } from "country-state-city/dist/lib/interface";
 import MainStepsSection from "../Components/StepsSection/MainStepsSection";
+import venueSearch from '../assets/illustrations/venueSearch2.svg'
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 
 const responsive = {
   superLargeDesktop: {
@@ -258,7 +261,7 @@ const HomePage = () => {
           </div>
           <div className="banner-button-container">
             <Button href="/user/register/host" className="banner-host-button">
-              Become a Host
+              Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
             </Button>
           </div>
         </div>
@@ -266,6 +269,9 @@ const HomePage = () => {
       {/* banner ends */}
 
       {/* Filter and search  starts*/}
+      <div className="search-img">
+        <img src={venueSearch} alt="" height="20%" width="20%" />
+      </div>
       <div className="home-filter-container">
         <FormControl>
           <InputLabel shrink id="event-type" className="home-label">
@@ -375,7 +381,9 @@ const HomePage = () => {
           className="home-search-button"
           onClick={applyAppropiateFilters}
         >
+          <SearchOutlinedIcon /> &nbsp;
           search
+          
         </Button>
       </div>
       {/* Filter and search ends */}

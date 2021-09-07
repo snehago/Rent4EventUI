@@ -33,6 +33,8 @@ import { SharedService } from "../Services/SharedService";
 import { FacilityService } from "../Services/FacilityService";
 import { ICity } from "country-state-city/dist/lib/interface";
 import Footer from "../Components/Footer";
+import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import venueSearch from "../assets/illustrations/venueSearch.svg";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -53,7 +55,9 @@ const VenueListPage = () => {
     search: "",
   });
   const [venues, setVenues] = useState<Venue[]>([]);
-  const [cities, setCities]= useState<ICity[]>(sharedService.getCityByCountryCode("IN") || [])
+  const [cities, setCities] = useState<ICity[]>(
+    sharedService.getCityByCountryCode("IN") || []
+  );
   const [eventTypes, setEventTypes] = useState([]);
   const [facilities, setFacilities] = useState<any[]>([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
@@ -74,7 +78,7 @@ const VenueListPage = () => {
         venueService.getAllVenues(currentPage)
       );
       if (error) {
-        swal("Error","Unable to fetch venues", "error");
+        swal("Error", "Unable to fetch venues", "error");
       }
       if (response) {
         if (response.length === 0) {
@@ -96,7 +100,7 @@ const VenueListPage = () => {
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        swal("Error","Unable to fetch event types", "error");
+        swal("Error", "Unable to fetch event types", "error");
       }
       if (eventResponse) {
         setEventTypes(eventResponse);
@@ -106,18 +110,16 @@ const VenueListPage = () => {
 
   useEffect(() => {
     (async () => {
-      const [response, error] = await of(
-        facilityService.getAllFacility()
-      );
+      const [response, error] = await of(facilityService.getAllFacility());
       if (error) {
-        swal("Error","Unable to fetch facilities", "error");
+        swal("Error", "Unable to fetch facilities", "error");
       }
       if (response) {
         setFacilities(response);
       }
     })();
   }, []);
-  
+
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
     console.log(event.target);
     let temp: any = {};
@@ -157,8 +159,7 @@ const VenueListPage = () => {
           tempVenues = applyFacilityFilter(filters[i], tempVenues);
         if (i === "locationFilter")
           tempVenues = applyLocationFilter(filters[i], tempVenues);
-        if (i === "sort")
-          tempVenues = sort(filters[i], tempVenues);
+        if (i === "sort") tempVenues = sort(filters[i], tempVenues);
       }
     }
     let toSearch = filters.search.trim().toUpperCase();
@@ -238,7 +239,7 @@ const VenueListPage = () => {
 
   const applyLocationFilter = (filterType: any, tempVenues: Venue[]) => {
     let toSearch = filterType?.trim()?.toUpperCase();
-    let temp:any =[];
+    let temp: any = [];
     if (toSearch?.length !== 0) {
       temp = tempVenues.filter(
         (venue) =>
@@ -252,8 +253,8 @@ const VenueListPage = () => {
   const sort = (filterType: any, tempVenues: Venue[]) => {
     setLoading(true);
     let temp: any = [];
-    if(filterType===2)temp = tempVenues.sort((a,b)=> a.price-b.price);
-    if(filterType===1)temp = tempVenues.sort((a, b) => b.price - a.price);
+    if (filterType === 2) temp = tempVenues.sort((a, b) => a.price - b.price);
+    if (filterType === 1) temp = tempVenues.sort((a, b) => b.price - a.price);
     setLoading(false);
     return temp;
   };
@@ -321,6 +322,7 @@ const VenueListPage = () => {
               size="medium"
               className="search-button"
             >
+              <SearchOutlinedIcon />
               search
             </Button>
           </div>
@@ -334,6 +336,9 @@ const VenueListPage = () => {
         </div>
       </div>
       <Collapse isOpened={filterStatus}>
+        <div className="search-img">
+          <img src={venueSearch} alt="" height="20%" width="20%" />
+        </div>
         <div className="venue-filter-container">
           <FormControl>
             <InputLabel shrink id="event-type" className="venue-label">
@@ -373,7 +378,14 @@ const VenueListPage = () => {
               <MenuItem value={-1}>
                 <em>None</em>
               </MenuItem>
-              {cities?.map(city => <MenuItem key={city.countryCode+city.stateCode} value={city.name}>{city.name}</MenuItem>)}
+              {cities?.map((city) => (
+                <MenuItem
+                  key={city.countryCode + city.stateCode}
+                  value={city.name}
+                >
+                  {city.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 
@@ -472,7 +484,11 @@ const VenueListPage = () => {
               <MenuItem value={-1}>
                 <em>None</em>
               </MenuItem>
-              { facilities?.map(facility =><MenuItem key={facility.id} value={facility.id}>{facility.name}</MenuItem>)}
+              {facilities?.map((facility) => (
+                <MenuItem key={facility.id} value={facility.id}>
+                  {facility.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 
@@ -514,7 +530,7 @@ const VenueListPage = () => {
         >
           <Box className="venue-box">
             <Grid xs={12} container spacing={8} className="venue-grid">
-              {venues?.map((venue,index) => (
+              {venues?.map((venue, index) => (
                 <Grid
                   item
                   xs={12}
@@ -522,10 +538,10 @@ const VenueListPage = () => {
                   lg={4}
                   data-aos="fade-up"
                   data-aos-once
-                  key={index*index}
+                  key={index * index}
                 >
                   {listOfWishlistId.includes(venue.id) ? (
-                    <Box p={1} >
+                    <Box p={1}>
                       <CardItem
                         id={venue.id}
                         title={venue.title}
@@ -537,16 +553,16 @@ const VenueListPage = () => {
                       />
                     </Box>
                   ) : (
-                    <Box p={1} >
-                    <CardItem
-                      id={venue.id}
-                      title={venue.title}
-                      description={venue.description}
-                      price={venue.price}
-                      host={venue.host}
-                      wish={false}
-                      key={venue.id}
-                    />
+                    <Box p={1}>
+                      <CardItem
+                        id={venue.id}
+                        title={venue.title}
+                        description={venue.description}
+                        price={venue.price}
+                        host={venue.host}
+                        wish={false}
+                        key={venue.id}
+                      />
                     </Box>
                   )}
                 </Grid>
