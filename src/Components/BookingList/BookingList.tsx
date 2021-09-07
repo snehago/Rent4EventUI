@@ -19,7 +19,7 @@ const bookingService = new BookingService();
 function BookingList() {
   const history = useHistory();
   const user: User = useSelector((state: RootState) => state.auth.user);
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookings, setBookings] = useState<Booking[]|null>(null);
   const [venue, setVenue] = useState<any>(null);
   const [booking, setBooking] = useState<any>(null);
   const [bookingView, setBookingView] = useState<boolean>(false);
@@ -33,6 +33,7 @@ function BookingList() {
       );
       if (error) {
         swal("Unable to fetch your bookings", "error");
+        setBookings([]);
       }
       if (response) {
         setLoading(false);
@@ -80,7 +81,7 @@ function BookingList() {
           data-aos="slide-left"
           data-aos-once
         >
-          {bookings.map((booking) => (
+          {bookings?.map((booking) => (
             <BookingCard
               key={v4()}
               booking={booking}

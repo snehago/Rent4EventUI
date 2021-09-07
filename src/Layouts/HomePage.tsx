@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   TextField,
+  IconButton,
 } from "@material-ui/core";
 import "./styles/home.scss";
 import { useHistory } from "react-router";
@@ -33,8 +34,9 @@ import { Container } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import { CardMedia } from "@material-ui/core";
 import MainStepsSection from "../Components/StepsSection/MainStepsSection";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
+//import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 
 const responsive = {
   superLargeDesktop: {
@@ -160,147 +162,42 @@ const HomePage = () => {
       <div className="banner">
         <div className="banner-background">
           <div className="banner-heading">
-            <Typography variant="h5">
-              Your Venue Is Where The Magical Journey Begins
+            <Typography variant="h5" className="home-search-heading">
+              <b>Find your perfect Venue!</b>
             </Typography>
           </div>
           <div className="banner-subheading">
-            Ready to paint a visual picture for your clients? Power up your
-            venue with Rent4Event. It is one of the best and convenient way to
-            showcase your venue as an event hotspot
+            Browse and price out thousands of venues.
           </div>
-          <div className="banner-button-container">
+          <div className="home-search-container">
+            <TextField
+              id="search"
+              name="search"
+              label={null}
+              variant="outlined"
+              className="home-textfield"
+              size="small"
+              placeholder="Search a venue by typing name or city"
+              onChange={handleFilterChange}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              size="medium"
+              className="home-search-button"
+              onClick={applyAppropiateFilters}
+            >
+              <SearchOutlinedIcon /> &nbsp; search
+            </Button>
+          </div>
+          {/* <div className="banner-button-container">
             <Button href="/user/register/host" className="banner-host-button">
               Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* banner ends */}
-
-      {/* Filter and search  starts*/}
-      {/* <div className="home-filter-container">
-        <FormControl>
-          <InputLabel shrink id="event-type" className="home-label">
-            Event Type
-          </InputLabel>
-          <Select
-            labelId="evert-type-select"
-            name="eventTypeFilter"
-            id="event-type-select"
-            value={filters.eventTypeFilter}
-            onChange={handleFilterChange}
-            className="home-select"
-          >
-            <MenuItem value={-1}>
-              <em>None</em>
-            </MenuItem>
-            {eventTypes?.map((event: any) => (
-              <MenuItem value={event.id}>{event.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel shrink id="location" className="home-label">
-            Location
-          </InputLabel>
-          <Select
-            labelId="location-select"
-            id="location-select"
-            name="locationFilter"
-            value={filters.locationFilter}
-            onChange={handleFilterChange}
-            className="home-select"
-          >
-            <MenuItem value={-1}>
-              <em>None</em>
-            </MenuItem>
-            {cities?.map((city) => (
-              <MenuItem
-                key={city.stateCode + city.countryCode}
-                value={city.name}
-              >
-                {city.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel shrink id="capacity" className="home-label">
-            Capacity
-          </InputLabel>
-          <Select
-            labelId="capacity-select"
-            id="capacity-select"
-            name="capacityFilter"
-            value={filters.capacityFilter}
-            onChange={handleFilterChange}
-            className="home-select"
-          >
-            <MenuItem value={-1}>
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={1}>0-500</MenuItem>
-            <MenuItem value={2}>500-1000</MenuItem>
-            <MenuItem value={3}>&gt;1000</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl>
-          <InputLabel shrink id="price" className="home-label">
-            Price
-          </InputLabel>
-          <Select
-            labelId="price-select"
-            id="price-select"
-            name="priceFilter"
-            value={filters.priceFilter}
-            onChange={handleFilterChange}
-            className="home-select"
-          >
-            <MenuItem value={-1}>
-              <em>None</em>
-            </MenuItem>
-            <MenuItem key={1} value={1}>
-              100-500
-            </MenuItem>
-            <MenuItem key={2} value={2}>
-              500-1000
-            </MenuItem>
-            <MenuItem key={3} value={3}>
-              1000-5000
-            </MenuItem>
-            <MenuItem key={4} value={4}>
-              &gt;5000
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </div> */}
-      <div className="home-search-container">
-        <TextField
-          id="search"
-          name="search"
-          label="Search"
-          variant="outlined"
-          className="home-textfield"
-          size="small"
-          onChange={handleFilterChange}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          size="medium"
-          className="home-search-button"
-          onClick={applyAppropiateFilters}
-        >
-          <SearchOutlinedIcon /> &nbsp;
-          search
-          
-        </Button>
-      </div>
-      {/* Filter and search ends */}
 
       {/* Event type cards */}
       <Container className="hp-event-type-filter-container">
@@ -405,23 +302,31 @@ const HomePage = () => {
             ))}
           </Caraousel>
         </div>
-
         <div className="exploreButton" data-aos="fade-up" data-aos-once>
-          <Button
+          <IconButton
             onClick={handleClick}
-            size="large"
-            variant="outlined"
-            className="btnStyle"
+            className="home-explore-more-button"
           >
-            Explore More!
-          </Button>
+            Explore More
+            <ArrowForwardIcon />
+          </IconButton>
         </div>
-
-
       </div>
 
+      {/* <Container>
+        <Grid lg={12}>
+          <Grid lg={6}>
+            <Typography variant="h4">Try Hosting</Typography>
+            <Typography variant="body1" >Earn extra income and unlock new opportunities by sharing your space.</Typography>
+          </Grid>
+          <Grid lg={6}>
+
+          </Grid>
+        </Grid>
+      </Container> */}
+
       <div>
-        <MainStepsSection  />
+        <MainStepsSection />
       </div>
       <footer className="home-footer">
         <Footer></Footer>

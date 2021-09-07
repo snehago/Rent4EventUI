@@ -1,12 +1,11 @@
 import axios from "axios";
 import { SharedService } from "./SharedService";
 import { of } from "await-of";
-import { Facility } from "../Shared/Interfaces/Facitlity";
 const sharedService = new SharedService();
 class FacilityService{
   BACKEND_URL: string | undefined = process.env.REACT_APP_BACKEND_URL;
 
-  public async addFacility(facility: Facility) {
+  public async addFacility(facility: any) {
     const [response, error] = await of(axios.post(
       `${this.BACKEND_URL}/admin/facility`,
       facility,

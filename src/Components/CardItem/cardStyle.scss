@@ -3,6 +3,7 @@
   max-width: 100% !important;
   box-shadow: 5px !important;
   margin: 5rem;
+  border-radius: 1vw !important;
   background: linear-gradient(135deg, rgba(0,0,0,0.22), rgba(255,255,255,0.25));
 }
 .root:hover {
@@ -28,14 +29,15 @@
   overflow: hidden;
 }
 .media {
-  min-height: 30% !important;
-  max-height: 30% !important;
-  height: 30% !important;
+  min-height: 18vw !important;
+  max-height: 18vw !important;
+  min-width: 100% !important;
+  height: 18vw !important;
   overflow: hidden !important;
   img {
-    min-height: 100% !important;
-    max-height: 100% !important;
-    height: 100% !important;
+    min-height: 18vw !important;
+    max-height: 18vw !important;
+    height: 18vw !important;
     overflow: hidden !important;
   }
 }

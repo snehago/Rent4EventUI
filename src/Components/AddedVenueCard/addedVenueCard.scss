@@ -55,15 +55,20 @@
   overflow: hidden;
 }
 
-.added-venue-edit-button {
+.added-venue-edit-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20%;
+  width: 10%;
+}
+.added-venue-edit-button {
+  background-color: #FFF4E5 !important;
+  color: $theme-primary !important;
+  width: 2.5vw !important;
 }
 .avc-delete-button {
-  background-color: red !important;
-  color: white !important;
+  background-color:#FDECEA !important;
+  color: #F55448 !important;
   min-width: 2.5vw !important;
   width: 2.5vw !important;
   margin: .5vw !important;

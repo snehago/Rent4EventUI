@@ -57,7 +57,8 @@ const LoginPage = () => {
     }
     if (response) {
       if (response.role === "client") history.push("/home");
-      else history.push("/dashboard/host");
+      if (response.role === "host") history.push("/dashboard/host");
+      if (response.role === "admin") history.push("/dashboard/admin");
       dispatch(login(response));
     }
   };

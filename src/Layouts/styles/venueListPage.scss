@@ -65,7 +65,7 @@
   justify-content: center;
   overflow: hidden;
   align-items: center;
-  height: 24vw;
+  height: 12vw;
   gap:5%;
   width: 100%;
   margin-top: 4.5vw;
@@ -119,4 +119,7 @@
 }
 .venue-footer {
   margin-top: 5%;
+}
+.vlp-date-picker {
+  width: 13vw !important;
 }

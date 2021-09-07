@@ -19,7 +19,7 @@ import travelBooking from '../../assets/illustrations/travelBooking.svg'
 const userService = new UserService();
 function VenuesList({changeView}:any) {
   const user: User = useSelector((state: RootState) => state.auth.user);
-  const [venues, setVenues] = useState<Venue[]>([]);
+  const [venues, setVenues] = useState<Venue[]| null>(null);
   const [venueToView, setVenueToView] = useState<Venue | null>(null);
   const [bookingView, setBookingView] = useState<boolean>(false);
   const [editView, setEditView] = useState<boolean>(false);
@@ -31,6 +31,7 @@ function VenuesList({changeView}:any) {
       const [response, error] = await of(userService.getHostById(user.id));
       if (error) {
         swal("error while fetching venues", "error");
+        setVenues([]);
       }
       if (response) {
         setTimeout(() => {
@@ -74,7 +75,7 @@ function VenuesList({changeView}:any) {
       )}
       {!bookingView && !editView && (
         <div className="added-venue-card-container" hidden={bookingView}>
-          {venues.map((venue) => (
+          {venues?.map((venue) => (
             <AddedVenueCard
               venue={venue}
               onClick={bookingsCallback}

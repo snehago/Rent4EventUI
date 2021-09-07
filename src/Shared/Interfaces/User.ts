@@ -2,7 +2,7 @@ export interface User {
   id: number;
   firstName: String;
   lastName: String;
-  role : 'host' | 'client';
+  role : 'host' | 'client' | 'admin';
   email: String;
   contactNumber: string,
   paymentDetails?: string;

@@ -44,6 +44,23 @@ class UserService {
     }
   }
 
+  public async getAllUsers() {
+    const [response, error] = await of(
+      axios.get(
+        `${this.BACKEND_URL}/admin/allUsers`,
+        await sharedService.getHeader()
+      )
+    );
+    if (error) {
+      throw Error("Unable to fetch users");
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data;
+      } else throw Error(response.data.message);
+    }
+  }
+
   public async getHostById(id: number) {
     const [response, error] = await of(
       axios.get(
@@ -57,6 +74,23 @@ class UserService {
     if (response) {
       if (response.status >= 200 && response.status <= 210) {
         return response.data;
+      } else throw Error(response.data.message);
+    }
+  }
+
+  public async deleteUser(id: number) {
+    const [response, error] = await of(
+      axios.delete(
+        `${this.BACKEND_URL}/user/${id}`,
+        await sharedService.getHeader()
+      )
+    );
+    if (error) {
+      throw Error("Invalid User id");
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data.response;
       } else throw Error(response.data.message);
     }
   }
@@ -78,7 +112,7 @@ class UserService {
     }
   }
 
-  public async getWishlistOfUser(user:any) {
+  public async getWishlistOfUser(user: any) {
     const [response, error] = await of(
       axios.get(
         `${this.BACKEND_URL}/wishlist/client/${user.id}/`,
@@ -95,7 +129,6 @@ class UserService {
     }
   }
 
-  
   public async editHostProfile(user: any) {
     var [response, error] = await of(
       axios.put(
@@ -147,8 +180,8 @@ class UserService {
       } else throw Error(response.data.message);
     }
   }
-  
-  public async getProfilePicture(userId:number) {
+
+  public async getProfilePicture(userId: number) {
     var [response, error] = await of(
       axios.get(`${this.BACKEND_URL}/gcp/profile/${userId}`)
     );

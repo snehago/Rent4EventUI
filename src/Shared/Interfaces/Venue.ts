@@ -13,11 +13,11 @@ export interface Venue {
   bookingAmount: number;
   description: String;
   title: String;
-  promoted: Boolean;
+  promoted?: Boolean;
   host: User;
   address: Address;
-  offer: Offer;
-  listOfFeedbacks: Feedback[];
+  offer?: Offer;
+  listOfFeedbacks?: Feedback[];
   listOfEventTypes: EventType[];
   bookings: Booking[];
   listOfFacilities: Facility[];

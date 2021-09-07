@@ -7,7 +7,7 @@
   justify-content: center;
 }
 .profile-image{
-  border-radius: 50%;
+  border-radius: 100% !important;
 }
 .profile-paper-container {
   width: 96%;
@@ -57,7 +57,7 @@
 .profile-image-upload {
   width: 100% !important;
   height: 100% !important;
-  padding: 5% !important;
+  //padding: 5% !important;
   background-color: $white !important;
   box-shadow: none !important;
 }
