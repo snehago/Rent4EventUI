@@ -13,6 +13,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import swal from "sweetalert";
 import { of } from "await-of";
 import BarChart from "./BarChart";
+import BarChartEarningsVenue from "./BarChartEarningsVenue";
 
 const userService = new UserService();
 
@@ -27,9 +28,6 @@ function SpecificAnalytics() {
     //random color will be freshly served
   }
 
-  
-  
-
   useEffect(() => {
     (async () => {
       const [response, error] = await of(userService.getHostById(user.id));
@@ -42,10 +40,10 @@ function SpecificAnalytics() {
       }
     })();
 
-    venues.forEach((item)=>pieChartColors.push(generateRandomColor()))
+    venues.forEach((item) => pieChartColors.push(generateRandomColor()));
 
     console.log(pieChartColors);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -60,9 +58,9 @@ function SpecificAnalytics() {
         >
           <Typography>Your Venues</Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails style={{ display: "flex", flexDirection: "column" }}>
           {venues.map((item) => (
-            <Accordion style={{width:"80vw"}} className="specific-analytics-venue-list-accordion">
+            <Accordion>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -70,8 +68,14 @@ function SpecificAnalytics() {
               >
                 <Typography>{item.title}</Typography>
               </AccordionSummary>
-              <AccordionDetails  >
+              <AccordionDetails
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                  
+                Number Of Attendees:
                 <BarChart venueId={item.id} />
+                Earnings Of Venue:
+                <BarChartEarningsVenue venueId={item.id} />
               </AccordionDetails>
             </Accordion>
           ))}

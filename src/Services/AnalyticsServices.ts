@@ -35,6 +35,66 @@ class AnalyticsService {
       } else throw Error(response.data.message);
     }
   }
+
+  public async getNoOfBookingsForVenue(venueId: number) {
+    const [response, error] = await of(
+      axios.get(`${this.BACKEND_URL}/analytics/booking/${venueId}`)
+    );
+    if (error) {
+      console.log(error);
+      throw Error("Something went wrong");
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data;
+      } else throw Error(response.data.message);
+    }
+  }
+
+  public async getEarningsForVenue(venueId: number) {
+    const [response, error] = await of(
+      axios.get(`${this.BACKEND_URL}/analytics/earning/${venueId}`)
+    );
+    if (error) {
+      console.log(error);
+      throw Error("Something went wrong");
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data;
+      } else throw Error(response.data.message);
+    }
+  }
+
+  public async getEarningsForAllVenue(userId: number) {
+    const [response, error] = await of(
+      axios.get(`${this.BACKEND_URL}/analytics/earning/All/${userId}`)
+    );
+    if (error) {
+      console.log(error);
+      throw Error("Something went wrong");
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data;
+      } else throw Error(response.data.message);
+    }
+  }
+
+  public async getTotalEarningOfHost(userId: number) {
+    const [response, error] = await of(
+      axios.get(`${this.BACKEND_URL}/analytics/earning/total/${userId}`)
+    );
+    if (error) {
+      console.log(error);
+      throw Error("Something went wrong");
+    }
+    if (response) {
+      if (response.status >= 200 && response.status <= 210) {
+        return response.data;
+      } else throw Error(response.data.message);
+    }
+  }
 }
 
 export { AnalyticsService };

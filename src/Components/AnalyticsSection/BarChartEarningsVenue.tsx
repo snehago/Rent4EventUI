@@ -5,21 +5,22 @@ import swal from "sweetalert";
 import { of } from "await-of";
 
 const analyticsService = new AnalyticsService();
-function BarChart({ venueId }) {
+function BarChartEarningsVenue({ venueId }) {
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     (async () => {
       const [response, error] = await of(
-        analyticsService.getNoOfAttendees(venueId)
+        analyticsService.getEarningsForVenue(venueId)
       );
       if (error) {
         swal("Error", "Unable to fetch", "error");
       }
       if (response) {
         console.log(response);
+        console.log(response.response)
         var tempAr: any = [];
-        for (let i = 1; i < response.response.length; i += 2) {
+        for (let i = 0; i < response.response.length; i++ ) {
           tempAr.push(response.response[i]);
         }
         //   setDatas(response.response);
@@ -37,7 +38,7 @@ function BarChart({ venueId }) {
     labels: Labels,
     datasets: [
       {
-        label: "No. Of Attendees",
+        label: "Earnings Of The Venue",
         // data: [200, 300, 500, 150, 400],
         data: datas,
         borderColor: [
@@ -48,8 +49,8 @@ function BarChart({ venueId }) {
           "rgba(255, 206, 86, 0.2)",
         ],
         backgroundColor: [
-          'rgba(54, 162, 235, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
+          "#81399D",
+          "#81399D",
           "#81399D",
           "#81399D",
           "#81399D",
@@ -79,7 +80,7 @@ function BarChart({ venueId }) {
   const options = {
     title: {
       display: true,
-      text: "Bar Chart",
+      text: "No. Of Bookings",
     },
     scales: {
       yAxes: [
@@ -96,4 +97,4 @@ function BarChart({ venueId }) {
   return <Bar data={data} options={options} />;
 }
 
-export default BarChart;
+export default BarChartEarningsVenue;
