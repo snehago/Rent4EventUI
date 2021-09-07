@@ -19,6 +19,7 @@ import "./styles/registration.scss";
 import { useState } from "react";
 import swal from "sweetalert";
 import image from "../assets/images/login2.jpg";
+import HostSteps from "../Components/StepsSection/HostSteps";
 
 const userService = new UserService();
 const RegistrationPageHost = () => {
@@ -86,14 +87,15 @@ const RegistrationPageHost = () => {
         ></Notification>
       )}
       <Grid container>
-        <Grid item xs={6}>
-          <img src={image} className="reg-side-image" alt="" />
+        <Grid item xs={6} >
+          {/* <img src={image} className="reg-side-image" alt="" />
           <div className="login-img-text">
             GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US
             !!
-          </div>
+          </div> */}
+          <HostSteps />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} >
           <Paper elevation={20} className="paperStyle">
             <Grid className="gridStyle">
               <Avatar className="avatarStyle">
@@ -116,7 +118,7 @@ const RegistrationPageHost = () => {
                     as={TextField}
                     name="firstName"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     label="First Name"
                     placeholder="Enter your First name"
@@ -131,7 +133,7 @@ const RegistrationPageHost = () => {
                     as={TextField}
                     name="lastName"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     label="Last Name"
                     placeholder="Enter your Last name"
@@ -146,7 +148,7 @@ const RegistrationPageHost = () => {
                     as={TextField}
                     name="email"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     label="Email"
                     placeholder="Enter your Email Id"
@@ -161,7 +163,7 @@ const RegistrationPageHost = () => {
                     as={TextField}
                     name="passwordHash"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     type="password"
                     label="Password"
@@ -177,7 +179,7 @@ const RegistrationPageHost = () => {
                     as={TextField}
                     name="confirmPasswordHash"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     type="password"
                     label="Confirm Password"
@@ -196,7 +198,7 @@ const RegistrationPageHost = () => {
                     onChange={(e: any) =>
                       props.setFieldValue("contactNumber", e)
                     }
-                    variant="outlined"
+                    // variant="outlined"
                     className="textFieldStyle"
                     fullWidth
                     label="Contact Number"
@@ -210,7 +212,7 @@ const RegistrationPageHost = () => {
                   <Field
                     as={TextField}
                     name="dob"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     className="textFieldStyle"
                     id="date"
@@ -234,7 +236,7 @@ const RegistrationPageHost = () => {
                     name="paymentDetails"
                     required
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     label="Upi Id"
                     placeholder="Give your Upi Id"
@@ -265,7 +267,7 @@ const RegistrationPageHost = () => {
                 size="small"
                 onClick={handleLogin}
                 fullWidth
-                variant="outlined"
+                // variant="outlined"
                 className="register-login-btn"
               >
                 Login

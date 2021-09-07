@@ -10,8 +10,8 @@ function MainStepsSection() {
             {role==='host' && <HostSteps /> } */}
 
             <ClientSteps />
-            <DividerComponent />
-            <HostSteps />
+            {/* <DividerComponent /> */}
+            {/* <HostSteps /> */}
         </div>
     )
 }

@@ -4,13 +4,22 @@
   flex-direction: column;
   align-items: center;
 }
+.reg-client-steps-container{
+  position: fixed;
+  width: 50%!important;
+}
 .reg-side-image {
   width: 100%;
   height: 100%;
 }
+.reg-page-grid-container{
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
 .paperStyle {
   padding: 2% 1.5%;
-  width: 60% !important;
+  width: 70% !important;
   margin: 20px auto;
 }
 .headerStyle {
