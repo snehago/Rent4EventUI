@@ -72,13 +72,13 @@ const LoginPage = () => {
 
   return (
     <Grid container className="login-root-grid">
-      <Grid item xs={6}>
+      <Grid item xs={6} className="login-side-img-section" >
         <img src={image} className="login-side-image" alt="" />
         <div className="login-img-text">
           GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US !!
         </div>
       </Grid>
-      <Grid container xs={6} className="login-form-section">
+      <Grid container xs={12} lg={6} md={6} sm={12} className="login-form-section">
         {/* <Paper elevation={10} className="paperStyle"> */}
         <div className="paperStyle">
           <Grid item className="gridStyle">

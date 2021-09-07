@@ -86,16 +86,19 @@ const RegistrationPageHost = () => {
           content="User registered successfully"
         ></Notification>
       )}
-      <Grid container>
-        <Grid item xs={6} >
+      <Grid container className="reg-page-conatiner">
+        <Grid item xs={12} lg={6} md={6} sm={12} >
           {/* <img src={image} className="reg-side-image" alt="" />
           <div className="login-img-text">
             GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US
             !!
           </div> */}
-          <HostSteps />
+          <div className="reg-client-steps-container">
+            <HostSteps />
+          </div>
+          
         </Grid>
-        <Grid item xs={6} >
+        <Grid item xs={12} lg={6} md={6} sm={12} >
           <Paper elevation={20} className="paperStyle">
             <Grid className="gridStyle">
               <Avatar className="avatarStyle">
