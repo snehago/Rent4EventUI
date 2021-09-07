@@ -11,6 +11,8 @@ import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined"
 import HistoryOutlinedIcon from "@material-ui/icons/HistoryOutlined";
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
+import AnalyticsPage from "../Components/AnalyticsSection/AnalyticsPage";
+import DonutLargeOutlinedIcon from '@material-ui/icons/DonutLargeOutlined';
 import ManageFacilities from "../Components/ManageFacilities";
 import ManageEventTypes from "../Components/ManageEventTypes";
 import ManageUsers from "../Components/ManageUsers";
@@ -29,6 +31,7 @@ const sideBarItems: any = {
     },
   ],
   host: [
+   
     {
       id: 4,
       value: "My Venues",
@@ -47,20 +50,25 @@ const sideBarItems: any = {
   ],
   admin: [
     {
-      id: 5,
+      id: 6,
       value: "Manage Facilities",
       icon: <RoomOutlinedIcon />,
     },
     {
-      id: 6,
+      id: 7,
       value: "Manage Event types",
       icon: <AddBoxOutlinedIcon />,
     },
     {
-      id: 7,
+      id: 8,
       value: "Manage Users",
       icon: <PersonOutlineOutlinedIcon />,
     },
+    {
+      id: 5,
+      value: "Analytics",
+      icon:<DonutLargeOutlinedIcon />
+    }
   ],
 };
 const Dashboard = () => {
@@ -74,7 +82,7 @@ const Dashboard = () => {
     window.scrollTo(0, 0);
     if (userRole === "client") setSelected(2);
     if (userRole === "host") setSelected(4);
-    if (userRole === "admin") setSelected(5);
+    if (userRole === "admin") setSelected(6);
   }, [userRole]);
 
   return (
@@ -106,9 +114,10 @@ const Dashboard = () => {
           {selected === 2 && <BookingList></BookingList>}
           {selected === 3 && <AddVenue />}
           {selected === 4 && <HostVenuesList changeView={changeView} />}
-          {selected === 5 && <ManageFacilities/>}
-          {selected === 6 && <ManageEventTypes/> }
-          {selected === 7 && <ManageUsers />}
+          {selected === 5 && <AnalyticsPage />}
+          {selected === 6 && <ManageFacilities/>}
+          {selected === 7 && <ManageEventTypes/> }
+          {selected === 8 && <ManageUsers />}
         </div>
       </div>
     </>

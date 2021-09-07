@@ -1,4 +1,4 @@
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import { of } from "await-of";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -27,6 +27,7 @@ function VenuesList({changeView}:any) {
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     (async () => {
+      setLoading(true)
       const [response, error] = await of(userService.getHostById(user.id));
       if (error) {
         swal("error while fetching venues", "error");
@@ -58,16 +59,14 @@ function VenuesList({changeView}:any) {
   return (
     <>
       {loading && <CircularLoader />}
-      {venues?.length === 0 && (
+      {!loading && venues.length === 0 && (
         <div className="booking-list-empty-container">
           <div className="empty-list-text">
             <div className="transparent-background">
               You have not added any Venues yet...
               <br />
               <br />
-              <span id="get-started-text" onClick={() => changeView(3)}>
-                Get Started !
-              </span>
+              <Button variant="outlined" className="get-started-btn" onClick={() => changeView(3)}>Get Started</Button>
               <div style={{marginTop:"1%",marginBottom:"2%"}}>Host a venue with us..</div>
               <img src={travelBooking} alt="" height="60%" width="100%"/>
             </div>

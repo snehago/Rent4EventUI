@@ -50,7 +50,7 @@ function HostSteps() {
           <Grid
             container
             item
-            xs={3}
+            xs={4}
             className="host-steps-item"
             data-aos="zoom-in"
             data-aos-once
