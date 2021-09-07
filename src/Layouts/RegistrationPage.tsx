@@ -24,6 +24,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import swal from "sweetalert";
+import ClientSteps from "../Components/StepsSection/ClientSteps";
 
 const userService = new UserService();
 const RegistrationPage = () => {
@@ -87,15 +88,19 @@ const RegistrationPage = () => {
           content="User registered successfully"
         ></Notification>
       )}
-      <Grid container>
-        <Grid item xs={6}>
-          <img src={image} className="reg-side-image" alt="" />
+      <Grid container className="reg-page-conatiner">
+        <Grid item xs={12} lg={6} md={6} sm={12}>
+          {/* <img src={image} className="reg-side-image" alt="" />
           <div className="login-img-text">
             GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US
             !!
+          </div> */}
+          <div className="reg-client-steps-container">
+          <ClientSteps />
           </div>
+          
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} lg={6} md={6} sm={12} >
           <Paper elevation={20} className="paperStyle">
             <Grid className="gridStyle">
               <Avatar className="avatarStyle">
@@ -118,7 +123,7 @@ const RegistrationPage = () => {
                     as={TextField}
                     name="firstName"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     label="First Name"
                     placeholder="Enter your First name"
@@ -133,7 +138,7 @@ const RegistrationPage = () => {
                     as={TextField}
                     name="lastName"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     label="Last Name"
                     placeholder="Enter your Last name"
@@ -148,7 +153,7 @@ const RegistrationPage = () => {
                     as={TextField}
                     name="email"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     label="Email"
                     placeholder="Enter your Email Id"
@@ -166,7 +171,7 @@ const RegistrationPage = () => {
                     type={showPassword ? "text" : "password"}
                     name="passwordHash"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     label="Password"
                     placeholder="Enter a Password"
@@ -192,7 +197,7 @@ const RegistrationPage = () => {
                     as={TextField}
                     name="confirmPasswordHash"
                     className="textFieldStyle"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     type="password"
                     label="Confirm Password"
@@ -211,7 +216,7 @@ const RegistrationPage = () => {
                     onChange={(e: any) =>
                       props.setFieldValue("contactNumber", e)
                     }
-                    variant="outlined"
+                    // variant="outlined"
                     className="textFieldStyle"
                     fullWidth
                     label="Contact Number"
@@ -225,7 +230,7 @@ const RegistrationPage = () => {
                   <Field
                     as={TextField}
                     name="dateOfBirth"
-                    variant="outlined"
+                    // variant="outlined"
                     fullWidth
                     className="textFieldStyle"
                     id="date"
@@ -265,7 +270,7 @@ const RegistrationPage = () => {
                 onClick={handleLogin}
                 fullWidth
                 size="small"
-                variant="outlined"
+                // variant="outlined"
                 className="register-login-btn"
               >
                 Login

@@ -68,3 +68,22 @@
   font-size: large;
   line-height: 180%;
 }
+
+@media  (max-width:600px){
+
+  .login-side-img-section{
+    display: none;
+  }
+
+  .login-root-grid{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+@media (max-width:1000px){
+  .login-side-img-section{
+    display: none;
+  }
+}
+
