@@ -1,11 +1,15 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer,Marker, Popup } from "react-leaflet";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import "./map.scss";
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
 interface FSProps {
   venue: Venue;
 }
+
+
+
 const MapComponent = ({ venue }: FSProps) => {
   return (
     <>

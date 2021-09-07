@@ -13,6 +13,9 @@ import BookingTable from "./BookingTable";
 import swal from "sweetalert";
 import "./hostVenueList.scss";
 import AddVenue from "../AddVenueForm/AddVenue";
+import event from '../../assets/illustrations/eventType.svg'
+import travelBooking from '../../assets/illustrations/travelBooking.svg'
+
 const userService = new UserService();
 function VenuesList({changeView}:any) {
   const user: User = useSelector((state: RootState) => state.auth.user);
@@ -60,7 +63,8 @@ function VenuesList({changeView}:any) {
               <span id="get-started-text" onClick={()=>changeView(3)} >
                 Get Started !
               </span>
-              <div style={{marginTop:"1%"}}>Host a venue with us..</div>
+              <div style={{marginTop:"1%",marginBottom:"2%"}}>Host a venue with us..</div>
+              <img src={travelBooking} alt="" height="60%" width="100%"/>
             </div>
           </div>
 
