@@ -9,19 +9,18 @@ import { Box, CircularProgress, Grid, Typography } from "@material-ui/core";
 import CardItem from "../Components/CardItem";
 import InfiniteScroll from "react-infinite-scroller";
 import Footer from "../Components/Footer";
-
+import swal from "sweetalert";
 const userService = new UserService();
 function WishlistPage() {
   const user: any = useSelector((state: RootState) => state.auth.user);
 
   const [listOfWishlist, setListOfWishlist] = useState([]);
-  const [currentPage, setCurrentPage] = useState<number>(0);
 
   useEffect(() => {
     (async () => {
       const [response, error] = await of(userService.getWishlistOfUser(user));
       if (error) {
-        // alert(error.message);
+        swal("Error","Unable to fetch wishlist","error");
       }
       if (response) {
         console.log("RES:", response);
@@ -32,10 +31,10 @@ function WishlistPage() {
     })();
 
     window.scrollTo(0, 0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const loadMore = () => {
-    setCurrentPage((prev) => prev + 1);
   };
 
   return (

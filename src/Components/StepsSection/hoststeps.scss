@@ -1,0 +1,51 @@
+@import "../../Shared/styles/colors";
+
+.host-steps-container{
+    height: auto;
+    padding: 2%;
+    overflow: hidden!important;
+}
+
+.host-steps-container-heading{
+    // background-color: yellowgreen;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Montserrat;
+    font-size: 2rem;
+    text-align: center!important;
+    overflow: hidden!important;
+    margin-bottom: 3%!important;
+}
+
+#host-steps-heading-subtitle{
+    font-family: 200;
+}
+
+.host-steps-section-container{
+    // background-color: yellow;
+    overflow: hidden!important;
+}
+
+.host-steps-item{
+    // background-color: gray;
+    width: 100%;
+    margin:3%!important;
+    height: auto;
+    overflow: hidden!important;
+    margin-right: 1%!important;
+}
+
+.host-step-details{
+    margin-top: 2%!important;
+}
+
+.host-step-text{
+    margin-left: 4%;
+    font-family:Montserrat;
+    font-weight: 600;
+}
+.host-step-no{
+    background-color: $theme-secondary!important;
+    margin-left: 4%;
+}

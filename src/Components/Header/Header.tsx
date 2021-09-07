@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Toolbar, Button, Box, Menu, MenuItem} from "@material-ui/core";
 import { RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import { logout } from '../../Redux/reducers/AuthReducer';
 import { Link as RouterLink, useHistory } from "react-router-dom";
 
 import "./header.scss";
-import logo from "../../assets/images/logo.svg";
+import logo from "../../assets/images/logo2.png";
 import { IconButton } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import { User } from '../../Shared/Interfaces/User';
@@ -29,7 +29,6 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [location, setLocation]= React.useState<string>(window.location.href);
   const open = Boolean(anchorEl);
-  const [loading,setLoading]=useState(true);
   
   useEffect(()=> {
     setLocation(window.location.href);
@@ -44,10 +43,8 @@ export default function Header() {
   };
 
   const logoutUser = () => {
-    setLoading(true)
     setTimeout(() => {
       dispatch(logout());
-      setLoading(false);
     }, 1000);
     
     setAnchorEl(null);
@@ -68,11 +65,11 @@ export default function Header() {
     return (
       <>
         <Toolbar>
-          <Box display='flex' flexGrow={1} >
+          <Box display='flex' style={{display:"flex",alignItems:"center"}} flexGrow={1} >
             <img className="logo" src={logo} alt="logo" />
-            <a className="header-text" href="/home">
+            {/* <a className="header-text" href="/home">
               Rent4Event
-            </a>
+            </a> */}
           </Box>
           <div className="toolbar-side-nav">{getMenuButtons()}</div>
         </Toolbar>

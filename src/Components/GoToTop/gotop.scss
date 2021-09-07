@@ -1,6 +1,6 @@
 @import '../../Shared/styles/colors';
 .topAvatar {
-  background-color: $banner-button-background-color!important;
+  background-color: $theme-primary!important;
 }
 .topAvatar:hover{
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);

@@ -12,7 +12,6 @@ import { useState } from "react";
 import { of } from "await-of";
 import { v4 } from "uuid";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
-import { IconButton } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
@@ -21,7 +20,9 @@ import { SharedService } from "../../Services/SharedService";
 import image1 from "../../assets/images/banner1.jpeg";
 import image2 from "../../assets/images/hotel.png";
 import image3 from "../../assets/images/resort.jpg";
-const images = [image1,image2, image3];
+import { Skeleton } from "@material-ui/lab";
+import { IconButton } from "@material-ui/core";
+const images = [image1, image2, image3];
 
 interface cardProps {
   id: number;
@@ -45,31 +46,38 @@ export default function CardItem({
   const user: User = useSelector((state: RootState) => state.auth.user);
   const [image, setImage] = useState<any>(null);
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
   const handleClick = () => history.push(`/venue-details/${id}`);
 
   const [wishlisted, setWishlisted] = useState(false);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const [response, error] = await of(
         venueService.getVenuePictures(id, host?.id)
       );
       if (error || response.length === 0) {
-        setImage(images[Math.floor(Math.random() * (3 - 0) + 1)-1]);
+        setImage(images[Math.floor(Math.random() * (3 - 0) + 1) - 1]);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
+        
         return;
       }
       if (response) {
+        setLoading(false);
         setImage(response[0]);
       }
     })();
-  }, [user,host,id]);
+  }, [user, host, id]);
 
   useEffect(() => {
     if (wish) {
       setWishlisted(true);
     }
   }, [wish]);
-  
+
   const handleAddToWishlist = async () => {
     const venue = {
       userId: user.id,
@@ -108,13 +116,22 @@ export default function CardItem({
   return (
     <Card className="root">
       <CardActionArea onClick={handleClick}>
-        <CardMedia
-          key={v4()}
-          component="img"
-          className="media"
-          src={image}
-          title="Venue Image"
-        />
+        {loading && (
+          <div className="card-item-image-loader">
+            {/* <CircularProgress /> */}
+            <Skeleton animation="wave" variant="rect" width={343} height={200} />
+          </div>
+        )}
+        {!loading && (
+          <CardMedia
+            key={v4()}
+            component="img"
+            className="media"
+            src={image}
+            title="Venue Image"
+          />
+        )}
+
         <CardContent key={v4()} className="card-content">
           <Typography
             key={v4()}
@@ -139,7 +156,7 @@ export default function CardItem({
       <CardActions key={v4()} className="card-item-price-section">
         <p className="venue-card-price">${price}</p>
 
-        {sharedService.isUserLoggedIn() ? (
+        {sharedService.isUserLoggedIn() && user.role==='client' ? (
           <div>
             {wishlisted ? (
               <IconButton

@@ -1,49 +1,81 @@
-import { Button } from "@material-ui/core";
+import { Button} from "@material-ui/core";
 import React, { useState } from "react";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import "./addedVenueCard.scss";
 import { useEffect } from "react";
 import { of } from "await-of";
 import { VenueService } from "../../Services/VenueService";
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import swal from "sweetalert";
+import { Skeleton } from "@material-ui/lab";
 const venueService = new VenueService();
-function AddedVenueCard({ venue, onClick, onEditClick }: { venue: Venue; onClick: any, onEditClick:any }) {
+function AddedVenueCard({ venue, onClick, onEditClick,onDelete}: { venue: Venue; onClick: any, onEditClick:any,onDelete:any}) {
   const [image, setImage]= useState<any>(null);
+  const [loading, setLoading]= useState<boolean>(false);
   useEffect(()=>{
     (async ()=>{
       const [response]= await of(venueService.getVenuePictures(venue.id,venue.host.id));
       if(response && response.length>0)setImage(response[0]);
     })();
   },[venue])
+  
+  const deleteVenue =async ()=> {
+    setLoading(true);
+    const [response, error]= await of(venueService.deleteVenue(venue.id));
+    if(error) {
+      swal("Error","Cancel the existing booking first!","error");
+    }
+    if(response) {
+      swal("Success","Venue Deleted","success");
+    }
+    onDelete();
+    setLoading(false);
+  }
   return (
     <>
-      <div className="added-venue-card-base" data-aos="slide-right" data-aos-once>
-        <div className="added-venue-card-image-container">
-          <img src={image} alt="venueImage" />
-        </div>
-        <div
-          onClick={() => onClick(venue)}
-          className="added-venue-card-info-section"
-        >
-          <div className="addded-venue-card-venue-title">
-            {venue?.title}
+      {loading && (
+        <div className="avc-skeleton-container">
+          <Skeleton animation="wave" variant="rect" width="15vw" height="8vw" />
+          <div>
+            <Skeleton animation="wave" width="50vw" />
+            <Skeleton animation="wave" width="50vw" />
+            <Skeleton animation="wave" width="50vw" />
           </div>
-          <div  className="addded-venue-card-venue-description">
-            {venue.description}
+        </div>
+      )}
+      {!loading && (
+        <div
+          className="added-venue-card-base"
+          data-aos="slide-right"
+          data-aos-once
+        >
+          <div className="added-venue-card-image-container">
+            <img src={image} alt="venueImage" />
           </div>
           <div
-            className="added-venue-card-venue-address"
-          >{`${venue?.address.streetAddress}, ${venue?.address.city}, ${venue?.address.state}, ${venue?.address.country}`}</div>
-        </div>
-        <div  className="added-venue-edit-button ">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => onEditClick(venue)}
+            onClick={() => onClick(venue)}
+            className="added-venue-card-info-section"
           >
-            Edit
-          </Button>
+            <div className="addded-venue-card-venue-title">{venue?.title}</div>
+            <div className="addded-venue-card-venue-description">
+              {venue.description}
+            </div>
+            <div className="added-venue-card-venue-address">{`${venue?.address.streetAddress}, ${venue?.address.city}, ${venue?.address.state}, ${venue?.address.country}`}</div>
+          </div>
+          <div className="added-venue-edit-button ">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => onEditClick(venue)}
+            >
+              Edit
+            </Button>
+            <Button className="avc-delete-button" onClick={deleteVenue}>
+              <DeleteOutlineIcon />
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

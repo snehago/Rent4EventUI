@@ -23,6 +23,8 @@ import { EventTypeService } from "../../Services/EventTypeService";
 import { EventType } from "../../Shared/Interfaces/EventType";
 import LocationPicker from "react-location-picker";
 import swal from "sweetalert";
+import addFiles from "../../assets/illustrations/addFiles.svg";
+import RoomRoundedIcon from '@material-ui/icons/RoomRounded';
 
 const venueService = new VenueService();
 const facilityService = new FacilityService();
@@ -68,7 +70,7 @@ export default function AddVenueDetails({ handleNext, venue }) {
     street: Yup.string().required("Required"),
     pincode: Yup.number().required("Required"),
   });
-  
+
   useEffect(() => {
     (async () => {
       const [response, error] = await of(facilityService.getAllFacility());
@@ -96,8 +98,8 @@ export default function AddVenueDetails({ handleNext, venue }) {
   }, []);
 
   const onSubmit = async (values: any, props: any) => {
-    const tempFacilities =selectedFacilities.map((id) => ({ id }));
-    const tempEventTypes =selectedEventTypes.map((id) => ({ id }));
+    const tempFacilities = selectedFacilities.map((id) => ({ id }));
+    const tempEventTypes = selectedEventTypes.map((id) => ({ id }));
     let address: Address = {
       streetAddress: values.street,
       state: values.state,
@@ -120,7 +122,7 @@ export default function AddVenueDetails({ handleNext, venue }) {
       listOfEventTypes: tempEventTypes,
     };
     console.log(venueToAdd);
-    if(venue) {
+    if (venue) {
       venueToAdd.id = venue.id;
       const [response, error] = await of(venueService.addVenue(venueToAdd));
       if (error) {
@@ -173,8 +175,10 @@ export default function AddVenueDetails({ handleNext, venue }) {
       <Paper elevation={5} className="addVenuePaper">
         <Grid container className="addVenueFormContainer" spacing={1}>
           <Grid className="addVenueLabel" item xs={12}>
-            Add Venue Details
+            Add Venue Details <br />
+            <img src={addFiles} alt="" height="30%" width="30%" />
           </Grid>
+
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
@@ -264,100 +268,102 @@ export default function AddVenueDetails({ handleNext, venue }) {
                   style={{ marginTop: "2%", marginBottom: "2%" }}
                 />
 
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  lg={12}
-                  md={12}
-                  sm={12}
-                  spacing={2}
-                >
-                  <Grid item xs={12}>
-                    <Typography className="addVenueSubLabels">
-                      Address
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Field
-                      as={TextField}
-                      InputLabelProps={{ shrink: true }}
-                      size="small"
-                      className="addVenueTextField"
-                      // variant="outlined"
-                      name="country"
-                      label="Enter Country Name"
-                      helperText={
-                        <ErrorMessage name="country">
-                          {(msg) => <div className="errorMsg">{msg}</div>}
-                        </ErrorMessage>
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Field
-                      as={TextField}
-                      InputLabelProps={{ shrink: true }}
-                      size="small"
-                      className="addVenueTextField"
-                      // variant="outlined"
-                      name="state"
-                      label="Enter State Name"
-                      helperText={
-                        <ErrorMessage name="state">
-                          {(msg) => <div className="errorMsg">{msg}</div>}
-                        </ErrorMessage>
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Field
-                      as={TextField}
-                      InputLabelProps={{ shrink: true }}
-                      size="small"
-                      className="addVenueTextField"
-                      // variant="outlined"
-                      name="city"
-                      label="Enter City Name"
-                      helperText={
-                        <ErrorMessage name="city">
-                          {(msg) => <div className="errorMsg">{msg}</div>}
-                        </ErrorMessage>
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Field
-                      as={TextField}
-                      InputLabelProps={{ shrink: true }}
-                      size="small"
-                      className="addVenueTextField"
-                      // variant="outlined"
-                      name="pincode"
-                      label="Enter Pincode"
-                      type="number"
-                      helperText={
-                        <ErrorMessage name="pincode">
-                          {(msg) => <div className="errorMsg">{msg}</div>}
-                        </ErrorMessage>
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Field
-                      as={TextField}
-                      InputLabelProps={{ shrink: true }}
-                      size="small"
-                      className="addVenueTextField"
-                      // variant="outlined"
-                      name="street"
-                      label="Enter Street Address"
-                      helperText={
-                        <ErrorMessage name="street">
-                          {(msg) => <div className="errorMsg">{msg}</div>}
-                        </ErrorMessage>
-                      }
-                    />
+                <Grid container item xs={12}>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    lg={12}
+                    md={12}
+                    sm={12}
+                    spacing={2}
+                  >
+                    <Grid item xs={12}>
+                      <Typography className="addVenueSubLabels">
+                        Address
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        as={TextField}
+                        InputLabelProps={{ shrink: true }}
+                        size="small"
+                        className="addVenueTextField"
+                        // variant="outlined"
+                        name="country"
+                        label="Enter Country Name"
+                        helperText={
+                          <ErrorMessage name="country">
+                            {(msg) => <div className="errorMsg">{msg}</div>}
+                          </ErrorMessage>
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        as={TextField}
+                        InputLabelProps={{ shrink: true }}
+                        size="small"
+                        className="addVenueTextField"
+                        // variant="outlined"
+                        name="state"
+                        label="Enter State Name"
+                        helperText={
+                          <ErrorMessage name="state">
+                            {(msg) => <div className="errorMsg">{msg}</div>}
+                          </ErrorMessage>
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        as={TextField}
+                        InputLabelProps={{ shrink: true }}
+                        size="small"
+                        className="addVenueTextField"
+                        // variant="outlined"
+                        name="city"
+                        label="Enter City Name"
+                        helperText={
+                          <ErrorMessage name="city">
+                            {(msg) => <div className="errorMsg">{msg}</div>}
+                          </ErrorMessage>
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        as={TextField}
+                        InputLabelProps={{ shrink: true }}
+                        size="small"
+                        className="addVenueTextField"
+                        // variant="outlined"
+                        name="pincode"
+                        label="Enter Pincode"
+                        type="number"
+                        helperText={
+                          <ErrorMessage name="pincode">
+                            {(msg) => <div className="errorMsg">{msg}</div>}
+                          </ErrorMessage>
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        as={TextField}
+                        InputLabelProps={{ shrink: true }}
+                        size="small"
+                        className="addVenueTextField"
+                        // variant="outlined"
+                        name="street"
+                        label="Enter Street Address"
+                        helperText={
+                          <ErrorMessage name="street">
+                            {(msg) => <div className="errorMsg">{msg}</div>}
+                          </ErrorMessage>
+                        }
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
 
@@ -430,7 +436,7 @@ export default function AddVenueDetails({ handleNext, venue }) {
 
                 <Grid item xs={12}>
                   <div className="addVenueSubLabels">
-                    Mark Venue Location On Map
+                    <RoomRoundedIcon /> Mark Venue Location On Map 
                   </div>
 
                   <LocationPicker

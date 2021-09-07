@@ -1,3 +1,4 @@
+@import '../../Shared/styles/colors';
 .scroll-div {
   overflow: auto;
   height: 90vh !important;
@@ -23,7 +24,7 @@
   letter-spacing: 0px;
   color: #000000;
   opacity: 1;
-  margin-bottom: 5% !important;
+  // margin-bottom: 5% !important;
 }
 .addVenueTextField {
   background-color: white;
@@ -36,17 +37,21 @@
   opacity: 1;
 }
 .addVenueButton {
-  background-color: #d3600c !important;
+  background-color: $theme-primary !important;
   color: white !important;
   margin-top: 4% !important;
 }
 .upload-btn-style {
-  border-color: #d3600c !important;
-  color: #d3600c !important;
+  border-color: $theme-primary !important;
+  color: $theme-primary !important;
   font: normal normal 400 80% Montserrat !important;
   margin: 1% !important;
 }
 
 .image-item {
   margin: 1%;
+}
+
+.add-venue-subsection-container{
+  margin-top: -12%!important;
 }

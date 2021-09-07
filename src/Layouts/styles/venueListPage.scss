@@ -2,7 +2,7 @@
 
 .all-venues {
   width: 100% !important;
-  margin-top: 5%;
+  margin-top: 1%;
   height: 100% !important;
   overflow:visible;
 }
@@ -14,6 +14,8 @@
 }
 .venue-grid  {
   background-color: #eaeaea;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .card:hover {
   transform: translateY(-50px);
@@ -63,7 +65,7 @@
   justify-content: center;
   overflow: hidden;
   align-items: center;
-  height: 24vw;
+  height: 12vw;
   gap:5%;
   width: 100%;
   margin-top: 4.5vw;

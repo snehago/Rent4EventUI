@@ -13,7 +13,7 @@
   flex-direction: column !important;
   justify-content: flex-start !important;
   align-items: center !important;
-  padding: 2vw;
+  padding: 0;
 }
 .host-venue-booking-heading {
   display: flex;
@@ -25,10 +25,16 @@
 }
 .hvl-edit-venue-div {
   width: 100% !important;
-  height: 100% !important;
+  height: 85% !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: flex-start !important;
-  align-items: center !important;
-  padding: 2vw;
+  align-items: flex-start !important;
+  padding: 1vw;
+}
+.hvl-back-button {
+  width: 100% !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
 }
