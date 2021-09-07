@@ -4,10 +4,14 @@ import { Doughnut } from "react-chartjs-2";
 import { AnalyticsService } from "../../Services/AnalyticsServices";
 import "./commonAnalytics.scss";
 import swal from "sweetalert";
+import { useSelector } from "react-redux";
+import { RootState } from "../../Redux/store";
+import { User } from "../../Shared/Interfaces/User";
 
 const analyticsService = new AnalyticsService();
 
 function DoughnutChart({ userId }) {
+  const user: User = useSelector((state: RootState) => state.auth.user);
   const [pieColors, setPieColors] = useState([]);
   const [venues, setVenues] = useState([]);
   const [robj, setRobj] = useState({});
@@ -28,9 +32,7 @@ function DoughnutChart({ userId }) {
   //   },
   // ];
 
-  useEffect(() => {
-    setChanged(!changed);
-  }, []);
+ 
 
   useEffect(() => {
     (async () => {
@@ -78,7 +80,7 @@ function DoughnutChart({ userId }) {
     console.log("ta:", tempLabel);
 
     setLabels(tempLabel);
-  }, [userId]);
+  }, [user]);
 
   const data = {
     // labels: ["Grand Continental"],

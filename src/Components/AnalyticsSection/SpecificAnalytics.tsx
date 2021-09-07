@@ -71,7 +71,7 @@ function SpecificAnalytics() {
                 <Typography>{item.title}</Typography>
               </AccordionSummary>
               <AccordionDetails  >
-                <BarChart />
+                <BarChart venueId={item.id} />
               </AccordionDetails>
             </Accordion>
           ))}
