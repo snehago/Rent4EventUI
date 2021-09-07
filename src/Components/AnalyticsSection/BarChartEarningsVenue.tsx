@@ -18,9 +18,9 @@ function BarChartEarningsVenue({ venueId }) {
       }
       if (response) {
         console.log(response);
-        console.log(response.response)
+        console.log(response.response);
         var tempAr: any = [];
-        for (let i = 0; i < response.response.length; i++ ) {
+        for (let i = 0; i < response.response.length; i++) {
           tempAr.push(response.response[i]);
         }
         //   setDatas(response.response);
@@ -39,14 +39,9 @@ function BarChartEarningsVenue({ venueId }) {
     datasets: [
       {
         label: "Earnings Of The Venue",
-        // data: [200, 300, 500, 150, 400],
         data: datas,
-        borderColor: [
-          "#AFEEEE"
-        ],
-        backgroundColor: [
-          "#AFEEEE"
-        ],
+        borderColor: ["#AFEEEE"],
+        backgroundColor: ["#AFEEEE"],
       },
       //   {
       //     label: 'Sales 2019 (M)',

@@ -10,17 +10,10 @@ import analysis from "../../assets/illustrations/analysis.svg";
 function AnalyticsPage() {
   return (
     <Paper elevation={5} className="analytics-page-paper-container scroll-div">
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom:"2%"
-        }}
-      >
-        <img src={analysis} height="20%" width="20%" />
+      <div className="main-analytics-page-heading-container">
+        <img src={analysis} height="20%" width="20%" alt="" />
         <div className="analytics-page-heading">Analytics</div>
-        <img src={allDataSvg} height="20%" width="20%" />
+        <img src={allDataSvg} height="20%" width="20%" alt="" />
       </div>
 
       <CommonAnalytics />

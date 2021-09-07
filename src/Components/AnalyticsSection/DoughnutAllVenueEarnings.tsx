@@ -7,7 +7,6 @@ import swal from "sweetalert";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { User } from "../../Shared/Interfaces/User";
-import { v4 } from "uuid";
 
 const analyticsService = new AnalyticsService();
 
@@ -41,26 +40,24 @@ function DoughnutAllVenueEarnings({ userId }) {
     })();
 
     console.log("Robj:", robj);
-    console.log(robj[5]);
+    // console.log(robj[5]);
 
-    var tcolors: any = [];
+    var tempcolors: any = [];
     for (var i = 0; i < Object.keys(robj).length; i++) {
-      tcolors.push(dynamicColors());
+      tempcolors.push(dynamicColors());
     }
-    // robj.map((id) => tcolors.push(dynamicColors()));
-    setPieColors(tcolors);
+    setPieColors(tempcolors);
 
-    var tempAr: any = [];
+    var tempArray: any = [];
 
     for (const key in robj) {
       if (robj.hasOwnProperty(key)) {
-        tempAr.push(robj[key]);
+        tempArray.push(robj[key]);
       }
     }
 
-    console.log("ta:", tempAr);
-
-    setDataSet(tempAr);
+    console.log("ta:", tempArray);
+    setDataSet(tempArray);
 
     var tempLabel: any = [];
     for (const key in robj) {
@@ -75,12 +72,10 @@ function DoughnutAllVenueEarnings({ userId }) {
   }, []);
 
   const data = {
-    // labels: ["Grand Continental"],
     labels: labels,
     datasets: [
       {
         label: "Sales 2020 (M)",
-        // data: [robj[5]],
         data: dataSet,
         // backgroundColor: [
         //   "rgba(255, 99, 132, 1)",

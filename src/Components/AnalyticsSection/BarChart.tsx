@@ -36,19 +36,13 @@ function BarChart({ venueId }) {
   const data = {
     labels: Labels,
     datasets: [
-      
       {
         label: "No. Of Attendees",
-        // data: [200, 300, 500, 150, 400],
         data: datas,
-        borderColor: [
-          "#BA55D3"
-        ],
-        backgroundColor: [
-          "#BA55D3"
-        ],
+        borderColor: ["#BA55D3"],
+        backgroundColor: ["#BA55D3"],
       },
-      
+
       //   {
       //     label: 'Sales 2019 (M)',
       //     data: [4, 3, 2, 2, 3],
@@ -76,9 +70,7 @@ function BarChart({ venueId }) {
       text: "Bar Chart",
     },
     scales: {
-      xAxes:[{
-        
-    }],
+      xAxes: [{}],
       yAxes: [
         {
           ticks: {
@@ -86,7 +78,6 @@ function BarChart({ venueId }) {
             max: 6,
             stepSize: 1,
           },
-          
         },
       ],
     },
