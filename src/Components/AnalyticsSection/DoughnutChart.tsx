@@ -25,13 +25,6 @@ function DoughnutChart({ userId }) {
     return "rgb(" + r + "," + g + "," + b + ")";
   };
 
-  // const venues = [
-  //   {
-  //     id: 1,
-  //     name: "Grand Continental",
-  //   },
-  // ];
-
  
 
   useEffect(() => {
@@ -57,7 +50,6 @@ function DoughnutChart({ userId }) {
     }
     // robj.map((id) => tcolors.push(dynamicColors()));
     setPieColors(tcolors);
-
     var tempAr: any = [];
 
     for (const key in robj) {
@@ -65,7 +57,6 @@ function DoughnutChart({ userId }) {
         tempAr.push(robj[key]);
       }
     }
-
     console.log("ta:", tempAr);
 
     setDataSet(tempAr);

@@ -32,7 +32,7 @@ function BarChartEarningsVenue({ venueId }) {
 
   const Labels: any = [];
   for (let i = 0; i < datas.length; i++) {
-    Labels.push(`User ${i + 1}`);
+    Labels.push(`Client ${i + 1}`);
   }
   const data = {
     labels: Labels,
@@ -42,18 +42,10 @@ function BarChartEarningsVenue({ venueId }) {
         // data: [200, 300, 500, 150, 400],
         data: datas,
         borderColor: [
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
+          "#AFEEEE"
         ],
         backgroundColor: [
-          "#81399D",
-          "#81399D",
-          "#81399D",
-          "#81399D",
-          "#81399D",
+          "#AFEEEE"
         ],
       },
       //   {

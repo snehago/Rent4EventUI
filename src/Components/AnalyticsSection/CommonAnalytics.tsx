@@ -10,6 +10,7 @@ import DoughnutAllVenueEarnings from "./DoughnutAllVenueEarnings";
 import { AnalyticsService } from "../../Services/AnalyticsServices";
 import swal from "sweetalert";
 import { of } from "await-of";
+import DividerComponent from "../DividerComponent/DividerComponent";
 
 const analyticsService = new AnalyticsService();
 function CommonAnalytics() {
@@ -36,8 +37,10 @@ function CommonAnalytics() {
         
           
         <div className="total-earnings-host">
-         <span className="total-earning-label">Total Earning: </span>Rs. {totalEarning}
+         <span className="total-earning-label">Total Earning: </span><span id="earning-value">Rs. {totalEarning} </span>
         </div>
+
+        <DividerComponent />
 
         <div className="analytics-label">Bookings Of All Venues</div>
 

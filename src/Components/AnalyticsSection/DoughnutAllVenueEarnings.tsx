@@ -7,6 +7,7 @@ import swal from "sweetalert";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { User } from "../../Shared/Interfaces/User";
+import { v4 } from "uuid";
 
 const analyticsService = new AnalyticsService();
 
@@ -24,15 +25,6 @@ function DoughnutAllVenueEarnings({ userId }) {
     var b = Math.floor(Math.random() * 255);
     return "rgb(" + r + "," + g + "," + b + ")";
   };
-
-  // const venues = [
-  //   {
-  //     id: 1,
-  //     name: "Grand Continental",
-  //   },
-  // ];
-
- 
 
   useEffect(() => {
     (async () => {
@@ -102,7 +94,6 @@ function DoughnutAllVenueEarnings({ userId }) {
       },
     ],
   };
-
   const options = {
     title: {
       display: true,

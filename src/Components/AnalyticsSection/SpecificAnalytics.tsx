@@ -14,6 +14,8 @@ import swal from "sweetalert";
 import { of } from "await-of";
 import BarChart from "./BarChart";
 import BarChartEarningsVenue from "./BarChartEarningsVenue";
+import { Paper } from "@material-ui/core";
+import analysis2 from "../../assets/illustrations/analysis2.svg";
 
 const userService = new UserService();
 
@@ -48,39 +50,51 @@ function SpecificAnalytics() {
 
   return (
     <div className="specific-analytics-container">
-      <div className="analytics-label">Venue Specific</div>
+      <div style={{ display: "flex", justifyContent: "space-between",marginBottom:"2%" }}>
+        <div className="analytics-label">Venues Analytics</div>
+        <img src={analysis2} alt="" height="15%" width="15%" />
+      </div>
 
-      <Accordion className="specific-analytics-venue-list-accordion">
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Your Venues</Typography>
-        </AccordionSummary>
-        <AccordionDetails style={{ display: "flex", flexDirection: "column" }}>
-          {venues.map((item) => (
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>{item.title}</Typography>
-              </AccordionSummary>
-              <AccordionDetails
-                style={{ display: "flex", flexDirection: "column" }}
-              >
-                  
-                Number Of Attendees:
-                <BarChart venueId={item.id} />
-                Earnings Of Venue:
-                <BarChartEarningsVenue venueId={item.id} />
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </AccordionDetails>
-      </Accordion>
+      <Paper elevation={2}>
+        <Accordion className="specific-analytics-venue-list-accordion">
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <div className="analytics-venue-section-heading">Your Venues</div>
+          </AccordionSummary>
+          <AccordionDetails
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            {venues.map((item) => (
+              <Paper elevation={2} style={{ marginBottom: "2%" }}>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography variant="h6">{item.title}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <div className="graph-heading">
+                      Number Of Attendees Graph:
+                    </div>
+                    <BarChart venueId={item.id} />
+                    <div className="graph-heading">
+                      Earnings Of Venue Graph:
+                    </div>
+                    <BarChartEarningsVenue venueId={item.id} />
+                  </AccordionDetails>
+                </Accordion>
+              </Paper>
+            ))}
+          </AccordionDetails>
+        </Accordion>
+      </Paper>
     </div>
   );
 }
