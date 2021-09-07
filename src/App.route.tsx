@@ -47,7 +47,7 @@ export default function AppRouter({user}:any) {
           component={RegistrationPageHost}
           user={user}
         />
-        <Route exact path="/venue-list" component={VenueListPage} />
+        <Route path="/venue-list" component={VenueListPage} />
         <Route
           exact
           path="/venue-details/:venueId"

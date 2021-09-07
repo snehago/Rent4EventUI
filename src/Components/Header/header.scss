@@ -3,20 +3,20 @@
 .app-header{
   background-color: $header-background-color !important;
   box-shadow: 0px 8px 16px #00000029 !important;
-  height: 9vh;
+  height: 4vw;
   overflow: hidden;
 }
 
 .header-text {
   color: $header-logo-color;
   cursor: pointer;
-  font-size: 1.1rem;
-  margin: 1vh;
+  font-size: 1.1vw;
+  margin: 1vw;
   text-decoration: none;
 }
 
 .logo {
-  margin: 0 .5vw 2vh 3vw;
+  margin: 0 .5vw 1vw 3vw;
   height: 25vh;
   width: 10vw;
   margin-top: -1%;
@@ -29,22 +29,22 @@
 .side-nav-button {
   color: $header-side-nave-button-color !important;
   font-weight: 500 !important;
-  margin-bottom: 1vh !important;
+  margin-bottom: .5vw !important;
 }
 
 .side-nav-login-button {
-  margin-bottom: 1vh !important;
+  margin-bottom: .5vw !important;
 }
 
 .toolbar-side-nav {
   float: right;
-  padding-right: 3vh;
+  padding-right: 1.5vw;
 }
 
 .user-icon {
   color: $header-side-nave-button-color;
-  font-size: 2rem !important;
-  margin-bottom: 1vh;
+  font-size: 2.5vw !important;
+  margin-bottom: .5vw;
 }
 
 #activeRoute {

@@ -23,6 +23,10 @@ import "react-multi-carousel/lib/styles.css";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import weddingEventTypeImage from '../assets/images/weddingEventType.png';
+import meetingEventTypeImage from "../assets/images/meetingEventType.jpg";
+import photoshootEventTypeImage from "../assets/images/photoshootEventType.jpeg";
+import productionEventTypeImage from "../assets/images/productionEventType.jpg";
 import swal from "sweetalert";
 import { v4 } from "uuid";
 import { UserService } from "../Services/UserService";
@@ -30,6 +34,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import { ICity } from "country-state-city/dist/lib/interface";
+import { Container } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import { CardMedia } from "@material-ui/core";
 
 const responsive = {
   superLargeDesktop: {
@@ -69,10 +76,8 @@ const HomePage = () => {
     search: "",
   });
   
-  const [eventTypes, setEventTypes] = useState([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
-  const [cities, setCities]= useState<ICity[]>(sharedService.getCityByCountryCode("IN") || []);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [listOfWishlist, setListOfWishlist] = useState([]);
   const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
@@ -106,24 +111,6 @@ const HomePage = () => {
     }
   }, [user, venues, originalVenues]);
 
-  useEffect(() => {
-    (async () => {
-      const [eventResponse, eventError] = await of(
-        eventTypeService.getAllEventType()
-      );
-      if (eventError) {
-        swal("unable to fetch event type", "error");
-      }
-      if (eventResponse) {
-        console.log(eventResponse);
-        setEventTypes(eventResponse);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    applyAppropiateFilters();
-  }, [filters, originalVenues]);
 
   useEffect(() => {
     (async () => {
@@ -152,87 +139,17 @@ const HomePage = () => {
   };
 
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
-    console.log(event.target);
     let temp: any = {};
-    if (event.target.name === "priceFilter")
-      temp = { ...filters, priceFilter: event.target.value };
-    if (event.target.name === "capacityFilter")
-      temp = { ...filters, capacityFilter: event.target.value };
-    if (event.target.name === "eventTypeFilter")
-      temp = { ...filters, eventTypeFilter: event.target.value };
-    if (event.target.name === "locationFilter")
-      temp = { ...filters, locationFilter: event.target.value };
     if (event.target.name === "search")
       temp = { ...filters, search: event.target.value };
     setFilters(temp);
   };
-  const applyAppropiateFilters = () => {
-    console.log(filters);
-    let tempVenues = originalVenues;
-    for (let i of Object.keys(filters)) {
-      if (filters[i] === -1) continue;
-      else {
-        if (i === "priceFilter")
-          tempVenues = applyPriceFilter(filters[i], tempVenues);
-        if (i === "capacityFilter")
-          tempVenues = applyCapacityFilter(filters[i], tempVenues);
-        if (i === "eventTypeFilter")
-          tempVenues = applyEventTypeFilter(filters[i], tempVenues);
-      }
-    }
-    let toSearch = filters.search.trim().toUpperCase();
-    if (toSearch.length !== 0) {
-      tempVenues = tempVenues.filter(
-        (venue) =>
-          venue.title.toUpperCase().includes(toSearch) ||
-          venue?.address?.city?.toUpperCase().includes(toSearch)
-      );
-    }
-    setVenues(tempVenues);
-  };
-  const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {
-    console.log("priceFilter");
-    let temp: any = [];
-    console.log(typeof filterType, filterType);
-    if (filterType === 1)
-      temp = tempVenues.filter((venue) => venue.price <= 500);
-    if (filterType === 2)
-      temp = tempVenues.filter(
-        (venue) => venue.price > 500 && venue.price <= 1000
-      );
-    if (filterType === 3)
-      temp = tempVenues.filter(
-        (venue) => venue.price > 1000 && venue.price <= 5000
-      );
-    if (filterType === 4)
-      temp = tempVenues.filter((venue) => venue.price > 5000);
-    return temp;
-  };
 
-  const applyCapacityFilter = (filterType: any, tempVenues: Venue[]) => {
-    let temp: any = [];
-    console.log("capacity", filterType);
-    if (filterType === 1)
-      temp = tempVenues.filter((venue) => venue.capacity <= 500);
-    if (filterType === 2)
-      temp = tempVenues.filter(
-        (venue) => venue.capacity > 500 && venue.capacity <= 1000
-      );
-    if (filterType === 3)
-      temp = venues.filter((venue) => venue.capacity > 1000);
-    console.log("capacity", temp.length);
-    return temp;
-  };
-  const applyEventTypeFilter = (filterType: any, tempVenues: Venue[]) => {
-    let temp: any = [];
-    temp = tempVenues.filter(
-      (venue) =>
-        venue.listOfEventTypes.filter(
-          (eventType: any) => eventType.id === filterType
-        ).length > 0
-    );
-    return temp;
-  };
+  const applyAppropiateFilters = () => {
+    history.push(`/venue-list?search_text=${filters.search}`);
+  }
+
+
   return (
     <>
       {loading && <CircularLoader />}
@@ -265,7 +182,7 @@ const HomePage = () => {
       {/* banner ends */}
 
       {/* Filter and search  starts*/}
-      <div className="home-filter-container">
+      {/* <div className="home-filter-container">
         <FormControl>
           <InputLabel shrink id="event-type" className="home-label">
             Event Type
@@ -302,7 +219,14 @@ const HomePage = () => {
             <MenuItem value={-1}>
               <em>None</em>
             </MenuItem>
-            { cities?.map(city => <MenuItem key={city.stateCode+ city.countryCode} value={city.name}>{city.name}</MenuItem>)}
+            {cities?.map((city) => (
+              <MenuItem
+                key={city.stateCode + city.countryCode}
+                value={city.name}
+              >
+                {city.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
 
@@ -356,7 +280,7 @@ const HomePage = () => {
             </MenuItem>
           </Select>
         </FormControl>
-      </div>
+      </div> */}
       <div className="home-search-container">
         <TextField
           id="search"
@@ -378,11 +302,73 @@ const HomePage = () => {
         </Button>
       </div>
       {/* Filter and search ends */}
+
+      {/* Event type cards */}
+      <Container className="hp-event-type-filter-container">
+        <Typography variant="h5" className="hp-event-type-filter-heading">
+          Search according to your need
+        </Typography>
+        <Grid spacing={2} container lg={12}>
+          <Grid item lg={3}>
+            <CardMedia
+              component="img"
+              image={weddingEventTypeImage}
+              height="100%"
+              className="hp-event-type-icon"
+              onClick={() => history.push("/venue-list?even_type=1")}
+            />
+            <Typography className="hp-event-type-filter-heading">
+              Wedding
+            </Typography>
+          </Grid>
+          <Grid item lg={3}>
+            <CardMedia
+              component="img"
+              image={meetingEventTypeImage}
+              height="100%"
+              className="hp-event-type-icon"
+              onClick={() => history.push("/venue-list?even_type=5")}
+            />
+            <Typography className="hp-event-type-filter-heading">
+              Meetings
+            </Typography>
+          </Grid>
+          <Grid item lg={3}>
+            <CardMedia
+              component="img"
+              image={productionEventTypeImage}
+              height="100%"
+              className="hp-event-type-icon"
+              onClick={() => history.push("/venue-list?even_type=3")}
+            />
+            <Typography className="hp-event-type-filter-heading">
+              Production
+            </Typography>
+          </Grid>
+          <Grid item lg={3}>
+            <CardMedia
+              component="img"
+              image={photoshootEventTypeImage}
+              height="100%"
+              className="hp-event-type-icon"
+              onClick={() => history.push("/venue-list?even_type=2")}
+            />
+            <Typography className="hp-event-type-filter-heading">
+              Photo shoot
+            </Typography>
+          </Grid>
+        </Grid>
+      </Container>
+      {/* event type cads ends here */}
       <div className="recommendedVenues">
         <div>
           <Typography className="recommendedTitle">Popular Venues</Typography>
         </div>
-        <div className="recommended-venue-box" data-aos="slide-up" data-aos-once>
+        <div
+          className="recommended-venue-box"
+          data-aos="slide-up"
+          data-aos-once
+        >
           <Caraousel
             key={v4()}
             swipeable={true}
@@ -421,7 +407,7 @@ const HomePage = () => {
           </Caraousel>
         </div>
 
-        <div className="exploreButton" data-aos="fade-up" data-aos-once >
+        <div className="exploreButton" data-aos="fade-up" data-aos-once>
           <Button
             onClick={handleClick}
             size="large"

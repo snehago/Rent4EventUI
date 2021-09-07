@@ -25,22 +25,27 @@ import { EventTypeService } from "../Services/EventTypeService";
 import InfiniteScroll from "react-infinite-scroller";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
-import { v4 } from "uuid";
+import queryString from "query-string";
 import { UserService } from "../Services/UserService";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import { FacilityService } from "../Services/FacilityService";
 import { ICity } from "country-state-city/dist/lib/interface";
-import Footer from "../Components/Footer";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
 const facilityService = new FacilityService();
 const userService = new UserService();
 const sharedService = new SharedService();
-const VenueListPage = () => {
+const VenueListPage = (props) => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const [eventType] = useState<any>(
+    queryString.parse(props.location.search).even_type || null
+  );
+  const [searchText] = useState<any>(
+    queryString.parse(props.location.search).search_text || null
+  );
   const [filters, setFilters] = useState<any>({
     capacityFilter: -1,
     priceFilter: -1,
@@ -53,7 +58,9 @@ const VenueListPage = () => {
     search: "",
   });
   const [venues, setVenues] = useState<Venue[]>([]);
-  const [cities, setCities]= useState<ICity[]>(sharedService.getCityByCountryCode("IN") || [])
+  const [cities] = useState<ICity[]>(
+    sharedService.getCityByCountryCode("IN") || []
+  );
   const [eventTypes, setEventTypes] = useState([]);
   const [facilities, setFacilities] = useState<any[]>([]);
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
@@ -70,33 +77,11 @@ const VenueListPage = () => {
 
   useEffect(() => {
     (async () => {
-      const [response, error] = await of(
-        venueService.getAllVenues(currentPage)
-      );
-      if (error) {
-        swal("Error","Unable to fetch venues", "error");
-      }
-      if (response) {
-        if (response.length === 0) {
-          setDisabled(true);
-          return;
-        }
-
-        setTimeout(() => {
-          setOriginalVenues((prev) => [...prev, ...response]);
-          setLoading(false);
-        }, 4000);
-      }
-    })();
-  }, [currentPage]);
-
-  useEffect(() => {
-    (async () => {
       const [eventResponse, eventError] = await of(
         eventTypeService.getAllEventType()
       );
       if (eventError) {
-        swal("Error","Unable to fetch event types", "error");
+        swal("Error", "Unable to fetch event types", "error");
       }
       if (eventResponse) {
         setEventTypes(eventResponse);
@@ -107,17 +92,43 @@ const VenueListPage = () => {
   useEffect(() => {
     (async () => {
       const [response, error] = await of(
-        facilityService.getAllFacility()
+        venueService.getAllVenues(currentPage)
       );
       if (error) {
-        swal("Error","Unable to fetch facilities", "error");
+        swal("Error", "Unable to fetch venues", "error");
+      }
+      if (response) {
+        if (response.length === 0) {
+          setDisabled(true);
+          return;
+        }
+        setOriginalVenues((prev) => [...prev, ...response]);
+        setLoading(false);
+        setTimeout(()=>{
+          setFilters(
+            Object.assign({},filters, {
+              eventTypeFilter: Number(eventType) || -1,
+              search: searchText || "",
+            })
+          );
+          
+        },2000);
+      }
+    })();
+  }, [currentPage]);
+
+  useEffect(() => {
+    (async () => {
+      const [response, error] = await of(facilityService.getAllFacility());
+      if (error) {
+        swal("Error", "Unable to fetch facilities", "error");
       }
       if (response) {
         setFacilities(response);
       }
     })();
   }, []);
-  
+
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
     console.log(event.target);
     let temp: any = {};
@@ -157,8 +168,7 @@ const VenueListPage = () => {
           tempVenues = applyFacilityFilter(filters[i], tempVenues);
         if (i === "locationFilter")
           tempVenues = applyLocationFilter(filters[i], tempVenues);
-        if (i === "sort")
-          tempVenues = sort(filters[i], tempVenues);
+        if (i === "sort") tempVenues = sort(filters[i], tempVenues);
       }
     }
     let toSearch = filters.search.trim().toUpperCase();
@@ -238,7 +248,7 @@ const VenueListPage = () => {
 
   const applyLocationFilter = (filterType: any, tempVenues: Venue[]) => {
     let toSearch = filterType?.trim()?.toUpperCase();
-    let temp:any =[];
+    let temp: any = [];
     if (toSearch?.length !== 0) {
       temp = tempVenues.filter(
         (venue) =>
@@ -252,8 +262,8 @@ const VenueListPage = () => {
   const sort = (filterType: any, tempVenues: Venue[]) => {
     setLoading(true);
     let temp: any = [];
-    if(filterType===2)temp = tempVenues.sort((a,b)=> a.price-b.price);
-    if(filterType===1)temp = tempVenues.sort((a, b) => b.price - a.price);
+    if (filterType === 2) temp = tempVenues.sort((a, b) => a.price - b.price);
+    if (filterType === 1) temp = tempVenues.sort((a, b) => b.price - a.price);
     setLoading(false);
     return temp;
   };
@@ -308,11 +318,13 @@ const VenueListPage = () => {
           <div className="venue-search-container">
             <TextField
               id="search"
-              label="Search"
+              label={null}
               name="search"
               variant="outlined"
               className="textfield"
               size="small"
+              placeholder="Search a venue by typing name or city"
+              value={filters.search}
               onChange={handleFilterChange}
             />
             <Button
@@ -373,7 +385,14 @@ const VenueListPage = () => {
               <MenuItem value={-1}>
                 <em>None</em>
               </MenuItem>
-              {cities?.map(city => <MenuItem key={city.countryCode+city.stateCode} value={city.name}>{city.name}</MenuItem>)}
+              {cities?.map((city) => (
+                <MenuItem
+                  key={city.countryCode + city.stateCode}
+                  value={city.name}
+                >
+                  {city.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 
@@ -472,7 +491,11 @@ const VenueListPage = () => {
               <MenuItem value={-1}>
                 <em>None</em>
               </MenuItem>
-              { facilities?.map(facility =><MenuItem key={facility.id} value={facility.id}>{facility.name}</MenuItem>)}
+              {facilities?.map((facility) => (
+                <MenuItem key={facility.id} value={facility.id}>
+                  {facility.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 
@@ -514,7 +537,7 @@ const VenueListPage = () => {
         >
           <Box className="venue-box">
             <Grid xs={12} container spacing={8} className="venue-grid">
-              {venues?.map((venue,index) => (
+              {venues?.map((venue, index) => (
                 <Grid
                   item
                   xs={12}
@@ -522,7 +545,7 @@ const VenueListPage = () => {
                   lg={4}
                   data-aos="fade-up"
                   data-aos-once
-                  key={index*index}
+                  key={index * index}
                 >
                   {listOfWishlistId.includes(venue.id) ? (
                     <Box>
@@ -538,15 +561,15 @@ const VenueListPage = () => {
                     </Box>
                   ) : (
                     <Box>
-                    <CardItem
-                      id={venue.id}
-                      title={venue.title}
-                      description={venue.description}
-                      price={venue.price}
-                      host={venue.host}
-                      wish={false}
-                      key={venue.id}
-                    />
+                      <CardItem
+                        id={venue.id}
+                        title={venue.title}
+                        description={venue.description}
+                        price={venue.price}
+                        host={venue.host}
+                        wish={false}
+                        key={venue.id}
+                      />
                     </Box>
                   )}
                 </Grid>
@@ -555,8 +578,6 @@ const VenueListPage = () => {
           </Box>
         </InfiniteScroll>
       </div>
-
-      <Footer />
     </>
   );
 };
