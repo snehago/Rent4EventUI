@@ -1,15 +1,8 @@
 FROM node:14-alpine as build-stage
-# set working direction
 WORKDIR /app
-# add `/app/node_modules/.bin` to $PATH
-#ENV PATH /app/node_modules/.bin:$PATH
-# install application dependencies
-COPY . ./ 
-#COPY package.json ./
-RUN npm install
-# add app
-# build app
-RUN npm run build
+COPY . ./
+RUN yarn
+RUN yarn build
 
 # production stage
 FROM nginx:stable as production-stage
