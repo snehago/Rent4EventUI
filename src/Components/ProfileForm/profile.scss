@@ -7,7 +7,14 @@
   justify-content: center;
 }
 .profile-image{
-  border-radius: 100% !important;
+  // border-radius: 100% !important;
+  border-radius: 0.5rem!important;
+  width: 100%;
+  height: 100%;
+}
+.profile-pic-paper{
+  background-repeat: 0.5rem!important;
+  border-radius: 0.7rem!important;
 }
 .profile-paper-container {
   width: 96%;
@@ -37,9 +44,11 @@
 
 .profile-pic-card {
   max-width: 40vh;
-  max-height: 50vh;
-  border-radius: 50%!important;
-  border: 3px solid $theme-primary!important ;
+  height: 100%;
+  border-radius: 0.7rem!important;
+  // max-height: 50vh;
+  // border-radius: 50%!important;
+  // border: 3px solid $theme-primary!important ;
 }
 .profile-details-grid-container {
   // background-color: yellowgreen;

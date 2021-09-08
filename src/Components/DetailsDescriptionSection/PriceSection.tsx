@@ -11,6 +11,7 @@ import { BookingService } from "../../Services/BookingService";
 import { User } from "../../Shared/Interfaces/User";
 import { Venue } from "../../Shared/Interfaces/Venue";
 import "./description.scss";
+import './material.scss'
 interface DSProps {
   venue: Venue;
 }
@@ -116,6 +117,7 @@ export default function PriceSection({ venue }: DSProps) {
             // max={maxDate}
             // minDays={3}
             // maxDays={5}
+            
             format="dd-MMM-yy"
             onChange={handleDateChange}
           ></DateRangePickerComponent>

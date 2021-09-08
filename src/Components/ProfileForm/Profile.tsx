@@ -145,9 +145,9 @@ const Profile = (props: any) => {
           </Grid>
           {/* Profile Picture Sidebar starts here */}
           <Grid item xs={12} className="profile-pic-grid">
-            <Paper elevation={8} style={{ borderRadius: "50%" }}>
+            <Paper elevation={8} className="profile-pic-paper" >
               <Card className="profile-pic-card">
-                <CardActionArea>
+                <CardActionArea className="ppic-action-area" style={{height:"100%",borderRadius:"0.5rem"}}>
                   {(!profilePic || editProfile) && (
                     <ImageUploader
                       withIcon={false}
@@ -162,8 +162,8 @@ const Profile = (props: any) => {
                     <img
                       className="profile-image"
                       src={image}
-                      height="160vh"
-                      width="150vw"
+                      height="100%"
+                      width="100%"
                       alt="profilePic"
                     />
                   )}
