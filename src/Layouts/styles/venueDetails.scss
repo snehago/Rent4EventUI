@@ -36,6 +36,7 @@
   padding: 1vw 1vw 0 0;
   top: -1px;
 }
+
 @media only screen and (max-width: 600px) {
 .details-page-container{
     height: 100% !important;
@@ -56,5 +57,10 @@
   flex-grow: 1;
   width: 95%;
 }
-
+.vdp-recommended-title {
+  font: normal normal 700 5vw Montserrat !important;
+  letter-spacing: 0;
+  opacity: 1;
+  padding-top: 0;
+}
 }

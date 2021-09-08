@@ -42,6 +42,11 @@ class SharedService {
   public getCityByCountryCode(countryCode) {
     return City.getCitiesOfCountry(countryCode);
   }
+  public getDifferenceInDays(date1, date2) {
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    return Difference_In_Days+1;
+  }
 }
 
 export { SharedService };

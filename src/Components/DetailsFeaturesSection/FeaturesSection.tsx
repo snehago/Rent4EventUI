@@ -90,7 +90,7 @@ export default function FeaturesSection({ venue }: FSProps) {
               {offers.map((item) => (
                 <Grid key={v4()} spacing={0} item xs={12} sm={12} lg={12}>
                   <span>
-                    <Alert severity="success">
+                    <Alert className="fs-offer-item" severity="success">
                       {item.offer + " " + item.subtitle}
                     </Alert>
                   </span>

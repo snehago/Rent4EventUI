@@ -8,8 +8,9 @@ import { Venue } from "../../Shared/Interfaces/Venue";
 import "./bookingCard.scss";
 import swal from 'sweetalert';
 import { v4 } from "uuid";
+import { SharedService } from "../../Services/SharedService";
 const venueService = new VenueService();
-
+const sharedService = new SharedService();
 function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
   const [venue, setVenue] = useState<Venue | null>(null);
   const [image, setImage]=useState<any>(null);
@@ -52,15 +53,14 @@ function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
         >{`${venue?.address.streetAddress}, ${venue?.address.city}, ${venue?.address.state}, ${venue?.address.country}, ${venue?.address.pin}`}</div>
         <div key={v4()} className="booking-card-booking-date">
           {" "}
-          <b>from:</b> {moment(booking.from).format("LL")} - <b>to:</b>{" "}
-          {moment(booking.to).format("LL")}
+          from: <b>{moment(booking.from).format("LL")}</b> - to:{" "}
+          <b>{moment(booking.to).format("LL")}</b>
         </div>
       </div>
       <div key={v4()} className="booking-card-days-section">
         for{" "}
-        {Math.abs(
-          new Date(booking.to).getDay() - new Date(booking.from).getDay()
-        ) + 1}{" "}
+        {sharedService.getDifferenceInDays(new Date(booking.from),new Date(booking.to))}
+        {" "}
         day(s).
       </div>
       <div key={v4()} className="booking-card-status-section">
