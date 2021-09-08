@@ -9,6 +9,11 @@ import { AnalyticsService } from "../../Services/AnalyticsServices";
 import swal from "sweetalert";
 import { of } from "await-of";
 import DividerComponent from "../DividerComponent/DividerComponent";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const analyticsService = new AnalyticsService();
 function CommonAnalytics() {
@@ -41,9 +46,10 @@ function CommonAnalytics() {
 
         <div className="analytics-label">Bookings Of All Venues</div>
 
-        <div className="doughnut-chart-container">
-          <DoughnutChart userId={user.id}  />
-        </div>
+       
+            <div className="doughnut-chart-container">
+              <DoughnutChart userId={user.id} />
+            </div>
 
         <div className="analytics-label">Earnings Of All Venues</div>
 
