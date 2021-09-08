@@ -53,7 +53,7 @@ const LoginPage = () => {
     console.log(values);
     const [response, error] = await of(userService.login(values));
     if (error) {
-      swal("Invalid Username or Password","error");
+      swal("error","Invalid Username or Password","error");
     }
     if (response) {
       if (response.role === "client") history.push("/home");

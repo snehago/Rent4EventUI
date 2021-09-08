@@ -30,6 +30,22 @@ body{
   background-color: $theme-secondary !important;
   }
 }
+.react-multiple-carousel__arrow {
+  background-color: $theme-primary !important;
+}
+.react-multiple-carousel__arrow--right {
+  right: calc(0% + 1px) !important;
+}
+.react-multiple-carousel__arrow--left {
+  left: calc(0% + 1px) !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeaderWrapper {
+  background-color: #eaeaea !important;
+}
+.MuiTableHead-root {
+  background-color: #eaeaea;
+}
 @media only screen and (max-width: 600px) {
   * {
   margin: 0;

@@ -62,4 +62,35 @@
   .app-mobile-header {
   display: block;
 }
+.logo {
+  padding: 1vw;
+  height: 7vw;
+  width: 30vw;
+  margin-top: -1%;
+}
+.side-nav-button {
+  color: $header-side-nave-button-color !important;
+  font-weight: 500 !important;
+  margin-bottom: .5vw !important;
+}
+
+.side-nav-login-button {
+  float: right;
+  margin-left: 25vw !important;
+  margin-bottom: .5vw !important;
+}
+
+.toolbar-side-nav {
+  float: right;
+  padding-right: 1.5vw;
+}
+
+.user-icon {
+  float: right;
+  margin-left: 30vw;
+  color: $header-side-nave-button-color;
+  font-size: 10vw !important;
+  margin-bottom: .5vw;
+}
+
 }

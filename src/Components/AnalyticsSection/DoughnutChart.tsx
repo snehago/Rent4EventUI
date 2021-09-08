@@ -7,17 +7,17 @@ import swal from "sweetalert";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { User } from "../../Shared/Interfaces/User";
+import { v4 } from "uuid";
 
 const analyticsService = new AnalyticsService();
 
 function DoughnutChart({ userId }) {
   const user: User = useSelector((state: RootState) => state.auth.user);
   const [pieColors, setPieColors] = useState([]);
-  const [venues, setVenues] = useState([]);
   const [robj, setRobj] = useState({});
   const [dataSet, setDataSet] = useState([]);
+  const [data, setData] = useState<any>(null);
   const [labels, setLabels] = useState([]);
-  const [changed, setChanged] = useState(false);
   var dynamicColors = function () {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
@@ -37,57 +37,47 @@ function DoughnutChart({ userId }) {
         console.log(response);
         setRobj(response.response);
       }
+      console.log("Robj:", robj);
+      console.log(robj[5]);
+
+      var tempcolors: any = [];
+      for (var i = 0; i < Object.keys(robj).length; i++) {
+        await tempcolors.push(dynamicColors());
+      }
+      setPieColors(tempcolors);
+      var tempArray: any = [];
+
+      for (const key in robj) {
+        if (robj.hasOwnProperty(key)) {
+          await tempArray.push(robj[key]);
+        }
+      }
+      console.log("ta:", tempArray);
+
+      setDataSet(tempArray);
+
+      var tempLabel: any = [];
+      for (const key in robj) {
+        if (robj.hasOwnProperty(key)) {
+          await tempLabel.push(key);
+        }
+      }
+      setLabels(tempLabel);
     })();
+  }, [user,userId])
 
-    console.log("Robj:", robj);
-    console.log(robj[5]);
-
-    var tempcolors: any = [];
-    for (var i = 0; i < Object.keys(robj).length; i++) {
-      tempcolors.push(dynamicColors());
-    }
-    setPieColors(tempcolors);
-    var tempArray: any = [];
-
-    for (const key in robj) {
-      if (robj.hasOwnProperty(key)) {
-        tempArray.push(robj[key]);
-      }
-    }
-    console.log("ta:", tempArray);
-
-    setDataSet(tempArray);
-
-    var tempLabel: any = [];
-    for (const key in robj) {
-      if (robj.hasOwnProperty(key)) {
-        tempLabel.push(key);
-      }
-    }
-
-    console.log("ta:", tempLabel);
-
-    setLabels(tempLabel);
-  }, [user]);
-
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: "Sales 2020 (M)",
-        data: dataSet,
-        // backgroundColor: [
-        //   "rgba(255, 99, 132, 1)",
-        //   "rgba(255, 205, 86, 1)",
-        //   "rgba(54, 162, 235, 1)",
-        //   "rgba(255, 159, 64, 1)",
-        //   "rgba(153, 102, 255, 1)",
-        // ],
-
-        backgroundColor: pieColors,
-      },
-    ],
-  };
+  useEffect(() => {
+    setData({
+      labels: labels,
+      datasets: [
+        {
+          label: "Sales 2020 (M)",
+          data: dataSet,
+          backgroundColor: pieColors,
+        },
+      ],
+    });
+  }, [labels, dataSet, pieColors]);
 
   const options = {
     title: {
@@ -96,7 +86,18 @@ function DoughnutChart({ userId }) {
     },
   };
 
-  return <Doughnut className="doughnut-chart" data={data} options={options} />;
+  return (
+    <>
+    {(labels && dataSet) && 
+      <Doughnut
+      key={v4()}
+      className="doughnut-chart"
+      data={data}
+      options={options}
+    />
+  }
+  </>
+  );
 }
 
 export default DoughnutChart;

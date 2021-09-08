@@ -4,20 +4,15 @@ import { Doughnut } from "react-chartjs-2";
 import { AnalyticsService } from "../../Services/AnalyticsServices";
 import "./commonAnalytics.scss";
 import swal from "sweetalert";
-import { useSelector } from "react-redux";
-import { RootState } from "../../Redux/store";
-import { User } from "../../Shared/Interfaces/User";
+import { v4 } from "uuid";
 
 const analyticsService = new AnalyticsService();
 
 function DoughnutAllVenueEarnings({ userId }) {
-  const user: User = useSelector((state: RootState) => state.auth.user);
   const [pieColors, setPieColors] = useState([]);
-  const [venues, setVenues] = useState([]);
   const [robj, setRobj] = useState({});
   const [dataSet, setDataSet] = useState([]);
   const [labels, setLabels] = useState([]);
-  const [changed, setChanged] = useState(false);
   var dynamicColors = function () {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
@@ -96,7 +91,7 @@ function DoughnutAllVenueEarnings({ userId }) {
     },
   };
 
-  return <Doughnut className="doughnut-chart" data={data} options={options} />;
+  return <Doughnut key={v4()} className="doughnut-chart" data={data} options={options} />;
 }
 
 export default DoughnutAllVenueEarnings;

@@ -371,8 +371,6 @@ const VenueListPage = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
-        </div>
-        <div className="venue-filter-container">
           <div className="vlp-date-picker">
             <DateRangePickerComponent
               placeholder="Select Dates"

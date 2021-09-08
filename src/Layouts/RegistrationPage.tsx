@@ -19,7 +19,6 @@ import "./styles/registration.scss";
 import Notification from "../Components/Notification";
 import { NotificationType } from "../Components/Notification";
 import { useState } from "react";
-import image from "../assets/images/login2.jpg";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -50,7 +49,7 @@ const RegistrationPage = () => {
     values.role = "client";
     console.log(values);
     const [response, error] = await of(userService.signup(values));
-    if (error) swal("something went wrong","error");
+    if (error) swal("Error","something went wrong","error");
     if (response) {
       setOpen(true);
       setTimeout(() => {

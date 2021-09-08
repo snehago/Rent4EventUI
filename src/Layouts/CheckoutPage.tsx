@@ -139,7 +139,7 @@ export default function CheckoutPage() {
         id: venueId,
       },
       from: dates?.startDate,
-      to: dates.endDate,
+      to: dates?.endDate,
       amountPaid: totalPrice,
       transactionId: v4(),
       numberOfAttendees: formValues.noOfAttendees,

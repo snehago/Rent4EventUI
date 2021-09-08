@@ -4,7 +4,7 @@ import { RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from '../../Redux/reducers/AuthReducer';
 import { Link as RouterLink, useHistory } from "react-router-dom";
-
+import MobileHeader from './Header2';
 import "./header.scss";
 import logo from "../../assets/images/logo2.png";
 import { IconButton } from '@material-ui/core';
@@ -148,6 +148,9 @@ export default function Header() {
   return (
     <header>
       <AppBar className="app-header">{getToolbar()}</AppBar>
+      <div className="app-mobile-header">
+        <MobileHeader></MobileHeader>
+      </div>
     </header>
   );
 }

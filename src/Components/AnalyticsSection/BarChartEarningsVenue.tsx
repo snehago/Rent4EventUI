@@ -28,7 +28,7 @@ function BarChartEarningsVenue({ venueId }) {
         setDatas(tempAr);
       }
     })();
-  }, []);
+  }, [venueId]);
 
   const Labels: any = [];
   for (let i = 0; i < datas.length; i++) {

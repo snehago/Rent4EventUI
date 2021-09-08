@@ -17,7 +17,6 @@ import { of } from "await-of";
 import { Venue } from "../Shared/Interfaces/Venue";
 import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import weddingEventTypeImage from '../assets/images/weddingEventType.png';
@@ -75,14 +74,13 @@ const HomePage = () => {
   });
   
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
-  const [loading, setLoading] = useState(true);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [listOfWishlist, setListOfWishlist] = useState([]);
   const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
   // const [userId, setUserId] = useState<any>();
 
   useEffect(() => {
-    Aos.init({ duration: 2000 });
+    Aos.init({ duration: 1000 });
   }, []);
 
   useEffect(() => {
@@ -115,13 +113,11 @@ const HomePage = () => {
       const [response, error] = await of(venueService.getPromotedVenues());
       if (error) {
         swal("error","Unable to fetch venues", "error");
-        setLoading(false);
       }
       if (response) {
         console.log(response);
         setTimeout(() => {
           setVenues(response);
-          setLoading(false);
         }, 2000);
         setOriginalVenues(response);
       }
@@ -150,7 +146,7 @@ const HomePage = () => {
 
   return (
     <>
-      {loading && <CircularLoader />}
+      {/* {loading && <CircularLoader />} */}
       {/* header starts */}
       <header>
         <Header></Header>
@@ -179,15 +175,27 @@ const HomePage = () => {
               placeholder="Search a venue by typing name or city"
               onChange={handleFilterChange}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              size="medium"
-              className="home-search-button"
-              onClick={applyAppropiateFilters}
-            >
-              <SearchOutlinedIcon /> &nbsp; search
-            </Button>
+            <span className="home-search-button-container" >
+              <Button
+                variant="contained"
+                color="primary"
+                size="medium"
+                className="home-search-button"
+                onClick={applyAppropiateFilters}
+              >
+                <SearchOutlinedIcon /> &nbsp; search
+              </Button>
+            </span>
+            <div className="mobile-home-search-button">
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={applyAppropiateFilters}
+              >
+                <SearchOutlinedIcon />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

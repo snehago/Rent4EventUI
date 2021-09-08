@@ -15,7 +15,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import CircularLoader from "../CircularLoader/CircularLoader";
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: "100%",
   },
 });
 
@@ -43,7 +43,7 @@ export default function BasicTable() {
   return (
     <>
     {loading && <CircularLoader/>}
-    <TableContainer component={Paper}>
+    <TableContainer style={{width:"80%", margin:"2vw"}} component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>

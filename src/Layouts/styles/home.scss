@@ -149,7 +149,7 @@ body{
 .hp-host-banner-image-div {
   background: transparent url('../../assets/images/banner2.png') no-repeat bottom center;
   background-size: cover;
-  height: 35vw !important;
+  height: 30vw !important;
   width: 95% !important;
   margin: 1vw auto;
   border-radius: 2vw;
@@ -183,7 +183,12 @@ body{
   height: 15%;
 }
 
-
+.mobile-home-search-button {
+  display: none;
+}
+.home-search-button-container {
+  display: block;
+}
 // mobile queries
 @media only screen and (max-width: 600px) {
   .root {
@@ -308,6 +313,7 @@ body{
   width: 70%;
 }
 .home-search-button {
+  display: none;
   width: 30% !important;
   height: 10vw !important;
   margin-right: 2% !important;
@@ -315,7 +321,9 @@ body{
   overflow-x: hidden;
   overflow: hidden;
 }
-
+.mobile-home-search-button {
+  display: block;
+}
 .hp-event-type-filter-heading {
   padding: 1vw;
   font-weight: 700 !important;
@@ -388,6 +396,10 @@ body{
   border-radius: 2vw;
   width: 100% !important;
   height: 100% !important;
+}
+
+.home-search-button-container {
+  display: none;
 }
 
 }
