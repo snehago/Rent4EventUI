@@ -18,7 +18,7 @@ class VenueService {
       throw new Error(error.message);
     }
     if (response) {
-      console.log({ response });
+      
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);
@@ -33,7 +33,7 @@ class VenueService {
       throw new Error(error.message);
     }
     if (response) {
-      console.log({ response });
+      
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);
@@ -49,7 +49,7 @@ class VenueService {
       throw new Error(error.message);
     }
     if (response) {
-      console.log({ response });
+      
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);
@@ -60,11 +60,11 @@ class VenueService {
       axios.get(`${this.BACKEND_URL}/venue/${id}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
-      console.log(response);
+      
       if (response.status >= 200 && response.status <= 210) {
         return response.data;
       } else throw Error(response.data.message);
@@ -76,7 +76,7 @@ class VenueService {
       axios.get(`${this.BACKEND_URL}/venue/user/${id}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -91,7 +91,7 @@ class VenueService {
       axios.get(`${this.BACKEND_URL}/venue/promotional?page=0&limit=10`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -106,7 +106,7 @@ class VenueService {
       axios.get(`${this.BACKEND_URL}/venue/popular`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -120,7 +120,7 @@ class VenueService {
       axios.get(`${this.BACKEND_URL}/venue?page=${page}&limit=9`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -135,7 +135,7 @@ class VenueService {
       axios.delete(`${this.BACKEND_URL}/venue/${id}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -157,8 +157,7 @@ class VenueService {
       throw new Error(error.message);
     }
     if (response) {
-      console.log("wishlist done");
-      console.log({ response });
+      
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);
@@ -179,8 +178,6 @@ class VenueService {
       throw new Error(error.message);
     }
     if (response) {
-      console.log("wishlist item removed");
-      console.log({ response });
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);

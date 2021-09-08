@@ -24,11 +24,8 @@ function WishlistPage() {
         swal("Error","Unable to fetch wishlist","error");
       }
       if (response) {
-        console.log("RES:", response);
       }
-
       setListOfWishlist(response);
-      console.log(listOfWishlist);
     })();
 
     window.scrollTo(0, 0);

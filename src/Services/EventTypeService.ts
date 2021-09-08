@@ -17,7 +17,6 @@ class EventTypeService {
       throw new Error(error.message);
     }
     if (response) {
-      console.log({ response });
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);
@@ -29,7 +28,6 @@ class EventTypeService {
       axios.get(`${this.BACKEND_URL}/admin/event/${id}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -44,12 +42,10 @@ class EventTypeService {
       axios.get(`${this.BACKEND_URL}/admin/event`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
       if (response.status >= 200 && response.status <= 210) {
-        console.log(response.data);
         return response.data;
       } else throw Error(response.data);
     }
@@ -60,12 +56,12 @@ class EventTypeService {
       axios.get(`${this.BACKEND_URL}/services`)
     );
     if (error) {
-      console.log(error);
+
       throw Error("Something went wrong");
     }
     if (response) {
       if (response.status >= 200 && response.status <= 210) {
-        console.log(response.data);
+
         return response.data;
       } else throw Error(response.data);
     }
@@ -76,7 +72,7 @@ class EventTypeService {
       axios.delete(`${this.BACKEND_URL}/event/${id}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {

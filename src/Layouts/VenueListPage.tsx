@@ -128,7 +128,6 @@ const VenueListPage = (props) => {
   };
 
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
-    console.log(event.target);
     let temp: any = {};
     if (event.target.name === "priceFilter")
       temp = { ...filters, priceFilter: event.target.value };
@@ -143,7 +142,7 @@ const VenueListPage = (props) => {
     setFilters(temp);
   };
   const applyAppropiateFilters =async () => {
-    console.log(filters);
+    
     let tempVenues = originalVenues;
     for (let i of Object.keys(filters)) {
       if (filters[i] === -1) continue;
@@ -171,10 +170,9 @@ const VenueListPage = (props) => {
     applyAppropiateFilters();
   }, [filters, originalVenues,endDate]);
 
-  const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {
-    console.log("priceFilter");
+  const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {  
     let temp: any = [];
-    console.log(typeof filterType, filterType);
+  
     if (filterType === 1) {
       temp = tempVenues.filter((venue) => venue.price <= 500);
     }
@@ -196,7 +194,6 @@ const VenueListPage = (props) => {
 
   const applyCapacityFilter = (filterType: any, tempVenues: Venue[]) => {
     let temp: any = [];
-    console.log("capacity", filterType);
     if (filterType === 1) {
       temp = tempVenues.filter((venue) => venue.capacity <= 500);
     }
@@ -239,15 +236,12 @@ const VenueListPage = (props) => {
           // swal("Unable to fetch Wishlist", "error");
         }
         if (wishlistResponse) {
-          console.log(wishlistResponse);
           setListOfWishlist(wishlistResponse);
-          console.log("ListOfWishlist", listOfWishlist);
           const tempArray: any = [];
           listOfWishlist.forEach((element: any) => {
             tempArray.push(element.id);
           });
           setListOfWishlistId(tempArray);
-          console.log("ListOfWishlistId", listOfWishlistId);
         }
       })();
     }

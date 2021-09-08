@@ -37,7 +37,6 @@ const RegistrationPageHost = () => {
 
   const onSubmit = async (values: any) => {
     values.role = "host";
-    console.log(values);
     const [response, error] = await of(userService.signup(values));
     if (error) swal("Something went wrong", "error");
     if (response) {

@@ -47,7 +47,6 @@ const RegistrationPage = () => {
 
   const onSubmit = async (values: any) => {
     values.role = "client";
-    console.log(values);
     const [response, error] = await of(userService.signup(values));
     if (error) swal("Error","something went wrong","error");
     if (response) {

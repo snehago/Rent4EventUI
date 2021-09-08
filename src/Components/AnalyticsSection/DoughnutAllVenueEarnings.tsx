@@ -29,8 +29,6 @@ function DoughnutAllVenueEarnings({ userId }) {
         swal("Error", "Unable to fetch", "error");
       }
       if (response) {
-        console.log(response.response);
-
         var tempcolors: any = [];
         for (var i = 0; i < Object.keys(response.response).length; i++) {
           tempcolors.push(dynamicColors());

@@ -19,7 +19,7 @@ class UserService {
       throw new Error("Email already registered!");
     }
     if (response) {
-      console.log({ response });
+      
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);
@@ -138,7 +138,7 @@ class UserService {
       )
     );
     if (error) {
-      console.log(error);
+      
       throw Error(error.message);
     }
     if (response) {
@@ -156,7 +156,7 @@ class UserService {
       )
     );
     if (error) {
-      console.log(error);
+      
       throw Error(error.message);
     }
     if (response) {
@@ -171,7 +171,7 @@ class UserService {
       axios.post(`${this.BACKEND_URL}/gcp/profile/upload/`, data)
     );
     if (error) {
-      console.log(error);
+      
       throw Error(error.message);
     }
     if (response) {
@@ -186,7 +186,7 @@ class UserService {
       axios.get(`${this.BACKEND_URL}/gcp/profile/${userId}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error(error.message);
     }
     if (response) {

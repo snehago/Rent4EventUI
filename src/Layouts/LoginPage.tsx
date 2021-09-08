@@ -47,7 +47,6 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (values: any) => {
-    console.log(values);
     const [response, error] = await of(userService.login(values));
     if (error) {
       swal("Error","Invalid Username or Password","error");

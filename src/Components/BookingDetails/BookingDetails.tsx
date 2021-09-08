@@ -29,7 +29,6 @@ function BookingDetails({venue, booking, onBack}:any) {
     }).then((value) => value?cancelBooking():swal(value));
   }
   const cancelBooking =async () => {
-    console.log({booking})
     const [response, error]= await of(bookingService.cancelBookingFromClient(booking));
     if(error){
       swal("Error","Something went wrong","error");

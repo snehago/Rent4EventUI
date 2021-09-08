@@ -18,7 +18,6 @@ class BookingService {
       throw new Error(error.message);
     }
     if (response) {
-      console.log({ response });
       if (response.status >= 200 && response.status <= 210) {
         return response.data;
       } else throw Error(response.data.message);
@@ -37,7 +36,6 @@ class BookingService {
       throw new Error(error.message);
     }
     if (response) {
-      console.log({ response });
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);
@@ -49,11 +47,9 @@ class BookingService {
       axios.get(`${this.BACKEND_URL}/booking/venue/${id}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
-      console.log(response);
       if (response.status >= 200 && response.status <= 210) {
         return response.data;
       } else throw Error(response.data.message);
@@ -65,7 +61,6 @@ class BookingService {
       axios.get(`${this.BACKEND_URL}/booking/client/${id}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -80,7 +75,6 @@ class BookingService {
       axios.get(`${this.BACKEND_URL}/booking`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -98,7 +92,6 @@ class BookingService {
       })
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -118,7 +111,6 @@ class BookingService {
       )
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {

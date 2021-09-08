@@ -103,7 +103,6 @@ export default function CheckoutPage() {
       }
       if (response) {
         setTimeout(() => {
-          console.log("Venue:", response);
           setVenue(response);
           setLoading(false);
         }, 1000);
@@ -146,7 +145,6 @@ export default function CheckoutPage() {
       listOfServices: servicesSelected,
       status:"booked"
     };
-    console.log(data);
     const [response, error] = await of(bookingService.addBooking(data));
     if (error) {
       swal("Error","Something went wrong !","error");

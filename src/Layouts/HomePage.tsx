@@ -93,15 +93,12 @@ const HomePage = () => {
           // swal("Unable to fetch Wishlist", "error");
         }
         if (wishlistResponse) {
-          console.log(wishlistResponse);
           setListOfWishlist(wishlistResponse);
-          console.log("ListOfWishlist", listOfWishlist);
           const tempArray: any = [];
           listOfWishlist.forEach((element: any) => {
             tempArray.push(element.id);
           });
           setListOfWishlistId(tempArray);
-          console.log("ListOfWishlistId", listOfWishlistId);
         }
       })();
     }
@@ -114,7 +111,6 @@ const HomePage = () => {
         swal("error", "Unable to fetch venues", "error");
       }
       if (response) {
-        console.log(response);
         setTimeout(() => {
           setVenues(response);
         }, 2000);

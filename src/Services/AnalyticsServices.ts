@@ -9,7 +9,6 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/allBooking/${id}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -24,7 +23,7 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/attendees/${id}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -39,7 +38,7 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/booking/${venueId}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -54,7 +53,6 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/earning/${venueId}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -69,7 +67,6 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/earning/All/${userId}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -84,7 +81,6 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/earning/total/${userId}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {

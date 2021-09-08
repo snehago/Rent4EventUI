@@ -84,8 +84,6 @@ export default function CardItem({
       venueId: id,
     };
 
-    console.log(venue);
-
     if (!wishlisted) {
       const [response, error] = await of(
         venueService.addVenueToWishlist(venue)
@@ -96,8 +94,6 @@ export default function CardItem({
       if (response) {
         sweetAlert(`${title} is added to your wishlist`);
         setWishlisted(!wishlisted);
-        console.log(user);
-        console.log(await of(venueService.getVenueByVenueId(id)));
       }
     } else {
       const [response, error] = await of(

@@ -17,14 +17,11 @@ function BarChartEarningsVenue({ venueId }) {
         swal("Error", "Unable to fetch", "error");
       }
       if (response) {
-        console.log(response);
-        console.log(response.response);
         var tempAr: any = [];
         for (let i = 0; i < response.response.length; i++) {
           tempAr.push(response.response[i]);
         }
         //   setDatas(response.response);
-        console.log(tempAr);
         setDatas(tempAr);
       }
     })();

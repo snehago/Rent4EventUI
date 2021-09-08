@@ -38,13 +38,10 @@ function SpecificAnalytics() {
       }
       if (response) {
         setVenues(response.listOfVenues);
-        console.log(venues);
       }
     })();
 
     venues.forEach((item) => pieChartColors.push(generateRandomColor()));
-
-    console.log(pieChartColors);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 

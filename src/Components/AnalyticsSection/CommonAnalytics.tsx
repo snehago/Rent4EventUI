@@ -25,7 +25,6 @@ function CommonAnalytics() {
         swal("Error", "Unable to fetch", "error");
       }
       if (response) {
-        console.log(response);
         setTotalEarning(response.response);
       }
     })();

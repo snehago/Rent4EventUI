@@ -70,15 +70,14 @@ const VenueDetailsPage = () => {
           // swal("Unable to fetch Wishlist", "error");
         }
         if (wishlistResponse) {
-          console.log(wishlistResponse);
+
           setListOfWishlist(wishlistResponse);
-          console.log("ListOfWishlist", listOfWishlist);
+
           const tempArray: any = [];
           listOfWishlist.forEach((element: any) => {
             tempArray.push(element.id);
           });
           setListOfWishlistId(tempArray);
-          console.log("ListOfWishlistId", listOfWishlistId);
         }
       })();
     }
@@ -91,7 +90,6 @@ const VenueDetailsPage = () => {
         swal("Error", "Unable to fetch venues", "error");
       }
       if (response) {
-        console.log(response);
         setTimeout(() => {
           setVenues(response);
           setLoading(false);
@@ -109,7 +107,6 @@ const VenueDetailsPage = () => {
         swal("Unable to fetch No Of Bookings", "error");
       }
       if (response) {
-        console.log("NOB:", response);
         setNoOfBookings(response.response);
       }
     })();

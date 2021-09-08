@@ -44,7 +44,6 @@ export default function AdditionalForm(props) {
       }
       return null;
     });
-    console.log(temp);
     props.handleNext(values, temp);
   };
   const toggleCheked = (event) => {

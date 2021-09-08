@@ -15,7 +15,7 @@ class FacilityService{
       throw new Error(error.message);
     }
     if(response) {
-      console.log({response});
+      
       if (response.status >= 200 && response.status <= 210) {
         return response.data.response;
       } else throw Error(response.data.message);
@@ -27,7 +27,7 @@ class FacilityService{
       axios.get(`${this.BACKEND_URL}/admin/facility/${id}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -42,7 +42,7 @@ class FacilityService{
       axios.get(`${this.BACKEND_URL}/admin/facility`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -57,7 +57,7 @@ class FacilityService{
       axios.delete(`${this.BACKEND_URL}/facility/${id}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {

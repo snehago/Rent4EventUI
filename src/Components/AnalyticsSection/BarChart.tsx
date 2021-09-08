@@ -17,12 +17,10 @@ function BarChart({ venueId }) {
         swal("Error", "Unable to fetch", "error");
       }
       if (response) {
-        console.log(response);
         var tempAr: any = [];
         for (let i = 1; i < response.response.length; i += 2) {
           tempAr.push(response.response[i]);
         }
-        console.log(tempAr);
         setDatas(tempAr);
       }
     })();

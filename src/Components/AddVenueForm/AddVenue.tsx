@@ -55,7 +55,6 @@ export default function AddVenue({venue}:any) {
   const [venueId, setVenueId]=useState<any>(0);
 
   const handleNext = (venueId:any) => {
-    console.log(venueId);
     setVenueId(venueId);
     setActiveStep(activeStep + 1);
   };
