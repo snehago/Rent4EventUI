@@ -24,6 +24,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { User } from "../Shared/Interfaces/User";
 import PriceSection from "../Components/DetailsDescriptionSection/PriceSection";
+import { AnalyticsService } from "../Services/AnalyticsServices";
 
 const responsive = {
   superLargeDesktop: {
@@ -47,6 +48,7 @@ const responsive = {
 const venueService = new VenueService();
 const sharedService = new SharedService();
 const userService = new UserService();
+const analyticsService = new AnalyticsService();
 const VenueDetailsPage = () => {
   const user: User = useSelector((state: RootState) => state.auth.user);
   const [venue, setVenue] = useState<Venue | null>(null);
@@ -56,6 +58,7 @@ const VenueDetailsPage = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [listOfWishlist, setListOfWishlist] = useState([]);
   const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
+  const [noOfBookings, setNoOfBookings] = useState(0);
 
   useEffect(() => {
     if (sharedService.isUserLoggedIn()) {
@@ -100,6 +103,21 @@ const VenueDetailsPage = () => {
   useEffect(() => {
     (async () => {
       const [response, error] = await of(
+        analyticsService.getNoOfBookingsForVenue(venueId)
+      );
+      if (error) {
+        swal("Unable to fetch No Of Bookings", "error");
+      }
+      if (response) {
+        console.log("NOB:", response);
+        setNoOfBookings(response.response);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const [response, error] = await of(
         venueService.getVenueByVenueId(venueId)
       );
       if (error) {
@@ -137,7 +155,7 @@ const VenueDetailsPage = () => {
           <>
             <div className="vdp-description-section">
               <div className="vdp-description">
-                <DescriptionSection venue={venue} />
+                <DescriptionSection venue={venue} noOfBookings={noOfBookings} />
               </div>
               <div className="vdp-price">
                 <PriceSection venue={venue} />

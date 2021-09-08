@@ -6,7 +6,7 @@ import { Venue } from "../../Shared/Interfaces/Venue";
 interface DSProps {
   venue: Venue;
 }
-export default function DescriptionSection({ venue }: DSProps) {
+export default function DescriptionSection({ venue,noOfBookings }: any) {
   return (
     <div>
       <div className="descriptionContainer">
@@ -32,6 +32,10 @@ export default function DescriptionSection({ venue }: DSProps) {
                 <span className="ds-capacity-label">
                   <b>Capacity:</b> {venue.capacity}
                 </span>
+
+                <div className="description-no-of-bookings">
+                  <span className="description-no-of-bookings-value">{noOfBookings}</span> user(s) have booked this venue before
+                </div>
               </div>
             </Grid>
           </Grid>
