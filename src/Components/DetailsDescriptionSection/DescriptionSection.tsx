@@ -1,11 +1,7 @@
 import React from "react";
 import { Divider, Grid, Typography } from "@material-ui/core";
 import "./description.scss";
-import { Venue } from "../../Shared/Interfaces/Venue";
 
-interface DSProps {
-  venue: Venue;
-}
 export default function DescriptionSection({ venue,noOfBookings }: any) {
   return (
     <div>

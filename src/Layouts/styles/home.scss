@@ -106,7 +106,7 @@ body{
   width: 75%;
 }
 .home-search-button {
-  width: 16% !important;
+  width: 100% !important;
   color: #fff !important;
 }
 .home-footer {
@@ -145,6 +145,7 @@ body{
 .hp-max-height {
   height: 100% !important;
 }
+
 
 .hp-host-banner-image-div {
   background: transparent url('../../assets/images/banner2.png') no-repeat bottom center;
@@ -188,7 +189,10 @@ body{
 }
 .home-search-button-container {
   display: block;
+  width: 16%;
+  color: #fff !important;
 }
+
 // mobile queries
 @media only screen and (max-width: 600px) {
   .root {

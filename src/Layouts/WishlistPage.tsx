@@ -10,6 +10,7 @@ import CardItem from "../Components/CardItem";
 import InfiniteScroll from "react-infinite-scroller";
 import Footer from "../Components/Footer";
 import swal from "sweetalert";
+import './styles/wishlist.scss';
 const userService = new UserService();
 function WishlistPage() {
   const user: any = useSelector((state: RootState) => state.auth.user);
@@ -92,8 +93,9 @@ function WishlistPage() {
           </Box>
         </InfiniteScroll>
       </div>
-
-      <Footer />
+      <footer className="wishlist-footer" >
+        <Footer />
+      </footer>
     </div>
   );
 }
