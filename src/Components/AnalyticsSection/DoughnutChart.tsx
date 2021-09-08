@@ -13,11 +13,10 @@ const analyticsService = new AnalyticsService();
 function DoughnutChart({ userId }) {
   const user: User = useSelector((state: RootState) => state.auth.user);
   const [pieColors, setPieColors] = useState([]);
-  const [venues, setVenues] = useState([]);
   const [robj, setRobj] = useState({});
   const [dataSet, setDataSet] = useState([]);
   const [labels, setLabels] = useState([]);
-  const [changed, setChanged] = useState(false);
+  const [val, setVal] = useState();
   var dynamicColors = function () {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
@@ -68,7 +67,10 @@ function DoughnutChart({ userId }) {
     console.log("ta:", tempLabel);
 
     setLabels(tempLabel);
+
   }, [user]);
+
+
 
   const data = {
     labels: labels,
@@ -76,8 +78,6 @@ function DoughnutChart({ userId }) {
       {
         label: "Sales 2020 (M)",
         data: dataSet,
-       
-
         backgroundColor: pieColors,
       },
     ],
@@ -89,7 +89,6 @@ function DoughnutChart({ userId }) {
       text: "Doughnut Chart",
     },
   };
-
   return <Doughnut className="doughnut-chart" data={data} options={options} />;
 }
 

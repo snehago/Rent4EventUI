@@ -20,7 +20,7 @@ import "react-multi-carousel/lib/styles.css";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import weddingEventTypeImage from '../assets/images/weddingEventType.png';
+import weddingEventTypeImage from "../assets/images/weddingEventType.png";
 import meetingEventTypeImage from "../assets/images/meetingEventType.jpg";
 import photoshootEventTypeImage from "../assets/images/photoshootEventType.jpeg";
 import productionEventTypeImage from "../assets/images/productionEventType.jpg";
@@ -35,8 +35,8 @@ import { Grid } from "@material-ui/core";
 import { CardMedia } from "@material-ui/core";
 import MainStepsSection from "../Components/StepsSection/MainStepsSection";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
+import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import SupervisorAccountOutlinedIcon from "@material-ui/icons/SupervisorAccountOutlined";
 
 const responsive = {
   superLargeDesktop: {
@@ -73,7 +73,7 @@ const HomePage = () => {
     eventTypeFilter: -1,
     search: "",
   });
-  
+
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
   const [venues, setVenues] = useState<Venue[]>([]);
@@ -109,12 +109,11 @@ const HomePage = () => {
     }
   }, [user, venues, originalVenues]);
 
-
   useEffect(() => {
     (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
       if (error) {
-        swal("error","Unable to fetch venues", "error");
+        swal("error", "Unable to fetch venues", "error");
         setLoading(false);
       }
       if (response) {
@@ -145,8 +144,7 @@ const HomePage = () => {
 
   const applyAppropiateFilters = () => {
     history.push(`/venue-list?search_text=${filters.search}`);
-  }
-
+  };
 
   return (
     <>
@@ -322,9 +320,13 @@ const HomePage = () => {
               Earn extra income and unlock new opportunities by sharing your
               space.
             </Typography>
-              <Button href="/user/register/host"  variant="contained" color="primary" >
-                Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
-              </Button>
+            <Button
+              href="/user/register/host"
+              variant="contained"
+              color="primary"
+            >
+              Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
+            </Button>
           </Grid>
           <Grid lg={6}></Grid>
         </Grid>

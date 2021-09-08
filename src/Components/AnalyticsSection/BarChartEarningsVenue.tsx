@@ -43,24 +43,6 @@ function BarChartEarningsVenue({ venueId }) {
         borderColor: ["#AFEEEE"],
         backgroundColor: ["#AFEEEE"],
       },
-      //   {
-      //     label: 'Sales 2019 (M)',
-      //     data: [4, 3, 2, 2, 3],
-      //     borderColor: [
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)'
-      //     ],
-      //     backgroundColor: [
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)'
-      //     ]
-      //   }
     ],
   };
 

@@ -13,11 +13,9 @@ const analyticsService = new AnalyticsService();
 function DoughnutAllVenueEarnings({ userId }) {
   const user: User = useSelector((state: RootState) => state.auth.user);
   const [pieColors, setPieColors] = useState([]);
-  const [venues, setVenues] = useState([]);
   const [robj, setRobj] = useState({});
   const [dataSet, setDataSet] = useState([]);
   const [labels, setLabels] = useState([]);
-  const [changed, setChanged] = useState(false);
   var dynamicColors = function () {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
@@ -67,7 +65,6 @@ function DoughnutAllVenueEarnings({ userId }) {
     }
 
     console.log("ta:", tempLabel);
-
     setLabels(tempLabel);
   }, []);
 
@@ -77,8 +74,6 @@ function DoughnutAllVenueEarnings({ userId }) {
       {
         label: "Sales 2020 (M)",
         data: dataSet,
-      
-
         backgroundColor: pieColors,
       },
     ],

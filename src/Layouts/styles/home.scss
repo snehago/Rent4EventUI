@@ -310,7 +310,9 @@ body{
 .hp-event-type-icon {
   border-radius: 1.5vw;
   overflow-x: hidden;
+  cursor: pointer!important;
   &:hover {
+    cursor: pointer;
     box-shadow: #eaeaea .5vw .5vw .5vw .5vw;
     overflow-x: hidden;
   }

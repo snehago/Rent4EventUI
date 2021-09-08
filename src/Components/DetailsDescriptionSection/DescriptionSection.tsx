@@ -11,9 +11,6 @@ export default function DescriptionSection({ venue }: DSProps) {
     <div>
       <div className="descriptionContainer">
         <Grid container spacing={3}>
-          {/* <Grid item xs={12}>
-            <Gallery images={IMAGES} />
-          </Grid> */}
           <Grid item container spacing={2} xs={12}>
             <Grid item xs={12}>
               <div className="description-container">
