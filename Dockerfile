@@ -4,10 +4,10 @@ WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 # install application dependencies
+COPY . . 
 COPY package.json ./
-RUN npm install
+RUN npm --verbose install
 # add app
-COPY . .
 # build app
 RUN npm run build
 
