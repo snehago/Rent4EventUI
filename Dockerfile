@@ -2,7 +2,7 @@ FROM node:lts-alpine as build-stage
 # set working direction
 WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
-#ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /app/node_modules/.bin:$PATH
 # install application dependencies
 COPY package.json ./
 RUN npm install
