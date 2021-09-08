@@ -39,17 +39,22 @@ function CommonAnalytics() {
 
         <DividerComponent />
 
-        <div className="analytics-label">Bookings Of All Venues</div>
+        <div className="both-donuts-container">
+          <div className="each-donut-container">
+            <div className="analytics-label">Bookings Of All Venues</div>
 
-       
             <div className="doughnut-chart-container">
               <DoughnutChart userId={user.id} />
             </div>
+          </div>
 
-        <div className="analytics-label">Earnings Of All Venues</div>
+          <div className="each-donut-container">
+            <div className="analytics-label">Earnings Of All Venues</div>
 
-        <div className="doughnut-chart-container">
-          <DoughnutAllVenueEarnings userId={user.id} />
+            <div className="doughnut-chart-container">
+              <DoughnutAllVenueEarnings userId={user.id} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

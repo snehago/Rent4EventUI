@@ -56,7 +56,7 @@
 
 .description-no-of-bookings-value{
   font-weight: 800;
-  font-size: 5vh;
+  font-size: 4vh;
 }
 
 .priceLabel {
@@ -114,4 +114,9 @@
 }
 .light-gray {
   color: gray !important;
+}
+@media only screen and (max-width: 600px) { 
+.description-no-of-bookings{
+  display: none;
+}
 }

@@ -110,17 +110,17 @@
 }
 .fs-facility-container {
   width: 100% !important;
-  margin: 1vw 1vw 1vw 2vw !important;
+  margin: 1vw 1vw 1vw 1vw !important;
   padding: 1vw;
 }
 .fs-offer-container {
   width: 100%;
+  margin-left: 2vw;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 1vw;
-  margin-top: -2vw;
   li {
     font-weight: 600;
     color: lightgreen;
@@ -130,10 +130,14 @@
   }
 }
 
+.fs-offer-item {
+  width: 32vw !important;
+}
+
 @media only screen and (max-width: 600px) {
   .features-offers-grid-container {
   display: none !important;
-  height: 50%;
+  height: 100% !important;
   background-color: white;
   margin-top: 3vw !important;
   border-radius: 0.4rem;

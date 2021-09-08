@@ -13,6 +13,7 @@ import { RootState } from "../../Redux/store";
 import moment from "moment";
 import { User } from "../../Shared/Interfaces/User";
 import { Button } from "@material-ui/core";
+import { SharedService } from "../../Services/SharedService";
 
 const payments = [
   { name: "Booking Id", detail: uuidv4() },
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const sharedService = new SharedService();
+
 export default function OrderSummaryForm(props) {
   const classes = useStyles();
   const { startDate, endDate }:any = useSelector(
@@ -44,7 +47,7 @@ export default function OrderSummaryForm(props) {
   const servicesOpted = props?.services;
   var servicesPrice = 0;
   servicesOpted?.forEach((element) => (servicesPrice += element.price));
-  const numberOfDays= Math.abs(new Date(startDate).getDay()-new Date(endDate).getDay())+1;
+  const numberOfDays= sharedService.getDifferenceInDays(new Date(startDate), new Date(endDate));
   const bookingPrice = ((venue.price * 10) / 100)*numberOfDays;
   var totalPrice = bookingPrice + servicesPrice;
 
@@ -70,9 +73,9 @@ export default function OrderSummaryForm(props) {
             secondary={`Number of day(s): ${numberOfDays}`}
           />
           <div>
-            <b>from:</b>
-            {moment(startDate).format("LL")} - <b>to:</b>
-            {moment(endDate).format("LL")}
+            from:
+            <b> {moment(startDate).format("LL")}</b> - to:
+            <b>{moment(endDate).format("LL")}</b>
           </div>
         </ListItem>
 
@@ -137,13 +140,13 @@ export default function OrderSummaryForm(props) {
             ))}
           </Grid>
         </Grid>
-        <Grid lg={12} >
+        <Grid lg={12}>
           <Button
             variant="contained"
             type="submit"
             color="primary"
             className="osf-button"
-            onClick={()=> props.onSubmit(totalPrice)}
+            onClick={() => props.onSubmit(totalPrice)}
           >
             Book The Venue
           </Button>

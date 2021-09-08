@@ -19,6 +19,7 @@ import moment from "moment";
 import swal from "sweetalert";
 import { BookingService } from "../../Services/BookingService";
 import { of } from "await-of";
+import { SharedService } from "../../Services/SharedService";
 const useRowStyles = makeStyles({
   root: {
     "& > *": {
@@ -28,6 +29,7 @@ const useRowStyles = makeStyles({
 });
 
 const bookingService = new BookingService();
+const sharedService = new SharedService();
 function Row({ row }: any) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
@@ -77,7 +79,8 @@ function Row({ row }: any) {
         </TableCell>
         <TableCell>{moment(row.to).format("LL")}</TableCell>
         <TableCell align="left">
-          {Math.abs(new Date(row.to).getDay() - new Date(row.from).getDay())+1}{" "}
+          {sharedService.getDifferenceInDays(new Date(row.from),new Date(row.to))}
+          {" "}
           day(s)
         </TableCell>
         <TableCell align="left">${row.amountPaid}</TableCell>
