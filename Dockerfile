@@ -1,7 +1,8 @@
 FROM node:14-alpine as build-stage
 WORKDIR /app
-COPY . ./
+COPY package*.json ./
 RUN yarn
+COPY . .
 RUN yarn build
 
 # production stage
