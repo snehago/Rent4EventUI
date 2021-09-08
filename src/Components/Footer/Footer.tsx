@@ -1,22 +1,22 @@
-
 import { Avatar, Box, Link } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import YouTubeIcon from "@material-ui/icons/YouTube";
+import { useHistory } from "react-router-dom";
 import "./footer.scss";
 
 export default function Footer() {
- 
+  const history = useHistory();
+
+  function handleClick() {
+    history.push("/services");
+  }
+
   return (
     <Grid container spacing={4} className="footer-main-grid-container">
-      <Grid
-        item
-        xs={12}
-        sm={12}
-        lg={2}
-      >
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label">About Us</Box>
         <Box className="aboutText">
           Rent4You is designed to bring clients and hosts together to create a
@@ -26,31 +26,37 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} lg={2}>
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label">Services</Box>
         <Box>
-          <Link className="contentText" href="/" color="inherit">
-            Caterine
+          <Link className="contentText" onClick={handleClick} color="inherit">
+            Catering
           </Link>
           <p></p>
         </Box>
         <Box>
-          <Link className="contentText" href="/" color="inherit">
+          <Link className="contentText" onClick={handleClick} color="inherit">
             Decoration
           </Link>
           <p></p>
         </Box>
         <Box>
-          <Link className="contentText" href="/" color="inherit">
+          <Link className="contentText" onClick={handleClick} color="inherit">
             Music Systems
+          </Link>
+        </Box>
+
+        <Box>
+          <Link className="contentText" onClick={handleClick} color="inherit">
+            Performers
           </Link>
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} lg={2}>
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label">Terms&nbsp;and&nbsp;Conditions</Box>
         <Box>
-          <Link className="contentText" href="/" color="inherit">
+          <Link className="contentText" href="/cancellation-policy" color="inherit">
             Cancellation Policy
           </Link>
           <p></p>
@@ -62,13 +68,13 @@ export default function Footer() {
           <p></p>
         </Box>
         <Box>
-          <Link className="contentText" href="/" color="inherit">
+          <Link className="contentText" href="/privacy-policy" color="inherit">
             PrivacyPolicy
           </Link>
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} lg={2}>
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label">Contact Us</Box>
         <Box>
           <Link id="blueLink" className="contentText" href="/" color="inherit">
@@ -95,7 +101,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} lg={2}>
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label" id="followLabel">
           Follow Us
         </Box>

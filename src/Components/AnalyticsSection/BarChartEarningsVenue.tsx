@@ -17,18 +17,15 @@ function BarChartEarningsVenue({ venueId }) {
         swal("Error", "Unable to fetch", "error");
       }
       if (response) {
-        console.log(response);
-        console.log(response.response);
         var tempAr: any = [];
         for (let i = 0; i < response.response.length; i++) {
           tempAr.push(response.response[i]);
         }
         //   setDatas(response.response);
-        console.log(tempAr);
         setDatas(tempAr);
       }
     })();
-  }, []);
+  }, [venueId]);
 
   const Labels: any = [];
   for (let i = 0; i < datas.length; i++) {
@@ -43,24 +40,6 @@ function BarChartEarningsVenue({ venueId }) {
         borderColor: ["#AFEEEE"],
         backgroundColor: ["#AFEEEE"],
       },
-      //   {
-      //     label: 'Sales 2019 (M)',
-      //     data: [4, 3, 2, 2, 3],
-      //     borderColor: [
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)'
-      //     ],
-      //     backgroundColor: [
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)'
-      //     ]
-      //   }
     ],
   };
 

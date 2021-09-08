@@ -48,7 +48,6 @@ const Profile = (props: any) => {
         swal("Error","Not able to fetch profile picture", "error");
       }
       if (response) {
-        console.log(response);
         setProfilePic(response);
       }
     })();
@@ -103,7 +102,6 @@ const Profile = (props: any) => {
       await handleEditFormClient(editedUser);
     }
     setEditProfile(!editProfile);
-    console.log("EP:", editProfile);
   };
 
   const handleBlankFunction = () => {};
@@ -118,7 +116,6 @@ const Profile = (props: any) => {
         setEmail(user.email);
         setPaymentDetails(user.paymentDetails);
         setRole(user.role);
-        console.log("dob",user.dateOfBirth);
         setDateOfBirth(moment(user.dateOfBirth).format("YYYY-MM-DD"));
         setLoading(false);
       }, 1000);
@@ -126,7 +123,6 @@ const Profile = (props: any) => {
   }, [user]);
 
   const onDrop = async (picture: File[]) => {
-    console.log(await picture[picture.length - 1].arrayBuffer());
     var data = new FormData();
     data.append("file", picture[picture.length - 1]);
     data.append("userId", "1");

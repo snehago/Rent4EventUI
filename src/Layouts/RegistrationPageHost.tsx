@@ -18,7 +18,6 @@ import { useHistory } from "react-router";
 import "./styles/registration.scss";
 import { useState } from "react";
 import swal from "sweetalert";
-import image from "../assets/images/login2.jpg";
 import HostSteps from "../Components/StepsSection/HostSteps";
 
 const userService = new UserService();
@@ -38,9 +37,8 @@ const RegistrationPageHost = () => {
 
   const onSubmit = async (values: any) => {
     values.role = "host";
-    console.log(values);
     const [response, error] = await of(userService.signup(values));
-    if (error) swal("Something went wrong","error");
+    if (error) swal("Something went wrong", "error");
     if (response) {
       setOpen(true);
       setTimeout(() => {
@@ -87,18 +85,12 @@ const RegistrationPageHost = () => {
         ></Notification>
       )}
       <Grid container className="reg-page-conatiner">
-        <Grid item xs={12} lg={6} md={6} sm={12} >
-          {/* <img src={image} className="reg-side-image" alt="" />
-          <div className="login-img-text">
-            GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US
-            !!
-          </div> */}
+        <Grid item xs={12} lg={6} md={6} sm={12}>
           <div className="reg-client-steps-container">
             <HostSteps />
           </div>
-          
         </Grid>
-        <Grid item xs={12} lg={6} md={6} sm={12} >
+        <Grid item xs={12} lg={6} md={6} sm={12}>
           <Paper elevation={20} className="paperStyle">
             <Grid className="gridStyle">
               <Avatar className="avatarStyle">

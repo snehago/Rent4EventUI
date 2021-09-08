@@ -16,6 +16,7 @@ import DonutLargeOutlinedIcon from '@material-ui/icons/DonutLargeOutlined';
 import ManageFacilities from "../Components/ManageFacilities";
 import ManageEventTypes from "../Components/ManageEventTypes";
 import ManageUsers from "../Components/ManageUsers";
+import { v4 } from "uuid";
 
 const sideBarItems: any = {
   client: [
@@ -113,7 +114,7 @@ const Dashboard = () => {
           {selected === 2 && <BookingList></BookingList>}
           {selected === 3 && <AddVenue />}
           {selected === 4 && <HostVenuesList changeView={changeView} />}
-          {selected === 5 && <AnalyticsPage />}
+          {selected === 5 && <AnalyticsPage key={v4()} />}
           {selected === 6 && <ManageFacilities/>}
           {selected === 7 && <ManageEventTypes/> }
           {selected === 8 && <ManageUsers />}

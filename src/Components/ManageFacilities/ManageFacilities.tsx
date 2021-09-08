@@ -5,6 +5,7 @@ import { FacilityService } from '../../Services/FacilityService';
 import { DataGrid, GridColDef} from '@material-ui/data-grid';
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
 import CircularLoader from '../CircularLoader/CircularLoader';
+import { v4 } from 'uuid';
 const facilityService = new FacilityService();
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -43,36 +44,55 @@ function ManageFacilities() {
     setLoading(false);
   }
   return (
-    <Grid container>
+    <Grid container spacing={5}>
       {loading && <CircularLoader />}
-      <div style={{ height: 300, width: "100%" }}>
+
+      <Grid item lg={12}>
+        <Typography variant="h6" align="center" gutterBottom>
+          <b>Add New Facility</b>
+        </Typography>
+        <div>
+          <form
+            onSubmit={saveNewFacility}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "flex-end",
+              gap: 10,
+            }}
+          >
+            <TextField
+              id="name"
+              label="Facility Name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <Button
+              size="small"
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
+              Save
+            </Button>
+          </form>
+        </div>
+      </Grid>
+      <Grid
+        lg={12}
+        style={{ height: 350, width: "100%", padding: "2vw 5vw 5vw 5vw" }}
+      >
         <DataGrid
           columns={columns}
           rows={facilities}
           pageSize={3}
           disableSelectionOnClick
+          key={v4()}
         />
-      </div>
-      <div style={{ height: 300, width: "100%" }}>
-        <Typography variant="h6" align="center" gutterBottom>
-          <b>Add New Facility</b>
-        </Typography>
-        <div style={{display:'flex', flexDirection:"row", justifyContent:"center", alignItems:"center"}} >
-        <form onSubmit={saveNewFacility}>
-          <TextField
-            id="name"
-            label="Facility Name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <Button size="small" variant="contained" color="primary" type="submit">
-            Save
-          </Button>
-        </form>
-        </div>
-      </div>
+      </Grid>
     </Grid>
   );
 }

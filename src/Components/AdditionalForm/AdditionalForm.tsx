@@ -5,61 +5,59 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import "./additionalForm.scss";
-import { Divider} from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 import { EventTypeService } from "../../Services/EventTypeService";
 import { of } from "await-of";
 import swal from "sweetalert";
 import { Field, Form, Formik } from "formik";
 const eventTypeService = new EventTypeService();
 export default function AdditionalForm(props) {
-  const [additionalServices, setAdditionalServices]=useState<any>([]);
-  const [servicesSelected, setServicesSelected]=useState<any[]>([]);
+  const [additionalServices, setAdditionalServices] = useState<any>([]);
+  const [servicesSelected, setServicesSelected] = useState<any[]>([]);
   const initialValues = {
     noOfAttendees: 0,
-    alternateContactNumber:"",
+    alternateContactNumber: "",
     address1: "",
     address2: "",
-    city:"",
-    state:"",
-    zip:0,
-    country:"",
-
-  }
+    city: "",
+    state: "",
+    zip: 0,
+    country: "",
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
-  useEffect(()=> {
-    (async ()=> {
+  }, []);
+  useEffect(() => {
+    (async () => {
       const [response, error] = await of(eventTypeService.getAllServices());
-      if(error) {
-        swal("Error","Something went wrong!","error");
+      if (error) {
+        swal("Error", "Something went wrong!", "error");
         return;
       }
-      if(response)setAdditionalServices(response);
+      if (response) setAdditionalServices(response);
     })();
-  },[])
-  const next = (values:any) => {
-    const temp:any[] = servicesSelected.map((id:any) => {
-      for(let service of additionalServices) {
-        if(service.id === Number(id) ) return service;
+  }, []);
+  const next = (values: any) => {
+    const temp: any[] = servicesSelected.map((id: any) => {
+      for (let service of additionalServices) {
+        if (service.id === Number(id)) return service;
       }
       return null;
     });
-    console.log(temp);
-    props.handleNext(values,temp);
-  }
+    props.handleNext(values, temp);
+  };
   const toggleCheked = (event) => {
     const value = event.target.value;
-    if(servicesSelected.includes(value))setServicesSelected(prev => prev.filter(service => service !==value));
-    else setServicesSelected(prev => [...prev, value]);
-  }
+    if (servicesSelected.includes(value))
+      setServicesSelected((prev) =>
+        prev.filter((service) => service !== value)
+      );
+    else setServicesSelected((prev) => [...prev, value]);
+  };
   return (
     <React.Fragment>
       <div className="additional-form-labels">Additional Details</div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={next}
-      >
+      <Formik initialValues={initialValues} onSubmit={next}>
         <Form>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
@@ -137,7 +135,7 @@ export default function AdditionalForm(props) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Field
-               as= {TextField}
+                as={TextField}
                 required
                 id="country"
                 name="country"
@@ -149,7 +147,7 @@ export default function AdditionalForm(props) {
             <Grid item xs={12}>
               <FormControlLabel
                 control={
-                  <Checkbox color="secondary" name="saveAddress" value="yes" />
+                  <Checkbox color="primary" name="saveAddress" value="yes" />
                 }
                 label="Use this address for payment details"
               />

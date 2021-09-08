@@ -33,6 +33,7 @@ import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import moment from "moment";
+import noResult from '../assets/illustrations/noResult.jpg'
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -127,7 +128,6 @@ const VenueListPage = (props) => {
   };
 
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
-    console.log(event.target);
     let temp: any = {};
     if (event.target.name === "priceFilter")
       temp = { ...filters, priceFilter: event.target.value };
@@ -142,7 +142,7 @@ const VenueListPage = (props) => {
     setFilters(temp);
   };
   const applyAppropiateFilters =async () => {
-    console.log(filters);
+    
     let tempVenues = originalVenues;
     for (let i of Object.keys(filters)) {
       if (filters[i] === -1) continue;
@@ -170,10 +170,9 @@ const VenueListPage = (props) => {
     applyAppropiateFilters();
   }, [filters, originalVenues,endDate]);
 
-  const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {
-    console.log("priceFilter");
+  const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {  
     let temp: any = [];
-    console.log(typeof filterType, filterType);
+  
     if (filterType === 1) {
       temp = tempVenues.filter((venue) => venue.price <= 500);
     }
@@ -195,7 +194,6 @@ const VenueListPage = (props) => {
 
   const applyCapacityFilter = (filterType: any, tempVenues: Venue[]) => {
     let temp: any = [];
-    console.log("capacity", filterType);
     if (filterType === 1) {
       temp = tempVenues.filter((venue) => venue.capacity <= 500);
     }
@@ -238,15 +236,12 @@ const VenueListPage = (props) => {
           // swal("Unable to fetch Wishlist", "error");
         }
         if (wishlistResponse) {
-          console.log(wishlistResponse);
           setListOfWishlist(wishlistResponse);
-          console.log("ListOfWishlist", listOfWishlist);
           const tempArray: any = [];
           listOfWishlist.forEach((element: any) => {
             tempArray.push(element.id);
           });
           setListOfWishlistId(tempArray);
-          console.log("ListOfWishlistId", listOfWishlistId);
         }
       })();
     }
@@ -371,8 +366,6 @@ const VenueListPage = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
-        </div>
-        <div className="venue-filter-container">
           <div className="vlp-date-picker">
             <DateRangePickerComponent
               placeholder="Select Dates"
@@ -405,7 +398,16 @@ const VenueListPage = (props) => {
       </Collapse>
       {/* Filter and search ends */}
       <div className="all-venues">
-        <InfiniteScroll
+        {venues.length===0 &&
+          <div className="no-result-container">
+            <div className="no-search-text">
+              No Results Found...
+            </div>
+            <img src={noResult} height="30%" width="30%" alt="" />
+          </div>
+        
+        }
+        { venues.length!==0 && <InfiniteScroll
           pageStart={0}
           loadMore={loadMore}
           hasMore={!disabled}
@@ -459,6 +461,7 @@ const VenueListPage = (props) => {
             </Grid>
           </Box>
         </InfiniteScroll>
+}
       </div>
     </>
   );

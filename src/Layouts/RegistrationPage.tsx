@@ -19,7 +19,6 @@ import "./styles/registration.scss";
 import Notification from "../Components/Notification";
 import { NotificationType } from "../Components/Notification";
 import { useState } from "react";
-import image from "../assets/images/login2.jpg";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -48,9 +47,8 @@ const RegistrationPage = () => {
 
   const onSubmit = async (values: any) => {
     values.role = "client";
-    console.log(values);
     const [response, error] = await of(userService.signup(values));
-    if (error) swal("something went wrong","error");
+    if (error) swal("Error","something went wrong","error");
     if (response) {
       setOpen(true);
       setTimeout(() => {
@@ -90,17 +88,11 @@ const RegistrationPage = () => {
       )}
       <Grid container className="reg-page-conatiner">
         <Grid item xs={12} lg={6} md={6} sm={12}>
-          {/* <img src={image} className="reg-side-image" alt="" />
-          <div className="login-img-text">
-            GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US
-            !!
-          </div> */}
           <div className="reg-client-steps-container">
-          <ClientSteps />
+            <ClientSteps />
           </div>
-          
         </Grid>
-        <Grid item xs={12} lg={6} md={6} sm={12} >
+        <Grid item xs={12} lg={6} md={6} sm={12}>
           <Paper elevation={20} className="paperStyle">
             <Grid className="gridStyle">
               <Avatar className="avatarStyle">
@@ -186,7 +178,6 @@ const RegistrationPage = () => {
                         <IconButton
                           aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
-                          // onMouseDown={handleMouseDownPassword}
                         >
                           {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
@@ -256,7 +247,6 @@ const RegistrationPage = () => {
                     //className="btnStyle"
                     disabled={props.isSubmitting}
                     variant="contained"
-                    // onClick={handleSubmit}
                   >
                     {props.isSubmitting ? "LOADING" : "REGISTER"}
                   </Button>

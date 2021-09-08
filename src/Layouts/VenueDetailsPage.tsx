@@ -24,10 +24,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { User } from "../Shared/Interfaces/User";
 import PriceSection from "../Components/DetailsDescriptionSection/PriceSection";
+import { AnalyticsService } from "../Services/AnalyticsServices";
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 4,
   },
@@ -48,8 +48,9 @@ const responsive = {
 const venueService = new VenueService();
 const sharedService = new SharedService();
 const userService = new UserService();
+const analyticsService = new AnalyticsService();
 const VenueDetailsPage = () => {
-  const user:User = useSelector((state:RootState) => state.auth.user);
+  const user: User = useSelector((state: RootState) => state.auth.user);
   const [venue, setVenue] = useState<Venue | null>(null);
   const { venueId } = useParams<any>();
   const [images, setImages] = useState<any[]>([]);
@@ -57,54 +58,67 @@ const VenueDetailsPage = () => {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [listOfWishlist, setListOfWishlist] = useState([]);
   const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
-  
-useEffect(() => {
-  if (sharedService.isUserLoggedIn()) {
+  const [noOfBookings, setNoOfBookings] = useState(0);
+
+  useEffect(() => {
+    if (sharedService.isUserLoggedIn()) {
+      (async () => {
+        const [wishlistResponse, wishlistError] = await of(
+          userService.getWishlistOfUser(user)
+        );
+        if (wishlistError) {
+          // swal("Unable to fetch Wishlist", "error");
+        }
+        if (wishlistResponse) {
+
+          setListOfWishlist(wishlistResponse);
+
+          const tempArray: any = [];
+          listOfWishlist.forEach((element: any) => {
+            tempArray.push(element.id);
+          });
+          setListOfWishlistId(tempArray);
+        }
+      })();
+    }
+  }, [user]);
+
+  useEffect(() => {
     (async () => {
-      const [wishlistResponse, wishlistError] = await of(
-        userService.getWishlistOfUser(user)
-      );
-      if (wishlistError) {
-        // swal("Unable to fetch Wishlist", "error");
+      const [response, error] = await of(venueService.getPromotedVenues());
+      if (error) {
+        swal("Error", "Unable to fetch venues", "error");
       }
-      if (wishlistResponse) {
-        console.log(wishlistResponse);
-        setListOfWishlist(wishlistResponse);
-        console.log("ListOfWishlist", listOfWishlist);
-        const tempArray: any = [];
-        listOfWishlist.forEach((element: any) => {
-          tempArray.push(element.id);
-        });
-        setListOfWishlistId(tempArray);
-        console.log("ListOfWishlistId", listOfWishlistId);
+      if (response) {
+        setTimeout(() => {
+          setVenues(response);
+          setLoading(false);
+        }, 2000);
       }
     })();
-  }
-}, [user]);
+  }, []);
 
-useEffect(() => {
-  (async () => {
-    const [response, error] = await of(venueService.getPromotedVenues());
-    if (error) {
-      swal("Error","Unable to fetch venues", "error");
-    }
-    if (response) {
-      console.log(response);
-      setTimeout(() => {
-        setVenues(response);
-        setLoading(false);
-      }, 2000);
-    }
-  })();
-}, []);
+  useEffect(() => {
+    (async () => {
+      const [response, error] = await of(
+        analyticsService.getNoOfBookingsForVenue(venueId)
+      );
+      if (error) {
+        swal("Unable to fetch No Of Bookings", "error");
+      }
+      if (response) {
+        setNoOfBookings(response.response);
+      }
+    })();
+  }, []);
 
-useEffect(() => {
+  useEffect(() => {
     (async () => {
       const [response, error] = await of(
         venueService.getVenueByVenueId(venueId)
       );
       if (error) {
-        swal("Unable to fetch venue details","error");
+        swal("Unable to fetch venue details", "error");
       }
       if (response) {
         setVenue(response);
@@ -112,16 +126,15 @@ useEffect(() => {
           setLoading(false);
         }, 1000);
         const [imagesResponse, imageError] = await of(
-          venueService.getVenuePictures(response.id,response.host.id)
+          venueService.getVenuePictures(response.id, response.host.id)
         );
-        if(imageError) {
-          swal("Error","Unable to fetch photos of venue","error");
+        if (imageError) {
+          swal("Error", "Unable to fetch photos of venue", "error");
         }
-        if(imagesResponse) {
+        if (imagesResponse) {
           setImages(imagesResponse);
         }
       }
-      
     })();
 
     window.scrollTo(0, 0);
@@ -139,7 +152,7 @@ useEffect(() => {
           <>
             <div className="vdp-description-section">
               <div className="vdp-description">
-                <DescriptionSection venue={venue} />
+                <DescriptionSection venue={venue} noOfBookings={noOfBookings} />
               </div>
               <div className="vdp-price">
                 <PriceSection venue={venue} />

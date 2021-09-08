@@ -44,7 +44,7 @@ function ClientSteps() {
           align="center"
           className="hp-event-type-filter-heading"
         >
-          Book a venue with us in no time following 5 easy steps..
+          Book a venue with us in no time following 5 easy steps!
         </Typography>
       </Grid>
 

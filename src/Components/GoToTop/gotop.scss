@@ -1,9 +1,9 @@
 @import '../../Shared/styles/colors';
 .topAvatar {
-  background-color: $theme-primary!important;
+  background-color: #001509 !important;
 }
 .topAvatar:hover{
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
   // transform: translateY(-10%);
-  background-color: rgba(235, 153, 23, 0.44)!important;
+  background-color: rgba(0, 0, 0, 0.44)!important;
 }

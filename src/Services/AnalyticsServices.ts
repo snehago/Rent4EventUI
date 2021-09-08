@@ -1,8 +1,6 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { SharedService } from "./SharedService";
+import axios from "axios";
 import { of } from "await-of";
-import { Venue } from "../Shared/Interfaces/Venue";
-const sharedService = new SharedService();
+
 class AnalyticsService {
   BACKEND_URL: string | undefined = process.env.REACT_APP_BACKEND_URL;
 
@@ -11,7 +9,6 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/allBooking/${id}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -26,7 +23,7 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/attendees/${id}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -41,7 +38,7 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/booking/${venueId}`)
     );
     if (error) {
-      console.log(error);
+      
       throw Error("Something went wrong");
     }
     if (response) {
@@ -56,7 +53,6 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/earning/${venueId}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -71,7 +67,6 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/earning/All/${userId}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {
@@ -86,7 +81,6 @@ class AnalyticsService {
       axios.get(`${this.BACKEND_URL}/analytics/earning/total/${userId}`)
     );
     if (error) {
-      console.log(error);
       throw Error("Something went wrong");
     }
     if (response) {

@@ -124,7 +124,6 @@ export default function AddVenueDetails({ handleNext, venue }) {
       listOfEventTypes: tempEventTypes,
       promoted
     };
-    console.log(venueToAdd);
     if (venue) {
       venueToAdd.id = venue.id;
       const [response, error] = await of(venueService.addVenue(venueToAdd));
@@ -133,7 +132,6 @@ export default function AddVenueDetails({ handleNext, venue }) {
       }
       if (response) {
         setTimeout(() => {
-          console.log(response);
           props.resetForm();
           props.setSubmitting(false);
           handleNext(response);
@@ -146,7 +144,6 @@ export default function AddVenueDetails({ handleNext, venue }) {
       }
       if (response) {
         setTimeout(() => {
-          console.log(response);
           props.resetForm();
           props.setSubmitting(false);
           handleNext(response);
@@ -157,7 +154,6 @@ export default function AddVenueDetails({ handleNext, venue }) {
 
   const handleLocationChange = ({ position }) => {
     setCoordinates(position);
-    console.log(coordinates);
   };
 
   const setFacilityChecked = (e) => {
