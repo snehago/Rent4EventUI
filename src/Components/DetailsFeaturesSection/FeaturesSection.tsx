@@ -10,6 +10,7 @@ import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import CommuteIcon from '@material-ui/icons/Commute';
 import WcIcon from '@material-ui/icons/Wc';
 import HotTubIcon from '@material-ui/icons/HotTub';
+import { Alert } from "@material-ui/lab";
 interface FSProps {
   venue: Venue;
 }
@@ -89,7 +90,9 @@ export default function FeaturesSection({ venue }: FSProps) {
               {offers.map((item) => (
                 <Grid key={v4()} spacing={0} item xs={12} sm={12} lg={12}>
                   <span>
-                    <li>{item.offer + " " + item.subtitle}</li>
+                    <Alert severity="success">
+                      {item.offer + " " + item.subtitle}
+                    </Alert>
                   </span>
                 </Grid>
               ))}

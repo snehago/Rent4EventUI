@@ -160,14 +160,21 @@ body{
   align-items: flex-start;
   justify-content: center;
   text-align: left;
-  background-color: rgba(0, 0, 0, .8);
-  background-size: cover !important;
   width: 100% !important;
   height: 100% !important;
   padding: 7vw;
   gap: 1vw;
   color: white;
   border-radius: 2vw;
+  background-color: rgba(0, 0, 0, .8);
+  background-size: cover !important;
+}
+
+.hp-dark-overlay {
+  
+  border-radius: 2vw;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .hp-become-host-button {
@@ -176,9 +183,10 @@ body{
   height: 15%;
 }
 
+
+// mobile queries
 @media only screen and (max-width: 600px) {
-  
-.root {
+  .root {
   margin: 0;
   padding: 0;
   height: 100% !important;
@@ -349,6 +357,37 @@ body{
 }
 .home-footer {
   overflow-x: hidden;
+  overflow-y: visible;
+  height: 100vh !important;
+}
+.hp-host-banner-image-div {
+  background: transparent url('../../assets/images/banner2.png') no-repeat bottom center;
+  background-size: cover;
+  height: 100vw !important;
+  width: 100% !important;
+  margin: 4vw auto;
+  border-radius: 2vw;
+}
+.hp-host-banner-dark-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 7vw;
+  gap: 4vw;
+  color: white;
+  border-radius: 2vw;
+  background-color: rgba(0, 0, 0, .4);
+  background-size: cover !important;
+}
+
+.hp-dark-overlay {
+  border-radius: 2vw;
+  width: 100% !important;
   height: 100% !important;
 }
+
 }

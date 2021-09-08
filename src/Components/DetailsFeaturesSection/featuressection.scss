@@ -119,8 +119,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2vh;
-  margin-top: -5vw;
+  gap: 1vw;
+  margin-top: -2vw;
   li {
     font-weight: 600;
     color: lightgreen;
@@ -138,6 +138,12 @@
   margin-top: 3vw !important;
   border-radius: 0.4rem;
   width: 100% !important;
+}
+.fs-facility-container {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 4vw 4vw 4vw 8vw !important;
+  padding: 1vw;
 }
 
 }
