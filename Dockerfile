@@ -6,7 +6,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install application dependencies
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm ci
+RUN npm i
 # add app
 COPY . .
 # build app
