@@ -19,7 +19,7 @@ import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import weddingEventTypeImage from '../assets/images/weddingEventType.png';
+import weddingEventTypeImage from "../assets/images/weddingEventType.png";
 import meetingEventTypeImage from "../assets/images/meetingEventType.jpg";
 import photoshootEventTypeImage from "../assets/images/photoshootEventType.jpeg";
 import productionEventTypeImage from "../assets/images/productionEventType.jpg";
@@ -34,8 +34,8 @@ import { Grid } from "@material-ui/core";
 import { CardMedia } from "@material-ui/core";
 import MainStepsSection from "../Components/StepsSection/MainStepsSection";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
+import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import SupervisorAccountOutlinedIcon from "@material-ui/icons/SupervisorAccountOutlined";
 
 const responsive = {
   superLargeDesktop: {
@@ -72,7 +72,7 @@ const HomePage = () => {
     eventTypeFilter: -1,
     search: "",
   });
-  
+
   const [originalVenues, setOriginalVenues] = useState<Venue[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [listOfWishlist, setListOfWishlist] = useState([]);
@@ -107,12 +107,11 @@ const HomePage = () => {
     }
   }, [user, venues, originalVenues]);
 
-
   useEffect(() => {
     (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
       if (error) {
-        swal("error","Unable to fetch venues", "error");
+        swal("error", "Unable to fetch venues", "error");
       }
       if (response) {
         console.log(response);
@@ -141,8 +140,7 @@ const HomePage = () => {
 
   const applyAppropiateFilters = () => {
     history.push(`/venue-list?search_text=${filters.search}`);
-  }
-
+  };
 
   return (
     <>

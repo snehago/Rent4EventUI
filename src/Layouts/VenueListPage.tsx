@@ -33,6 +33,7 @@ import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import moment from "moment";
+import noResult from '../assets/illustrations/noResult.jpg'
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -403,7 +404,16 @@ const VenueListPage = (props) => {
       </Collapse>
       {/* Filter and search ends */}
       <div className="all-venues">
-        <InfiniteScroll
+        {venues.length===0 &&
+          <div className="no-result-container">
+            <div className="no-search-text">
+              No Results Found...
+            </div>
+            <img src={noResult} height="30%" width="30%" alt="" />
+          </div>
+        
+        }
+        { venues.length!==0 && <InfiniteScroll
           pageStart={0}
           loadMore={loadMore}
           hasMore={!disabled}
@@ -457,6 +467,7 @@ const VenueListPage = (props) => {
             </Grid>
           </Box>
         </InfiniteScroll>
+}
       </div>
     </>
   );

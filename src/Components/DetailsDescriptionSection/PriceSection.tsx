@@ -74,7 +74,6 @@ export default function PriceSection({ venue }: DSProps) {
   };
 
   const PriceLabel = React.forwardRef(function PriceLabel(props, ref: any) {
-    //  Spread the props to the underlying DOM element.
     return (
       <>
         <Grid {...props} ref={ref} item xs={6} lg={6} className="priceLabel">

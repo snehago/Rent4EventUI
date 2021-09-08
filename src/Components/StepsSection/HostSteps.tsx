@@ -33,11 +33,7 @@ function HostSteps() {
   return (
     <Grid container spacing={2} className="host-steps-container">
       <Grid item xs={12} className="host-steps-container-heading">
-        Be a Star Venue Host in 4 Easy Steps <br />
-        {/* <div id="host-steps-heading-subtitle">
-          Use early-bird discounts, coupons and group ticketing to double your
-          ticket sale. Get paid quickly and securely.
-        </div> */}
+        Be a Star Venue Host in 4 Easy Steps! <br />
       </Grid>
 
       <Grid

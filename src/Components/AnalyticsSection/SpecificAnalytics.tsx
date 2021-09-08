@@ -16,7 +16,6 @@ import BarChart from "./BarChart";
 import BarChartEarningsVenue from "./BarChartEarningsVenue";
 import { Paper } from "@material-ui/core";
 import analysis2 from "../../assets/illustrations/analysis2.svg";
-import { v4 } from "uuid";
 
 const userService = new UserService();
 
@@ -90,11 +89,16 @@ function SpecificAnalytics() {
                     <div className="graph-heading">
                       Number Of Attendees Graph:
                     </div>
-                    <BarChart venueId={item.id} />
+                    <div className="bar-graph-container">
+                      <BarChart venueId={item.id} />
+                    </div>
+
                     <div className="graph-heading">
                       Earnings Of Venue Graph:
                     </div>
-                    <BarChartEarningsVenue key={v4()} venueId={item.id} />
+                    <div className="bar-graph-container">
+                      <BarChartEarningsVenue venueId={item.id} />
+                    </div>
                   </AccordionDetails>
                 </Accordion>
               </Paper>

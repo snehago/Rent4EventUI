@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./commonAnalytics.scss";
 import DoughnutChart from "./DoughnutChart";
@@ -9,29 +10,28 @@ import { AnalyticsService } from "../../Services/AnalyticsServices";
 import swal from "sweetalert";
 import { of } from "await-of";
 import DividerComponent from "../DividerComponent/DividerComponent";
-import { v4 } from "uuid";
 
 const analyticsService = new AnalyticsService();
 function CommonAnalytics() {
-    const user: User = useSelector((state: RootState) => state.auth.user);
-    const [totalEarning,setTotalEarning]=useState(0);
+  const user: User = useSelector((state: RootState) => state.auth.user);
+  const [totalEarning, setTotalEarning] = useState(0);
 
-    useEffect(() => {
-        (async () => {
-            const [response, error] = await of(
-              analyticsService.getTotalEarningOfHost(user.id)
-            );
-            if (error) {
-              swal("Error", "Unable to fetch", "error");
-            }
-            if (response) {
-              console.log(response);
-              setTotalEarning(response.response)
-            }
-          })();
-    }, [user])
+  useEffect(() => {
+    (async () => {
+      const [response, error] = await of(
+        analyticsService.getTotalEarningOfHost(user.id)
+      );
+      if (error) {
+        swal("Error", "Unable to fetch", "error");
+      }
+      if (response) {
+        console.log(response);
+        setTotalEarning(response.response);
+      }
+    })();
+  }, []);
   return (
-    <div key={v4()} className="common-analytics-container">
+    <div className="common-analytics-container">
       <div className="common-analytics-booking-all-venues">
         <div className="total-earnings-host">
           <span className="total-earning-label">Total Earning: </span>
@@ -42,14 +42,15 @@ function CommonAnalytics() {
 
         <div className="analytics-label">Bookings Of All Venues</div>
 
-        <div className="doughnut-chart-container">
-          <DoughnutChart key={v4()} userId={user.id} />
-        </div>
+       
+            <div className="doughnut-chart-container">
+              <DoughnutChart userId={user.id} />
+            </div>
 
         <div className="analytics-label">Earnings Of All Venues</div>
 
         <div className="doughnut-chart-container">
-          <DoughnutAllVenueEarnings key={v4()} userId={user.id} />
+          <DoughnutAllVenueEarnings userId={user.id} />
         </div>
       </div>
     </div>

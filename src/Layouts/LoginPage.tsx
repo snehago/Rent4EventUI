@@ -1,12 +1,9 @@
 import {
   Avatar,
   Button,
-  Checkbox,
-  FormControlLabel,
   Grid,
   IconButton,
   Input,
-  Link,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -53,7 +50,7 @@ const LoginPage = () => {
     console.log(values);
     const [response, error] = await of(userService.login(values));
     if (error) {
-      swal("error","Invalid Username or Password","error");
+      swal("Error","Invalid Username or Password","error");
     }
     if (response) {
       if (response.role === "client") history.push("/home");
@@ -73,14 +70,20 @@ const LoginPage = () => {
 
   return (
     <Grid container className="login-root-grid">
-      <Grid item xs={6} className="login-side-img-section" >
+      <Grid item xs={6} className="login-side-img-section">
         <img src={image} className="login-side-image" alt="" />
         <div className="login-img-text">
           GET STARTED <br /> FOR MAKING YOUR STAYS AND EVENTS SPECIAL WITH US !!
         </div>
       </Grid>
-      <Grid container xs={12} lg={6} md={6} sm={12} className="login-form-section">
-        {/* <Paper elevation={10} className="paperStyle"> */}
+      <Grid
+        container
+        xs={12}
+        lg={6}
+        md={6}
+        sm={12}
+        className="login-form-section"
+      >
         <div className="paperStyle">
           <Grid item className="gridStyle">
             <Avatar className="avatarStyle">
@@ -140,19 +143,13 @@ const LoginPage = () => {
                     </InputAdornment>
                   }
                 />
-                <Field
-                  as={FormControlLabel}
-                  name="rememberMe"
-                  control={<Checkbox color="primary" />}
-                  label="Remember Me"
-                />
+
                 <Button
                   type="submit"
                   fullWidth
                   color="primary"
-                  //className="btnStyle"
+                  className="login-btn-Style"
                   variant="contained"
-                  // onClick={handleSubmit}
                   disabled={props.isSubmitting}
                 >
                   {props.isSubmitting ? "LOADING" : "SIGN IN"}
@@ -161,15 +158,9 @@ const LoginPage = () => {
             )}
           </Formik>
           <Typography className="login-text-links">
-            <Link href="#">Forgot Password ?</Link>
-          </Typography>
-          <Typography className="login-text-links">
             {" "}
             Do you have an account ?
             <br />
-            {/* <NavLink className="navLink" exact to="/user/register/user/">
-            Register
-          </NavLink> */}
             <Button
               onClick={handleRegister}
               variant="outlined"
@@ -180,9 +171,6 @@ const LoginPage = () => {
               Register
             </Button>
             <br />
-            {/* <NavLink className="navLink" exact to="/user/register/host/">
-            Register as a Host
-          </NavLink> */}
             <Button
               onClick={handleRegisterHost}
               variant="outlined"
@@ -193,8 +181,7 @@ const LoginPage = () => {
               Register as a Host
             </Button>
           </Typography>
-        {/* </Paper> */}
-      </div>
+        </div>
       </Grid>
     </Grid>
   );

@@ -22,7 +22,6 @@ function BarChart({ venueId }) {
         for (let i = 1; i < response.response.length; i += 2) {
           tempAr.push(response.response[i]);
         }
-        //   setDatas(response.response);
         console.log(tempAr);
         setDatas(tempAr);
       }
@@ -42,25 +41,6 @@ function BarChart({ venueId }) {
         borderColor: ["#BA55D3"],
         backgroundColor: ["#BA55D3"],
       },
-
-      //   {
-      //     label: 'Sales 2019 (M)',
-      //     data: [4, 3, 2, 2, 3],
-      //     borderColor: [
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)'
-      //     ],
-      //     backgroundColor: [
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)',
-      //       'rgba(54, 162, 235, 0.2)'
-      //     ]
-      //   }
     ],
   };
 
