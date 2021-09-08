@@ -128,12 +128,12 @@ export default function PriceSection({ venue }: DSProps) {
             variant="contained"
             color="primary"
             onClick={checkout}
-            disabled={user.role !== "client"}
+            disabled={user && user?.role !== "client" ? true:false}
           >
             CHECKOUT
           </Button>
         </Grid>
-        {user.role !== "client" && (
+        { user && user?.role !== "client" && (
           <span>&#9432; You can not book the venue.</span>
         )}
       </Grid>

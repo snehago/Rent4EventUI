@@ -316,22 +316,24 @@ const HomePage = () => {
 
       <Container>
         <Grid className="hp-host-banner-image-div" xs={12} sm={12} lg={12}>
-          <Grid className="hp-host-banner-dark-area" xs={12} sm={12} lg={6}>
-            <Typography variant="h4">Try Hosting</Typography>
-            <Typography variant="subtitle2">
-              Earn extra income and unlock new opportunities by sharing your
-              space.
-            </Typography>
-            <Button
-              href="/user/register/host"
-              variant="contained"
-              className="hp-become-host-button"
-              color="primary"
-            >
-              Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
-            </Button>
-          </Grid>
-          <Grid xs={12} sm={12} lg={6}></Grid>
+          <div className="hp-dark-overlay">
+            <Grid className="hp-host-banner-dark-area" xs={12} sm={12} lg={6}>
+              <Typography variant="h4">Try Hosting</Typography>
+              <Typography variant="subtitle2">
+                Earn extra income and unlock new opportunities by sharing your
+                space.
+              </Typography>
+              <Button
+                href="/user/register/host"
+                variant="contained"
+                className="hp-become-host-button"
+                color="primary"
+              >
+                Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
+              </Button>
+            </Grid>
+            <Grid xs={12} sm={12} lg={6}></Grid>
+          </div>
         </Grid>
       </Container>
 
