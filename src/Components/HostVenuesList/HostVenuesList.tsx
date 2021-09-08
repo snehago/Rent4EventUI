@@ -1,4 +1,4 @@
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import { of } from "await-of";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -19,7 +19,7 @@ import travelBooking from '../../assets/illustrations/travelBooking.svg'
 const userService = new UserService();
 function VenuesList({changeView}:any) {
   const user: User = useSelector((state: RootState) => state.auth.user);
-  const [venues, setVenues] = useState<Venue[]>([]);
+  const [venues, setVenues] = useState<Venue[]| null>(null);
   const [venueToView, setVenueToView] = useState<Venue | null>(null);
   const [bookingView, setBookingView] = useState<boolean>(false);
   const [editView, setEditView] = useState<boolean>(false);
@@ -27,9 +27,12 @@ function VenuesList({changeView}:any) {
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     (async () => {
+      setLoading(true)
       const [response, error] = await of(userService.getHostById(user.id));
       if (error) {
         swal("error while fetching venues", "error");
+        setVenues([]);
+        setLoading(false);
       }
       if (response) {
         setTimeout(() => {
@@ -57,16 +60,14 @@ function VenuesList({changeView}:any) {
   return (
     <>
       {loading && <CircularLoader />}
-      {venues.length === 0 && (
+      {!loading && venues?.length === 0 && (
         <div className="booking-list-empty-container">
           <div className="empty-list-text">
             <div className="transparent-background">
               You have not added any Venues yet...
               <br />
               <br />
-              <span id="get-started-text" onClick={() => changeView(3)}>
-                Get Started !
-              </span>
+              <Button variant="outlined" className="get-started-btn" onClick={() => changeView(3)}>Get Started</Button>
               <div style={{marginTop:"1%",marginBottom:"2%"}}>Host a venue with us..</div>
               <img src={travelBooking} alt="" height="60%" width="100%"/>
             </div>
@@ -75,7 +76,7 @@ function VenuesList({changeView}:any) {
       )}
       {!bookingView && !editView && (
         <div className="added-venue-card-container" hidden={bookingView}>
-          {venues.map((venue) => (
+          {venues?.map((venue) => (
             <AddedVenueCard
               venue={venue}
               onClick={bookingsCallback}

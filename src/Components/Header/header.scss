@@ -1,12 +1,15 @@
 @import '../../Shared/styles/colors';
 
 .app-header{
+  display: block;
   background-color: $header-background-color !important;
   box-shadow: 0px 8px 16px #00000029 !important;
   height: 4vw;
   overflow: hidden;
 }
-
+.app-mobile-header {
+  display: none;
+}
 .header-text {
   color: $header-logo-color;
   cursor: pointer;
@@ -50,4 +53,13 @@
 #activeRoute {
   font-weight: 900 !important;
   color: #D3600C !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .app-header {
+    display: none !important;
+  } 
+  .app-mobile-header {
+  display: block;
+}
 }

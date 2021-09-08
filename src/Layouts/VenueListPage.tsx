@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
+import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 import CardItem from "../Components/CardItem";
 import Header from "../Components/Header";
 import { VenueService } from "../Services/VenueService";
@@ -31,6 +32,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { SharedService } from "../Services/SharedService";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import moment from "moment";
 
 const venueService = new VenueService();
 const eventTypeService = new EventTypeService();
@@ -64,6 +66,8 @@ const VenueListPage = (props) => {
   const [filterStatus, setFilterStatus] = useState<boolean>(false);
   const [listOfWishlist, setListOfWishlist] = useState([]);
   const [listOfWishlistId, setListOfWishlistId] = useState<any[]>([]);
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
 
   const loadMore = () => {
     setCurrentPage((prev) => prev + 1);
@@ -111,6 +115,17 @@ const VenueListPage = (props) => {
     })();
   }, [currentPage]);
 
+  const startDateValue:Date = new Date(moment(Date.now()).format("yyyy-mm-dd"));
+  
+  const handleDateChange = (event: any) => {
+    if (event?.target?.value && event?.target?.value[0]!== startDate) {
+      setStartDate(event.target.value[0]);
+    }
+    if (event?.target?.value && event?.target?.value[1] !== endDate) {
+      setEndDate(event.target.value[1]);
+    }
+  };
+
   const handleFilterChange = (event: React.ChangeEvent<any>) => {
     console.log(event.target);
     let temp: any = {};
@@ -126,7 +141,7 @@ const VenueListPage = (props) => {
       temp = { ...filters, sort: event.target.value };
     setFilters(temp);
   };
-  const applyAppropiateFilters = () => {
+  const applyAppropiateFilters =async () => {
     console.log(filters);
     let tempVenues = originalVenues;
     for (let i of Object.keys(filters)) {
@@ -138,7 +153,7 @@ const VenueListPage = (props) => {
           tempVenues = applyCapacityFilter(filters[i], tempVenues);
         if (i === "eventTypeFilter")
           tempVenues = applyEventTypeFilter(filters[i], tempVenues);
-        if (i === "sort") tempVenues = sort(filters[i], tempVenues);
+        if (i === "sort")tempVenues = await sort(filters[i], tempVenues);
       }
     }
     let toSearch = filters.search.trim().toUpperCase();
@@ -153,7 +168,7 @@ const VenueListPage = (props) => {
   };
   useEffect(() => {
     applyAppropiateFilters();
-  }, [filters, originalVenues]);
+  }, [filters, originalVenues,endDate]);
 
   const applyPriceFilter = (filterType: any, tempVenues: Venue[]) => {
     console.log("priceFilter");
@@ -205,11 +220,11 @@ const VenueListPage = (props) => {
     return temp;
   };
 
-  const sort = (filterType: any, tempVenues: Venue[]) => {
+  const sort = async (filterType: any, tempVenues: Venue[]) => {
     setLoading(true);
     let temp: any = [];
-    if (filterType === 2) temp = tempVenues.sort((a, b) => a.price - b.price);
-    if (filterType === 1) temp = tempVenues.sort((a, b) => b.price - a.price);
+    if (filterType === 2) temp =await tempVenues.sort((a, b) => a.price - b.price);
+    if (filterType === 1) temp =await tempVenues.sort((a, b) => b.price - a.price);
     setLoading(false);
     return temp;
   };
@@ -358,6 +373,14 @@ const VenueListPage = (props) => {
           </FormControl>
         </div>
         <div className="venue-filter-container">
+          <div className="vlp-date-picker">
+            <DateRangePickerComponent
+              placeholder="Select Dates"
+              startDate={startDateValue}
+              format="dd-MMM-yy"
+              onChange={handleDateChange}
+            ></DateRangePickerComponent>
+          </div>
           <FormControl>
             <InputLabel shrink id="sort-label" className="venue-label">
               Sort By Price

@@ -120,3 +120,60 @@
 .venue-footer {
   margin-top: 5%;
 }
+.vlp-date-picker {
+  width: 13vw !important;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+.venue-search-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  gap: 2%;
+  width: 80%;
+  input {
+    background-color: $white;
+    border: 1px solid #707070;
+    border-radius: .25rem;
+    opacity: 1;
+    width: 100%;
+  }
+}
+.venue-search-division {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  align-items: center;
+  height: 40vw;
+  gap:5%;
+  width: 100%;
+  margin-top: 4.5vw;
+  background: transparent url('../../assets/images/venueListPageBackground.png') 0% 0% no-repeat padding-box;
+  background-position: bottom;
+  background-size: cover;
+}
+.filter-button-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 8vw;
+  margin-bottom: -10vw;
+  justify-content: flex-end;
+  align-items: flex-end;
+  button {
+    background-color: $white !important;
+    border-radius: 0 !important;
+    margin-right: 2vw;
+  }
+}
+.search-button {
+  width: 30% !important;
+}
+
+
+}

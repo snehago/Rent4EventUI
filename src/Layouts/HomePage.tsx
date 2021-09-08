@@ -9,6 +9,7 @@ import {
   Box,
   Typography,
   TextField,
+  IconButton,
 } from "@material-ui/core";
 import "./styles/home.scss";
 import { useHistory } from "react-router";
@@ -33,12 +34,12 @@ import { Container } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
 import { CardMedia } from "@material-ui/core";
 import MainStepsSection from "../Components/StepsSection/MainStepsSection";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-//import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
+import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 4,
   },
@@ -113,7 +114,8 @@ const HomePage = () => {
     (async () => {
       const [response, error] = await of(venueService.getPromotedVenues());
       if (error) {
-        swal("Unable to fetch venues", "error");
+        swal("error","Unable to fetch venues", "error");
+        setLoading(false);
       }
       if (response) {
         console.log(response);
@@ -121,7 +123,6 @@ const HomePage = () => {
           setVenues(response);
           setLoading(false);
         }, 2000);
-
         setOriginalVenues(response);
       }
     })();
@@ -188,11 +189,6 @@ const HomePage = () => {
               <SearchOutlinedIcon /> &nbsp; search
             </Button>
           </div>
-          {/* <div className="banner-button-container">
-            <Button href="/user/register/host" className="banner-host-button">
-              Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
-            </Button>
-          </div> */}
         </div>
       </div>
       {/* banner ends */}
@@ -202,8 +198,8 @@ const HomePage = () => {
         <Typography variant="h5" className="hp-event-type-filter-heading">
           Search according to your need
         </Typography>
-        <Grid spacing={2} container lg={12}>
-          <Grid item lg={3}>
+        <Grid spacing={4} container sm={12} lg={12}>
+          <Grid container direction="row" item sm={12} lg={3}>
             <CardMedia
               component="img"
               image={weddingEventTypeImage}
@@ -211,11 +207,11 @@ const HomePage = () => {
               className="hp-event-type-icon"
               onClick={() => history.push("/venue-list?even_type=1")}
             />
-            <Typography className="hp-event-type-filter-heading">
+            <Typography className="hp-event-type-filter-heading" gutterBottom>
               Wedding
             </Typography>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item sm={12} lg={3}>
             <CardMedia
               component="img"
               image={meetingEventTypeImage}
@@ -227,7 +223,7 @@ const HomePage = () => {
               Meetings
             </Typography>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item sm={12} lg={3}>
             <CardMedia
               component="img"
               image={productionEventTypeImage}
@@ -239,7 +235,7 @@ const HomePage = () => {
               Production
             </Typography>
           </Grid>
-          <Grid item lg={3}>
+          <Grid item sm={12} lg={3}>
             <CardMedia
               component="img"
               image={photoshootEventTypeImage}
@@ -256,7 +252,13 @@ const HomePage = () => {
       {/* event type cads ends here */}
       <div className="recommendedVenues">
         <div>
-          <Typography className="recommendedTitle">Popular Venues</Typography>
+          <Typography
+            variant="h5"
+            align="center"
+            className="hp-event-type-filter-heading"
+          >
+            Popular Venues
+          </Typography>
         </div>
         <div
           className="recommended-venue-box"
@@ -283,6 +285,7 @@ const HomePage = () => {
                       price={venue.price}
                       host={venue.host}
                       wish={true}
+                      key={venue.id}
                     />
                   </div>
                 ) : (
@@ -293,38 +296,44 @@ const HomePage = () => {
                     price={venue.price}
                     host={venue.host}
                     wish={false}
-                    key={v4()}
+                    key={venue.id}
                   />
                 )}
               </Box>
             ))}
           </Caraousel>
         </div>
-
         <div className="exploreButton" data-aos="fade-up" data-aos-once>
-          <Button
+          <IconButton
             onClick={handleClick}
-            size="large"
-            variant="outlined"
-            className="btnStyle"
+            className="home-explore-more-button"
           >
-            Explore More!
-          </Button>
+            Explore More
+            <ArrowForwardIcon />
+          </IconButton>
         </div>
       </div>
 
-      
-      {/* <Container>
-        <Grid lg={12}>
-          <Grid lg={6}>
+      <Container>
+        <Grid className="hp-host-banner-image-div" xs={12} sm={12} lg={12}>
+          <Grid className="hp-host-banner-dark-area" xs={12} sm={12} lg={6}>
             <Typography variant="h4">Try Hosting</Typography>
-            <Typography variant="body1" >Earn extra income and unlock new opportunities by sharing your space.</Typography>
+            <Typography variant="subtitle2">
+              Earn extra income and unlock new opportunities by sharing your
+              space.
+            </Typography>
+            <Button
+              href="/user/register/host"
+              variant="contained"
+              className="hp-become-host-button"
+              color="primary"
+            >
+              Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
+            </Button>
           </Grid>
-          <Grid lg={6}>
-
-          </Grid>
+          <Grid xs={12} sm={12} lg={6}></Grid>
         </Grid>
-      </Container> */}
+      </Container>
 
       <div>
         <MainStepsSection />

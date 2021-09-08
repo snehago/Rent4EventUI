@@ -7,10 +7,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: visible;
 }
 
 .booking-list-empty-container{
-  background-color: #ffd1b0;
   padding: 2%!important;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@
   min-width: 75vw!important;
   min-height: 80vh!important;
   // border: 1px solid blue;
-  font-size: 2rem;
+  font-size: 1.3rem;
   font-family: Montserrat;
   font-weight: 700;
   text-align: center!important;
@@ -39,11 +39,11 @@
   height: 80vh!important;
 }
 
-#get-started-text{
+.get-started-btn{
   font-weight: 700!important;
-  background: wheat;
-  border-radius: 0.5rem;
-  padding: 1%;
+  background-color: $theme-primary!important;
+  color:$white!important;
+  font-family: Montserrat!important;
 }
 
 #get-started-text:hover{

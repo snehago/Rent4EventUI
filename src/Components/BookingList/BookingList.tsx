@@ -11,26 +11,33 @@ import swal from "sweetalert";
 import BookingDetails from "../BookingDetails";
 import { v4 } from "uuid";
 import { useHistory } from "react-router-dom";
-import travelBooking from '../../assets/illustrations/travelBooking.svg'
+import travelBooking from "../../assets/illustrations/travelBooking.svg";
+import { Button } from "@material-ui/core";
+import CircularLoader from "../CircularLoader/CircularLoader";
 
 const bookingService = new BookingService();
 function BookingList() {
   const history = useHistory();
   const user: User = useSelector((state: RootState) => state.auth.user);
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookings, setBookings] = useState<Booking[]|null>(null);
   const [venue, setVenue] = useState<any>(null);
   const [booking, setBooking] = useState<any>(null);
   const [bookingView, setBookingView] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const [response, error] = await of(
         bookingService.getBookingByUserId(user.id)
       );
       if (error) {
         swal("Unable to fetch your bookings", "error");
+        setBookings([]);
+        setLoading(false);
       }
       if (response) {
+        setLoading(false);
         setBookings(response);
       }
     })();
@@ -46,24 +53,27 @@ function BookingList() {
   };
   return (
     <>
-      {bookings.length === 0 && (
+      {loading && <CircularLoader />}
+      {!loading && bookings?.length === 0 && (
         <div className="booking-list-empty-container">
           <div className="empty-list-text">
             <div className="transparent-background">
               You have no booking history for now...
               <br />
               <br />
-              <span id="get-started-text" onClick={goToVenuesList}>
-                Get Started !
-              </span>
-              <div style={{marginTop:"1%",marginBottom:"2%"}}>Book a venue with us..</div>
-              <img src={travelBooking} alt="" height="60%" width="100%"/>
+              <Button
+                variant="outlined"
+                className="get-started-btn"
+                onClick={goToVenuesList}
+              >
+                Get Started
+              </Button>
+              <div style={{ marginTop: "1%", marginBottom: "2%" }}>
+                Book a venue with us..
+              </div>
+              <img src={travelBooking} alt="" height="60%" width="100%" />
             </div>
-            
           </div>
-
-          
-
         </div>
       )}
       {!bookingView && (
@@ -72,7 +82,7 @@ function BookingList() {
           data-aos="slide-left"
           data-aos-once
         >
-          {bookings.map((booking) => (
+          {bookings?.map((booking) => (
             <BookingCard
               key={v4()}
               booking={booking}

@@ -1,6 +1,6 @@
 
 .carouselContainer {
-  margin-top: 10%;
+  margin-top: 5%;
   display: flex;
   justify-content: center;
 }
@@ -8,7 +8,7 @@
 .vdp-recommended-venues {
   display: flex;
   flex-direction: column;
-  height: 37vw;
+  height: 100% !important;
   width: 100% !important;
   background-color: #eaeaea;
 }
@@ -17,4 +17,44 @@
   letter-spacing: 0;
   opacity: 1;
   padding-top: 1%;
+}
+.vdp-description-section {
+  display: flex;
+  flex-direction: row;
+}
+.vdp-description {
+  flex-grow: 1;
+  margin-left: 1vw;
+  width: 65%;
+}
+.vdp-price {
+  flex-grow: 1;
+  width: 35%;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  margin: 2vw 3vw 0 0;
+  padding: 1vw 1vw 0 0;
+  top: -1px;
+}
+@media only screen and (max-width: 600px) {
+.details-page-container{
+    height: 100% !important;
+    width: 100% !important;
+}
+.vdp-description-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.vdp-description {
+  flex-grow: 1;
+  margin-left: 1vw;
+  width: 100%;
+}
+.vdp-price {
+  flex-grow: 1;
+  width: 95%;
+}
+
 }

@@ -86,7 +86,7 @@ function BookingDetails({venue, booking, onBack}:any) {
                 Back
               </Button>
             </Grid>
-            <Grid item lg={6}>
+            { booking.status.toUpperCase()==="BOOKED" && <Grid item lg={6}>
               <Button
                 key={v4()}
                 variant="contained"
@@ -95,7 +95,7 @@ function BookingDetails({venue, booking, onBack}:any) {
               >
                 Cancel
               </Button>
-            </Grid>
+            </Grid>}
           </Grid>
         </Box>
       </Paper>

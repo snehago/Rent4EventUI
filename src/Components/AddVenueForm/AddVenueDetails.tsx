@@ -7,6 +7,7 @@ import {
   Grid,
   Paper,
   TextField,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import { Field, Form, Formik, ErrorMessage } from "formik";
@@ -36,6 +37,7 @@ export default function AddVenueDetails({ handleNext, venue }) {
   const [eventTypes, setEventTypes] = useState<EventType[]>([]);
   const [selectedFacilities, setSelectedFacilities] = useState<number[]>([]);
   const [selectedEventTypes, setSelectedEventTypes] = useState<number[]>([]);
+  const [promoted, setPromoted]= useState<boolean>(false);
   const [coordinates, setCoordinates] = useState({
     lat: 0,
     lng: 0,
@@ -120,6 +122,7 @@ export default function AddVenueDetails({ handleNext, venue }) {
       description: values.description,
       listOfFacilities: tempFacilities,
       listOfEventTypes: tempEventTypes,
+      promoted
     };
     console.log(venueToAdd);
     if (venue) {
@@ -436,7 +439,7 @@ export default function AddVenueDetails({ handleNext, venue }) {
 
                 <Grid item xs={12}>
                   <div className="addVenueSubLabels">
-                    <RoomRoundedIcon /> Mark Venue Location On Map 
+                    <RoomRoundedIcon /> Mark Venue Location On Map
                   </div>
 
                   <LocationPicker
@@ -446,7 +449,23 @@ export default function AddVenueDetails({ handleNext, venue }) {
                     onChange={handleLocationChange}
                   />
                 </Grid>
-
+                <Grid item xs={12}>
+                  <Tooltip title="It will cost you extra, 7% of total booking cost (appx.)">
+                    <Field
+                      as={FormControlLabel}
+                      name="promoted"
+                      control={
+                        <Checkbox
+                          onChange={() => setPromoted(!promoted)}
+                          value={true}
+                          size="small"
+                          color="primary"
+                        />
+                      }
+                      label="Do you want to promote your venue?"
+                    />
+                  </Tooltip>
+                </Grid>
                 <Grid item xs={12}>
                   <Button
                     className="addVenueButton"
