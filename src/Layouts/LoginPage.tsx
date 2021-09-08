@@ -140,17 +140,17 @@ const LoginPage = () => {
                     </InputAdornment>
                   }
                 />
-                <Field
+                {/* <Field
                   as={FormControlLabel}
                   name="rememberMe"
                   control={<Checkbox color="primary" />}
                   label="Remember Me"
-                />
+                /> */}
                 <Button
                   type="submit"
                   fullWidth
                   color="primary"
-                  //className="btnStyle"
+                  className="login-btn-Style"
                   variant="contained"
                   // onClick={handleSubmit}
                   disabled={props.isSubmitting}
@@ -160,9 +160,9 @@ const LoginPage = () => {
               </Form>
             )}
           </Formik>
-          <Typography className="login-text-links">
+          {/* <Typography className="login-text-links">
             <Link href="#">Forgot Password ?</Link>
-          </Typography>
+          </Typography> */}
           <Typography className="login-text-links">
             {" "}
             Do you have an account ?

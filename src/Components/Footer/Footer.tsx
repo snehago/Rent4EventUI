@@ -16,6 +16,7 @@ export default function Footer() {
         xs={12}
         sm={12}
         lg={2}
+        className="footer-sections-grid"
       >
         <Box className="label">About Us</Box>
         <Box className="aboutText">
@@ -26,7 +27,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} lg={2}>
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label">Services</Box>
         <Box>
           <Link className="contentText" href="/" color="inherit">
@@ -47,7 +48,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} lg={2}>
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label">Terms&nbsp;and&nbsp;Conditions</Box>
         <Box>
           <Link className="contentText" href="/" color="inherit">
@@ -68,7 +69,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} lg={2}>
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label">Contact Us</Box>
         <Box>
           <Link id="blueLink" className="contentText" href="/" color="inherit">
@@ -95,7 +96,7 @@ export default function Footer() {
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={12} lg={2}>
+      <Grid item xs={12} sm={12} lg={2} className="footer-sections-grid">
         <Box className="label" id="followLabel">
           Follow Us
         </Box>

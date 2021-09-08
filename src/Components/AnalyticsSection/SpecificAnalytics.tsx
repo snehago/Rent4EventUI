@@ -50,7 +50,13 @@ function SpecificAnalytics() {
 
   return (
     <div className="specific-analytics-container">
-      <div style={{ display: "flex", justifyContent: "space-between",marginBottom:"2%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "2%",
+        }}
+      >
         <div className="analytics-label">Venues Analytics</div>
         <img src={analysis2} alt="" height="15%" width="15%" />
       </div>
@@ -83,11 +89,16 @@ function SpecificAnalytics() {
                     <div className="graph-heading">
                       Number Of Attendees Graph:
                     </div>
-                    <BarChart venueId={item.id} />
+                    <div className="bar-graph-container">
+                      <BarChart venueId={item.id} />
+                    </div>
+
                     <div className="graph-heading">
                       Earnings Of Venue Graph:
                     </div>
-                    <BarChartEarningsVenue venueId={item.id} />
+                    <div className="bar-graph-container">
+                      <BarChartEarningsVenue venueId={item.id} />
+                    </div>
                   </AccordionDetails>
                 </Accordion>
               </Paper>
