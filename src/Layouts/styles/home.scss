@@ -146,8 +146,22 @@ body{
   height: 100% !important;
 }
 
-
-
+.hp-host-banner-image-div {
+  background: transparent url('../../assets/images/banner2.png') no-repeat bottom center;
+  background-size: cover;
+  height: 30vw !important;
+}
+.hp-host-banner-dark-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .8);
+  background-size: cover !important;
+  width: 100% !important;
+  height: 100% !important;
+  color: white;
+}
 @media only screen and (max-width: 600px) {
   
 .root {

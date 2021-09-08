@@ -36,11 +36,10 @@ import { CardMedia } from "@material-ui/core";
 import MainStepsSection from "../Components/StepsSection/MainStepsSection";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-//import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
+import SupervisorAccountOutlinedIcon from '@material-ui/icons/SupervisorAccountOutlined';
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 4,
   },
@@ -190,11 +189,6 @@ const HomePage = () => {
               <SearchOutlinedIcon /> &nbsp; search
             </Button>
           </div>
-          {/* <div className="banner-button-container">
-            <Button href="/user/register/host" className="banner-host-button">
-              Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
-            </Button>
-          </div> */}
         </div>
       </div>
       {/* banner ends */}
@@ -258,7 +252,11 @@ const HomePage = () => {
       {/* event type cads ends here */}
       <div className="recommendedVenues">
         <div>
-          <Typography variant="h5" align="center" className="hp-event-type-filter-heading">
+          <Typography
+            variant="h5"
+            align="center"
+            className="hp-event-type-filter-heading"
+          >
             Popular Venues
           </Typography>
         </div>
@@ -316,17 +314,21 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* <Container>
-        <Grid lg={12}>
-          <Grid lg={6}>
+      <Container>
+        <Grid className="hp-host-banner-image-div" lg={12}>
+          <Grid className="hp-host-banner-dark-area" lg={6}>
             <Typography variant="h4">Try Hosting</Typography>
-            <Typography variant="body1" >Earn extra income and unlock new opportunities by sharing your space.</Typography>
+            <Typography variant="body1">
+              Earn extra income and unlock new opportunities by sharing your
+              space.
+            </Typography>
+              <Button href="/user/register/host"  variant="contained" color="primary" >
+                Become a Host &nbsp; <SupervisorAccountOutlinedIcon />
+              </Button>
           </Grid>
-          <Grid lg={6}>
-
-          </Grid>
+          <Grid lg={6}></Grid>
         </Grid>
-      </Container> */}
+      </Container>
 
       <div>
         <MainStepsSection />

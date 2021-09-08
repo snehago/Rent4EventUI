@@ -34,6 +34,7 @@ function BookingList() {
       if (error) {
         swal("Unable to fetch your bookings", "error");
         setBookings([]);
+        setLoading(false);
       }
       if (response) {
         setLoading(false);
@@ -53,7 +54,7 @@ function BookingList() {
   return (
     <>
       {loading && <CircularLoader />}
-      {!loading && bookings.length === 0 && (
+      {!loading && bookings?.length === 0 && (
         <div className="booking-list-empty-container">
           <div className="empty-list-text">
             <div className="transparent-background">

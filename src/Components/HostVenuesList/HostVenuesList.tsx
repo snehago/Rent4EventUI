@@ -32,6 +32,7 @@ function VenuesList({changeView}:any) {
       if (error) {
         swal("error while fetching venues", "error");
         setVenues([]);
+        setLoading(false);
       }
       if (response) {
         setTimeout(() => {
@@ -59,7 +60,7 @@ function VenuesList({changeView}:any) {
   return (
     <>
       {loading && <CircularLoader />}
-      {!loading && venues.length === 0 && (
+      {!loading && venues?.length === 0 && (
         <div className="booking-list-empty-container">
           <div className="empty-list-text">
             <div className="transparent-background">

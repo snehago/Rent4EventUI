@@ -31,7 +31,6 @@ const sideBarItems: any = {
     },
   ],
   host: [
-   
     {
       id: 4,
       value: "My Venues",
@@ -46,6 +45,11 @@ const sideBarItems: any = {
       id: 1,
       value: "My profile",
       icon: <PersonOutlineOutlinedIcon />,
+    },
+    {
+      id: 5,
+      value: "Analytics",
+      icon: <DonutLargeOutlinedIcon />,
     },
   ],
   admin: [
@@ -64,11 +68,6 @@ const sideBarItems: any = {
       value: "Manage Users",
       icon: <PersonOutlineOutlinedIcon />,
     },
-    {
-      id: 5,
-      value: "Analytics",
-      icon:<DonutLargeOutlinedIcon />
-    }
   ],
 };
 const Dashboard = () => {
