@@ -13,16 +13,17 @@
   height: 100%;
 }
 .profile-pic-paper{
+  height: 60%!important;
   background-repeat: 0.5rem!important;
   border-radius: 0.7rem!important;
 }
 .profile-paper-container {
-  width: 96%;
+  width: 85%;
   padding-left: 8%;
   padding-right: 8%;
   padding-bottom: 8%;
   margin-top: 1% !important;
-  margin-left: 2% !important;
+  margin-left: 8% !important;
   margin-right: 2% !important;
   margin-bottom: 1% !important;
 }
@@ -54,8 +55,8 @@
   // background-color: yellowgreen;
   box-sizing: border-box;
   // background-color: #F4F4F4;
-  margin-left: 4%!important;
-  margin-top: 3%!important;
+  margin-left: 10%!important;
+  margin-top: -7%!important;
   height: 100%!important;
   box-sizing: border-box;
 }
