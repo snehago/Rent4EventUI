@@ -3,9 +3,6 @@ import "./carousel.scss";
 import CarouselCard from "./CarouselCard";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import image1 from "../../assets/images/venue.png";
-import image2 from "../../assets/images/hotel.png";
-import image3 from "../../assets/images/resort.jpg";
 import { useEffect, useState } from "react";
 
 export default function DetailsCarousel({images}:any) {

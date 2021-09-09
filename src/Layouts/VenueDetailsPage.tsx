@@ -13,7 +13,7 @@ import { Venue } from "../Shared/Interfaces/Venue";
 //import ReviewSection from "../Components/DetailsReviewSection/ReviewSection";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { v4 } from "uuid";
