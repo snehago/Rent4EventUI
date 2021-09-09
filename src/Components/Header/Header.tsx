@@ -135,7 +135,7 @@ export default function Header() {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={moveToWishlist}>Wishlist</MenuItem>
+            {user && user.role==="client" && <MenuItem onClick={moveToWishlist}>Wishlist</MenuItem>}
             <MenuItem onClick={moveToDashboard}>My Dashboard</MenuItem>
             <MenuItem onClick={logoutUser}>Logout</MenuItem>
           </Menu>

@@ -1,7 +1,4 @@
 @import '../../Shared/styles/colors';
-body{
-  // background-color: $background-color-primary;
-}
 .root {
   margin: 0;
   padding: 0;
@@ -95,7 +92,7 @@ body{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   grid-column-gap: 2%;
   margin: 2rem 5.5rem;
   top: 37%;
@@ -148,7 +145,7 @@ body{
 
 
 .hp-host-banner-image-div {
-  background: transparent url('../../assets/images/banner2.png') no-repeat bottom center;
+  background: transparent url('../../assets/images/hostBanner.png') no-repeat bottom center;
   background-size: cover;
   height: 30vw !important;
   width: 95% !important;

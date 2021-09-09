@@ -13,7 +13,7 @@ import { Venue } from "../Shared/Interfaces/Venue";
 //import ReviewSection from "../Components/DetailsReviewSection/ReviewSection";
 import CircularLoader from "../Components/CircularLoader/CircularLoader";
 import swal from "sweetalert";
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import Caraousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { v4 } from "uuid";
@@ -142,7 +142,7 @@ const VenueDetailsPage = () => {
 
   return (
     <>
-      <Container maxWidth="lg" className="details-page-container">
+      <div className="details-page-container">
         {loading && <CircularLoader />}
         <Header></Header>
         <div className="carouselContainer" data-aos="fade-up">
@@ -211,7 +211,7 @@ const VenueDetailsPage = () => {
           </div>
         </div>
         <Footer />
-      </Container>
+      </div>
     </>
   );
 };
