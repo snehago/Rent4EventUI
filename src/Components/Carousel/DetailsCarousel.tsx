@@ -18,7 +18,7 @@ export default function DetailsCarousel({images}:any) {
   const [items, setItems]= useState<any>();
   useEffect(() => {
   if (images.length > 0)setItems(images);
-  else setItems([image1, image2, image3, image1, image2, image3]);  
+  else setItems([]);  
   }, [images])
   
   
