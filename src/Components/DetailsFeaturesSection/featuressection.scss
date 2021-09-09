@@ -5,11 +5,14 @@
 }
 .features-grid-main-container {
   padding: 2%;
+  display: flex;
+  justify-content: space-between!important;
 }
 .features-facilities-grid-container {
   background-color: white;
   padding: 1%;
   border-radius: 0.4rem;
+  margin-right: 2%!important;
 }
 .features-facility-item {
   background-color: #eaeaea !important;

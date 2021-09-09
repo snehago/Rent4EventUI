@@ -37,10 +37,16 @@
   top: -1px;
 }
 
+.details-page-container{
+  padding-left: 0%!important;
+  padding-right: 0%!important;
+}
+
 @media only screen and (max-width: 600px) {
 .details-page-container{
     height: 100% !important;
     width: 100% !important;
+    
 }
 .vdp-description-section {
   display: flex;
