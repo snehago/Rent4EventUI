@@ -213,7 +213,18 @@ export default function CardItem({
 
         {sharedService.isUserLoggedIn() && user.role === "client" ? (
           <div>
-            {wishlisted ? (
+            {loading && (
+              <Skeleton>
+                <IconButton
+                  onClick={handleAddToWishlist}
+                  className="card-item-wishlist-btn"
+                  key={v4()}
+                >
+                  <FavoriteIcon key={v4()} />
+                </IconButton>
+              </Skeleton>
+            )}
+            {!loading && wishlisted && (
               <IconButton
                 onClick={handleAddToWishlist}
                 className="card-item-wishlist-btn"
@@ -221,7 +232,8 @@ export default function CardItem({
               >
                 <FavoriteIcon key={v4()} />
               </IconButton>
-            ) : (
+            )}
+            {!loading && !wishlisted && (
               <IconButton
                 onClick={handleAddToWishlist}
                 className="card-item-wishlist-btn"
