@@ -95,10 +95,12 @@ const VenueListPage = (props) => {
       );
       if (error) {
         swal("Error", "Unable to fetch venues", "error");
+        setLoading(false);
       }
       if (response) {
         if (response.length === 0) {
           setDisabled(true);
+          setLoading(false);
           return;
         }
         setOriginalVenues((prev) => [...prev, ...response]);
@@ -140,6 +142,7 @@ const VenueListPage = (props) => {
     if (event.target.name === "sort")
       temp = { ...filters, sort: event.target.value };
     setFilters(temp);
+    setLoading(false);
   };
   const applyAppropiateFilters =async () => {
     
@@ -195,15 +198,30 @@ const VenueListPage = (props) => {
   const applyCapacityFilter = (filterType: any, tempVenues: Venue[]) => {
     let temp: any = [];
     if (filterType === 1) {
-      temp = tempVenues.filter((venue) => venue.capacity <= 500);
+      temp = tempVenues.filter((venue) => venue.capacity <= 20);
     }
     if (filterType === 2) {
       temp = tempVenues.filter(
-        (venue) => venue.capacity > 500 && venue.capacity <= 1000
+        (venue) => venue.capacity <=50
       );
     }
     if (filterType === 3) {
-      temp = venues.filter((venue) => venue.capacity > 1000);
+      temp = venues.filter((venue) => venue.capacity > 50 && venue.capacity <=100);
+    }
+    if (filterType === 4) {
+      temp = venues.filter(
+        (venue) => venue.capacity > 100 && venue.capacity <= 250
+      );
+    }
+    if (filterType === 5) {
+      temp = venues.filter(
+        (venue) => venue.capacity > 250 && venue.capacity <= 500
+      );
+    }
+    if (filterType === 6) {
+      temp = venues.filter(
+        (venue) => venue.capacity > 500
+      );
     }
     return temp;
   };
@@ -330,9 +348,12 @@ const VenueListPage = (props) => {
               <MenuItem value={-1}>
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={1}>0-500</MenuItem>
-              <MenuItem value={2}>500-1000</MenuItem>
-              <MenuItem value={3}>&gt;1000</MenuItem>
+              <MenuItem value={1}>1-20</MenuItem>
+              <MenuItem value={2}>less than 50</MenuItem>
+              <MenuItem value={3}>51-100</MenuItem>
+              <MenuItem value={4}>101-250</MenuItem>
+              <MenuItem value={5}>251-500</MenuItem>
+              <MenuItem value={6}>greater than 500</MenuItem>
             </Select>
           </FormControl>
 
@@ -398,70 +419,68 @@ const VenueListPage = (props) => {
       </Collapse>
       {/* Filter and search ends */}
       <div className="all-venues">
-        {venues.length===0 &&
+        {venues.length === 0 && (
           <div className="no-result-container">
-            <div className="no-search-text">
-              No Results Found...
-            </div>
+            <div className="no-search-text">No Results Found...</div>
             <img src={noResult} height="30%" width="30%" alt="" />
           </div>
-        
-        }
-        { venues.length!==0 && <InfiniteScroll
-          pageStart={0}
-          loadMore={loadMore}
-          hasMore={!disabled}
-          initialLoad={false}
-          loader={
-            <Grid style={{ display: "flex", justifyContent: "center" }}>
-              <CircularProgress />
-            </Grid>
-          }
-          useWindow
-        >
-          <Box className="venue-box">
-            <Grid xs={12} container spacing={8} className="venue-grid">
-              {venues?.map((venue, index) => (
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
-                  lg={4}
-                  data-aos="fade-up"
-                  data-aos-once
-                  key={index * index}
-                >
-                  {listOfWishlistId.includes(venue.id) ? (
-                    <Box>
-                      <CardItem
-                        id={venue.id}
-                        title={venue.title}
-                        description={venue.description}
-                        price={venue.price}
-                        host={venue.host}
-                        wish={true}
-                        key={venue.id}
-                      />
-                    </Box>
-                  ) : (
-                    <Box>
-                      <CardItem
-                        id={venue.id}
-                        title={venue.title}
-                        description={venue.description}
-                        price={venue.price}
-                        host={venue.host}
-                        wish={false}
-                        key={venue.id}
-                      />
-                    </Box>
-                  )}
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </InfiniteScroll>
-}
+        )}
+        {venues.length !== 0 && (
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={loadMore}
+            hasMore={!disabled}
+            initialLoad={false}
+            loader={
+              <Grid style={{ display: "flex", justifyContent: "center" }}>
+                <CircularProgress />
+              </Grid>
+            }
+            useWindow
+          >
+            <Box className="venue-box">
+              <Grid xs={12} container spacing={8} className="venue-grid">
+                {venues?.map((venue, index) => (
+                  <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    data-aos="fade-up"
+                    data-aos-once
+                    key={index * index}
+                  >
+                    {listOfWishlistId.includes(venue.id) ? (
+                      <Box>
+                        <CardItem
+                          id={venue.id}
+                          title={venue.title}
+                          description={venue.description}
+                          price={venue.price}
+                          host={venue.host}
+                          wish={true}
+                          key={venue.id}
+                        />
+                      </Box>
+                    ) : (
+                      <Box>
+                        <CardItem
+                          id={venue.id}
+                          title={venue.title}
+                          description={venue.description}
+                          price={venue.price}
+                          host={venue.host}
+                          wish={false}
+                          key={venue.id}
+                        />
+                      </Box>
+                    )}
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          </InfiniteScroll>
+        )}
       </div>
     </>
   );

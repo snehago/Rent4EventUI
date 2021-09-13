@@ -1,5 +1,17 @@
 @import '../../Shared/styles/colors';
 .wishlist-footer {
-  position: fixed;
+  // position: fixed;
   bottom: 0;
+}
+
+.empty-wishlist-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-wishlist-text{
+  font-family: Montserrat!important;
+  font-weight: 600;
+  margin-bottom: 2%;
 }
