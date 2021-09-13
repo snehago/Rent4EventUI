@@ -432,6 +432,42 @@ export default function AddVenueDetails({ handleNext, venue }) {
                   variant="middle"
                   style={{ marginTop: "2%", marginBottom: "2%" }}
                 />
+                <Grid item xs={12}>
+                  <Tooltip
+                    arrow
+                    title={
+                      <>
+                        <h3>
+                          It will cost you extra, 7% of total booking cost
+                          (appx.)
+                        </h3>
+                      </>
+                    }
+                  >
+                    <Field
+                      as={FormControlLabel}
+                      name="promoted"
+                      control={
+                        <Checkbox
+                          onChange={() => setPromoted(!promoted)}
+                          value={true}
+                          size="small"
+                          color="primary"
+                        />
+                      }
+                      label={
+                        <b style={{ color: "green" }}>
+                          Do you want to promote your venue?
+                        </b>
+                      }
+                    />
+                  </Tooltip>
+                </Grid>
+
+                <Divider
+                  variant="middle"
+                  style={{ marginTop: "2%", marginBottom: "2%" }}
+                />
 
                 <Grid item xs={12}>
                   <div className="addVenueSubLabels">
@@ -445,23 +481,7 @@ export default function AddVenueDetails({ handleNext, venue }) {
                     onChange={handleLocationChange}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <Tooltip title="It will cost you extra, 7% of total booking cost (appx.)">
-                    <Field
-                      as={FormControlLabel}
-                      name="promoted"
-                      control={
-                        <Checkbox
-                          onChange={() => setPromoted(!promoted)}
-                          value={true}
-                          size="small"
-                          color="primary"
-                        />
-                      }
-                      label="Do you want to promote your venue?"
-                    />
-                  </Tooltip>
-                </Grid>
+
                 <Grid item xs={12}>
                   <Button
                     className="addVenueButton"

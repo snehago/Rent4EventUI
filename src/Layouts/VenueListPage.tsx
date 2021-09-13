@@ -95,10 +95,12 @@ const VenueListPage = (props) => {
       );
       if (error) {
         swal("Error", "Unable to fetch venues", "error");
+        setLoading(false);
       }
       if (response) {
         if (response.length === 0) {
           setDisabled(true);
+          setLoading(false);
           return;
         }
         setOriginalVenues((prev) => [...prev, ...response]);
@@ -140,6 +142,7 @@ const VenueListPage = (props) => {
     if (event.target.name === "sort")
       temp = { ...filters, sort: event.target.value };
     setFilters(temp);
+    setLoading(false);
   };
   const applyAppropiateFilters =async () => {
     
