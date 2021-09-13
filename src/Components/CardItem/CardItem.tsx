@@ -120,7 +120,7 @@ export default function CardItem({
             <Skeleton
               animation="wave"
               variant="rect"
-              width={360}
+              width={500}
               height={233}
             />
           </div>
