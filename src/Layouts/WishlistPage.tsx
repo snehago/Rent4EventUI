@@ -10,7 +10,8 @@ import CardItem from "../Components/CardItem";
 import InfiniteScroll from "react-infinite-scroller";
 import Footer from "../Components/Footer";
 import swal from "sweetalert";
-import './styles/wishlist.scss';
+import "./styles/wishlist.scss";
+import wishlistEmpty from "../assets/illustrations/wishlistEmpty.svg";
 const userService = new UserService();
 function WishlistPage() {
   const user: any = useSelector((state: RootState) => state.auth.user);
@@ -21,7 +22,7 @@ function WishlistPage() {
     (async () => {
       const [response, error] = await of(userService.getWishlistOfUser(user));
       if (error) {
-        swal("Error","Unable to fetch wishlist","error");
+        swal("Error", "Unable to fetch wishlist", "error");
       }
       if (response) {
       }
@@ -29,11 +30,10 @@ function WishlistPage() {
     })();
 
     window.scrollTo(0, 0);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const loadMore = () => {
-  };
+  const loadMore = () => {};
 
   return (
     <div>
@@ -53,6 +53,15 @@ function WishlistPage() {
       </div>
 
       <div className="all-venues">
+        {listOfWishlist.length === 0 && (
+          <div className="empty-wishlist-container">
+            <div className="empty-wishlist-text">
+              You have not added any venue to the Wishlist
+            </div>
+
+            <img src={wishlistEmpty} alt="" height="20%" width="20%" />
+          </div>
+        )}
         <InfiniteScroll
           pageStart={0}
           loadMore={loadMore}
@@ -67,30 +76,31 @@ function WishlistPage() {
         >
           <Box className="venue-box">
             <Grid xs={12} container spacing={8} className="venue-grid">
-              {listOfWishlist?.map((venue: any, id) => (
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
-                  lg={4}
-                  data-aos="fade-up"
-                  data-aos-once
-                >
-                  <CardItem
-                    id={id}
-                    title={venue.title}
-                    description={venue.description}
-                    price={venue.price}
-                    host={venue.host}
-                    wish={true}
-                  />
-                </Grid>
-              ))}
+              {listOfWishlist.length !== 0 &&
+                listOfWishlist?.map((venue: any, id) => (
+                  <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    data-aos="fade-up"
+                    data-aos-once
+                  >
+                    <CardItem
+                      id={id}
+                      title={venue.title}
+                      description={venue.description}
+                      price={venue.price}
+                      host={venue.host}
+                      wish={true}
+                    />
+                  </Grid>
+                ))}
             </Grid>
           </Box>
         </InfiniteScroll>
       </div>
-      <footer className="wishlist-footer" >
+      <footer className="wishlist-footer">
         <Footer />
       </footer>
     </div>

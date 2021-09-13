@@ -15,8 +15,15 @@ function AddedVenueCard({ venue, onClick, onEditClick,onDelete}: { venue: Venue;
   const [loading, setLoading]= useState<boolean>(false);
   useEffect(()=>{
     (async ()=>{
+      setLoading(true)
       const [response]= await of(venueService.getVenuePictures(venue.id,venue.host.id));
-      if(response && response.length>0)setImage(response[0]);
+      if(response && response.length>0){
+        setTimeout(() => {
+          setLoading(false);
+          setImage(response[0]) 
+        }, 1000);
+        
+      };
     })();
   },[venue])
   
