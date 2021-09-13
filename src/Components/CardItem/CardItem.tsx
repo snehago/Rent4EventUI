@@ -61,12 +61,14 @@ export default function CardItem({
         setImage(images[Math.floor(Math.random() * (3 - 0) + 1) - 1]);
         setTimeout(() => {
           setLoading(false);
-        }, 1500);
-        
+        }, 1000);
+
         return;
       }
       if (response) {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
         setImage(response[0]);
       }
     })();
@@ -118,19 +120,43 @@ export default function CardItem({
             <Skeleton
               animation="wave"
               variant="rect"
-              width={343}
-              height={200}
+              width={360}
+              height={233}
             />
           </div>
         )}
         {!loading && (
-          <CardMedia key={id}  title="Venue Image">
+          <CardMedia key={id} title="Venue Image">
             <img src={image} className="media" alt="venueImages" />
           </CardMedia>
         )}
 
         <CardContent key={v4()} className="card-content">
-          <Typography
+          {loading && (
+            <Skeleton height="50">
+              <Typography
+                key={v4()}
+                gutterBottom
+                variant="h5"
+                component="h2"
+                className="title"
+              >
+                {title.toUpperCase()}
+              </Typography>
+            </Skeleton>
+          )}
+          {!loading && (
+            <Typography
+              key={v4()}
+              gutterBottom
+              variant="h5"
+              component="h2"
+              className="title"
+            >
+              {title.toUpperCase()}
+            </Typography>
+          )}
+          {/* <Typography
             key={v4()}
             gutterBottom
             variant="h5"
@@ -138,8 +164,34 @@ export default function CardItem({
             className="title"
           >
             {title.toUpperCase()}
-          </Typography>
-          <Typography
+          </Typography> */}
+
+          {loading && (
+            <Skeleton>
+              <Typography
+                key={v4()}
+                variant="body2"
+                color="textSecondary"
+                component="p"
+                className="text"
+              >
+                {description}
+              </Typography>
+            </Skeleton>
+          )}
+
+          {!loading && (
+            <Typography
+              key={v4()}
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className="text"
+            >
+              {description}
+            </Typography>
+          )}
+          {/* <Typography
             key={v4()}
             variant="body2"
             color="textSecondary"
@@ -147,11 +199,17 @@ export default function CardItem({
             className="text"
           >
             {description}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </CardActionArea>
       <CardActions key={v4()} className="card-item-price-section">
-        <p className="venue-card-price">${price}</p>
+        {loading && (
+          <Skeleton>
+            <p className="venue-card-price">${price}</p>
+          </Skeleton>
+        )}
+        {!loading && <p className="venue-card-price">${price}</p>}
+        {/* <p className="venue-card-price">${price}</p> */}
 
         {sharedService.isUserLoggedIn() && user.role === "client" ? (
           <div>
