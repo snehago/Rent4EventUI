@@ -151,13 +151,14 @@ export default function CheckoutPage() {
     }
     if (response) {
       setLoading(false)
-      const blob = new Blob([response]);
-      const fileName = 'bookingSummary.txt';
-      const link = document.createElement("a");
+     var blob = new Blob([response], { type: "application/pdf" });
+     const fileName = 'bookingSummary.pdf';
+     const link = document.createElement("a");
       if (link.download !== undefined) {
           const url = URL.createObjectURL(blob);
           link.setAttribute("href", url);
           link.setAttribute("download", fileName);
+          link.download = fileName;
           link.style.visibility = "hidden";
           document.body.appendChild(link);
           link.click();
