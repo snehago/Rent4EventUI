@@ -76,17 +76,7 @@ function BookingDetails({venue, booking, onBack}:any) {
             </ListItem>
           </List>
           <Grid container key={v4()}>
-            <Grid item lg={6} key={v4()}>
-              <Button
-                className="bd-back-button"
-                variant="outlined"
-                color="primary"
-                onClick={onBack}
-              >
-                Back
-              </Button>
-            </Grid>
-            { booking.status.toUpperCase()==="BOOKED" && <Grid item lg={6}>
+            { booking.status.toUpperCase()==="BOOKED" && <Grid item lg={12}>
               <Button
                 key={v4()}
                 variant="contained"

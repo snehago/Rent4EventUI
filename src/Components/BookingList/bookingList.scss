@@ -2,12 +2,18 @@
 
 
 .booking-card-container {
-  width: 100vw !important;
+  width: 90vw !important;
   height: 100vh !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: visible;
+}
+.bl-flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .booking-list-empty-container{

@@ -12,8 +12,9 @@ import BookingDetails from "../BookingDetails";
 import { v4 } from "uuid";
 import { useHistory } from "react-router-dom";
 import travelBooking from "../../assets/illustrations/travelBooking.svg";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import CircularLoader from "../CircularLoader/CircularLoader";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 const bookingService = new BookingService();
 function BookingList() {
@@ -92,12 +93,19 @@ function BookingList() {
         </div>
       )}
       {bookingView && (
-        <BookingDetails
-          venue={venue}
-          booking={booking}
-          key={v4()}
-          onBack={() => setBookingView(false)}
-        ></BookingDetails>
+        <div className="bl-flex-container" >
+          <div className="hvl-back-button">
+            <IconButton onClick={() => setBookingView(false)}>
+              <KeyboardBackspaceIcon fontSize="large" />
+            </IconButton>
+          </div>
+          <BookingDetails
+            venue={venue}
+            booking={booking}
+            key={v4()}
+            onBack={() => setBookingView(false)}
+          ></BookingDetails>
+        </div>
       )}
     </>
   );
