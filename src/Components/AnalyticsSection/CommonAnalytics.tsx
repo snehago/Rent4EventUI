@@ -34,7 +34,7 @@ function CommonAnalytics() {
       <div className="common-analytics-booking-all-venues">
         <div className="total-earnings-host">
           <span className="total-earning-label">Total Earning: </span>
-          <span id="earning-value">Rs. {totalEarning} </span>
+          <span id="earning-value">${totalEarning} </span>
         </div>
 
         <DividerComponent />

@@ -9,6 +9,7 @@ import "./bookingCard.scss";
 import swal from 'sweetalert';
 import { v4 } from "uuid";
 import { SharedService } from "../../Services/SharedService";
+import { Skeleton } from "@material-ui/lab";
 const venueService = new VenueService();
 const sharedService = new SharedService();
 function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
@@ -35,6 +36,17 @@ function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
   }, [booking]);
   
   return (
+    <>
+    {(!venue || !image) ? (
+        <div className="avc-skeleton-container">
+          <Skeleton animation="wave" variant="rect" width="15vw" height="8vw" />
+          <div>
+            <Skeleton animation="wave" width="50vw" />
+            <Skeleton animation="wave" width="50vw" />
+            <Skeleton animation="wave" width="50vw" />
+          </div>
+        </div>
+      ):
     <div
       key={v4()}
       className="booking-card-base"
@@ -78,7 +90,8 @@ function BookingCard({ booking, onClick }: { booking: Booking, onClick:any }) {
           ${booking.amountPaid}
         </div>
       </div>
-    </div>
+    </div>}
+    </>
   );
 }
 

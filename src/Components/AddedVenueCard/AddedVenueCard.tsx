@@ -75,7 +75,7 @@ function AddedVenueCard({ venue, onClick, onEditClick,onDelete}: { venue: Venue;
               className="added-venue-edit-button"
               onClick={() => onEditClick(venue)}
             >
-              <EditIcon/>
+              <EditIcon />
             </Button>
             <Button className="avc-delete-button" onClick={deleteVenue}>
               <DeleteOutlineIcon />

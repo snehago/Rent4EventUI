@@ -12,13 +12,11 @@ import { User } from "../../Shared/Interfaces/User";
 import { UserService } from "../../Services/UserService";
 import { of } from "await-of";
 import CircularLoader from "../CircularLoader/CircularLoader";
-import ImageUploader from "react-images-upload";
 import swal from "sweetalert";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import SaveOutlinedIcon from "@material-ui/icons/SaveOutlined";
 import image from "../../assets/images/ppic.jpg";
 import moment from "moment";
-var FormData = require("form-data");
 
 const sharedService = new SharedService();
 const userService = new UserService();
@@ -34,7 +32,6 @@ const Profile = (props: any) => {
     moment(Date.now()).format("YYYY-MM-DD")
   );
   const [role, setRole] = useState<any>("");
-  const [profilePic, setProfilePic] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const user: User = useSelector((state: RootState) => state.auth.user);
@@ -48,7 +45,6 @@ const Profile = (props: any) => {
         swal("Error","Not able to fetch profile picture", "error");
       }
       if (response) {
-        setProfilePic(response);
       }
     })();
   }, [user,editProfile]);
@@ -108,6 +104,7 @@ const Profile = (props: any) => {
 
   useEffect(() => {
     if (sharedService.isUserLoggedIn()) {
+      setLoading(false);
       setTimeout(() => {
         setUserId(user.id);
         setFirstName(user.firstName);
@@ -117,24 +114,10 @@ const Profile = (props: any) => {
         setPaymentDetails(user.paymentDetails);
         setRole(user.role);
         setDateOfBirth(moment(user.dateOfBirth).format("YYYY-MM-DD"));
-        setLoading(false);
       }, 1000);
     }
   }, [user]);
 
-  const onDrop = async (picture: File[]) => {
-    var data = new FormData();
-    data.append("file", picture[picture.length - 1]);
-    data.append("userId", "1");
-    const [response, error] = await of(userService.uploadProfilePicture(data));
-    if (error) {
-      swal("Error","Unable to upload profile picture", "error");
-    }
-    if (response) {
-      swal("Profile picture updated","", "success");
-      setProfilePic(response);
-    }
-  };
   return (
     <div className="scroll-div">
       <Paper elevation={10} className="profile-paper-container">
@@ -148,17 +131,6 @@ const Profile = (props: any) => {
             <Paper elevation={8} className="profile-pic-paper" >
               <Card className="profile-pic-card">
                 <CardActionArea className="ppic-action-area" style={{height:"100%",borderRadius:"0.5rem"}}>
-                  {(!profilePic || editProfile) && (
-                    <ImageUploader
-                      withIcon={false}
-                      className="profile-image-upload"
-                      buttonText="Choose images"
-                      onChange={onDrop}
-                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                      maxFileSize={5242880}
-                    />
-                  )}
-                  {profilePic && !editProfile &&  (
                     <img
                       className="profile-image"
                       src={image}
@@ -166,7 +138,6 @@ const Profile = (props: any) => {
                       width="100%"
                       alt="profilePic"
                     />
-                  )}
                 </CardActionArea>
               </Card>
             </Paper>

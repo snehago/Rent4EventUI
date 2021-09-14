@@ -105,7 +105,7 @@ const VenueListPage = (props) => {
         }
         setOriginalVenues((prev) => [...prev, ...response]);
         setLoading(false);
-        setTimeout(()=>{
+        // setTimeout(()=>{
           setFilters(
             Object.assign({},filters, {
               eventTypeFilter: Number(eventType) || -1,
@@ -113,7 +113,7 @@ const VenueListPage = (props) => {
             })
           );
           
-        },2000);
+        // },2000);
       }
     })();
   }, [currentPage]);
@@ -419,7 +419,7 @@ const VenueListPage = (props) => {
       </Collapse>
       {/* Filter and search ends */}
       <div className="all-venues">
-        {venues.length === 0 && (
+        {venues.length === 0 && !loading && (
           <div className="no-result-container">
             <div className="no-search-text">No Results Found...</div>
             <img src={noResult} height="30%" width="30%" alt="" />

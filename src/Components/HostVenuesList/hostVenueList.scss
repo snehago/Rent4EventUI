@@ -1,8 +1,8 @@
 .added-venue-card-container {
   width: 100vw !important;
-  height: 90vh !important;
+  height: 100% !important;
   display: flex;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   flex-direction: column;
 }
