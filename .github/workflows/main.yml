@@ -1,0 +1,24 @@
+name: cloudrun-deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Cloud Run Deploy
+    runs-on: self-hosted
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Configure project id
+        run: |
+          pwd
+          gcloud config set project us-gcp-ame-con-116-npd-1
+          
+      - name: Configure build
+        run: |
+          gcloud builds submit --timeout=1000s
+          gcloud builds submit . --config=cloudbuild.yaml
